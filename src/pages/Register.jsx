@@ -1,4 +1,6 @@
 import React from "react";
+import Input from "../components/input";
+import Button from "../components/button";
 import "./Register.css";
 
 function Register() {
@@ -12,31 +14,28 @@ function Register() {
         <form className="register-form" action="" method="post">
           <div className="Register-inputs-container">
             <h2>Registration</h2>
-            <span>Full Name</span>
-            <input
-              className="inputs"
+            <Input
+              title="Full Name"
               type="text"
-              placeholder="Enter your fullname"
+              placeholder="Enter your fullname "
             />
-            <span>Email Address</span>
-            <input
-              className="inputs"
-              type="email"
-              placeholder="Enter your email address"
+            <Input
+              title="Email Address"
+              type="text"
+              placeholder="Enter your email address "
             />
-            <span>Password</span>
-            <input
-              className="inputs"
-              type="password"
-              placeholder="Enter your password"
+            <Input
+              title="Password"
+              type="text"
+              placeholder="Enter your password "
             />
-            <span>Confirm Password</span>
-            <input
-              className="inputs"
-              type="password"
+            <Input
+              title="Confirm Password"
+              type="text"
               placeholder="Confirm your password"
             />
-            <input className="inputs-button" type="button" value="JOIN NOW" />
+            <Button value="JOIN NOW" />
+
             <div>
               <p>Have already an account Login here</p>
             </div>
