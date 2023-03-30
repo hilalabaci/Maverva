@@ -11,7 +11,11 @@ function Input(props) {
         type={props.type}
         name={props.name}
         placeholder={props.placeholder}
+        style={
+          props.error !== undefined ? { border: "2px solid red" } : undefined
+        }
       />
+      <p className="warning-message">{props.error}</p>
     </div>
   );
 }
