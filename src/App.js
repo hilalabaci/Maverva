@@ -1,13 +1,15 @@
 import React from "react";
-import CardList from "./components/card-list/CardList";
-/* import Card from "./components/card/Card"; */
 import "./App.css";
+import Login from "./pages/login";
 /* import AddCard from "./components/card/add-a-card/AddCard"; */
+/* import CardList from "./components/card-list/CardList"; */
+/* import Card from "./components/card/Card"; */
 
 function App() {
   return (
     <div className="App">
-      <CardList />
+      <Login />
+      {/*   <CardList /> */}
       {/* <Card note={"this is note"} /> */}
       {/*     <AddCard/> */}
     </div>
