@@ -20,7 +20,6 @@ function Register() {
     event.preventDefault();
     const { fullName, email, password } = register;
     const registerData = { fullName, email, password };
-    console.log(registerData);
     const response = await fetch("http://127.0.0.1:3001/register", {
       method: "POST",
       body: JSON.stringify(registerData),
