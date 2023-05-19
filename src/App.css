@@ -1,6 +1,8 @@
 body {
   background-color: #181b1e;
   margin: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 @font-face {
   font-family: "Inter";

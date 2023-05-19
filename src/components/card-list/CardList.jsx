@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../card/Card";
 import "./CardList.css";
-function CardList() {
+import AddIcon from "@mui/icons-material/Add";
+import NumberofCards from "./number-cards";
+function CardList(props) {
+  const [cards, setCards] = useState([{ note: "this is first note" }]);
+  function dynamicAddCard() {
+    setCards([...cards, { note: "new note" }]);
+  }
   return (
     <div className="card-list-container">
       <div className="title-container">
-        <title>this a title</title>
-        <span>3</span>
+        <title>{props.title}</title>
+        <NumberofCards />
       </div>
       <div className="cards-container">
-        <Card note="this is first note" />
+        {cards.map((card, index) => (
+          <Card key={index} note={card.note} />
+        ))}
+      </div>
+      <div className="add-card-CardList-wrapper">
+        <button
+          onClick={dynamicAddCard}
+          className="add-card-CardList-button"
+          type="submit"
+        >
+          <AddIcon className="addIcon-button" /> Add a card
+        </button>
       </div>
     </div>
   );

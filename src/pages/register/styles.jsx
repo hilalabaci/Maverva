@@ -1,3 +1,6 @@
+import styled, { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 #root,
 #root > div {
   min-height: 100vh;
@@ -6,52 +9,34 @@ body {
   overflow: hidden;
   box-shadow: inset 0px 1px 20px 20px rgba(0, 0, 0, 0.25);
 }
-.brand-container {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.brand-container img {
-  width: 70px;
-  height: 70px;
-  margin-right: 50px;
-}
-.brand-container h1 {
-  font-size: 70px;
-  margin-right: 50px;
-  letter-spacing: 1px;
-}
-.form-container {
-  flex: 1;
-  display: flex;
-  align-items: center;
-
-}
-.Register-container {
+`;
+export const MainContainer = styled.div`
   min-width: 100vw;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
   font-family: "Inter";
-}
-.register-form {
+`;
+export const RegisterContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
+export const Form = styled.form`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.Register-inputs-container {
+`;
+export const RegisterInputs = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 450px;
-}
-.Register-inputs-container h2 {
+`;
+export const RegisterTitle = styled.h2`
   font-size: 35px;
   font-weight: 700;
   letter-spacing: 2px;
-}
-
+`;

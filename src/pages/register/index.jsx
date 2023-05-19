@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
-import "./Register.css";
+import { MainContainer, RegisterContainer,Form,RegisterTitle,RegisterInputs, GlobalStyle } from "./styles";
+import { BrandContainer, BrandIcon, BrandTitle } from "../login/styles";
 
 function Register() {
   const [register, setRegister] = useState({
@@ -69,20 +70,20 @@ function Register() {
     console.log(jsonResponse);
   };
   return (
-    <div className="Register-container">
-      <div className="brand-container">
-        <img src="/icons/brand.png" alt="" />
-        <h1>PROCESS</h1>
-      </div>
-      <div className="form-container">
-        <form
-          className="register-form"
+    <MainContainer >
+      <GlobalStyle/>
+     { <BrandContainer >
+        <BrandIcon src="/icons/brand.png" alt="" />
+        <BrandTitle>PROCESS</BrandTitle>
+      </BrandContainer>}
+      <RegisterContainer>
+        <Form
           action=""
           method="post"
           onSubmit={handleSubmit}
         >
-          <div className="Register-inputs-container">
-            <h2>Registration</h2>
+          <RegisterInputs>
+            <RegisterTitle>Registration</RegisterTitle>
             <Input
               title="Full Name"
               type="text"
@@ -124,10 +125,10 @@ function Register() {
             <div>
               <p>Have already an account Login here</p>
             </div>
-          </div>
-        </form>
-      </div>
-    </div>
+          </RegisterInputs>
+        </Form>
+      </RegisterContainer>
+    </MainContainer>
   );
 }
 export default Register;

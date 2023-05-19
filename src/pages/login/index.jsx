@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
-import "./styles.css";
+import {
+  BrandContainer,
+  BrandIcon,
+  BrandTitle,
+  Form,
+  FormTitle,
+  GlobalStyle,
+  LoginContainer,
+  LoginInputs,
+  MainContainer,
+} from "./styles";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [login, setLogin] = useState({
     fullName: "",
     email: "",
@@ -21,7 +33,8 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (login.fullName === "") {
+    console.log(login);
+    if (login.email === "") {
       setError({
         password: undefined,
         email: "Please enter your email",
@@ -44,22 +57,19 @@ function Login() {
       return;
     }
     console.log(jsonResponse);
+    navigate("/");
   };
   return (
-    <div className="Register-container">
-      <div className="brand-container">
-        <img src="/icons/brand.png" alt="" />
-        <h1>PROCESS</h1>
-      </div>
-      <div className="form-container">
-        <form
-          className="register-form"
-          action=""
-          method="post"
-          onSubmit={handleSubmit}
-        >
-          <div className="Register-inputs-container">
-            <h2>Sign in</h2>
+    <MainContainer>
+      <GlobalStyle />
+      <BrandContainer>
+        <BrandIcon src="/icons/brand.png" alt="" />
+        <BrandTitle>PROCESS</BrandTitle>
+      </BrandContainer>
+      <LoginContainer>
+        <Form onSubmit={handleSubmit}>
+          <LoginInputs>
+            <FormTitle>Sign in</FormTitle>
             <Input
               title="Email Address"
               type="text"
@@ -79,14 +89,13 @@ function Login() {
               error={error.password}
             />
             <Button value="SIGN IN" type="submit" />
-
             <div>
               <p>Have already an account Login here</p>
             </div>
-          </div>
-        </form>
-      </div>
-    </div>
+          </LoginInputs>
+        </Form>
+      </LoginContainer>
+    </MainContainer>
   );
 }
 export default Login;

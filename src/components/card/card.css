@@ -19,6 +19,10 @@
   line-height: 24px;
   letter-spacing: 0.065em;
   color: rgba(255, 255, 255, 0.7);
+  resize: none;
+  background-color: #181b1e;
+  outline: none;
+  border: none;
 }
 .more-button {
   background-color: #181b1e;
@@ -33,4 +37,19 @@
 .card-label-container {
   display: flex;
   gap: 5px;
+}
+.Add-card-button-card {
+  margin-top: 30px;
+  width: 80px;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: #0079BF;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Inter";
+  padding: 3px;
+}
+.Add-card-button-card:hover{
+  background-color: #1d84bf;
 }
