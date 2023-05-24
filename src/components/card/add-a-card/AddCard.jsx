@@ -1,20 +1,36 @@
 import React, { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { GlobalStyle,Button, ButtonWrapper, Container, Textarea } from "./styles";
+import {
+  GlobalStyle,
+  Button,
+  ButtonWrapper,
+  Container,
+  Textarea,
+} from "./styles";
 function AddCard(props) {
   const [note, setNote] = useState("");
   function handleChange(event) {
     const { value } = event.target;
     setNote(value);
   }
-  function submitNote(event) {
-    props.onAdd(note);
-    setNote("");
+  async function submitNote(event) {
     event.preventDefault();
+    const noteData = { title: note, boardId: "646e07b51209afcf84cdc8cb" };
+    const response = await fetch("http://127.0.0.1:3001/note", {
+      method: "POST",
+      body: JSON.stringify(noteData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+    }
+    setNote("");
   }
   return (
     <Container>
-      <GlobalStyle/>
+      <GlobalStyle />
       <Textarea
         name="addCardArea"
         value={note}
@@ -26,7 +42,7 @@ function AddCard(props) {
       ></Textarea>
       <ButtonWrapper>
         <Button onClick={submitNote}>Add card</Button>
-        <CloseRoundedIcon onClick={props.onClose}  className="iconClose" />
+        <CloseRoundedIcon onClick={props.onClose} className="iconClose" />
       </ButtonWrapper>
     </Container>
   );

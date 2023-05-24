@@ -33,7 +33,11 @@ function CardList(props) {
 
       <AddCardButtonWrapper>
         {showAdd ? (
-          <AddCard onClose={()=>{setShowAdd(false)}} />
+          <AddCard
+            onClose={() => {
+              setShowAdd(false);
+            }}
+          />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">
             <AddIcon className="addIcon-button" /> Add a card
