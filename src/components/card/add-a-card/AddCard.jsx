@@ -26,7 +26,7 @@ function AddCard(props) {
       ></Textarea>
       <ButtonWrapper>
         <Button onClick={submitNote}>Add card</Button>
-        <CloseRoundedIcon className="iconClose" />
+        <CloseRoundedIcon onClick={props.onClose}  className="iconClose" />
       </ButtonWrapper>
     </Container>
   );

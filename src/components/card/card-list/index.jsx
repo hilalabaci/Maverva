@@ -14,10 +14,10 @@ import AddCard from "../add-a-card/AddCard";
 
 function CardList(props) {
   const [showAdd, setShowAdd] = useState(false);
-/*   const [cards, setCards] = useState([{ note: "this is first note" }]); */
+  /*   const [cards, setCards] = useState([{ note: "this is first note" }]); */
   function dynamicAddCard() {
     setShowAdd(true);
-  /*   setCards([...cards, { note: "new note" }]); */
+    /*   setCards([...cards, { note: "new note" }]); */
   }
   return (
     <Container>
@@ -26,15 +26,14 @@ function CardList(props) {
         <NumberofCards />
       </TitleWrapper>
       <CardWrapper>
-   {/*      {cards.map((card, index) => (
+        {/*      {cards.map((card, index) => (
           <Card key={index} note={card.note} />
         ))} */}
-        
       </CardWrapper>
 
       <AddCardButtonWrapper>
         {showAdd ? (
-    <AddCard/>
+          <AddCard onClose={()=>{setShowAdd(false)}} />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">
             <AddIcon className="addIcon-button" /> Add a card
