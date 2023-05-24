@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { Container, InputStyle, GlobalStyle, SubmitButton } from "./styles";
 
-function BoardCreate() {
+function BoardCreate(props) {
   const [boardTitle, setBoardTitle] = useState("");
 
-  function HandlerChange(event) {
+  function handleChange(event) {
     const { value } = event.target;
-    setBoardTitle(value)
+    setBoardTitle(value);
   }
   async function onSubmit(event) {
     event.preventDefault();
@@ -19,7 +19,11 @@ function BoardCreate() {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
+
+    if (response.ok) {
+      const data = await response.json();
+      props.onCreate(data)
+    }
   }
 
   return (
@@ -29,7 +33,7 @@ function BoardCreate() {
         placeholder="Create your Board"
         type="text"
         value={boardTitle}
-        onChange={HandlerChange}
+        onChange={handleChange}
       />
       <SubmitButton type="submit">
         <CheckCircleOutlineIcon className="okicon" />

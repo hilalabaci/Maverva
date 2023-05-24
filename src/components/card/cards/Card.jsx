@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Label from "./compact-card-label/Label";
 import "./card.css";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import Label from "../card-label"
 
 function Card(props) {
   const [note, setNote] = useState();

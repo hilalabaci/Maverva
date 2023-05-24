@@ -1,4 +1,4 @@
-import Button from "../button";
+import Button from "../../button";
 import React from "react";
 import "./style.css";
 function CreateCard() {

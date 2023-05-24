@@ -1,8 +1,7 @@
 import React from "react";
-import AddBoard from "../../components/boards/add-board";
+import BoardMenu from "../../components/boards/board-menu";
 import Navbar from "../../components/navbar";
-import CardList from "../../components/card-list/CardList";
-import BoardList from "../../components/boards/add-board/board-list";
+import CardList from "../../components/card/card-list";
 import {
   Container,
   NavbarWrapper,
@@ -14,6 +13,7 @@ import {
   MainTitle,
 } from "./styles";
 
+
 function Home() {
   return (
     <Container>
@@ -23,7 +23,7 @@ function Home() {
       </NavbarWrapper>
       <Wrapper>
         <Menu>
-          <AddBoard />
+          <BoardMenu />
         </Menu>
         <MainContainer>
           <MainTitle>

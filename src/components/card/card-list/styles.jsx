@@ -1,17 +1,22 @@
-.card-list-container {
+import styled, { createGlobalStyle } from "styled-components";
+export const GlobalStyle = createGlobalStyle`
+.addIcon-button{
+  margin-right: 10px;
+}
+`;
+export const Container = styled.div`
   width: fit-content;
   padding: 25px;
   background-color: #111315;
   border-radius: 5px;
   margin-right: 40px;
-
-}
-.title-container {
+`;
+export const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
-}
-.title-container > title {
+`;
+export const Title = styled.title`
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -19,25 +24,17 @@
   line-height: 29px;
   color: rgba(255, 255, 255, 0.7);
   display: inline-block;
-}
-.title-container > span {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 29px;
-  color: rgba(255, 255, 255, 0.4);
-}
-.cards-container {
+`;
+export const CardWrapper = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-.add-card-CardList-wrapper {
+`;
+export const AddCardButtonWrapper = styled.div`
   margin-top: 30px;
-}
-.add-card-CardList-button {
+`;
+export const AddCardButton = styled.button`
   background-color: #181b1e;
   width: 259px;
   height: 45px;
@@ -52,10 +49,7 @@
   align-items: center;
   justify-content: flex-start;
   opacity: 0.5;
-}
-.add-card-CardList-button:hover {
-  opacity: 1;
-}
-.addIcon-button {
-  margin-right: 10px;
-}
+  :hover {
+    opacity: 1;
+  }
+`;
