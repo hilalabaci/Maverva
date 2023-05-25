@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import "./card.css";
+import React/* , { useState } */ from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import Label from "../card-label"
+import Label from "../card-label";
+import { Container, NoteWrapper, IconWrapper, LabelWrapper } from "./styles";
 
 function Card(props) {
-  const [note, setNote] = useState();
+  /* const [note, setNote] = useState();
   function handleChange(event) {
     const { value } = event.target;
     setNote(value);
@@ -26,30 +26,18 @@ function Card(props) {
     }
     console.log(jsonResponse);
   };
-
+ */
   return (
-    <div className="card-container">
-      <div className="more-contaier">
-        <button className="more-button">
-          <MoreHorizIcon sx={{ color: "white" }} />
-        </button>
-      </div>
-      <textarea
-        onChange={handleChange}
-        value={note}
-        className="note-container"
-        onClick={props.onClick}
-      >
-        {props.note}
-      </textarea>
-      <div className="card-label-container">
+    <Container>
+      <IconWrapper>
+        <MoreHorizIcon sx={{ color: "white" }} />
+      </IconWrapper>
+      <NoteWrapper>{props.title}</NoteWrapper>
+      <LabelWrapper>
         <Label color="#8D4116" />
         <Label color="#14641C" />
-      </div>
-      <button onClick={handleSubmit} className="Add-card-button-card">
-        Add card
-      </button>
-    </div>
+      </LabelWrapper>
+    </Container>
   );
 }
 export default Card;

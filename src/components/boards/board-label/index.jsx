@@ -4,11 +4,11 @@ import { GlobalStyle, Label, Wrapper } from "./styles";
 
 function BoardLabel(props) {
   return (
-    <Wrapper>
+    <Wrapper onClick={props.onClick}>
       <GlobalStyle />
       <Label>{props.title}</Label>
       <div>
-        <DeleteIcon onClick={props.onClick} className="editicon" />
+        <DeleteIcon onClick={props.onDelete} className="editicon" />
       </div>
     </Wrapper>
   );

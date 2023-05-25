@@ -15,7 +15,11 @@ function AddCard(props) {
   }
   async function submitNote(event) {
     event.preventDefault();
-    const noteData = { title: note, boardId: "646e07b51209afcf84cdc8cb" };
+    const noteData = {
+      title: note,
+      boardId: props.boardId,
+      status: 1,
+    };
     const response = await fetch("http://127.0.0.1:3001/note", {
       method: "POST",
       body: JSON.stringify(noteData),
@@ -23,9 +27,12 @@ function AddCard(props) {
         "Content-Type": "application/json",
       },
     });
-    if (response.ok) {
-      const data = await response.json();
+    const jsonResponse = await response.json();
+    if (response.status === 400) {
+      console.log("Please check your details");
+      return;
     }
+    console.log(jsonResponse);
     setNote("");
   }
   return (

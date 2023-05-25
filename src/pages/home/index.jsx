@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BoardMenu from "../../components/boards/board-menu";
 import Navbar from "../../components/navbar";
 import CardList from "../../components/card/card-list";
@@ -13,8 +13,26 @@ import {
   MainTitle,
 } from "./styles";
 
-
 function Home() {
+  const [cards, setCards] = useState([]);
+  const [boardId, setBoardId] = useState("");
+  async function loadCards(boardId) {
+    setBoardId(boardId);
+    const response = await fetch(
+      "http://127.0.0.1:3001/note?boardId=" + boardId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      setCards(data);
+    }
+  }
+
   return (
     <Container>
       <GlobalStyle />
@@ -23,15 +41,30 @@ function Home() {
       </NavbarWrapper>
       <Wrapper>
         <Menu>
-          <BoardMenu />
+          <BoardMenu onBoardChange={loadCards} />
         </Menu>
         <MainContainer>
-          <MainTitle>
-          </MainTitle>
+          <MainTitle></MainTitle>
           <Main>
-            <CardList title="TO DO" />
-            <CardList title="IN PROGRESS" />
-            <CardList title="DONE" />
+            {boardId ? (
+              <>
+                <CardList
+                  title="TO DO"
+                  boardId={boardId}
+                  cards={cards.filter((card) => card.status === 1)}
+                />
+                <CardList
+                  title="IN PROGRESS"
+                  boardId={boardId}
+                  cards={cards.filter((card) => card.status === 2)}
+                />
+                <CardList
+                  title="DONE"
+                  boardId={boardId}
+                  cards={cards.filter((card) => card.status === 3)}
+                />
+              </>
+            ) : undefined}
           </Main>
         </MainContainer>
       </Wrapper>

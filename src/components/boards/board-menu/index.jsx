@@ -4,7 +4,7 @@ import BoardCreate from "../board-add/create";
 import BoardList from "../board-list";
 import { Container, AddBoardWrapper, IconWrapper, ListWrapper } from "./styles";
 
-function BoardMenu() {
+function BoardMenu(props) {
   const [key, setKey] = useState(false);
   const [boards, setBoards] = useState([]);
 
@@ -47,7 +47,11 @@ function BoardMenu() {
       </AddBoardWrapper>
       {key && <BoardCreate onCreate={onCreate} />}
       <ListWrapper>
-        <BoardList boards={boards} onDelete={onDelete} />
+        <BoardList
+          onBoardChange={props.onBoardChange}
+          boards={boards}
+          onDelete={onDelete}
+        />
       </ListWrapper>
     </Container>
   );

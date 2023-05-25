@@ -1,21 +1,23 @@
-.card-container {
+import styled from "styled-components";
+
+export const Container = styled.div`
   background-color: #181b1e;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 25px;
-  width: 219px;
-  height: 142px;
+  width: 200px;
+  height: 100px;
   border-radius: 5px;
   color: rgba(255, 255, 255, 0.8);
-}
-.note-container {
+`;
+export const NoteWrapper = styled.div`
   flex: 1;
   display: flex;
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.065em;
   color: rgba(255, 255, 255, 0.7);
@@ -23,33 +25,14 @@
   background-color: #181b1e;
   outline: none;
   border: none;
-}
-.more-button {
-  background-color: #181b1e;
-  outline: none;
-  border: none;
-}
-.more-contaier {
+`;
+export const IconWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-.card-label-container {
+`;
+export const LabelWrapper = styled.div`
   display: flex;
   gap: 5px;
-}
-.Add-card-button-card {
-  margin-top: 30px;
-  width: 80px;
-  height: 30px;
-  border-radius: 5px;
-  outline: none;
-  border: none;
-  background-color: #0079BF;
-  color: rgba(255, 255, 255, 0.8);
-  font-family: "Inter";
-  padding: 3px;
-}
-.Add-card-button-card:hover{
-  background-color: #1d84bf;
-}
+`;
+export const iconButton=styled
