@@ -28,7 +28,12 @@ function CardList(props) {
       <CardWrapper>
         <CardWrapper>
           {props.cards.map((card, index) => (
-            <Card key={index} title={card.title} />
+            <Card
+              onDelete={props.onDelete}
+              id={card._id}
+              key={index}
+              title={card.content}
+            />
           ))}
         </CardWrapper>
       </CardWrapper>

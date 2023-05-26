@@ -8,21 +8,22 @@ import {
   Textarea,
 } from "./styles";
 function AddCard(props) {
-  const [note, setNote] = useState("");
+  const [content, setContent] = useState("");
   function handleChange(event) {
     const { value } = event.target;
-    setNote(value);
+    setContent(value);
   }
   async function submitNote(event) {
     event.preventDefault();
-    const noteData = {
-      title: note,
+    console.log(content);
+    const cardData = {
+      content: content,
       boardId: props.boardId,
       status: 1,
     };
-    const response = await fetch("http://127.0.0.1:3001/note", {
+    const response = await fetch("http://127.0.0.1:3001/card", {
       method: "POST",
-      body: JSON.stringify(noteData),
+      body: JSON.stringify(cardData),
       headers: {
         "Content-Type": "application/json",
       },
@@ -33,14 +34,14 @@ function AddCard(props) {
       return;
     }
     console.log(jsonResponse);
-    setNote("");
+    setContent("");
   }
   return (
     <Container>
       <GlobalStyle />
       <Textarea
         name="addCardArea"
-        value={note}
+        value={content}
         onChange={handleChange}
         id="w3review"
         placeholder="Enter a title for this card..."

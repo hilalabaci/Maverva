@@ -1,42 +1,35 @@
-import React/* , { useState } */ from "react";
+import React, { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Label from "../card-label";
+import Modal from "../../modal";
 import { Container, NoteWrapper, IconWrapper, LabelWrapper } from "./styles";
+import EditCard from "../edit-card";
 
 function Card(props) {
-  /* const [note, setNote] = useState();
-  function handleChange(event) {
-    const { value } = event.target;
-    setNote(value);
-  }
-  const handleSubmit = async () => {
-    const data = { userId: "", note: note };
-    const response = await fetch("http://127.0.0.1:3001/notes", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+  const [showModal, setShowModal] = useState(false);
 
-    const jsonResponse = await response.json();
-    if (response.status === 400) {
-      console.log("Please check your details");
-      return;
-    }
-    console.log(jsonResponse);
-  };
- */
+  function openModal() {
+    setShowModal(true);
+  }
   return (
     <Container>
+      {showModal && (
+        <Modal
+          onClose={() => {
+            setShowModal(false);
+          }}
+        >
+          <EditCard onDelete={props.onDelete} id={props.id} />
+        </Modal>
+      )}
       <IconWrapper>
-        <MoreHorizIcon sx={{ color: "white" }} />
+        <LabelWrapper>
+          <Label color="#8D4116" />
+          <Label color="#14641C" />
+        </LabelWrapper>
+        <MoreHorizIcon onClick={openModal} sx={{ color: "white" }} />
       </IconWrapper>
       <NoteWrapper>{props.title}</NoteWrapper>
-      <LabelWrapper>
-        <Label color="#8D4116" />
-        <Label color="#14641C" />
-      </LabelWrapper>
     </Container>
   );
 }

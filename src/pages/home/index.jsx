@@ -19,7 +19,7 @@ function Home() {
   async function loadCards(boardId) {
     setBoardId(boardId);
     const response = await fetch(
-      "http://127.0.0.1:3001/note?boardId=" + boardId,
+      "http://127.0.0.1:3001/card?boardId=" + boardId,
       {
         method: "GET",
         headers: {
@@ -31,6 +31,9 @@ function Home() {
       const data = await response.json();
       setCards(data);
     }
+  }
+  function deleteCard(id) {
+    setCards(cards.filter((card) => card._id !== id));
   }
 
   return (
@@ -49,16 +52,19 @@ function Home() {
             {boardId ? (
               <>
                 <CardList
+                  onDelete={deleteCard}
                   title="TO DO"
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 1)}
                 />
                 <CardList
+                  onDelete={deleteCard}
                   title="IN PROGRESS"
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 2)}
                 />
                 <CardList
+                  onDelete={deleteCard}
                   title="DONE"
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 3)}

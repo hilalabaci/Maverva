@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const Container = styled.div`
   background-color: #181b1e;
   display: flex;
@@ -7,7 +6,6 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 25px;
   width: 200px;
-  height: 100px;
   border-radius: 5px;
   color: rgba(255, 255, 255, 0.8);
 `;
@@ -28,11 +26,10 @@ export const NoteWrapper = styled.div`
 `;
 export const IconWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: space-between;
 `;
 export const LabelWrapper = styled.div`
   display: flex;
   gap: 5px;
 `;
-export const iconButton=styled
+export const iconButton = styled;
