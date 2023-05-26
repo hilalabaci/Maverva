@@ -11,15 +11,20 @@ function Card(props) {
   function openModal() {
     setShowModal(true);
   }
+  function closeModal() {
+    setShowModal(false);
+  }
   return (
     <Container>
       {showModal && (
-        <Modal
-          onClose={() => {
-            setShowModal(false);
-          }}
-        >
-          <EditCard onDelete={props.onDelete} id={props.id} />
+        <Modal onClose={closeModal}>
+          <EditCard
+            onDelete={(id) => {
+              props.onDelete(id);
+              closeModal();
+            }}
+            id={props.id}
+          />
         </Modal>
       )}
       <IconWrapper>

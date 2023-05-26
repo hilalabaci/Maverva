@@ -18,7 +18,9 @@ function CardList(props) {
     setShowAdd(true);
     /*  setCards([...cards, { note: "new note" }]); */
   }
-
+  function closeAddCard() {
+    setShowAdd(false);
+  }
   return (
     <Container>
       <TitleWrapper>
@@ -41,10 +43,9 @@ function CardList(props) {
       <AddCardButtonWrapper>
         {showAdd ? (
           <AddCard
+            addedCard={props.addedCard}
             boardId={props.boardId}
-            onClose={() => {
-              setShowAdd(false);
-            }}
+            onClose={closeAddCard}
           />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">

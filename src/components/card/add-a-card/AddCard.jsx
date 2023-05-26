@@ -35,6 +35,8 @@ function AddCard(props) {
     }
     console.log(jsonResponse);
     setContent("");
+    props.addedCard(jsonResponse);
+    props.onClose();
   }
   return (
     <Container>

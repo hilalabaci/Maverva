@@ -35,6 +35,9 @@ function Home() {
   function deleteCard(id) {
     setCards(cards.filter((card) => card._id !== id));
   }
+  function addedCard(card) {
+    setCards([...cards, card]);
+  }
 
   return (
     <Container>
@@ -53,18 +56,21 @@ function Home() {
               <>
                 <CardList
                   onDelete={deleteCard}
+                  addedCard={addedCard}
                   title="TO DO"
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 1)}
                 />
                 <CardList
                   onDelete={deleteCard}
+                  addedCard={addedCard}
                   title="IN PROGRESS"
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 2)}
                 />
                 <CardList
                   onDelete={deleteCard}
+                  addedCard={addedCard}
                   title="DONE"
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 3)}
