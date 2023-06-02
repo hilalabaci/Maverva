@@ -3,16 +3,17 @@ import styled, { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   #root,
   #root > div {
-    min-height: 100vh;
+    height: 100vh;
+    
   }
   body {
     background-color: #181b1e;
-    margin: 10px;
   }
 `;
 
 export const Container = styled.div`
   flex: 1;
+  padding: 10px;
 `;
 export const NavbarWrapper = styled.div``;
 export const Wrapper = styled.div`
@@ -32,11 +33,10 @@ export const Main = styled.div`
   align-items: flex-start;
   justify-content: center;
   margin-top: 30px;
-
 `;
-export const MainContainer=styled.div`
-margin-left: 40px;
-`
-export const MainTitle=styled.div`
+export const MainContainer = styled.div`
+  margin-left: 40px;
+`;
+export const MainTitle = styled.div`
   width: 264px;
-`
+`;

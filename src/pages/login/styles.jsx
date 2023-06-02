@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   min-height: 100vh;
 }
 body {
-  overflow: hidden;
+ 
   box-shadow: inset 0px 1px 20px 20px rgba(0, 0, 0, 0.25);
 }
 `;

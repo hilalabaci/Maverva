@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const Backdrop = styled.div`
   background: rgba(0, 0, 0, 0.65);
   bottom: 0;
@@ -10,12 +9,14 @@ export const Backdrop = styled.div`
   right: 0;
   top: 0;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const Container = styled.div`
   background: none;
   border-radius: 5px;
   max-width: 100%;
-  margin: 50px auto;
-  padding: 15px;
-  width: 560px;
+  box-sizing: border-box;
+
 `;

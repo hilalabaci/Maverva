@@ -1,15 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
-export const ModalBox = styled.div`
-  
-`;
-export const ModalBoxStatus = styled.div`
 
 `;
 export const Wrapper = styled.div`

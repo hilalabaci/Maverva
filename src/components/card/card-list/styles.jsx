@@ -3,6 +3,7 @@ export const GlobalStyle = createGlobalStyle`
 .addIcon-button{
   margin-right: 10px;
 }
+
 `;
 export const Container = styled.div`
   width: fit-content;
@@ -10,6 +11,7 @@ export const Container = styled.div`
   background-color: #111315;
   border-radius: 5px;
   margin-right: 40px;
+  
 `;
 export const TitleWrapper = styled.div`
   display: flex;
@@ -30,6 +32,7 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
 `;
 export const AddCardButtonWrapper = styled.div`
   margin-top: 30px;

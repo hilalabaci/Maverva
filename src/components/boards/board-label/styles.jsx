@@ -34,5 +34,4 @@ export const Label = styled.label`
   font-weight: 600;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 `;
