@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const MoreIcon = styled(MoreHorizIcon)`
-  opacity: 1;
+  opacity: 0;
   display: flex;
 `;
 export const Container = styled.div`
@@ -43,6 +43,7 @@ export const NoteWrapper = styled.div`
 export const IconWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+
 `;
 export const LabelWrapper = styled.div`
   display: flex;

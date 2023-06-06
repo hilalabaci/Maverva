@@ -13,10 +13,12 @@ import Checkbox from "../../../checkbox";
 
 function EditLabel(props) {
   const colours = ["#216e4e", "#7f5f01", "#974f0c", "#ae2a19", "#5e4db2"];
-  async function handleClick(colour) {
+
+  async function handleClick(colour,isChecked) {
     const labelData = {
       colour: colour,
       cardId: props.cardId,
+      add:isChecked===false
     };
     const response = await fetch("http://127.0.0.1:3001/label", {
       method: "POST",
@@ -52,11 +54,12 @@ function EditLabel(props) {
             <Wrapper
               key={index}
               onClick={() => {
-                handleClick(colour);
+                const isChecked=props.labels.some((label) => label.colour === colour)
+                handleClick(colour,isChecked);
               }}
             >
               <CheckboxWrapper>
-                <Checkbox
+                <Checkbox 
                   check={props.labels.some((label) => label.colour === colour)}
                 />
               </CheckboxWrapper>
