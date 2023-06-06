@@ -25,7 +25,7 @@ function CardList(props) {
     <Container>
       <TitleWrapper>
         <Title>{props.title}</Title>
-        <NumberofCards />
+        <NumberofCards NumberofCards={props.NumberofCards} />
       </TitleWrapper>
       <CardWrapper>
         <CardWrapper>

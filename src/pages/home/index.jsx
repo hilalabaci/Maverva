@@ -62,6 +62,7 @@ function Home() {
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="TO DO"
+                  NumberofCards={cards.filter((card) => card.status === 1).length}
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 1)}
                 />
@@ -70,6 +71,7 @@ function Home() {
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="IN PROGRESS"
+                  NumberofCards={cards.filter((card) => card.status === 2).length}
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 2)}
                 />
@@ -78,6 +80,7 @@ function Home() {
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="DONE"
+                  NumberofCards={cards.filter((card) => card.status === 3).length}
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 3)}
                 />

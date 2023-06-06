@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "./styles";
 
-function NumberofCards() {
-  return <Container>5</Container>;
+function NumberofCards(props) {
+  return <Container>{props.NumberofCards}</Container>;
 }
 export default NumberofCards;
