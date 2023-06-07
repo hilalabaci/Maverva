@@ -6,7 +6,6 @@ import { Container, AddBoardWrapper, IconWrapper, ListWrapper } from "./styles";
 
 function BoardMenu(props) {
   const [key, setKey] = useState(false);
-  const [boards, setBoards] = useState([]);
 
   function handlerClick() {
     setKey(true);
@@ -14,6 +13,7 @@ function BoardMenu(props) {
 
   useEffect(() => {
     loadBoards();
+    // eslint-disable-next-line
   }, []);
 
   async function loadBoards() {
@@ -25,16 +25,16 @@ function BoardMenu(props) {
     });
     if (response.ok) {
       const data = await response.json();
-      setBoards(data);
+      props.setBoards(data);
     }
   }
 
   function onDelete(id) {
-    setBoards(boards.filter((board) => board._id !== id));
+    props.setBoards(props.boards.filter((board) => board._id !== id));
   }
 
   function onCreate(data) {
-    setBoards([...boards, data]);
+    props.setBoards([...props.boards, data]);
     setKey(false);
   }
   return (
@@ -49,7 +49,7 @@ function BoardMenu(props) {
       <ListWrapper>
         <BoardList
           onBoardChange={props.onBoardChange}
-          boards={boards}
+          boards={props.boards}
           onDelete={onDelete}
         />
       </ListWrapper>

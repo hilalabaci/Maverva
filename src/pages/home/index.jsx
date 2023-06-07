@@ -15,6 +15,7 @@ import TopMenu from "../../components/top-menu";
 
 function Home(props) {
   const [cards, setCards] = useState([]);
+  const [boards, setBoards] = useState([]);
   const [boardId, setBoardId] = useState("");
   const [boardTitle, setBoardTitle] = useState("");
   async function loadCards(boardId, boardTitle) {
@@ -43,6 +44,12 @@ function Home(props) {
   function addedCard(card) {
     setCards([...cards, card]);
   }
+  function onBoardUpdate(board) {
+    const index = boards.findIndex((b) => b._id === board._id);
+    const newBoards = [...boards]
+    newBoards[index] = board;
+    setBoards(newBoards);
+  }
 
   return (
     <Container>
@@ -52,10 +59,20 @@ function Home(props) {
       </NavbarWrapper>
       <Wrapper>
         <Menu>
-          <BoardMenu onBoardChange={loadCards} />
+          <BoardMenu
+            setBoards={setBoards}
+            onBoardChange={loadCards}
+            boards={boards}
+          />
         </Menu>
         <MainContainer>
-          {boardId ? <TopMenu boardId={boardId} topMenuTitle={boardTitle} /> : undefined}
+          {boardId ? (
+            <TopMenu
+              onBoardUpdate={onBoardUpdate}
+              boardId={boardId}
+              topMenuTitle={boardTitle}
+            />
+          ) : undefined}
 
           <Main>
             {boardId ? (

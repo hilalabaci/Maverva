@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, BoardTitle, EditBoardTitle } from "./styles";
 
 function TopMenu(props) {
@@ -8,7 +8,7 @@ function TopMenu(props) {
     setBoardTitle(props.topMenuTitle);
   }, [props.topMenuTitle]);
 
-  const updateTitle = useCallback(async () => {
+  async function updateTitle() {
     const id = props.boardId;
     const title = boardTitle;
     const body = { title, id };
@@ -21,9 +21,9 @@ function TopMenu(props) {
     });
     if (response.ok) {
       const data = await response.json();
-     
+      props.onBoardUpdate(data);
     }
-  }, [boardTitle]);
+  }
 
   const [editBoardTitle, setEditBoardTitle] = useState(false);
   function openEditBoardTitle() {
