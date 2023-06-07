@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Wrapper = styled.div`
   height: 45px;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -20,11 +20,12 @@ export const Wrapper = styled.div`
   padding: 0px 20px;
   margin-bottom: 20px;
   background-color: rgba(255, 255, 255, 0.16);
-  :active {
+  :hover {
+    background-color:rgba(255, 255, 255, 0.427) ;
   }
 `;
 export const Label = styled.label`
-  text-transform: uppercase;
+/*   text-transform: uppercase; */
   border: none;
   color: rgba(255, 255, 255, 0.7);
   font-size: 17px;

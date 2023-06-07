@@ -11,7 +11,6 @@ export const Container = styled.div`
   background-color: #111315;
   border-radius: 5px;
   margin-right: 40px;
-  
 `;
 export const TitleWrapper = styled.div`
   display: flex;
@@ -32,7 +31,11 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1;
+  -webkit-overflow-scrolling: touch;
+  
 `;
 export const AddCardButtonWrapper = styled.div`
   margin-top: 30px;

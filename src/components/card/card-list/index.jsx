@@ -28,20 +28,17 @@ function CardList(props) {
         <NumberofCards NumberofCards={props.NumberofCards} />
       </TitleWrapper>
       <CardWrapper>
-        <CardWrapper>
-          {props.cards.map((card, index) => (
-            <Card
-              onUpdate={props.onUpdate}
-              onDelete={props.onDelete}
-              id={card._id}
-              key={index}
-              title={card.content}
-              labels={card.labels}
-            />
-          ))}
-        </CardWrapper>
+        {props.cards.map((card, index) => (
+          <Card
+            onUpdate={props.onUpdate}
+            onDelete={props.onDelete}
+            id={card._id}
+            key={index}
+            title={card.content}
+            labels={card.labels}
+          />
+        ))}
       </CardWrapper>
-
       <AddCardButtonWrapper>
         {showAdd ? (
           <AddCard

@@ -1,20 +1,32 @@
 import Search from "../search";
 import React from "react";
-import "./style.css";
-import SearchIcon from "@mui/icons-material/Search";
+import User from "../user";
+import {
+  BrandContainer,
+  BrandLogo,
+  NavbarContainer,
+  GlobalStyle,
+  SearchUser,
+  UserWrapper,
+  SearchWrapper,
+} from "./styles";
 function Navbar() {
   return (
-    <nav className="nav-cont">
-      <a className="brand-cont">
-        <img className="brand-logo" src="/icons/brand.png" />
+    <NavbarContainer>
+      <GlobalStyle />
+      <BrandContainer>
+        <BrandLogo src="/icons/brand.png" />
         PROCESS
-      </a>
-      <div className="search-cont">
-        <div>
+      </BrandContainer>
+      <SearchUser>
+        <SearchWrapper>
           <Search />
-        </div>
-      </div>
-    </nav>
+        </SearchWrapper>
+        <UserWrapper>
+          <User />
+        </UserWrapper>
+      </SearchUser>
+    </NavbarContainer>
   );
 }
 export default Navbar;

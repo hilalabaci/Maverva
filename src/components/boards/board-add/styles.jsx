@@ -13,7 +13,7 @@ export const InputStyle = styled.input`
 export const Container = styled.form`
   border: 1px solid rgba(255, 255, 255, 0.7);
   height: 45px;
-  border-radius: 5px;
+  border-radius:10px;
   display: flex;
   flex-direction: row;
   padding: 0px 20px;

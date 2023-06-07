@@ -17,7 +17,7 @@ function BoardList(props) {
     <div>
       {props.boards.map((board, index) => (
         <BoardLabel
-          onClick={() => props.onBoardChange(board._id)}
+          onClick={() => props.onBoardChange(board._id,board.title)}
           onDelete={() => deleteItem(board._id)}
           title={board.title}
           key={index}

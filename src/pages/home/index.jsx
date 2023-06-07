@@ -10,14 +10,16 @@ import {
   Main,
   GlobalStyle,
   MainContainer,
-  MainTitle,
 } from "./styles";
+import TopMenu from "../../components/top-menu";
 
-function Home() {
+function Home(props) {
   const [cards, setCards] = useState([]);
   const [boardId, setBoardId] = useState("");
-  async function loadCards(boardId) {
+  const [boardTitle, setBoardTitle] = useState("");
+  async function loadCards(boardId, boardTitle) {
     setBoardId(boardId);
+    setBoardTitle(boardTitle);
     const response = await fetch(
       "http://127.0.0.1:3001/card?boardId=" + boardId,
       {
@@ -53,7 +55,8 @@ function Home() {
           <BoardMenu onBoardChange={loadCards} />
         </Menu>
         <MainContainer>
-          <MainTitle></MainTitle>
+          {boardId ? <TopMenu boardId={boardId} topMenuTitle={boardTitle} /> : undefined}
+
           <Main>
             {boardId ? (
               <>
@@ -62,7 +65,9 @@ function Home() {
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="TO DO"
-                  NumberofCards={cards.filter((card) => card.status === 1).length}
+                  NumberofCards={
+                    cards.filter((card) => card.status === 1).length
+                  }
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 1)}
                 />
@@ -71,7 +76,9 @@ function Home() {
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="IN PROGRESS"
-                  NumberofCards={cards.filter((card) => card.status === 2).length}
+                  NumberofCards={
+                    cards.filter((card) => card.status === 2).length
+                  }
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 2)}
                 />
@@ -80,7 +87,9 @@ function Home() {
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="DONE"
-                  NumberofCards={cards.filter((card) => card.status === 3).length}
+                  NumberofCards={
+                    cards.filter((card) => card.status === 3).length
+                  }
                   boardId={boardId}
                   cards={cards.filter((card) => card.status === 3)}
                 />
