@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BoardMenu from "../../components/boards/board-menu";
 import Navbar from "../../components/navbar";
 import CardList from "../../components/card/card-list";
@@ -15,9 +15,19 @@ import TopMenu from "../../components/top-menu";
 
 function Home(props) {
   const [cards, setCards] = useState([]);
+  const [filteredCards, setFilteredCards] = useState([]);
   const [boards, setBoards] = useState([]);
   const [boardId, setBoardId] = useState("");
   const [boardTitle, setBoardTitle] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+
+  useEffect(() => {
+    console.log(cards, searchInput);
+    setFilteredCards(
+      cards.filter((card) => card.content.includes(searchInput))
+    );
+  }, [searchInput, cards]);
+
   async function loadCards(boardId, boardTitle) {
     setBoardId(boardId);
     setBoardTitle(boardTitle);
@@ -35,27 +45,35 @@ function Home(props) {
       setCards(data);
     }
   }
+
   function deleteCard(id) {
     setCards(cards.filter((card) => card._id !== id));
   }
   function updateCard(id, card) {
-    setCards([...cards.filter((card) => card._id !== id), card]);
+    const index = cards.findIndex((b) => b._id === card._id);
+    const newCards = [...cards];
+    newCards[index] = card;
+    setCards(newCards);
+    /*    setCards([...cards.filter((card) => card._id !== id), card]); */
   }
   function addedCard(card) {
     setCards([...cards, card]);
   }
   function onBoardUpdate(board) {
     const index = boards.findIndex((b) => b._id === board._id);
-    const newBoards = [...boards]
+    const newBoards = [...boards];
     newBoards[index] = board;
     setBoards(newBoards);
   }
+  const onSearch = (e) => {
+    setSearchInput(e.target.value);
+  };
 
   return (
     <Container>
       <GlobalStyle />
       <NavbarWrapper>
-        <Navbar />
+        <Navbar onSearch={onSearch} />
       </NavbarWrapper>
       <Wrapper>
         <Menu>
@@ -82,33 +100,45 @@ function Home(props) {
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="TO DO"
-                  NumberofCards={
+                  numberOfFilteredCards={
+                    filteredCards.filter((card) => card.status === 1).length
+                  }
+                  numberOfCards={
                     cards.filter((card) => card.status === 1).length
                   }
                   boardId={boardId}
-                  cards={cards.filter((card) => card.status === 1)}
+                  cards={filteredCards.filter((card) => card.status === 1)}
+                  status={1}
                 />
                 <CardList
                   onUpdate={updateCard}
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="IN PROGRESS"
-                  NumberofCards={
+                  numberOfFilteredCards={
+                    filteredCards.filter((card) => card.status === 2).length
+                  }
+                  numberOfCards={
                     cards.filter((card) => card.status === 2).length
                   }
                   boardId={boardId}
-                  cards={cards.filter((card) => card.status === 2)}
+                  cards={filteredCards.filter((card) => card.status === 2)}
+                  status={2}
                 />
                 <CardList
                   onUpdate={updateCard}
                   onDelete={deleteCard}
                   addedCard={addedCard}
                   title="DONE"
-                  NumberofCards={
+                  numberOfFilteredCards={
+                    filteredCards.filter((card) => card.status === 3).length
+                  }
+                  numberOfCards={
                     cards.filter((card) => card.status === 3).length
                   }
                   boardId={boardId}
-                  cards={cards.filter((card) => card.status === 3)}
+                  cards={filteredCards.filter((card) => card.status === 3)}
+                  status={3}
                 />
               </>
             ) : undefined}

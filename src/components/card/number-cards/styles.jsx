@@ -4,7 +4,7 @@ export const Container = styled.div`
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 29px;
   display: flex;
   align-items: center;

@@ -6,10 +6,8 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Container = styled.div`
   display: flex;
-  height: 56px;
-  background-color: #0000003b;
+  height: 75px;
   width: -webkit-fill-available;
-  padding: 0 55px;
   align-items: center;
 `;
 
@@ -20,13 +18,21 @@ export const BoardTitle = styled.h1`
   font-family: "Inter";
   letter-spacing: 1px;
   display: flex;
-  align-items: center;
-  padding-left:4px;
-
-  /* text-transform: uppercase; */
+  justify-content: center;
+  text-transform: uppercase;
   :hover {
     background-color: #535353;
   }
+`;
+
+export const TitleContainer = styled.div`
+  background-color: rgba(255, 255, 255, 0.16);
+  border-radius: 5px;
+  width: 264px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const EditBoardTitle = styled.input`
@@ -40,7 +46,8 @@ export const EditBoardTitle = styled.input`
   color: #ffffff;
   font-family: "Inter";
   letter-spacing: 1px;
-  text-align: start;
-  vertical-align:center;
+  text-align: center;
+  vertical-align: center;
   width: fit-content;
+  text-transform: uppercase;
 `;

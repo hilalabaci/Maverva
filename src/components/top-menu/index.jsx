@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, BoardTitle, EditBoardTitle } from "./styles";
+import { Container, BoardTitle, EditBoardTitle,TitleContainer } from "./styles";
 
 function TopMenu(props) {
   const [boardTitle, setBoardTitle] = useState(props.topMenuTitle);
@@ -36,16 +36,18 @@ function TopMenu(props) {
 
   return (
     <Container onBlur={closeEditBoardTitle}>
-      {editBoardTitle ? (
-        <EditBoardTitle
-          value={boardTitle}
-          onChange={(e) => {
-            setBoardTitle(e.target.value);
-          }}
-        />
-      ) : (
-        <BoardTitle onClick={openEditBoardTitle}>{boardTitle}</BoardTitle>
-      )}
+      <TitleContainer>
+        {editBoardTitle ? (
+          <EditBoardTitle
+            value={boardTitle}
+            onChange={(e) => {
+              setBoardTitle(e.target.value);
+            }}
+          />
+        ) : (
+          <BoardTitle onClick={openEditBoardTitle}>{boardTitle}</BoardTitle>
+        )}
+      </TitleContainer>
     </Container>
   );
 }

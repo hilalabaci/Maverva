@@ -7,10 +7,8 @@ import {
   NavbarContainer,
   GlobalStyle,
   SearchUser,
-  UserWrapper,
-  SearchWrapper,
 } from "./styles";
-function Navbar() {
+function Navbar(props) {
   return (
     <NavbarContainer>
       <GlobalStyle />
@@ -19,12 +17,8 @@ function Navbar() {
         PROCESS
       </BrandContainer>
       <SearchUser>
-        <SearchWrapper>
-          <Search />
-        </SearchWrapper>
-        <UserWrapper>
-          <User />
-        </UserWrapper>
+        <Search onSearch={props.onSearch} />
+        <User />
       </SearchUser>
     </NavbarContainer>
   );

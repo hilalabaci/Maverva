@@ -34,7 +34,7 @@ function BoardMenu(props) {
   }
 
   function onCreate(data) {
-    props.setBoards([...props.boards, data]);
+    props.setBoards([data, ...props.boards]);
     setKey(false);
   }
   return (

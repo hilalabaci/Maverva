@@ -15,7 +15,6 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 25px;
-  width: 200px;
   border-radius: 5px;
   color: rgba(255, 255, 255, 0.8);
   :hover {

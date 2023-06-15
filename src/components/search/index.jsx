@@ -1,16 +1,21 @@
 import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import { Container,IconWrapper,InputWrapper,Input } from "./styles";
+import {
+  SearchContainer,
+  IconWrapper,
+  InputWrapper,
+  Input,
+  Icon,
+} from "./styles";
 function Search(props) {
   return (
-    <Container >
-      <IconWrapper >
-        <SearchIcon />
+    <SearchContainer tabindex="1">
+      <IconWrapper>
+        <Icon />
       </IconWrapper>
-      <InputWrapper  onChange={props.onSearch}>
-        <Input placeholder="Search.." />
+      <InputWrapper>
+        <Input onChange={props.onSearch} placeholder="Search.." />
       </InputWrapper>
-    </Container>
+    </SearchContainer>
   );
 }
 export default Search;

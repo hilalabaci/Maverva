@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Wrapper = styled.div`
   height: 45px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
   }
 `;
 export const Label = styled.label`
-/*   text-transform: uppercase; */
+  text-transform: uppercase;
   border: none;
   color: rgba(255, 255, 255, 0.7);
   font-size: 17px;

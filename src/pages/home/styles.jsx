@@ -30,13 +30,14 @@ export const Main = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  margin: 30px 0 0 34px;
+  margin-top:10px;
 `;
 export const MainContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-left:35px;
 `;
 export const MainTitle = styled.div`
   width: 264px;

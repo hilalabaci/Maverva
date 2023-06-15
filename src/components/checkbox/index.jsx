@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../checkbox/index.css";
 
 function Checkbox(props) {

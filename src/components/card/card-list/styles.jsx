@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 export const Container = styled.div`
-  width: fit-content;
+  width: 270px;
   padding: 25px;
   background-color: #111315;
   border-radius: 5px;
@@ -35,7 +35,6 @@ export const CardWrapper = styled.div`
   overflow-y: auto;
   z-index: 1;
   -webkit-overflow-scrolling: touch;
-  
 `;
 export const AddCardButtonWrapper = styled.div`
   margin-top: 30px;

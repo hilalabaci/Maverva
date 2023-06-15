@@ -11,6 +11,7 @@ export const NavbarContainer = styled.nav`
   display: flex;
   border-bottom: 1px solid rgba(255, 255, 255, 0.13);
   padding: 15px;
+  justify-content: space-between;
 `;
 export const BrandContainer = styled.a`
   color: rgba(255, 255, 255, 0.7);
@@ -18,7 +19,6 @@ export const BrandContainer = styled.a`
   align-items: center;
   text-align: center;
   letter-spacing: 0.05em;
-  flex: 1;
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
@@ -34,7 +34,6 @@ export const BrandLogo = styled.img`
 
 export const SearchUser = styled.div`
   display: flex;
-  align-content: center;
   align-items: center;
   flex-direction: row;
   gap: 15px;

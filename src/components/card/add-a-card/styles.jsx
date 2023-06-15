@@ -11,13 +11,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 269px;
-  height: 170px;
   border-radius: 5px;
+  padding: 10px;
 `;
 export const Textarea = styled.textarea`
   background-color: #181b1e;
-  width: 220px;
   outline: none;
   border: none;
   color: white;
@@ -25,14 +23,12 @@ export const Textarea = styled.textarea`
   text-align: left;
   resize: none;
   font-size: 16px;
-  padding: 0 15px;
 `;
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
-  padding: 0 15px;
+  justify-content: space-between;
 `;
 export const Button = styled.button`
   font-size: 16px;

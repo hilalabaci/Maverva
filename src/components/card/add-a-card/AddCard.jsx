@@ -19,7 +19,7 @@ function AddCard(props) {
     const cardData = {
       content: content,
       boardId: props.boardId,
-      status: 1,
+      status: props.status,
     };
     const response = await fetch("http://127.0.0.1:3001/card", {
       method: "POST",

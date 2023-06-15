@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 5px 15px;
+  padding:100px 25px;
   height: 100vh;
 `;
 export const AddBoardWrapper = styled.div`
@@ -31,5 +31,5 @@ export const IconWrapper = styled.button`
   }
 `;
 export const ListWrapper=styled.div`
-padding-top: 20px;
+padding: 20px 5px;
 `

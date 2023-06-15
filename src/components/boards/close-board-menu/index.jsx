@@ -1,22 +1,31 @@
-import React, { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
+import React from "react";
 import {
   Container,
   Header,
   Title,
-  CloseIcon,
   Content,
-} from "../../card/edit-card/edit-label/styles";
+  ButtonWrapper,
+  DeleteButton,
+  BoardTitle,
+  Close,
+} from "./styles";
 
-function CloseBoardMenu() {
- 
+function CloseBoardMenu(props) {
+  const boardName = props.boardName;
   return (
     <Container>
       <Header>
         <Title>Close board?</Title>
-        <CloseIcon onClick={props.onClose} />
+        <Close onClick={props.onClose} />
       </Header>
-      <Content></Content>
+      <Content>
+        Are you sure you want to close card <BoardTitle>{boardName}</BoardTitle>{" "}
+        ,all your cards belonging to card <BoardTitle>{boardName}</BoardTitle>{" "}
+        will be deleted in it?
+      </Content>
+      <ButtonWrapper>
+        <DeleteButton onClick={props.onDelete}>Close</DeleteButton>
+      </ButtonWrapper>
     </Container>
   );
 }

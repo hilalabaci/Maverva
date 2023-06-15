@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Card from "../cards/Card";
 import AddIcon from "@mui/icons-material/Add";
-import NumberofCards from "../number-cards";
+import NumberOfCards from "../number-cards";
 import {
   CardWrapper,
   Container,
@@ -25,10 +25,13 @@ function CardList(props) {
     <Container>
       <TitleWrapper>
         <Title>{props.title}</Title>
-        <NumberofCards NumberofCards={props.NumberofCards} />
+        <NumberOfCards
+          numberOfCards={props.numberOfCards}
+          numberOfFilteredCards={props.numberOfFilteredCards}
+        />
       </TitleWrapper>
       <CardWrapper>
-        {props.cards.map((card, index) => (
+        {props.cards?.map((card, index) => (
           <Card
             onUpdate={props.onUpdate}
             onDelete={props.onDelete}
@@ -45,6 +48,7 @@ function CardList(props) {
             addedCard={props.addedCard}
             boardId={props.boardId}
             onClose={closeAddCard}
+            status={props.status}
           />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">
