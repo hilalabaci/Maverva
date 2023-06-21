@@ -3,8 +3,10 @@ import AddIcon from "@mui/icons-material/Add";
 import BoardCreate from "../board-add/create";
 import BoardList from "../board-list";
 import { Container, AddBoardWrapper, IconWrapper, ListWrapper } from "./styles";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function BoardMenu(props) {
+  const { user } = useUserContext();
   const [key, setKey] = useState(false);
 
   function handlerClick() {
@@ -17,12 +19,15 @@ function BoardMenu(props) {
   }, []);
 
   async function loadBoards() {
-    const response = await fetch("http://127.0.0.1:3001/board", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "http://127.0.0.1:3001/board?userId=" + user._id,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       props.setBoards(data);

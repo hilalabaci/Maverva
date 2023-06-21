@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container, BoardTitle, EditBoardTitle,TitleContainer } from "./styles";
+import {
+  Container,
+  BoardTitle,
+  EditBoardTitle,
+  TitleContainer,
+} from "./styles";
 
 function TopMenu(props) {
   const [boardTitle, setBoardTitle] = useState(props.topMenuTitle);

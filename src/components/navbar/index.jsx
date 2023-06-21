@@ -1,6 +1,7 @@
 import Search from "../search";
 import React from "react";
-import User from "../user";
+import MemberButton from "../user/member-button";
+
 import {
   BrandContainer,
   BrandLogo,
@@ -8,6 +9,7 @@ import {
   GlobalStyle,
   SearchUser,
 } from "./styles";
+
 function Navbar(props) {
   return (
     <NavbarContainer>
@@ -18,7 +20,7 @@ function Navbar(props) {
       </BrandContainer>
       <SearchUser>
         <Search onSearch={props.onSearch} />
-        <User />
+        <MemberButton />
       </SearchUser>
     </NavbarContainer>
   );

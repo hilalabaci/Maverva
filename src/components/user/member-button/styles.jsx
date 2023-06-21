@@ -4,19 +4,16 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 45px;
   height: 45px;
   border-radius: 100px;
+  background-color: #fff;
+  position: relative;
   :hover {
-    position: relative;
-    background-color: #fff;
-    color: #4351e8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation-name: example;
     animation-duration: 4s;
-
     ::before {
       content: "";
       position: absolute;
@@ -27,8 +24,6 @@ export const Container = styled.div`
     }
   }
 `;
-export const UserImg = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 100px;
+export const UserInitials = styled.h1`
+  text-transform: uppercase;
 `;

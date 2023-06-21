@@ -5,7 +5,7 @@ import NumberOfCards from "../number-cards";
 import {
   CardWrapper,
   Container,
-  Title,
+  Title,  
   TitleWrapper,
   AddCardButtonWrapper,
   AddCardButton,

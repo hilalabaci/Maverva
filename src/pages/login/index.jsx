@@ -13,9 +13,11 @@ import {
   MainContainer,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../contexts/UserContext";
 
 function Login() {
   const navigate = useNavigate();
+  const { setUser } = useUserContext();
   const [login, setLogin] = useState({
     fullName: "",
     email: "",
@@ -57,6 +59,7 @@ function Login() {
       return;
     }
     console.log(jsonResponse);
+    setUser(jsonResponse);
     navigate("/");
   };
   return (

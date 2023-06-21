@@ -12,7 +12,8 @@ export const Container = styled.div`
 `;
 
 export const BoardTitle = styled.h1`
-  font-size: 20px;
+  font-size: 17px;
+  margin: 15px;
   font-weight: 600;
   color: #ffffff;
   font-family: "Inter";
@@ -20,6 +21,8 @@ export const BoardTitle = styled.h1`
   display: flex;
   justify-content: center;
   text-transform: uppercase;
+  overflow: hidden;
+  max-width: 600px;
   :hover {
     background-color: #535353;
   }
@@ -28,26 +31,27 @@ export const BoardTitle = styled.h1`
 export const TitleContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.16);
   border-radius: 5px;
-  width: 264px;
   height: 48px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 `;
 
 export const EditBoardTitle = styled.input`
   background-color: rgba(0, 0, 0, 0.003);
   border: 2px solid #007bff;
-  outline: none;
+
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
   color: #ffffff;
   font-family: "Inter";
   letter-spacing: 1px;
   text-align: center;
   vertical-align: center;
-  width: fit-content;
   text-transform: uppercase;
+  
 `;
