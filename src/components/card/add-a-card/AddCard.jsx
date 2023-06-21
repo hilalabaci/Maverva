@@ -1,44 +1,60 @@
 import React, { useState } from "react";
-import "./addCard.css";
-import CloseIcon from "@mui/icons-material/Close";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import {
+  GlobalStyle,
+  Button,
+  ButtonWrapper,
+  Container,
+  Textarea,
+} from "./styles";
 function AddCard(props) {
-  const [note, setNote] = useState("");
+  const [content, setContent] = useState("");
   function handleChange(event) {
-    const { name, value } = event.target;
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
-    });
+    const { value } = event.target;
+    setContent(value);
   }
-  function submitNote(event) {
-    props.onAdd(note);
-    setNote("");
+  async function submitNote(event) {
     event.preventDefault();
+    console.log(content);
+    const cardData = {
+      content: content,
+      boardId: props.boardId,
+      status: props.status,
+    };
+    const response = await fetch("http://127.0.0.1:3001/card", {
+      method: "POST",
+      body: JSON.stringify(cardData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const jsonResponse = await response.json();
+    if (response.status === 400) {
+      console.log("Please check your details");
+      return;
+    }
+    console.log(jsonResponse);
+    setContent("");
+    props.addedCard(jsonResponse);
+    props.onClose();
   }
-
   return (
-    <div className="add-card-container">
-      <textarea
+    <Container>
+      <GlobalStyle />
+      <Textarea
         name="addCardArea"
-        value={note}
+        value={content}
         onChange={handleChange}
-        className="add-card-textarea"
         id="w3review"
         placeholder="Enter a title for this card..."
         rows="4"
         cols="50"
-      ></textarea>
-      <div className="add-card-buttons ">
-        <button onClick={submitNote} className="button add-card">
-          Add card
-        </button>
-        <button className="button close">
-          <CloseIcon />
-        </button>
-      </div>
-    </div>
+      ></Textarea>
+      <ButtonWrapper>
+        <Button onClick={submitNote}>Add card</Button>
+        <CloseRoundedIcon onClick={props.onClose} className="iconClose" />
+      </ButtonWrapper>
+    </Container>
   );
 }
 export default AddCard;
