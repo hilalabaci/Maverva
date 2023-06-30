@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import AddIcon from "@mui/icons-material/Add";
 export const GlobalStyle = createGlobalStyle`
 .addIcon-button{
   margin-right: 10px;
@@ -11,6 +12,11 @@ export const Container = styled.div`
   background-color: #111315;
   border-radius: 5px;
   margin-right: 40px;
+  @media only screen and (max-width: 768px) {
+    width: 200px;
+    border-radius: 15px;
+    padding: 15px;
+  }
 `;
 export const TitleWrapper = styled.div`
   display: flex;
@@ -25,14 +31,15 @@ export const Title = styled.title`
   line-height: 29px;
   color: rgba(255, 255, 255, 0.7);
   display: inline-block;
+  @media only screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 export const CardWrapper = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-x: hidden;
-  overflow-y: auto;
   z-index: 1;
   -webkit-overflow-scrolling: touch;
 `;
@@ -56,5 +63,16 @@ export const AddCardButton = styled.button`
   opacity: 0.5;
   :hover {
     opacity: 1;
+  }
+  @media only screen and (max-width: 768px) {
+    width: fit-content;
+    height: fit-content;
+    font-size: 15px;
+    padding: 5px;
+  }
+`;
+export const IconAdd = styled(AddIcon)`
+  @media only screen and (max-width: 768px) {
+    font-size: 1rem;
   }
 `;

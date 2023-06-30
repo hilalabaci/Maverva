@@ -11,4 +11,7 @@ export const Container = styled.div`
   text-align: center;
   color: rgba(255, 255, 255, 0.4);
   padding-left: 15px;
+  @media only screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;

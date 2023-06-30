@@ -13,6 +13,10 @@ export const Container = styled.div`
   justify-content: space-around;
   border-radius: 5px;
   padding: 10px;
+  @media only screen and (max-width: 768px) {
+    border-radius: 15px;;
+    padding: 15px;
+  }
 `;
 export const Textarea = styled.textarea`
   background-color: #181b1e;
@@ -23,6 +27,9 @@ export const Textarea = styled.textarea`
   text-align: left;
   resize: none;
   font-size: 16px;
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 export const ButtonWrapper = styled.div`
   display: flex;
@@ -40,5 +47,9 @@ export const Button = styled.button`
   padding: 8px;
   :hover {
     background-color: #a8ccff;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+    padding: 4px;
   }
 `;

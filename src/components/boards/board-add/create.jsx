@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { Container, InputStyle, GlobalStyle, SubmitButton } from "./styles";
+import {
+  Container,
+  InputStyle,
+  GlobalStyle,
+  SubmitButton,
+  Okicon,
+} from "./styles";
 import { useUserContext } from "../../../contexts/UserContext";
 
 function BoardCreate(props) {
@@ -39,7 +44,7 @@ function BoardCreate(props) {
         onChange={handleChange}
       />
       <SubmitButton type="submit">
-        <CheckCircleOutlineIcon className="okicon" />
+        <Okicon/>
       </SubmitButton>
     </Container>
   );

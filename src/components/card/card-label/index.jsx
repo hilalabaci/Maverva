@@ -1,11 +1,11 @@
 import React from "react";
-import "./label.css";
+import { LabelContainer } from "./styles";
 function Label(props) {
   return (
-    <div
+    <LabelContainer
       className="label-container"
       style={{ backgroundColor: props.color }}
-    ></div>
+    ></LabelContainer>
   );
 }
 export default Label;

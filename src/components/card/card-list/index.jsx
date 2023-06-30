@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Card from "../cards/Card";
-import AddIcon from "@mui/icons-material/Add";
+
 import NumberOfCards from "../number-cards";
 import {
   CardWrapper,
@@ -9,6 +9,7 @@ import {
   TitleWrapper,
   AddCardButtonWrapper,
   AddCardButton,
+  IconAdd
 } from "./styles";
 import AddCard from "../add-a-card/AddCard";
 
@@ -52,7 +53,7 @@ function CardList(props) {
           />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">
-            <AddIcon className="addIcon-button" /> Add a card
+            <IconAdd /> Add a card
           </AddCardButton>
         )}
       </AddCardButtonWrapper>

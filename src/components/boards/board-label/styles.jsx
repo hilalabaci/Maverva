@@ -21,7 +21,13 @@ export const Wrapper = styled.div`
   margin-bottom: 20px;
   background-color: rgba(255, 255, 255, 0.16);
   :hover {
-    background-color:rgba(255, 255, 255, 0.427) ;
+    background-color: rgba(255, 255, 255, 0.427);
+  }
+  @media only screen and (max-width: 768px) {
+    width: auto;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    justify-content: space-around ;
   }
 `;
 export const Label = styled.label`
@@ -35,4 +41,7 @@ export const Label = styled.label`
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
+  }
 `;

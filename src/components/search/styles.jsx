@@ -13,13 +13,20 @@ export const SearchContainer = styled.div`
   :focus-visible {
     width: 700px;
   }
+  @media only screen and (max-width: 768px) {
+    border: none;
+  }
 `;
 export const IconWrapper = styled.button`
   background-color: rgba(255, 255, 255, 0.17);
   border: none;
   outline: none;
   color: #ffffff2b;
+  @media only screen and (max-width: 768px) {
+    background: none;
+  }
 `;
+
 export const InputWrapper = styled.div`
   display: flex;
 `;
@@ -32,6 +39,9 @@ export const Input = styled.input`
   font-size: 20px;
   color: rgba(255, 255, 255, 0.54);
   input[type="search"]::-webkit-search-decoration {
+    display: none;
+  }
+  @media only screen and (max-width: 768px) {
     display: none;
   }
 `;

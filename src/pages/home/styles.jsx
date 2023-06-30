@@ -23,6 +23,9 @@ export const Menu = styled.div`
   flex: 1;
   max-width: 20vw;
   border-right: 1px solid rgba(255, 255, 255, 0.13);
+  @media only screen and (max-width: 768px) {
+    max-width: fit-content;
+  }
 `;
 export const Main = styled.div`
   flex: 1;
@@ -30,14 +33,18 @@ export const Main = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  margin-top:10px;
+  margin-top: 10px;
 `;
 export const MainContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left:35px;
+  margin-left: 35px;
+  @media only screen and (max-width: 768px) {
+    margin-left: 10px;
+    overflow-x: scroll;
+  }
 `;
 export const MainTitle = styled.div`
   width: 264px;

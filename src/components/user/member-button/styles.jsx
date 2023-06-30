@@ -23,7 +23,14 @@ export const Container = styled.div`
       background: linear-gradient(220.94deg, #3d80ff 30%, #903bf5 70%);
     }
   }
+  @media only screen and (max-width: 768px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 export const UserInitials = styled.h1`
   text-transform: uppercase;
+  @media only screen and (max-width: 768px) {
+    font-size: 15px;
+  }
 `;

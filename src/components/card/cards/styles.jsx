@@ -23,7 +23,10 @@ export const Container = styled.div`
   :hover ${MoreIcon} {
     opacity: 1;
   }
-
+  @media only screen and (max-width: 768px) {
+    padding: 15px;
+    border-radius: 15px;;
+  }
 `;
 export const NoteWrapper = styled.div`
   flex: 1;
@@ -38,11 +41,13 @@ export const NoteWrapper = styled.div`
   resize: none;
   outline: none;
   border: none;
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 export const IconWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-
 `;
 export const LabelWrapper = styled.div`
   display: flex;

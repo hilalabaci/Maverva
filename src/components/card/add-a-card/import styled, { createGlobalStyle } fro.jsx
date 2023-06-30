@@ -9,6 +9,9 @@ export const Container = styled.div`
   height: 75px;
   width: -webkit-fill-available;
   align-items: center;
+  @media only screen and (max-width: 768px) {
+    height: 50px;
+  }
 `;
 
 export const BoardTitle = styled.h1`
@@ -26,10 +29,7 @@ export const BoardTitle = styled.h1`
   :hover {
     background-color: #535353;
   }
-  @media only screen and (max-width: 768px) {
-    font-size: 15px;
-    margin: 10px;
-  }
+ 
 `;
 
 export const TitleContainer = styled.div`
@@ -40,15 +40,12 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media only screen and (max-width: 768px) {
-    height: 35px;
-  }
-
 `;
 
 export const EditBoardTitle = styled.input`
   background-color: rgba(0, 0, 0, 0.003);
   border: 2px solid #007bff;
+
   display: flex;
   align-items: center;
   font-size: 17px;
@@ -59,7 +56,4 @@ export const EditBoardTitle = styled.input`
   text-align: center;
   vertical-align: center;
   text-transform: uppercase;
-  @media only screen and (max-width: 768px) {
-    font-size: 15px;
-  }
 `;

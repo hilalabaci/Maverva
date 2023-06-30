@@ -14,9 +14,9 @@ function MemberButton() {
   function openMenu() {
     setShowMenu(true);
   }
-  function closeMenu() {
+/*   function closeMenu() {
     setShowMenu(false);
-  }
+  } */
 
   return (
     <Container onClick={openMenu}>
