@@ -32,11 +32,18 @@ export const BrandTitle = styled.h1`
   font-size: 70px;
   margin-right: 50px;
   letter-spacing: 1px;
+  @media only screen and (max-width: 768px) {
+    font-size: 30px;
+  }
 `;
 export const BrandIcon = styled.img`
   width: 70px;
   height: 70px;
   margin-right: 50px;
+  @media only screen and (max-width: 768px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 export const MainContainer = styled.div`
   flex: 1;
@@ -55,11 +62,17 @@ export const LoginInputs = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 450px;
+  @media only screen and (max-width: 768px) {
+    width: max-content;
+  }
 `;
 export const FormTitle = styled.h2`
   font-size: 35px;
   font-weight: 700;
   letter-spacing: 2px;
+  @media only screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 export const StyledLink = styled(Link)`
   color: rgba(255, 255, 255, 0.7);
@@ -69,5 +82,8 @@ export const StyledLink = styled(Link)`
   :hover {
     color: #007bff;
     opacity: 1;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
   }
 `;

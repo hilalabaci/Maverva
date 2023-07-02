@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 5px 0;
 `;
 export const TextWrapper = styled.span`
   font-size: 18px;
@@ -10,6 +11,9 @@ export const TextWrapper = styled.span`
   letter-spacing: 1px;
   font-weight: 600;
   margin-bottom: 10px;
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 export const Inputs = styled.input`
   height: 45px;
@@ -23,6 +27,9 @@ export const Inputs = styled.input`
   letter-spacing: 1px;
   :focus {
     border-color: #9b59b6;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
   }
 `;
 export const WarningMessage = styled.p`

@@ -1,10 +1,6 @@
 import React from "react";
-import "./index.css";
+import { ButtonInput } from "./styles";
 function Button(props) {
-  return (
-    <button onClick={props.onClick} className="button-input">
-      {props.value}
-    </button>
-  );
+  return <ButtonInput onClick={props.onClick}>{props.value}</ButtonInput>;
 }
 export default Button;

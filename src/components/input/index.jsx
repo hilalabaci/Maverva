@@ -16,7 +16,7 @@ function Input(props) {
             : undefined
         }
       />
-      <WarningMessage>{props.error}</WarningMessage>
+      {props.error && <WarningMessage>{props.error}</WarningMessage>}
     </Container>
   );
 }

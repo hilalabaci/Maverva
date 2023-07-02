@@ -17,11 +17,17 @@ export const MainContainer = styled.div`
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
   font-family: "Inter";
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 export const RegisterContainer = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  @media only screen and (max-width: 768px) {
+    align-items: start;
+  }
 `;
 export const Form = styled.form`
   flex: 1;
@@ -34,9 +40,16 @@ export const RegisterInputs = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 450px;
+  @media only screen and (max-width: 768px) {
+    width: max-content;
+  }
 `;
 export const RegisterTitle = styled.h2`
   font-size: 35px;
   font-weight: 700;
   letter-spacing: 2px;
+  @media only screen and (max-width: 768px) {
+    font-size: 25px;
+    padding: 10px 0;
+  }
 `;
