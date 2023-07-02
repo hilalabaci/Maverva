@@ -11,6 +11,7 @@ import {
   LoginContainer,
   LoginInputs,
   MainContainer,
+  StyledLink,
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
@@ -93,7 +94,9 @@ function Login() {
             />
             <Button value="SIGN IN" type="submit" />
             <div>
-              <p>Have already an account Login here</p>
+              <StyledLink to="/register">
+                Don't have an account, register here
+              </StyledLink>
             </div>
           </LoginInputs>
         </Form>

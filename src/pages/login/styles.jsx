@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
@@ -59,4 +60,14 @@ export const FormTitle = styled.h2`
   font-size: 35px;
   font-weight: 700;
   letter-spacing: 2px;
+`;
+export const StyledLink = styled(Link)`
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-family: "Inter";
+  opacity: 0.5;
+  :hover {
+    color: #007bff;
+    opacity: 1;
+  }
 `;

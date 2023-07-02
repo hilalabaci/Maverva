@@ -3,8 +3,10 @@ import Input from "../../components/input";
 import Button from "../../components/button";
 import { MainContainer, RegisterContainer,Form,RegisterTitle,RegisterInputs, GlobalStyle } from "./styles";
 import { BrandContainer, BrandIcon, BrandTitle } from "../login/styles";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
@@ -68,6 +70,7 @@ function Register() {
       return;
     }
     console.log(jsonResponse);
+    navigate("/");
   };
   return (
     <MainContainer >
