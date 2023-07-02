@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
-import { MainContainer, RegisterContainer,Form,RegisterTitle,RegisterInputs, GlobalStyle } from "./styles";
-import { BrandContainer, BrandIcon, BrandTitle } from "../login/styles";
+import {
+  MainContainer,
+  RegisterContainer,
+  Form,
+  RegisterTitle,
+  RegisterInputs,
+  GlobalStyle,
+} from "./styles";
+import {
+  BrandContainer,
+  BrandIcon,
+  BrandTitle,
+  StyledLink,
+} from "../login/styles";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -73,18 +85,16 @@ function Register() {
     navigate("/");
   };
   return (
-    <MainContainer >
-      <GlobalStyle/>
-     { <BrandContainer >
-        <BrandIcon src="/icons/brand.png" alt="" />
-        <BrandTitle>PROCESS</BrandTitle>
-      </BrandContainer>}
+    <MainContainer>
+      <GlobalStyle />
+      {
+        <BrandContainer>
+          <BrandIcon src="/icons/brand.png" alt="" />
+          <BrandTitle>PROCESS</BrandTitle>
+        </BrandContainer>
+      }
       <RegisterContainer>
-        <Form
-          action=""
-          method="post"
-          onSubmit={handleSubmit}
-        >
+        <Form action="" method="post" onSubmit={handleSubmit}>
           <RegisterInputs>
             <RegisterTitle>Registration</RegisterTitle>
             <Input
@@ -126,7 +136,9 @@ function Register() {
             <Button value="JOIN NOW" type="submit" />
 
             <div>
-              <p>Have already an account Login here</p>
+              <StyledLink to="/login">
+                Have already an account Login here
+              </StyledLink>
             </div>
           </RegisterInputs>
         </Form>
