@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
+import { useUserContext } from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 import {
   MainContainer,
   RegisterContainer,
@@ -15,10 +17,10 @@ import {
   BrandTitle,
   StyledLink,
 } from "../login/styles";
-import { useNavigate } from "react-router-dom";
 
 function Register() {
   const navigate = useNavigate();
+  const { setUser } = useUserContext();
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
@@ -81,7 +83,7 @@ function Register() {
       console.log("Please check your details");
       return;
     }
-    console.log(jsonResponse);
+    setUser(jsonResponse);
     navigate("/");
   };
   return (
