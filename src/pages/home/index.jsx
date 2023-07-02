@@ -32,7 +32,7 @@ function Home(props) {
     setBoardId(boardId);
     setBoardTitle(boardTitle);
     const response = await fetch(
-      "http://127.0.0.1:3001/card?boardId=" + boardId,
+      process.env.REACT_APP_API_URL + "card?boardId=" + boardId,
       {
         method: "GET",
         headers: {

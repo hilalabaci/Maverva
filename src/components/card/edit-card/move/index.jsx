@@ -8,7 +8,7 @@ function Move(props) {
   async function updateStatus(status) {
     const id = props.cardId;
     const body = { status,id };
-    const response = await fetch("http://127.0.0.1:3001/card", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "card", {
       method: "PATCH",
       body: JSON.stringify(body),
       headers: {

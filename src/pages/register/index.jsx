@@ -54,7 +54,7 @@ function Register() {
     }
     const { fullName, email, password } = register;
     const registerData = { fullName, email, password };
-    const response = await fetch("http://127.0.0.1:3001/register", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "register", {
       method: "POST",
       body: JSON.stringify(registerData),
       headers: {

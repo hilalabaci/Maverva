@@ -30,7 +30,7 @@ function BoardMenu(props) {
 
   async function loadBoards() {
     const response = await fetch(
-      "http://127.0.0.1:3001/board?userId=" + user._id,
+      process.env.REACT_APP_API_URL + "board?userId=" + user._id,
       {
         method: "GET",
         headers: {

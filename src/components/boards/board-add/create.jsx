@@ -20,7 +20,7 @@ function BoardCreate(props) {
   async function onSubmit(event) {
     event.preventDefault();
     const boardData = { title: boardTitle, userId: userId };
-    const response = await fetch("http://127.0.0.1:3001/board", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "board", {
       method: "POST",
       body: JSON.stringify(boardData),
       headers: {
@@ -44,7 +44,7 @@ function BoardCreate(props) {
         onChange={handleChange}
       />
       <SubmitButton type="submit">
-        <Okicon/>
+        <Okicon />
       </SubmitButton>
     </Container>
   );

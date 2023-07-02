@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export const Wrapper = styled.div`

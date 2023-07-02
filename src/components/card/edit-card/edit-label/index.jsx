@@ -20,7 +20,7 @@ function EditLabel(props) {
       cardId: props.cardId,
       add:isChecked===false
     };
-    const response = await fetch("http://127.0.0.1:3001/label", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "label", {
       method: "POST",
       body: JSON.stringify(labelData),
       headers: {

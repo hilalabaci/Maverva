@@ -17,7 +17,7 @@ function TopMenu(props) {
     const id = props.boardId;
     const title = boardTitle;
     const body = { title, id };
-    const response = await fetch("http://127.0.0.1:3001/board", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "board", {
       method: "PATCH",
       body: JSON.stringify(body),
       headers: {

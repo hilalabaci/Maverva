@@ -21,7 +21,7 @@ function EditCard(props) {
   }
   async function deleteCard() {
     const cardId = props.id;
-    const response = await fetch("http://127.0.0.1:3001/card?id=" + cardId, {
+    const response = await fetch(process.env.REACT_APP_API_URL + "card?id=" + cardId, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
