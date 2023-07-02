@@ -1,22 +1,23 @@
 import React from "react";
-import "./index.css";
+import { Container, TextWrapper, Inputs, WarningMessage } from "./styles";
 function Input(props) {
   return (
-    <div className="input-container">
-      <span className="text-container">{props.title}</span>
-      <input
-        className="inputs"
+    <Container>
+      <TextWrapper>{props.title}</TextWrapper>
+      <Inputs
         onChange={props.onChange}
         value={props.value}
         type={props.type}
         name={props.name}
         placeholder={props.placeholder}
         style={
-          props.error !== undefined ? { border: "2px solid red" } : undefined
+          props.error !== undefined
+            ? { border: "2px solid #dc3545" }
+            : undefined
         }
       />
-      <p className="warning-message">{props.error}</p>
-    </div>
+      <WarningMessage>{props.error}</WarningMessage>
+    </Container>
   );
 }
 export default Input;
