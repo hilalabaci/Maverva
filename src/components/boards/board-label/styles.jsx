@@ -1,14 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-
-export const GlobalStyle = createGlobalStyle`
-.editicon {
-  color: rgba(255, 255, 255, 0.7);
-  opacity: 0.5;
-}
-.editicon:hover {
-  opacity: 1;
-}
-`;
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const Wrapper = styled.div`
   height: 45px;
@@ -24,10 +15,10 @@ export const Wrapper = styled.div`
     background-color: rgba(255, 255, 255, 0.427);
   }
   @media only screen and (max-width: 768px) {
-    width: auto;
+    width: 120px;
     padding: 10px 0;
     margin-bottom: 10px;
-    justify-content: space-around ;
+    justify-content: space-around;
   }
 `;
 export const Label = styled.label`
@@ -43,5 +34,16 @@ export const Label = styled.label`
   overflow: hidden;
   @media only screen and (max-width: 768px) {
     font-size: 10px;
+  }
+`;
+export const EditIcon = styled(DeleteIcon)`
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 0.5;
+
+  :hover {
+    opacity: 1;
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 18px !important;
   }
 `;

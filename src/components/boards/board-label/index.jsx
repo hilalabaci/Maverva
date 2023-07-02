@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../modal";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { GlobalStyle, Label, Wrapper } from "./styles";
+import { Label, Wrapper, EditIcon } from "./styles";
 import CloseBoardMenu from "../close-board-menu";
 
 function BoardLabel(props) {
@@ -14,15 +13,18 @@ function BoardLabel(props) {
   }
   return (
     <Wrapper onClick={props.onClick}>
-      <GlobalStyle />
       {showModal && (
         <Modal onClose={closeModal}>
-          <CloseBoardMenu onDelete={props.onDelete} onClose={closeModal} boardName={props.title} />
+          <CloseBoardMenu
+            onDelete={props.onDelete}
+            onClose={closeModal}
+            boardName={props.title}
+          />
         </Modal>
       )}
       <Label>{props.title}</Label>
       <div>
-        <DeleteIcon onClick={openModal} className="editicon" />
+        <EditIcon onClick={openModal} />
       </div>
     </Wrapper>
   );

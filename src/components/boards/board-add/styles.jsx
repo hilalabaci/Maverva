@@ -17,15 +17,17 @@ export const InputStyle = styled.input`
 export const Container = styled.form`
   border: 1px solid rgba(255, 255, 255, 0.7);
   height: 45px;
+  margin: 0 25px;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-  padding: 0px 20px;
-  justify-content: space-between;
+  justify-content: center;
   opacity: 0.7;
   font-size: 20px;
   @media only screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 10px;
+    margin: 0;
+    height: 30px;
   }
 `;
 export const SubmitButton = styled.button`
@@ -45,8 +47,7 @@ export const Okicon = styled(CheckCircleOutlineIcon)`
     outline: none;
   }
   @media only screen and (max-width: 768px) {
-    height: 0.5rem;
-    width: 0.5rem;
+    font-size: 18px !important;
   }
 `;
 export const GlobalStyle = createGlobalStyle`

@@ -20,12 +20,8 @@ export const Wrapper = styled.div`
   flex-direction: row;
 `;
 export const Menu = styled.div`
-  flex: 1;
-  max-width: 20vw;
-  border-right: 1px solid rgba(255, 255, 255, 0.13);
-  @media only screen and (max-width: 768px) {
-    max-width: fit-content;
-  }
+ 
+
 `;
 export const Main = styled.div`
   flex: 1;
