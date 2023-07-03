@@ -45,7 +45,7 @@ export const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   @media only screen and (max-width: 768px) {
-    height: 30px;
+    height: 35px;
     margin-top: 5px;
   }
 `;
