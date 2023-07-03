@@ -11,6 +11,7 @@ export const Container = styled.div`
 
   @media only screen and (max-width: 768px) {
     align-items: center;
+    width: 20px;
   }
 `;
 export const AddBoardWrapper = styled.div`
