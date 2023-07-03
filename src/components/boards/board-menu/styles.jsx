@@ -47,7 +47,7 @@ export const UserInfo = styled.div`
     props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"};
   padding: ${(props) => (props.$hidden ? "0" : "15px 25px")};
   @media only screen and (max-width: 768px) {
-    padding: 5px;
+    padding: 7px 5px;
   }
 `;
 export const MemberName = styled.span`
