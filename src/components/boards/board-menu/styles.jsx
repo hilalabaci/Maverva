@@ -11,7 +11,7 @@ export const Container = styled.div`
 
   @media only screen and (max-width: 768px) {
     align-items: center;
-    width: 20px;
+    width: ${(props) => (props.$hidden ? "20px" : "fit-content")};
   }
 `;
 export const AddBoardWrapper = styled.div`
