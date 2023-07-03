@@ -11,10 +11,17 @@ export const Container = styled.div`
   padding: 15px;
   border-radius: 3px;
   border: 1px solid rgba(255, 255, 255, 0.13);
+  @media only screen and (max-width: 768px) {
+    width: 100px;
+    padding: 5px;
+  }
 `;
 export const Title = styled.div`
   text-transform: uppercase;
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
+  }
 `;
 export const Accountdetails = styled.div`
   display: flex;
@@ -22,6 +29,9 @@ export const Accountdetails = styled.div`
   padding: 20px 0;
   gap: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  @media only screen and (max-width: 768px) {
+   padding: 10px 0 ;
+  }
 `;
 export const Memberphoto = styled.div`
   display: flex;
@@ -37,6 +47,11 @@ export const Memberphoto = styled.div`
   font-size: 20px;
   font-weight: 700;
   font-family: "Inter";
+  @media only screen and (max-width: 768px) {
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
+  }
 `;
 export const Memberinfo = styled.div``;
 export const MemberName = styled.div`
@@ -44,9 +59,15 @@ export const MemberName = styled.div`
   font-size: 14px;
   font-weight: 600;
   line-height: 25px;
+  @media only screen and (max-width: 768px) {
+    font-size: 9px;
+  }
 `;
 export const MemberEmail = styled.div`
   font-size: 12px;
+  @media only screen and (max-width: 768px) {
+    font-size: 5px;
+  }
 `;
 export const Options = styled.div`
   font-size: 14px;
@@ -56,6 +77,10 @@ export const Options = styled.div`
   vertical-align: center;
   :focus {
     background-color: #a1bdd914;
+  }
+   @media only screen and (max-width: 768px) {
+    font-size: 10px;
+     padding: 10px 0;
   }
 `;
 export const Logout = styled.div`
@@ -68,5 +93,9 @@ export const Logout = styled.div`
   border-top: 1px solid rgba(255, 255, 255, 0.13);
   :focus {
     background-color: #a1bdd914;
+  }
+   @media only screen and (max-width: 768px) {
+    font-size: 10px;
+     padding: 5px 0;
   }
 `;
