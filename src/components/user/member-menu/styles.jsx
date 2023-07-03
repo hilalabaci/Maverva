@@ -14,6 +14,8 @@ export const Container = styled.div`
   @media only screen and (max-width: 768px) {
     width: 100px;
     padding: 5px;
+    top: 52px;
+    right: -14px;
   }
 `;
 export const Title = styled.div`
@@ -30,7 +32,7 @@ export const Accountdetails = styled.div`
   gap: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.13);
   @media only screen and (max-width: 768px) {
-   padding: 10px 0 ;
+    padding: 10px 0;
   }
 `;
 export const Memberphoto = styled.div`
@@ -78,9 +80,9 @@ export const Options = styled.div`
   :focus {
     background-color: #a1bdd914;
   }
-   @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     font-size: 10px;
-     padding: 10px 0;
+    padding: 10px 0;
   }
 `;
 export const Logout = styled.div`
@@ -94,8 +96,8 @@ export const Logout = styled.div`
   :focus {
     background-color: #a1bdd914;
   }
-   @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     font-size: 10px;
-     padding: 5px 0;
+    padding: 5px 0;
   }
 `;
