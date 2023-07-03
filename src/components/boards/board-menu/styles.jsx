@@ -68,6 +68,7 @@ export const ArrowIcon = styled.div`
   @media only screen and (max-width: 768px) {
     margin: 0;
     font-size: 18px !important;
+    padding-top: 5px;
   }
 `;
 export const PlusIcon = styled(AddIcon)`

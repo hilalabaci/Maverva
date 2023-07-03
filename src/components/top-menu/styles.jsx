@@ -9,6 +9,10 @@ export const Container = styled.div`
   height: 75px;
   width: -webkit-fill-available;
   align-items: center;
+  @media only screen and (max-width: 768px) {
+    height: 50px;
+    align-items: start;
+  }
 `;
 
 export const BoardTitle = styled.h1`
@@ -27,7 +31,7 @@ export const BoardTitle = styled.h1`
     background-color: #535353;
   }
   @media only screen and (max-width: 768px) {
-    font-size: 15px;
+    font-size: 11px;
     margin: 10px;
   }
 `;
@@ -41,9 +45,9 @@ export const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   @media only screen and (max-width: 768px) {
-    height: 35px;
+    height: 30px;
+    margin-top: 5px;
   }
-
 `;
 
 export const EditBoardTitle = styled.input`
