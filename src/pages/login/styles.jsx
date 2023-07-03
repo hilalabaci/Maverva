@@ -50,6 +50,9 @@ export const MainContainer = styled.div`
   display: flex;
   align-items: center;
   font-family: Inter;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 export const Form = styled.form`
   flex: 1;

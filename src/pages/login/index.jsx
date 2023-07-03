@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
+import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../contexts/UserContext";
 import {
   BrandContainer,
   BrandIcon,
@@ -13,8 +15,6 @@ import {
   MainContainer,
   StyledLink,
 } from "./styles";
-import { useNavigate } from "react-router-dom";
-import { useUserContext } from "../../contexts/UserContext";
 
 function Login() {
   const navigate = useNavigate();
