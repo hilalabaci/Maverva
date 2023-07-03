@@ -15,7 +15,8 @@ export const Container = styled.div`
   padding: 10px;
   @media only screen and (max-width: 768px) {
     border-radius: 15px;;
-    padding: 15px;
+    padding: 10px;
+    height: 70px;
   }
 `;
 export const Textarea = styled.textarea`
@@ -36,6 +37,10 @@ export const ButtonWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  @media only screen and (max-width: 768px) {
+   margin-top: 10px;
+  }
+
 `;
 export const Button = styled.button`
   font-size: 16px;

@@ -5,6 +5,7 @@ export const LabelContainer = styled.div`
   height: 8px;
   border-radius: 5px;
   @media only screen and (max-width: 768px) {
-    width: 20px;
+    width: 30px;
+    height: 5px;
   }
 `;

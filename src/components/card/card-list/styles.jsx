@@ -42,6 +42,9 @@ export const CardWrapper = styled.div`
   gap: 20px;
   z-index: 1;
   -webkit-overflow-scrolling: touch;
+  @media only screen and (max-width: 768px) {
+   margin-top: 10px;
+  }
 `;
 export const AddCardButtonWrapper = styled.div`
   margin-top: 30px;
@@ -67,12 +70,12 @@ export const AddCardButton = styled.button`
   @media only screen and (max-width: 768px) {
     width: fit-content;
     height: fit-content;
-    font-size: 15px;
+    font-size: 10px;
     padding: 5px;
   }
 `;
 export const IconAdd = styled(AddIcon)`
   @media only screen and (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 12px !important;
   }
 `;

@@ -8,6 +8,11 @@ export const GlobalStyle = createGlobalStyle`
 export const MoreIcon = styled(MoreHorizIcon)`
   opacity: 0;
   display: flex;
+   @media only screen and (max-width: 768px) {
+    font-size: 12px !important;
+    opacity: 1;
+  }
+  
 `;
 export const Container = styled.div`
   background-color: #181b1e;
@@ -25,7 +30,8 @@ export const Container = styled.div`
   }
   @media only screen and (max-width: 768px) {
     padding: 15px;
-    border-radius: 15px;;
+    border-radius: 15px;
+    height: 60px;
   }
 `;
 export const NoteWrapper = styled.div`
@@ -42,7 +48,8 @@ export const NoteWrapper = styled.div`
   outline: none;
   border: none;
   @media only screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 10px;
+    overflow: scroll;
   }
 `;
 export const IconWrapper = styled.div`
@@ -54,5 +61,6 @@ export const LabelWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 4px;
+  
 `;
 export const iconButton = styled;
