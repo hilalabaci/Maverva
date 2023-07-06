@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 20px;
+  width: 200px;
   margin-bottom: 20px;
   background-color: rgba(255, 255, 255, 0.16);
   :hover {
