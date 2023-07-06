@@ -39,14 +39,14 @@ export const Memberphoto = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 100px;
   background-color: #fff;
   position: relative;
   color: black;
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 700;
   font-family: "Inter";
   @media only screen and (max-width: 768px) {
