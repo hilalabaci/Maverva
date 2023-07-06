@@ -3,7 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 export const Container = styled.div`
   /*   display: ${(props) => (props.$hidden ? "none" : "flex")}; */
   display: flex;
-  width: ${(props) => (props.$hidden ? "50px" : "fit-content")};
+  width: ${(props) => (props.$hidden ? "50px" : "300px")};
   flex-direction: column;
   gap: 20px;
   height: 100vh;
@@ -32,7 +32,7 @@ export const AddBoardWrapper = styled.div`
   }
 `;
 export const ListWrapper = styled.div`
-  padding: 15px 10px;
+  margin: 0px 30px;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
   @media only screen and (max-width: 768px) {
     padding: 0;
