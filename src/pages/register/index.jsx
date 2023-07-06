@@ -42,27 +42,25 @@ function Register() {
     event.preventDefault();
     if (register.fullName === "") {
       setError({
-        email: undefined,
-        password: undefined,
-        confirmPassword: undefined,
         fullName: "Please enter your full name",
       });
       return;
     }
+    if (register.email === "") {
+      setError({
+        email: "E-mail is required",
+      });
+      return;
+    }
+
     if (register.password < 12) {
       setError({
-        email: undefined,
-        confirmPassword: undefined,
-        fullName: undefined,
-        password: "Password must be at least 12 characters long.",
+        password: "Password must be at least 6 characters long.",
       });
       return;
     }
     if (register.password !== register.confirmPassword) {
       setError({
-        email: undefined,
-        password: undefined,
-        fullName: undefined,
         confirmPassword:
           "The passwords you entered do not match. Please check and try again.",
       });
@@ -80,6 +78,7 @@ function Register() {
 
     const jsonResponse = await response.json();
     if (response.status === 400) {
+      setError(jsonResponse);
       console.log("Please check your details");
       return;
     }
@@ -119,7 +118,7 @@ function Register() {
             />
             <Input
               title="Password"
-              type="password"
+              type="Password"
               placeholder="Enter your password "
               value={register.password}
               onChange={handleChange}
@@ -128,7 +127,7 @@ function Register() {
             />
             <Input
               title="Confirm Password"
-              type="password"
+              type="Password"
               placeholder="Confirm your password"
               value={register.confirmPassword}
               onChange={handleChange}
