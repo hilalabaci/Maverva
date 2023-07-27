@@ -90,3 +90,6 @@ export const StyledLink = styled(Link)`
     font-size: 14px;
   }
 `;
+export const MessageError = styled.p`
+  color: #ed4956;
+`;

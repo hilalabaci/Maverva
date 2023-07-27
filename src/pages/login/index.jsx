@@ -7,6 +7,7 @@ import {
   BrandContainer,
   BrandIcon,
   BrandTitle,
+  MessageError,
   Form,
   FormTitle,
   GlobalStyle,
@@ -19,6 +20,8 @@ import {
 function Login() {
   const navigate = useNavigate();
   const { setUser } = useUserContext();
+  const [showErrorMessage, setShowErrowMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [login, setLogin] = useState({
     fullName: "",
     email: "",
@@ -37,13 +40,24 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(login);
+
     if (login.email === "") {
       setError({
         password: undefined,
         email: "Please enter your email",
       });
+      setErrorMessage("Please enter your email");
       return;
     }
+    if (login.password === "") {
+      setError({
+        password: undefined,
+        email: "Please enter your password",
+      });
+      setErrorMessage("Please enter your password");
+      return;
+    }
+
     const { email, password } = login;
     const registerData = { email, password };
     const response = await fetch(process.env.REACT_APP_API_URL + "login", {
@@ -57,6 +71,10 @@ function Login() {
     const jsonResponse = await response.json();
     if (response.status === 400) {
       console.log("Please check your details");
+      setShowErrowMessage(true);
+      setErrorMessage(
+        "Sorry, your password was incorrect. Please double-check your password."
+      );
       return;
     }
     console.log(jsonResponse);
@@ -92,6 +110,7 @@ function Login() {
               name="password"
               error={error.password}
             />
+            {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
             <Button value="SIGN IN" type="submit" />
             <div>
               <StyledLink to="/register">
