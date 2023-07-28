@@ -42,7 +42,9 @@ function Register(props) {
         /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
           register.email
         ) === true &&
+        error.email === undefined &&
         register.confirmPassword !== "" &&
+        register.password.length >= 6 &&
         register.password === register.confirmPassword
     );
   }, [
@@ -50,6 +52,7 @@ function Register(props) {
     register.confirmPassword,
     register.email,
     register.fullName,
+    error.email,
   ]);
   function handleChange(event) {
     const { value, name } = event.target;
@@ -92,7 +95,7 @@ function Register(props) {
       return;
     }
 
-    if (register.password < 12) {
+    if (register.password.length < 6) {
       setError({
         password: "Password must be at least 6 characters long.",
       });
@@ -104,9 +107,6 @@ function Register(props) {
           "The passwords you entered do not match. Please check and try again.",
       });
       return;
-    }
-    if (register.password === register.confirmPassword) {
-      setApprovedPassword(true);
     }
     const { fullName, email, password } = register;
     const registerData = { fullName, email, password };
