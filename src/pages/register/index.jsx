@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../components/input";
 import Button from "../../components/button";
 import { useUserContext } from "../../contexts/UserContext";
@@ -18,9 +18,11 @@ import {
   StyledLink,
 } from "../login/styles";
 
-function Register() {
+function Register(props) {
   const navigate = useNavigate();
   const { setUser } = useUserContext();
+  const [approvedPasword, setApprovedPassword] = useState(false);
+
   const [register, setRegister] = useState({
     fullName: "",
     email: "",
@@ -33,9 +35,35 @@ function Register() {
     password: undefined,
     confirmPassword: undefined,
   });
+
+  useEffect(() => {
+    setApprovedPassword(
+      register.fullName !== "" &&
+        /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
+          register.email
+        ) === true &&
+        register.confirmPassword !== "" &&
+        register.password === register.confirmPassword
+    );
+  }, [
+    register.password,
+    register.confirmPassword,
+    register.email,
+    register.fullName,
+  ]);
   function handleChange(event) {
     const { value, name } = event.target;
     setRegister((prevValue) => ({ ...prevValue, [name]: value }));
+
+    if (error.password) {
+      setError((prev) => ({ ...prev, password: undefined }));
+    }
+    if (error.email) {
+      setError((prev) => ({ ...prev, email: undefined }));
+    }
+    if (error.fullName) {
+      setError((prev) => ({ ...prev, fullName: undefined }));
+    }
   }
 
   const handleSubmit = async (event) => {
@@ -59,7 +87,7 @@ function Register() {
     ) {
       setError({
         password: undefined,
-        email: "Your regular expression does not match the subject string.",
+        email: "This is not vald email address.",
       });
       return;
     }
@@ -76,6 +104,9 @@ function Register() {
           "The passwords you entered do not match. Please check and try again.",
       });
       return;
+    }
+    if (register.password === register.confirmPassword) {
+      setApprovedPassword(true);
     }
     const { fullName, email, password } = register;
     const registerData = { fullName, email, password };
@@ -129,21 +160,23 @@ function Register() {
             />
             <Input
               title="Password"
-              type="Password"
+              type="password"
               placeholder="Enter your password "
               value={register.password}
               onChange={handleChange}
               name="password"
               error={error.password}
+              approved={approvedPasword}
             />
             <Input
               title="Confirm Password"
-              type="Password"
+              type="password"
               placeholder="Confirm your password"
               value={register.confirmPassword}
               onChange={handleChange}
               name="confirmPassword"
               error={error.confirmPassword}
+              approved={approvedPasword}
             />
             <Button value="JOIN NOW" type="submit" />
 

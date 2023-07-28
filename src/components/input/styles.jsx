@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const Container = styled.div`
   display: flex;
@@ -15,22 +16,39 @@ export const TextWrapper = styled.span`
     font-size: 14px;
   }
 `;
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  :hover {
+    border-color: #9b59b6;
+  }
+`;
 export const Inputs = styled.input`
   height: 45px;
   outline: none;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  border: none;
   padding-left: 15px;
   font-size: 18px;
+  border-radius: 5px;
+  background-color: whitesmoke;
   border-bottom-width: 2px;
   transition: all 0.3s ease;
   letter-spacing: 1px;
-  :focus {
-    border-color: #9b59b6;
-  }
+  flex: 1;
+
   @media only screen and (max-width: 768px) {
     font-size: 14px;
   }
+`;
+export const Icon = styled(CheckCircleIcon)`
+  color: green;
+  padding: 0 10px;
+  transition: all 0.3s ease;
 `;
 export const WarningMessage = styled.p`
   color: #dc3545;

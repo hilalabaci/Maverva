@@ -8,7 +8,7 @@ export const ButtonInput = styled.button`
   outline: none;
   border-radius: 5px;
   border: none;
-  margin: 15px 0 15px 0;
+  margin: 30px 0 15px 0;
   color: #181b1e;
   :hover {
     background: linear-gradient(-135deg, #71b7e6, #9b59b6);

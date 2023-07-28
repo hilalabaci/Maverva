@@ -35,6 +35,13 @@ function Login() {
   function handleChange(event) {
     const { value, name } = event.target;
     setLogin((prevValue) => ({ ...prevValue, [name]: value }));
+
+    if (error.password) {
+      setError((prev) => ({ ...prev, password: undefined }));
+    }
+    if (error.email) {
+      setError((prev) => ({ ...prev, email: undefined }));
+    }
   }
 
   const handleSubmit = async (event) => {
@@ -57,19 +64,14 @@ function Login() {
     ) {
       setError({
         password: undefined,
-        email: "Your regular expression does not match the subject string.",
+        email: "This is not vald email address.",
       });
-      setErrorMessage(
-        "Your regular expression does not match the subject string."
-      );
       return;
     }
     if (login.password === "") {
       setError({
-        password: undefined,
-        email: "Please enter your password",
+        password: "Please enter your password",
       });
-      setErrorMessage("Please enter your password");
       return;
     }
 

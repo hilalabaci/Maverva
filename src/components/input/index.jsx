@@ -1,21 +1,36 @@
-import React from "react";
-import { Container, TextWrapper, Inputs, WarningMessage } from "./styles";
+import React, { useEffect } from "react";
+import {
+  Container,
+  TextWrapper,
+  Inputs,
+  WarningMessage,
+  InputWrapper,
+  Icon,
+} from "./styles";
 function Input(props) {
+  useEffect(() => {
+    console.log(props.approved);
+  }, [props.approved]);
   return (
     <Container>
       <TextWrapper>{props.title}</TextWrapper>
-      <Inputs
-        onChange={props.onChange}
-        value={props.value}
-        type={props.type}
-        name={props.name}
-        placeholder={props.placeholder}
+      <InputWrapper
         style={
           props.error !== undefined
             ? { border: "2px solid #dc3545" }
             : undefined
         }
-      />
+      >
+        <Inputs
+          onChange={props.onChange}
+          value={props.value}
+          type={props.type}
+          name={props.name}
+          placeholder={props.placeholder}
+        />
+        {props.type === "password" && props.approved === true && <Icon />}
+      </InputWrapper>
+
       {props.error && <WarningMessage>{props.error}</WarningMessage>}
     </Container>
   );
