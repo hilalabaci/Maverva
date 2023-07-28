@@ -49,6 +49,21 @@ function Login() {
       setErrorMessage("Please enter your email");
       return;
     }
+
+    if (
+      /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
+        login.email
+      ) === false
+    ) {
+      setError({
+        password: undefined,
+        email: "Your regular expression does not match the subject string.",
+      });
+      setErrorMessage(
+        "Your regular expression does not match the subject string."
+      );
+      return;
+    }
     if (login.password === "") {
       setError({
         password: undefined,
@@ -73,7 +88,7 @@ function Login() {
       console.log("Please check your details");
       setShowErrowMessage(true);
       setErrorMessage(
-        "Sorry, your password was incorrect. Please double-check your password."
+        "Sorry, your e-mail or password was incorrect. Please double-check."
       );
       return;
     }
