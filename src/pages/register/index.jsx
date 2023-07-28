@@ -52,6 +52,17 @@ function Register() {
       });
       return;
     }
+    if (
+      /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
+        register.email
+      ) === false
+    ) {
+      setError({
+        password: undefined,
+        email: "Your regular expression does not match the subject string.",
+      });
+      return;
+    }
 
     if (register.password < 12) {
       setError({
