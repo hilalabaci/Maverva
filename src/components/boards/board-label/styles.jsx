@@ -3,7 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export const Wrapper = styled.div`
   height: 45px;
-  border-radius: 5px;
+  border-radius: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -6,7 +6,7 @@ export const ButtonInput = styled.button`
   letter-spacing: 1px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
   outline: none;
-  border-radius: 5px;
+  border-radius: 10px;
   border: none;
   margin: 30px 0 15px 0;
   color: #181b1e;

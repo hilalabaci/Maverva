@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 export const SearchContainer = styled.div`
   height: 40px;
   display: flex;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.54);
   transition: width 10s ease-in-out 0.5s;
   ::placeholder {

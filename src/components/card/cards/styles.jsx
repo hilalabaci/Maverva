@@ -19,8 +19,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 25px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 10px;
   color: rgba(255, 255, 255, 0.8);
   :hover {
     background-color: #22262a;
@@ -40,7 +40,7 @@ export const NoteWrapper = styled.div`
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 24px;
   letter-spacing: 0.065em;
   color: rgba(255, 255, 255, 0.7);

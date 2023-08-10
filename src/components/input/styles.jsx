@@ -22,7 +22,7 @@ export const InputWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: whitesmoke;
   :hover {
     border-color: #9b59b6;
@@ -34,7 +34,7 @@ export const Inputs = styled.input`
   border: none;
   padding-left: 15px;
   font-size: 18px;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: whitesmoke;
   border-bottom-width: 2px;
   transition: all 0.3s ease;

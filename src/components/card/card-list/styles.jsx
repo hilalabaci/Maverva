@@ -10,7 +10,7 @@ export const Container = styled.div`
   width: 270px;
   padding: 25px;
   background-color: #111315;
-  border-radius: 5px;
+  border-radius: 10px;
   margin-right: 40px;
   @media only screen and (max-width: 768px) {
     width: 200px;
@@ -27,7 +27,7 @@ export const Title = styled.title`
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 29px;
   color: rgba(255, 255, 255, 0.7);
   display: inline-block;
@@ -43,7 +43,7 @@ export const CardWrapper = styled.div`
   z-index: 1;
   -webkit-overflow-scrolling: touch;
   @media only screen and (max-width: 768px) {
-   margin-top: 10px;
+    margin-top: 10px;
   }
 `;
 export const AddCardButtonWrapper = styled.div`
@@ -55,9 +55,9 @@ export const AddCardButton = styled.button`
   height: 45px;
   outline: none;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   font-family: "Inter";
-  font-size: 19px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
   display: flex;
   flex-direction: row;
@@ -75,7 +75,9 @@ export const AddCardButton = styled.button`
   }
 `;
 export const IconAdd = styled(AddIcon)`
+  font-size: 18px !important;
+  padding-right: 10px;
   @media only screen and (max-width: 768px) {
-    font-size: 12px !important;
+    font-size:10px !important;
   }
 `;

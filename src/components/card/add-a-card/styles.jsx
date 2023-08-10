@@ -11,7 +11,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px;
   @media only screen and (max-width: 768px) {
     border-radius: 15px;;
@@ -47,7 +47,7 @@ export const Button = styled.button`
   background-color: #579dff;
   border: none;
   color: #111315;
-  border-radius: 5px;
+  border-radius: 10px;
   opacity: 0.6;
   padding: 8px;
   :hover {
