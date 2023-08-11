@@ -8,11 +8,16 @@ import {
   NavbarContainer,
   GlobalStyle,
   SearchUser,
+  LightMode,
+  DarkMode,
 } from "./styles";
+import { Button } from "@mui/material";
+import { useTheme } from "../../contexts/ThemeContext";
 
 function Navbar(props) {
+  const { setMode, mode, theme } = useTheme();
   return (
-    <NavbarContainer>
+    <NavbarContainer color={theme.primary}>
       <GlobalStyle />
       <BrandContainer>
         <BrandLogo src="/icons/brand.png" />
@@ -20,6 +25,13 @@ function Navbar(props) {
       </BrandContainer>
       <SearchUser>
         <Search onSearch={props.onSearch} />
+        <Button
+          onClick={() => {
+            setMode(mode === "light" ? "dark" : "light");
+          }}
+        >
+          {mode === "light" ? <DarkMode /> : <LightMode />}
+        </Button>
         <MemberButton />
       </SearchUser>
     </NavbarContainer>

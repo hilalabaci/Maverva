@@ -40,6 +40,7 @@ function Card(props) {
           />
         </Modal>
       )}
+      <NoteWrapper>{props.title}</NoteWrapper>
       <IconWrapper>
         <LabelWrapper>
           {props.labels.map((label, index) => {
@@ -48,7 +49,6 @@ function Card(props) {
         </LabelWrapper>
         <MoreIcon onClick={openModal} />
       </IconWrapper>
-      <NoteWrapper>{props.title}</NoteWrapper>
     </Container>
   );
 }

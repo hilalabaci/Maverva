@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0px 20px;
-  width: 200px;
+  width: 150px;
   margin-bottom: 20px;
   background-color: rgba(255, 255, 255, 0.16);
   :hover {
@@ -25,8 +25,8 @@ export const Wrapper = styled.div`
 export const Label = styled.label`
   text-transform: uppercase;
   border: none;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 17px;
+  color: ${(props) => props.theme.fontColour};
+  font-size: 15px;
   font-family: "Inter";
   outline: none;
   letter-spacing: 0.05em;
@@ -38,7 +38,7 @@ export const Label = styled.label`
   }
 `;
 export const EditIcon = styled(DeleteIcon)`
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   opacity: 0.5;
 
   :hover {

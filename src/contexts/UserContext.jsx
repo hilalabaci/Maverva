@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext({});
 const storageKey = "process_user";
+
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);

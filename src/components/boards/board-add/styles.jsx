@@ -2,9 +2,9 @@ import styled, { createGlobalStyle } from "styled-components";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 export const InputStyle = styled.input`
-  background-color: #181b1e;
+  background-color: ${(props) => props.theme.primary};
   border: none;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   font-size: 16px;
   font-family: "Inter";
   outline: none;

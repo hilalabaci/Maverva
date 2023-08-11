@@ -19,7 +19,7 @@ export const BoardTitle = styled.h1`
   font-size: 17px;
   margin: 15px;
   font-weight: 600;
-  color: #ffffff;
+  color: ${(props) => props.theme.fontColour};
   font-family: "Inter";
   letter-spacing: 1px;
   display: flex;
@@ -37,8 +37,8 @@ export const BoardTitle = styled.h1`
 `;
 
 export const TitleContainer = styled.div`
-  background-color: rgba(255, 255, 255, 0.16);
-  border-radius: 10px;
+  background-color: ${(props) => props.theme.boardColour};
+  border-radius: 5px;
   height: 48px;
   display: flex;
   flex-direction: column;
@@ -51,13 +51,13 @@ export const TitleContainer = styled.div`
 `;
 
 export const EditBoardTitle = styled.input`
-  background-color: rgba(0, 0, 0, 0.003);
+  background-color: ${(props) => props.theme.boardColour};
   border: 2px solid #007bff;
   display: flex;
   align-items: center;
   font-size: 17px;
   font-weight: 600;
-  color: #ffffff;
+  color: ${(props) => props.theme.fontColour};
   font-family: "Inter";
   letter-spacing: 1px;
   text-align: center;

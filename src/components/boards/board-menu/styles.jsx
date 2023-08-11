@@ -3,12 +3,14 @@ import AddIcon from "@mui/icons-material/Add";
 export const Container = styled.div`
   /*   display: ${(props) => (props.$hidden ? "none" : "flex")}; */
   display: flex;
-  width: ${(props) => (props.$hidden ? "50px" : "300px")};
+  width: ${(props) => (props.$hidden ? "50px" : "250px")};
   flex-direction: column;
   gap: 20px;
   height: 100vh;
-  border-right: 1px solid rgba(255, 255, 255, 0.13);
-
+  border-right: 1px solid ${(props) => props.theme.borderLineColour};
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 1px,
+    inset rgba(0, 0, 0, 0.23) 0px 1px 1px;
+  background-color: ${(props) => props.theme.BorderMenuBG};
   @media only screen and (max-width: 768px) {
     align-items: center;
     width: ${(props) => (props.$hidden ? "20px" : "fit-content")};
@@ -18,13 +20,13 @@ export const AddBoardWrapper = styled.div`
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 16px;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
   align-items: center;
   text-align: center;
   letter-spacing: 0.05em;
   justify-content: space-around;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   margin: 10px 0;
   padding: 0 15px;
   @media only screen and (max-width: 768px) {
@@ -47,11 +49,10 @@ export const UserInfo = styled.div`
     props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"};
   padding: ${(props) => (props.$hidden ? "0" : "15px 25px")};
   @media only screen and (max-width: 768px) {
- 
   }
 `;
 export const MemberName = styled.span`
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   font-family: "Inter";
   font-size: 17px;
   font-weight: bold;
@@ -61,10 +62,10 @@ export const MemberName = styled.span`
   }
 `;
 export const ArrowIcon = styled.div`
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   font-size: 20px;
   margin: ${(props) => (props.$hidden ? "25px 0 0 0" : "0")};
-  background-color: #22262b;
+  background-color: ${(props) => props.theme.BorderMenu};
   @media only screen and (max-width: 768px) {
     margin: 0;
     font-size: 18px !important;

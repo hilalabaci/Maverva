@@ -7,9 +7,9 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 export const Container = styled.div`
-  width: 270px;
-  padding: 25px;
-  background-color: #111315;
+  width: 250px;
+  padding: 10px 20px;
+  background-color: ${(props) => props.theme.boardColour};
   border-radius: 10px;
   margin-right: 40px;
   @media only screen and (max-width: 768px) {
@@ -27,9 +27,9 @@ export const Title = styled.title`
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 15px;
   line-height: 29px;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   display: inline-block;
   @media only screen and (max-width: 768px) {
     font-size: 15px;
@@ -47,10 +47,10 @@ export const CardWrapper = styled.div`
   }
 `;
 export const AddCardButtonWrapper = styled.div`
-  margin-top: 30px;
+  margin-top: 10px;
 `;
 export const AddCardButton = styled.button`
-  background-color: #181b1e;
+  background-color: ${(props) => props.theme.boardColour};
   width: 259px;
   height: 45px;
   outline: none;
@@ -58,7 +58,7 @@ export const AddCardButton = styled.button`
   border-radius: 10px;
   font-family: "Inter";
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -78,6 +78,6 @@ export const IconAdd = styled(AddIcon)`
   font-size: 18px !important;
   padding-right: 10px;
   @media only screen and (max-width: 768px) {
-    font-size:10px !important;
+    font-size: 10px !important;
   }
 `;

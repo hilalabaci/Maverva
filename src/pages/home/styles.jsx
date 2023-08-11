@@ -7,11 +7,13 @@ export const GlobalStyle = createGlobalStyle`
     overflow: hidden;
   }
   body {
-    background-color: #181b1e;
+   
   }
 `;
 
 export const Container = styled.div`
+  background-color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.fontColour};
   flex: 1;
 `;
 export const NavbarWrapper = styled.div``;
@@ -19,10 +21,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const Menu = styled.div`
- 
-
-`;
+export const Menu = styled.div``;
 export const Main = styled.div`
   flex: 1;
   display: flex;

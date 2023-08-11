@@ -7,10 +7,11 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 45px;
+  width: 30px;
+  height: 30px;
   border-radius: 100px;
-  background-color: #fff;
+  border: 1px solid ${(props) => props.theme.fontColour};
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
   position: relative;
   :hover {
     animation-duration: 4s;
@@ -29,7 +30,9 @@ export const Container = styled.div`
   }
 `;
 export const UserInitials = styled.h1`
+  font-size: 15px;
   text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
   @media only screen and (max-width: 768px) {
     font-size: 15px;
   }

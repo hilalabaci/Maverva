@@ -8,22 +8,21 @@ export const GlobalStyle = createGlobalStyle`
 export const MoreIcon = styled(MoreHorizIcon)`
   opacity: 0;
   display: flex;
-   @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     font-size: 12px !important;
     opacity: 1;
   }
-  
 `;
 export const Container = styled.div`
-  background-color: #181b1e;
+  background-color: ${(props) => props.theme.cardBG};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 15px 10px 5px;
   border-radius: 10px;
-  color: rgba(255, 255, 255, 0.8);
+  background-color: ${(props) => props.theme.cardBG};
   :hover {
-    background-color: #22262a;
+    background-color: ${(props) => props.theme.cardBGHover};
   }
   :hover ${MoreIcon} {
     opacity: 1;
@@ -43,7 +42,7 @@ export const NoteWrapper = styled.div`
   font-size: 13px;
   line-height: 24px;
   letter-spacing: 0.065em;
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   resize: none;
   outline: none;
   border: none;
@@ -61,6 +60,6 @@ export const LabelWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 4px;
-  
+  padding-top: 10px;
 `;
 export const iconButton = styled;

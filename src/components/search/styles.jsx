@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 export const SearchContainer = styled.div`
   height: 40px;
   display: flex;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.54);
   transition: width 10s ease-in-out 0.5s;
   ::placeholder {
@@ -37,7 +37,7 @@ export const Input = styled.input`
   border: none;
   background-color: rgba(255, 255, 255, 0.17);
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.54);
+  color: ${(props) => props.theme.fontColour};
   input[type="search"]::-webkit-search-decoration {
     display: none;
   }
@@ -48,7 +48,7 @@ export const Input = styled.input`
 export const Icon = styled(SearchIcon)`
   border: none;
   outline: none;
-  color: #ffffff2b;
+  color: ${(props) => props.theme.fontColour};
   display: flex;
   font-size: 20px;
 `;
