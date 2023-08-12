@@ -1,10 +1,6 @@
-import styled, { createGlobalStyle } from "styled-components";
-export const GlobalStyle = createGlobalStyle`
-.iconClose{
-  color:rgba(255, 255, 255, 0.7);
+import styled from "styled-components";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-}
-`;
 
 export const Container = styled.div`
   background-color: ${(props) => props.theme.cardBG};
@@ -23,11 +19,11 @@ export const Textarea = styled.textarea`
   background-color: ${(props) => props.theme.cardBG};
   outline: none;
   border: none;
-  color: white;
+  color: ${(props) => props.theme.fontColour};
   opacity: 0.7;
   text-align: left;
   resize: none;
-  font-size: 14px;
+  font-size: 12px;
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
@@ -42,13 +38,13 @@ export const ButtonWrapper = styled.div`
   }
 `;
 export const Button = styled.button`
-  font-size: 13px;
+  font-size: 12px;
   background-color: #579dff;
   border: none;
   color: ${(props) => props.theme.primary};
   border-radius: 5px;
   opacity: 0.6;
-  padding: 7px;
+  padding: 5px;
   :hover {
     background-color: #a8ccff;
   }
@@ -56,4 +52,8 @@ export const Button = styled.button`
     font-size: 12px;
     padding: 4px;
   }
+`;
+export const  CloseIcon = styled(CloseRoundedIcon)`
+  color:${(props) => props.theme.fontColour};
+  font-size: 15px !important;
 `;

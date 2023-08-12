@@ -36,6 +36,8 @@ export const Title = styled.title`
   }
 `;
 export const CardWrapper = styled.div`
+  overflow: scroll;
+  max-height:400px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -47,7 +49,7 @@ export const CardWrapper = styled.div`
   }
 `;
 export const AddCardButtonWrapper = styled.div`
-  margin-top: 10px;
+  margin-top: 15px;
 `;
 export const AddCardButton = styled.button`
   background-color: ${(props) => props.theme.boardColour};

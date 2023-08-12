@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import {
-  GlobalStyle,
+  CloseIcon,
   Button,
   ButtonWrapper,
   Container,
   Textarea,
 } from "./styles";
+
+
 function AddCard(props) {
   const [content, setContent] = useState("");
   function handleChange(event) {
@@ -38,19 +39,18 @@ function AddCard(props) {
   }
   return (
     <Container>
-      <GlobalStyle />
       <Textarea
         name="addCardArea"
         value={content}
         onChange={handleChange}
         id="w3review"
-        placeholder="Enter a title for this card..."
-        rows="4"
+        placeholder="What needs to be done?"
+        rows="2"
         cols="50"
       ></Textarea>
       <ButtonWrapper>
         <Button onClick={submitNote}>Add card</Button>
-        <CloseRoundedIcon onClick={props.onClose} className="iconClose" />
+        <CloseIcon onClick={props.onClose} />
       </ButtonWrapper>
     </Container>
   );
