@@ -9,7 +9,7 @@ export const Memberphoto = styled.div`
   align-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 5px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
   position: relative;
   color: white;

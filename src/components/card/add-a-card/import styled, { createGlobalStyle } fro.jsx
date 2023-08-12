@@ -34,7 +34,7 @@ export const BoardTitle = styled.h1`
 
 export const TitleContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.16);
-  border-radius: 10px;
+  border-radius: 5px;
   height: 48px;
   display: flex;
   flex-direction: column;

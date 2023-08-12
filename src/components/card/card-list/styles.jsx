@@ -10,7 +10,7 @@ export const Container = styled.div`
   width: 250px;
   padding: 10px 20px;
   background-color: ${(props) => props.theme.boardColour};
-  border-radius: 10px;
+  border-radius: 5px;
   margin-right: 40px;
   @media only screen and (max-width: 768px) {
     width: 200px;
@@ -55,7 +55,7 @@ export const AddCardButton = styled.button`
   height: 45px;
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   font-family: "Inter";
   font-size: 13px;
   color: ${(props) => props.theme.fontColour};

@@ -11,7 +11,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
   @media only screen and (max-width: 768px) {
     border-radius: 15px;
@@ -46,7 +46,7 @@ export const Button = styled.button`
   background-color: #579dff;
   border: none;
   color: ${(props) => props.theme.primary};
-  border-radius: 10px;
+  border-radius: 5px;
   opacity: 0.6;
   padding: 7px;
   :hover {

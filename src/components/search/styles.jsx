@@ -37,7 +37,7 @@ export const Input = styled.input`
   border: none;
   background-color: rgba(255, 255, 255, 0.17);
   font-size: 15px;
-  color: ${(props) => props.theme.searchBorder};
+  color: ${(props) => props.theme.fontColour};
   input[type="search"]::-webkit-search-decoration {
     display: none;
   }

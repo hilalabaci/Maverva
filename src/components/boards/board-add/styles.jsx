@@ -17,7 +17,7 @@ export const InputStyle = styled.input`
 export const Container = styled.form`
   border: 1px solid rgba(255, 255, 255, 0.7);
   height: 45px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;

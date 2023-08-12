@@ -19,7 +19,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 15px 10px 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: ${(props) => props.theme.cardBG};
   :hover {
     background-color: ${(props) => props.theme.cardBGHover};
