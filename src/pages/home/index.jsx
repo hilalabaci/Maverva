@@ -22,7 +22,6 @@ function Home(props) {
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
-    console.log(cards, searchInput);
     setFilteredCards(
       cards.filter((card) => card.content.includes(searchInput))
     );

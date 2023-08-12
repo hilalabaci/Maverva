@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 
 export const GlobalStyle = createGlobalStyle`
 #root,
@@ -34,9 +35,8 @@ export const BrandContainer = styled.a`
     font-size: 20px;
   }
 `;
-export const BrandLogo = styled.img`
-  width: 30px;
-  height: 30px;
+export const BrandLogo = styled(DashboardRoundedIcon)`
+  font-size: 30px !important;
   margin: 0px 20px;
   @media only screen and (max-width: 768px) {
     width: 20px;

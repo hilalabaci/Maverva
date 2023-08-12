@@ -63,7 +63,7 @@ export const MemberName = styled.span`
 `;
 export const ArrowIcon = styled.div`
   color: ${(props) => props.theme.fontColour};
-  font-size: 20px;
+  font-size: 20px !important;
   margin: ${(props) => (props.$hidden ? "25px 0 0 0" : "0")};
   background-color: ${(props) => props.theme.BorderMenu};
   @media only screen and (max-width: 768px) {
@@ -73,6 +73,7 @@ export const ArrowIcon = styled.div`
   }
 `;
 export const PlusIcon = styled(AddIcon)`
+ font-size: 20px !important;
   @media only screen and (max-width: 768px) {
     font-size: 18px !important;
     margin-left: 5px;

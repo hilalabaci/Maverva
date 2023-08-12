@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Container,
   TextWrapper,
@@ -8,9 +8,6 @@ import {
   Icon,
 } from "./styles";
 function Input(props) {
-  useEffect(() => {
-    console.log(props.approved);
-  }, [props.approved]);
   return (
     <Container>
       <TextWrapper>{props.title}</TextWrapper>

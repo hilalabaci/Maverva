@@ -2,13 +2,13 @@ import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 
 export const SearchContainer = styled.div`
-  height: 40px;
+  height: 30px;
   display: flex;
   border-radius: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.54);
+  border: 1.5px solid ${(props) => props.theme.searchBorder};
   transition: width 10s ease-in-out 0.5s;
   ::placeholder {
-    opacity: 0.5;
+    opacity: 0.1;
   }
   :focus-visible {
     width: 700px;
@@ -36,8 +36,8 @@ export const Input = styled.input`
   outline: none;
   border: none;
   background-color: rgba(255, 255, 255, 0.17);
-  font-size: 20px;
-  color: ${(props) => props.theme.fontColour};
+  font-size: 15px;
+  color: ${(props) => props.theme.searchBorder};
   input[type="search"]::-webkit-search-decoration {
     display: none;
   }
@@ -48,7 +48,8 @@ export const Input = styled.input`
 export const Icon = styled(SearchIcon)`
   border: none;
   outline: none;
-  color: ${(props) => props.theme.fontColour};
+  margin-top:3px;
+  color: ${(props) => props.theme.searchBorder};
   display: flex;
-  font-size: 20px;
+  font-size: 15px !important;
 `;

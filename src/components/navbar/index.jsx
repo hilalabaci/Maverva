@@ -15,7 +15,7 @@ import { Button } from "@mui/material";
 import { useTheme } from "../../contexts/ThemeContext";
 
 function Navbar(props) {
-  const { setMode, mode, theme } = useTheme();
+  const { changeMode, mode, theme } = useTheme();
   return (
     <NavbarContainer color={theme.primary}>
       <GlobalStyle />
@@ -27,7 +27,7 @@ function Navbar(props) {
         <Search onSearch={props.onSearch} />
         <Button
           onClick={() => {
-            setMode(mode === "light" ? "dark" : "light");
+            changeMode(mode === "light" ? "dark" : "light");
           }}
         >
           {mode === "light" ? <DarkMode /> : <LightMode />}

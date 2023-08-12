@@ -46,7 +46,6 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(login);
 
     if (login.email === "") {
       setError({
@@ -87,14 +86,12 @@ function Login() {
 
     const jsonResponse = await response.json();
     if (response.status === 400) {
-      console.log("Please check your details");
       setShowErrowMessage(true);
       setErrorMessage(
         "Sorry, your e-mail or password was incorrect. Please double-check."
       );
       return;
     }
-    console.log(jsonResponse);
     setUser(jsonResponse);
     navigate("/");
   };

@@ -3,7 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export const Wrapper = styled.div`
   height: 45px;
-  border-radius: 10px;
+  border-radius: 7px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -40,6 +40,7 @@ export const Label = styled.label`
 export const EditIcon = styled(DeleteIcon)`
   color: ${(props) => props.theme.fontColour};
   opacity: 0.5;
+  font-size: 20px !important;
 
   :hover {
     opacity: 1;

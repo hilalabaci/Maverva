@@ -15,7 +15,6 @@ function AddCard(props) {
   }
   async function submitNote(event) {
     event.preventDefault();
-    console.log(content);
     const cardData = {
       content: content,
       boardId: props.boardId,
@@ -33,7 +32,6 @@ function AddCard(props) {
       console.log("Please check your details");
       return;
     }
-    console.log(jsonResponse);
     setContent("");
     props.addedCard(jsonResponse);
     props.onClose();

@@ -14,11 +14,11 @@ import Checkbox from "../../../checkbox";
 function EditLabel(props) {
   const colours = ["#216e4e", "#7f5f01", "#974f0c", "#ae2a19", "#5e4db2"];
 
-  async function handleClick(colour,isChecked) {
+  async function handleClick(colour, isChecked) {
     const labelData = {
       colour: colour,
       cardId: props.cardId,
-      add:isChecked===false
+      add: isChecked === false,
     };
     const response = await fetch(process.env.REACT_APP_API_URL + "label", {
       method: "POST",
@@ -45,21 +45,18 @@ function EditLabel(props) {
       </Header>
       <Content>
         {colours.map((colour, index) => {
-          console.log(
-            colour,
-            props.labels,
-            props.labels.some((label) => label.colour === colour)
-          );
           return (
             <Wrapper
               key={index}
               onClick={() => {
-                const isChecked=props.labels.some((label) => label.colour === colour)
-                handleClick(colour,isChecked);
+                const isChecked = props.labels.some(
+                  (label) => label.colour === colour
+                );
+                handleClick(colour, isChecked);
               }}
             >
               <CheckboxWrapper>
-                <Checkbox 
+                <Checkbox
                   check={props.labels.some((label) => label.colour === colour)}
                 />
               </CheckboxWrapper>

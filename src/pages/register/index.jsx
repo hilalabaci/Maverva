@@ -121,7 +121,6 @@ function Register(props) {
     const jsonResponse = await response.json();
     if (response.status === 400) {
       setError(jsonResponse);
-      console.log("Please check your details");
       return;
     }
     setUser(jsonResponse);
