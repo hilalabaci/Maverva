@@ -7,7 +7,7 @@ function MemberPhoto(props) {
   const userFullName = user.fullName;
   const chars = userFullName.split(" ");
   const firstName = chars[0];
-  const lastName = chars[1];
+  const lastName = chars.length > 1 ? chars[1] : "";
   return (
     <Container $hidden={props.$hidden}>
       <Memberphoto>

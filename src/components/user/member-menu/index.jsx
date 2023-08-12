@@ -11,21 +11,23 @@ import {
   MemberEmail,
   Logout,
 } from "../member-menu/styles";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 
-function MemberMenu() {
+function MemberMenu(props) {
   const { setUser } = useUserContext();
   const { user } = useUserContext();
+  const ref = useOutsideClick(props.onClose);
   const userFullName = user.fullName;
   const userEmail = user.email;
   const chars = userFullName.split(" ");
   const firstName = chars[0];
-  const lastName = chars[1];
+  const lastName = chars.length > 1 ? chars[1] : "";
 
   function logOut() {
     setUser(undefined);
   }
   return (
-    <Container>
+    <Container ref={ref}>
       <Title>Account</Title>
       <Accountdetails>
         <Memberphoto>

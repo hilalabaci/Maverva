@@ -8,19 +8,19 @@ function MemberButton() {
   const userFullName = user.fullName;
   const chars = userFullName.split(" ");
   const firstName = chars[0];
-  const lastName = chars[1];
+  const lastName = chars.length > 1 ? chars[1] : "";
 
   const [showMenu, setShowMenu] = useState(false);
   function openMenu() {
     setShowMenu(true);
   }
-/*   function closeMenu() {
+  function closeMenu() {
     setShowMenu(false);
-  } */
+  }
 
   return (
     <Container onClick={openMenu}>
-      {showMenu && <MemberMenu />}
+      {showMenu && <MemberMenu onClose={closeMenu} />}
       <UserInitials>
         {firstName[0]}
         {lastName[0]}

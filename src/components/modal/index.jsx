@@ -1,25 +1,6 @@
 import React from "react";
 import { Backdrop, Container } from "./styles";
-
-const useOutsideClick = (callback) => {
-  const ref = React.useRef();
-
-  React.useEffect(() => {
-    const handleClick = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        callback();
-      }
-    };
-
-    document.addEventListener("click", handleClick, true);
-
-    return () => {
-      document.removeEventListener("click", handleClick, true);
-    };
-  }, [ref,callback]);
-
-  return ref;
-};
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 function Modal(props) {
   const ref = useOutsideClick(props.onClose);

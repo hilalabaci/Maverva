@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: absolute;
-  top: 61px;
-  right: -13px;
+  top: 50px;
+  right: -5px;
   background-color: rgba(255, 255, 255, 0.16);
   width: 200px;
   font-family: "Inter";
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.fontColour};
   padding: 15px;
   border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1px solid ${(props) => props.theme.borderLineColour};
   @media only screen and (max-width: 768px) {
     width: 100px;
     padding: 5px;
@@ -42,9 +42,9 @@ export const Memberphoto = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 100px;
-  background-color: #fff;
+  color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.fontColour};
   position: relative;
-  color: black;
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 700;

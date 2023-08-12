@@ -6,6 +6,7 @@ export const darkTheme = {
   fontColour: "rgba(255, 255, 255, 0.7)",
   borderLineColour: "rgba(255, 255, 255, 0.13)",
   BorderMenuBG: "rgb(24, 27, 30)",
+  boardBG: "rgba(255, 255, 255, 0.16)",
 };
 export const lightTheme = {
   primary: "#fff",
@@ -15,4 +16,5 @@ export const lightTheme = {
   fontColour: "#42526E",
   borderLineColour: "rgba(24, 27, 30, 0.1)",
   BorderMenuBG: "#FAFBFC",
+  boardBG: "#fff",
 };

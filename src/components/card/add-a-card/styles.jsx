@@ -7,27 +7,27 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
-  background-color: #181b1e;
+  background-color: ${(props) => props.theme.cardBG};
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   border-radius: 10px;
   padding: 10px;
   @media only screen and (max-width: 768px) {
-    border-radius: 15px;;
+    border-radius: 15px;
     padding: 10px;
     height: 70px;
   }
 `;
 export const Textarea = styled.textarea`
-  background-color: #181b1e;
+  background-color: ${(props) => props.theme.cardBG};
   outline: none;
   border: none;
   color: white;
   opacity: 0.7;
   text-align: left;
   resize: none;
-  font-size: 16px;
+  font-size: 14px;
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
@@ -38,18 +38,17 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   @media only screen and (max-width: 768px) {
-   margin-top: 10px;
+    margin-top: 10px;
   }
-
 `;
 export const Button = styled.button`
-  font-size: 16px;
+  font-size: 13px;
   background-color: #579dff;
   border: none;
-  color: #111315;
+  color: ${(props) => props.theme.primary};
   border-radius: 10px;
   opacity: 0.6;
-  padding: 8px;
+  padding: 7px;
   :hover {
     background-color: #a8ccff;
   }

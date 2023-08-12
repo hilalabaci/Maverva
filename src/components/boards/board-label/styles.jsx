@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   padding: 0px 20px;
   width: 150px;
   margin-bottom: 20px;
-  background-color: rgba(255, 255, 255, 0.16);
+  background-color: ${(props) => props.theme.boardBG};
   :hover {
     background-color: rgba(255, 255, 255, 0.427);
   }
