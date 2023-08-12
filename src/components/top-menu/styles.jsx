@@ -28,7 +28,7 @@ export const BoardTitle = styled.h1`
   overflow: hidden;
   max-width: 600px;
   :hover {
-    background-color: #535353;
+    background-color: ${(props) => props.theme.boardBG};
   }
   @media only screen and (max-width: 768px) {
     font-size: 11px;
