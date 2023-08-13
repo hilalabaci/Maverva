@@ -20,7 +20,7 @@ function Navbar(props) {
     <NavbarContainer color={theme.primary}>
       <GlobalStyle />
       <BrandContainer>
-        <BrandLogo src="/icons/brand.png" />
+        <BrandLogo />
         PROCESS
       </BrandContainer>
       <SearchUser>
