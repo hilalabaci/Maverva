@@ -3,7 +3,8 @@ import AddIcon from "@mui/icons-material/Add";
 export const Container = styled.div`
   /*   display: ${(props) => (props.$hidden ? "none" : "flex")}; */
   display: flex;
-  width: ${(props) => (props.$hidden ? "50px" : "250px")};
+  align-items: center;
+/*   width: ${(props) => (props.$hidden ? "50px" : "250px")}; */
   flex-direction: column;
   gap: 20px;
   height: 100vh;
@@ -27,8 +28,6 @@ export const AddBoardWrapper = styled.div`
   letter-spacing: 0.05em;
   justify-content: space-around;
   color: ${(props) => props.theme.fontColour};
-  margin: 10px 0;
-  padding: 0 15px;
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
@@ -73,7 +72,7 @@ export const ArrowIcon = styled.div`
   }
 `;
 export const PlusIcon = styled(AddIcon)`
- font-size: 20px !important;
+  font-size: 20px !important;
   @media only screen and (max-width: 768px) {
     font-size: 18px !important;
     margin-left: 5px;

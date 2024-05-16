@@ -21,7 +21,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const Menu = styled.div``;
+export const Menu = styled.div`
+display: flex;
+  width: ${(props) => (props.$hidden ? "50px" : "250px")};
+`;
 export const Main = styled.div`
   flex: 1;
   display: flex;
