@@ -9,7 +9,7 @@ import {
   CheckboxWrapper,
   Label,
 } from "./styles";
-import Checkbox from "../../../checkbox";
+import Checkbox from "../../../../tools/checkbox";
 
 function EditLabel(props) {
   const colours = ["#216e4e", "#7f5f01", "#974f0c", "#ae2a19", "#5e4db2"];

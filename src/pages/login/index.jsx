@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Input from "../../components/input";
-import Button from "../../components/button";
+import Button from "../../components/tools/button";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
@@ -16,6 +15,7 @@ import {
   MainContainer,
   StyledLink,
 } from "./styles";
+import Input from "../../components/tools/input";
 
 function Login() {
   const navigate = useNavigate();

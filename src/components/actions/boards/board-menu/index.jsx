@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import BoardCreate from "../board-add/create";
-import BoardList from "../board-list";
-import { useUserContext } from "../../../contexts/UserContext";
-import MemberPhoto from "../../user/member-photo";
+import { useUserContext } from "../../../../contexts/UserContext";
+import MemberPhoto from "../../../tools/user/member-photo";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {
@@ -14,6 +12,8 @@ import {
   ArrowIcon,
   PlusIcon,
 } from "./styles";
+import BoardCreate from "../board-add/create";
+import BoardList from "../board-list/index"
 
 function BoardMenu(props) {
   const [key, setKey] = useState(false);
@@ -60,7 +60,13 @@ function BoardMenu(props) {
   return (
     <Container $hidden={hideMenu}>
       <UserInfo $hidden={hideMenu}>
-        <MemberPhoto $hidden={hideMenu} />
+        <MemberPhoto
+          $userPhotoWidth="40px"
+          $userPhotoHeight="40px"
+          $userPhotoFontSize="15px"
+          $userBorderadius="5px"
+          $hidden={hideMenu}
+        />
         <MemberName $hidden={hideMenu}>Hello {firstName}</MemberName>
         <ArrowIcon
           $hidden={hideMenu}

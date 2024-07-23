@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, UserInitials } from "./styles";
-import { useUserContext } from "../../../contexts/UserContext";
+import { useUserContext } from "../../../../contexts/UserContext";
 import MemberMenu from "../member-menu";
 
 function MemberButton() {

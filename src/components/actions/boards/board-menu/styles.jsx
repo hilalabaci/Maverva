@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 export const Container = styled.div`
-  /*   display: ${(props) => (props.$hidden ? "none" : "flex")}; */
+  //display: ${(props) => (props.$hidden ? "none" : "flex")};
   display: flex;
   align-items: center;
-/*   width: ${(props) => (props.$hidden ? "50px" : "250px")}; */
+  //width: ${(props) => (props.$hidden ? "50px" : "250px")};
   flex-direction: column;
   gap: 20px;
   height: 100vh;

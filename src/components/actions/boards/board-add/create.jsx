@@ -6,7 +6,7 @@ import {
   SubmitButton,
   Okicon,
 } from "./styles";
-import { useUserContext } from "../../../contexts/UserContext";
+import { useUserContext } from "../../../../contexts/UserContext";
 
 function BoardCreate(props) {
   const [boardTitle, setBoardTitle] = useState("");

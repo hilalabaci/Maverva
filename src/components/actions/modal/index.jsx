@@ -1,6 +1,6 @@
 import React from "react";
 import { Backdrop, Container } from "./styles";
-import useOutsideClick from "../../hooks/useOutsideClick";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 
 function Modal(props) {
   const ref = useOutsideClick(props.onClose);

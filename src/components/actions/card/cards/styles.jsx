@@ -4,10 +4,14 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 export const GlobalStyle = createGlobalStyle`
 
 `;
-
+export const MoreIconWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 export const MoreIcon = styled(MoreHorizIcon)`
   opacity: 0;
   display: flex;
+  justify-content: flex-end;
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
     opacity: 1;
@@ -18,7 +22,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px 10px 5px;
+  padding: 5px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.cardBG};
   :hover {
@@ -46,10 +50,16 @@ export const NoteWrapper = styled.div`
   resize: none;
   outline: none;
   border: none;
+  padding:0 5px;
   @media only screen and (max-width: 768px) {
     font-size: 10px;
     overflow: scroll;
   }
+`;
+export const ContainerUser = styled.div`
+  font-size: 1px !important;
+  width: 20px !important;
+  height: 20px !important;
 `;
 export const IconWrapper = styled.div`
   display: flex;

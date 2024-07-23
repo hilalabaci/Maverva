@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import BoardMenu from "../../components/boards/board-menu";
-import Navbar from "../../components/navbar";
-import CardList from "../../components/card/card-list";
+import BoardMenu from "../../components/actions/boards/board-menu";
+import Navbar from "../../components/tools/navbar";
+import CardList from "../../components/actions/card/card-list/index";
 import {
   Container,
   NavbarWrapper,
@@ -11,7 +11,7 @@ import {
   GlobalStyle,
   MainContainer,
 } from "./styles";
-import TopMenu from "../../components/top-menu";
+import TopMenu from "../../components/actions/top-menu";
 
 function Home(props) {
   const [cards, setCards] = useState([]);

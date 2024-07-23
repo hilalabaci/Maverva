@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import Label from "../card-label";
+import Label from "../card-label/index";
 import Modal from "../../modal";
+import EditCard from "../edit-card/index";
+import MemberPhoto from "../../../tools/user/member-photo";
 import {
   Container,
   NoteWrapper,
@@ -8,8 +10,8 @@ import {
   LabelWrapper,
   GlobalStyle,
   MoreIcon,
+  MoreIconWrapper,
 } from "./styles";
-import EditCard from "../edit-card";
 
 function Card(props) {
   const [showModal, setShowModal] = useState(false);
@@ -40,6 +42,9 @@ function Card(props) {
           />
         </Modal>
       )}
+      <MoreIconWrapper>
+        <MoreIcon onClick={openModal} />
+      </MoreIconWrapper>
       <NoteWrapper>{props.title}</NoteWrapper>
       <IconWrapper>
         <LabelWrapper>
@@ -47,7 +52,12 @@ function Card(props) {
             return <Label key={index} color={label.colour} />;
           })}
         </LabelWrapper>
-        <MoreIcon onClick={openModal} />
+        <MemberPhoto
+          $userPhotoWidth="25px"
+          $userPhotoHeight="25px"
+          $userPhotoFontSize="10px"
+          $userBorderadius="50px"
+        />
       </IconWrapper>
     </Container>
   );

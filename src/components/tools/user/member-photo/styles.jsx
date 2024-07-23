@@ -7,14 +7,15 @@ export const Memberphoto = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
+  width: ${(props) => props.$userPhotoWidth};
+  height: ${(props) => props.$userPhotoHeight};
+  font-size: ${(props) => props.$userPhotoFontSize};
+  border-radius: ${(props) => props.$userBorderadius};
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
   position: relative;
   color: white;
   text-transform: uppercase;
-  font-size: 17px;
+
   font-weight: 700;
   font-family: "Inter";
   @media only screen and (max-width: 768px) {

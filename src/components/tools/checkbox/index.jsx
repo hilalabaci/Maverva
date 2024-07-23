@@ -1,5 +1,5 @@
 import React from "react";
-import "../checkbox/index.css";
+import "./index.css";
 
 function Checkbox(props) {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { useUserContext } from "../../../contexts/UserContext";
+import { useUserContext } from "../../../../contexts/UserContext";
 import { Container, Memberphoto } from "./styles";
 
 function MemberPhoto(props) {
@@ -10,7 +10,12 @@ function MemberPhoto(props) {
   const lastName = chars.length > 1 ? chars[1] : "";
   return (
     <Container $hidden={props.$hidden}>
-      <Memberphoto>
+      <Memberphoto
+        $userPhotoWidth={props.$userPhotoWidth}
+        $userPhotoHeight={props.$userPhotoHeight}
+        $userPhotoFontSize={props.$userPhotoFontSize}
+        $userBorderadius={props.$userBorderadius}
+      >
         {firstName[0]}
         {lastName[0]}
       </Memberphoto>

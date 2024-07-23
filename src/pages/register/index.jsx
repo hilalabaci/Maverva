@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Input from "../../components/input";
-import Button from "../../components/button";
+
+import Button from "../../components/tools/button";
 import { useUserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import {
@@ -17,6 +17,7 @@ import {
   BrandTitle,
   StyledLink,
 } from "../login/styles";
+import Input from "../../components/tools/input";
 
 function Register(props) {
   const navigate = useNavigate();

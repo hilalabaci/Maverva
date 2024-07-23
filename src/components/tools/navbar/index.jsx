@@ -1,4 +1,3 @@
-import Search from "../search";
 import React from "react";
 import MemberButton from "../user/member-button";
 
@@ -12,7 +11,8 @@ import {
   DarkMode,
 } from "./styles";
 import { Button } from "@mui/material";
-import { useTheme } from "../../contexts/ThemeContext";
+import { useTheme } from "../../../contexts/ThemeContext";
+import Search from "../search";
 
 function Navbar(props) {
   const { changeMode, mode, theme } = useTheme();

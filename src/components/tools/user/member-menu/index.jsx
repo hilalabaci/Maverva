@@ -1,5 +1,5 @@
 import React from "react";
-import { useUserContext } from "../../../contexts/UserContext";
+import { useUserContext } from "../../../../contexts/UserContext";
 import {
   Container,
   Title,
@@ -10,8 +10,8 @@ import {
   MemberName,
   MemberEmail,
   Logout,
-} from "../member-menu/styles";
-import useOutsideClick from "../../../hooks/useOutsideClick";
+} from "./styles";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
 
 function MemberMenu(props) {
   const { setUser } = useUserContext();
