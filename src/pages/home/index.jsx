@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import BoardMenu from "../../components/actions/boards/board-menu";
 import Navbar from "../../components/tools/navbar";
 import CardList from "../../components/actions/card/card-list/index";
+import TopMenu from "../../components/actions/top-menu";
 import {
   Container,
   NavbarWrapper,
@@ -11,7 +14,6 @@ import {
   GlobalStyle,
   MainContainer,
 } from "./styles";
-import TopMenu from "../../components/actions/top-menu";
 
 function Home(props) {
   const [cards, setCards] = useState([]);
@@ -48,6 +50,7 @@ function Home(props) {
   function deleteCard(id) {
     setCards(cards.filter((card) => card._id !== id));
   }
+
   function updateCard(id, card) {
     const index = cards.findIndex((b) => b._id === card._id);
     const newCards = [...cards];
@@ -55,15 +58,18 @@ function Home(props) {
     setCards(newCards);
     /*    setCards([...cards.filter((card) => card._id !== id), card]); */
   }
+
   function addedCard(card) {
     setCards([...cards, card]);
   }
+
   function onBoardUpdate(board) {
     const index = boards.findIndex((b) => b._id === board._id);
     const newBoards = [...boards];
     newBoards[index] = board;
     setBoards(newBoards);
   }
+
   const onSearch = (e) => {
     setSearchInput(e.target.value);
   };
@@ -93,7 +99,7 @@ function Home(props) {
 
           <Main>
             {boardId ? (
-              <>
+              <DndProvider backend={HTML5Backend}>
                 <CardList
                   onUpdate={updateCard}
                   onDelete={deleteCard}
@@ -139,7 +145,7 @@ function Home(props) {
                   cards={filteredCards.filter((card) => card.status === 3)}
                   status={3}
                 />
-              </>
+              </DndProvider>
             ) : undefined}
           </Main>
         </MainContainer>

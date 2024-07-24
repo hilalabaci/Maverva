@@ -5,15 +5,37 @@ import NumberOfCards from "../number-cards";
 import {
   CardWrapper,
   Container,
-  Title,  
+  Title,
   TitleWrapper,
   AddCardButtonWrapper,
   AddCardButton,
-  IconAdd
+  IconAdd,
 } from "./styles";
 import AddCard from "../add-a-card/AddCard";
+import { useDrop } from "react-dnd";
 
 function CardList(props) {
+  async function updateStatus(id, status) {
+    const body = { status, id };
+    const response = await fetch(process.env.REACT_APP_API_URL + "card", {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      props.onUpdate(id, data);
+    }
+  }
+  const [, drop] = useDrop({
+    accept: "CARD",
+    drop: (item) => {
+      updateStatus(item.id, props.status);
+    },
+  });
+
   const [showAdd, setShowAdd] = useState(false);
   function dynamicAddCard() {
     setShowAdd(true);
@@ -23,7 +45,7 @@ function CardList(props) {
     setShowAdd(false);
   }
   return (
-    <Container>
+    <Container ref={drop}>
       <TitleWrapper>
         <Title>{props.title}</Title>
         <NumberOfCards

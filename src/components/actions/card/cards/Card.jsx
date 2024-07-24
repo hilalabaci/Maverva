@@ -12,8 +12,16 @@ import {
   MoreIcon,
   MoreIconWrapper,
 } from "./styles";
+import { useDrag } from "react-dnd";
 
 function Card(props) {
+  const [{ isDragging }, drag] = useDrag({
+    type: "CARD",
+    item: { id: props.id },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
   const [showModal, setShowModal] = useState(false);
 
   function openModal() {
@@ -24,7 +32,7 @@ function Card(props) {
   }
 
   return (
-    <Container>
+    <Container ref={drag}>
       <GlobalStyle />
       {showModal && (
         <Modal onClose={closeModal}>
