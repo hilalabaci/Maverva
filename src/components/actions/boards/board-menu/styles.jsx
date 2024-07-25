@@ -21,7 +21,6 @@ export const AddBoardWrapper = styled.div`
   font-family: "Inter";
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
   align-items: center;
   text-align: center;
@@ -33,7 +32,6 @@ export const AddBoardWrapper = styled.div`
   }
 `;
 export const ListWrapper = styled.div`
-  margin: 0px 30px;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
   @media only screen and (max-width: 768px) {
     padding: 0;

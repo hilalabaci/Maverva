@@ -6,11 +6,11 @@ import MemberPhoto from "../../../tools/user/member-photo";
 import {
   Container,
   NoteWrapper,
-  IconWrapper,
+  CardButtomWrapper,
   LabelWrapper,
   GlobalStyle,
-  MoreIcon,
-  MoreIconWrapper,
+  EditIcon,
+  CardTopWrapper,
 } from "./styles";
 import { useDrag } from "react-dnd";
 
@@ -50,23 +50,23 @@ function Card(props) {
           />
         </Modal>
       )}
-      <MoreIconWrapper>
-        <MoreIcon onClick={openModal} />
-      </MoreIconWrapper>
-      <NoteWrapper>{props.title}</NoteWrapper>
-      <IconWrapper>
+      <CardTopWrapper>
         <LabelWrapper>
           {props.labels.map((label, index) => {
             return <Label key={index} color={label.colour} />;
           })}
         </LabelWrapper>
+        <EditIcon onClick={openModal} />
+      </CardTopWrapper>
+      <NoteWrapper>{props.title}</NoteWrapper>
+      <CardButtomWrapper>
         <MemberPhoto
           $userPhotoWidth="25px"
           $userPhotoHeight="25px"
           $userPhotoFontSize="10px"
           $userBorderadius="50px"
         />
-      </IconWrapper>
+      </CardButtomWrapper>
     </Container>
   );
 }

@@ -1,22 +1,20 @@
 import styled, { createGlobalStyle } from "styled-components";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
 export const GlobalStyle = createGlobalStyle`
 
 `;
-export const MoreIconWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-export const MoreIcon = styled(MoreHorizIcon)`
+export const EditIcon = styled(ModeEditOutlineOutlinedIcon)`
   opacity: 0;
   display: flex;
   justify-content: flex-end;
+  font-size: 17px !important;
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
     opacity: 1;
   }
 `;
+
 export const Container = styled.div`
   background-color: ${(props) => props.theme.cardBG};
   display: flex;
@@ -24,11 +22,12 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 5px;
   border-radius: 5px;
+  gap: 3px;
   background-color: ${(props) => props.theme.cardBG};
   :hover {
     background-color: ${(props) => props.theme.cardBGHover};
   }
-  :hover ${MoreIcon} {
+  :hover ${EditIcon} {
     opacity: 1;
   }
   @media only screen and (max-width: 768px) {
@@ -36,6 +35,10 @@ export const Container = styled.div`
     border-radius: 15px;
     height: 60px;
   }
+`;
+export const CardTopWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 export const NoteWrapper = styled.div`
   flex: 1;
@@ -50,26 +53,26 @@ export const NoteWrapper = styled.div`
   resize: none;
   outline: none;
   border: none;
-  padding:0 5px;
+  padding: 0 5px;
   @media only screen and (max-width: 768px) {
     font-size: 10px;
     overflow: scroll;
   }
 `;
+export const CardButtomWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const ContainerUser = styled.div`
   font-size: 1px !important;
   width: 20px !important;
   height: 20px !important;
 `;
-export const IconWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
+
 export const LabelWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4px;
-  padding-top: 10px;
+  gap: 2px;
 `;
-export const iconButton = styled;
