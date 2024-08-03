@@ -75,7 +75,7 @@ function CardList(props) {
           />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">
-            <IconAdd /> Add a card
+            <IconAdd /> Create issue
           </AddCardButton>
         )}
       </AddCardButtonWrapper>

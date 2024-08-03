@@ -22,8 +22,8 @@ export const Wrapper = styled.div`
   flex-direction: row;
 `;
 export const Menu = styled.div`
-display: flex;
-  width: ${(props) => (props.$hidden ? "50px" : "250px")};
+  display: flex;
+  width: ${(props) => (props.$hidden ? "50px" : "")};
 `;
 export const Main = styled.div`
   flex: 1;
@@ -31,16 +31,15 @@ export const Main = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  margin-top: 10px;
 `;
 export const MainContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 35px;
+  margin:0 10px;
   @media only screen and (max-width: 768px) {
-    margin-left: 10px;
+    margin-left: 7px;
     overflow-x: scroll;
   }
 `;

@@ -9,6 +9,8 @@ import {
   SearchUser,
   LightMode,
   DarkMode,
+  ButtonNotification,
+  IconNotification,
 } from "./styles";
 import { Button } from "@mui/material";
 import { useTheme } from "../../../contexts/ThemeContext";
@@ -25,6 +27,9 @@ function Navbar(props) {
       </BrandContainer>
       <SearchUser>
         <Search onSearch={props.onSearch} />
+        <ButtonNotification>
+          <IconNotification />
+        </ButtonNotification>
         <Button
           onClick={() => {
             changeMode(mode === "light" ? "dark" : "light");

@@ -1,11 +1,13 @@
 import styled, { createGlobalStyle } from "styled-components";
-
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import PersonIcon from "@mui/icons-material/Person";
 export const GlobalStyle = createGlobalStyle`
 
 `;
 
 export const Container = styled.div`
   display: flex;
+  justify-content: flex-start;
   height: 75px;
   width: -webkit-fill-available;
   align-items: center;
@@ -37,8 +39,8 @@ export const BoardTitle = styled.h1`
 `;
 
 export const TitleContainer = styled.div`
-  background-color: ${(props) => props.theme.boardColour};
-  border-radius: 5px;
+  //background-color: ${(props) => props.theme.boardColour};
+  border-radius: 2px;
   height: 48px;
   display: flex;
   flex-direction: column;
@@ -66,4 +68,50 @@ export const EditBoardTitle = styled.input`
   @media only screen and (max-width: 768px) {
     font-size: 15px;
   }
+`;
+export const AssignMemberContainer = styled.div`
+  display: flex;
+`;
+export const ButtonStylesforIconPerson = styled.button`
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  margin-left: -10px;
+  border-radius: 50px;
+  font-family: Inter;
+  width: 40px;
+  height: 40px;
+  background-color: #b6c2cf;
+  border: 2px solid  ${(props) => props.theme.primary};
+  :hover {
+    z-index: 1;
+  }
+`;
+export const ButtonStylesforPersonAdd = styled.button`
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  border-radius: 50px;
+  font-family: Inter;
+  width: 40px;
+  height: 40px;
+  background-color: #a1bdd914;
+  color: #b6c2cf;
+  :hover {
+    background-color: #a6c5e229;
+  }
+`;
+
+export const IconPersonAdd = styled(PersonAddAlt1Icon)`
+  width: 25px !important;
+  height: 25px !important;
+  color: ${(props) => props.theme.fontColour};
+`;
+export const IconPerson = styled(PersonIcon)`
+  width: 25px !important;
+  height: 25px !important;
+  color: #1d2125;
 `;

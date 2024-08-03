@@ -21,7 +21,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 2px;
   gap: 3px;
   background-color: ${(props) => props.theme.cardBG};
   :hover {

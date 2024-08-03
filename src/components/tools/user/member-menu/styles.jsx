@@ -9,7 +9,7 @@ export const Container = styled.div`
   font-family: "Inter";
   color: ${(props) => props.theme.fontColour};
   padding: 15px;
-  border-radius: 3px;
+  border-radius: 2px;
   border: 1px solid ${(props) => props.theme.borderLineColour};
   @media only screen and (max-width: 768px) {
     width: 100px;

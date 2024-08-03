@@ -9,6 +9,7 @@ export const InputStyle = styled.input`
   font-family: "Inter";
   outline: none;
   letter-spacing: 0.05em;
+  text-align: center;
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
@@ -16,7 +17,7 @@ export const InputStyle = styled.input`
 export const Container = styled.form`
   border: 1px solid ${(props) => props.theme.fontColour};
   height: 45px;
-  border-radius: 5px;
+  border-radius: 2px;
   display: flex;
   flex-direction: row;
   align-items: center;

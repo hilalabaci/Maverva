@@ -15,7 +15,7 @@ export const Backdrop = styled.div`
 `;
 export const Container = styled.div`
   background: none;
-  border-radius: 5px;
+  border-radius: 2px;
   max-width: 100%;
   box-sizing: border-box;
 

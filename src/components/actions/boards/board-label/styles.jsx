@@ -3,7 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export const Wrapper = styled.div`
   height: 45px;
-  border-radius: 7px;
+  border-radius: 2px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,7 +11,12 @@ export const Wrapper = styled.div`
   padding: 0px 20px;
   width: 150px;
   margin-bottom: 20px;
-  background-color: ${(props) => props.theme.boardBG};
+  background: linear-gradient(
+    135deg,
+    rgb(113, 183, 230, 0.3),
+    rgb(155, 89, 182, 0.3)
+  );
+  //background-color: ${(props) => props.theme.boardBG};
   :hover {
     background-color: rgba(255, 255, 255, 0.427);
   }

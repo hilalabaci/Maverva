@@ -11,11 +11,12 @@ export const Memberphoto = styled.div`
   height: ${(props) => props.$userPhotoHeight};
   font-size: ${(props) => props.$userPhotoFontSize};
   border-radius: ${(props) => props.$userBorderadius};
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  border: ${(props) => props.$userBorder};
+  //background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  background-color: #de835d;
   position: relative;
   color: white;
   text-transform: uppercase;
-
   font-weight: 700;
   font-family: "Inter";
   @media only screen and (max-width: 768px) {

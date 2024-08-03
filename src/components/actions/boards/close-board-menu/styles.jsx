@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 304px;
   background: rgba(255, 255, 255, 0.17);
-  border-radius: 3px;
+  border-radius: 2px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 15px;
   font-family: "Inter";
@@ -44,7 +44,7 @@ export const ButtonWrapper = styled.div`
 `;
 export const DeleteButton = styled.button`
   background: #f87462;
-  border-radius: 3px;
+  border-radius: 2px;
   height: 38px;
   display: flex;
   width: 100%;

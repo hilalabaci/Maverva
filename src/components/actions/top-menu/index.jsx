@@ -4,7 +4,15 @@ import {
   BoardTitle,
   EditBoardTitle,
   TitleContainer,
+  AssignMemberContainer,
+  ButtonStylesforPersonAdd,
+  IconPersonAdd,
+  IconPerson,
+  ButtonStylesforIconPerson,
 } from "./styles";
+import MemberPhoto from "../../tools/user/member-photo";
+import Modal from "../modal";
+import AddPerson from "../addPerson";
 
 function TopMenu(props) {
   const [boardTitle, setBoardTitle] = useState(props.topMenuTitle);
@@ -38,9 +46,21 @@ function TopMenu(props) {
     setEditBoardTitle(false);
     updateTitle();
   }
+  const [showModal, setShowModal] = useState(false);
 
+  function openModal() {
+    setShowModal(true);
+  }
+  function closeModal() {
+    setShowModal(false);
+  }
   return (
     <Container onBlur={closeEditBoardTitle}>
+      {showModal && (
+        <Modal onClose={closeModal} >
+          <AddPerson closeModal={closeModal}/>
+        </Modal>
+      )}
       <TitleContainer>
         {editBoardTitle ? (
           <EditBoardTitle
@@ -53,6 +73,21 @@ function TopMenu(props) {
           <BoardTitle onClick={openEditBoardTitle}>{boardTitle}</BoardTitle>
         )}
       </TitleContainer>
+      <AssignMemberContainer>
+        <MemberPhoto
+          $userPhotoWidth="40px"
+          $userPhotoHeight="40px"
+          $userPhotoFontSize="15px"
+          $userBorderadius="50px"
+          $userBorder="2px solid rgba(143,180,230,255)"
+        />
+        <ButtonStylesforIconPerson>
+          <IconPerson />
+        </ButtonStylesforIconPerson>
+        <ButtonStylesforPersonAdd onClick={openModal}>
+          <IconPersonAdd />
+        </ButtonStylesforPersonAdd>
+      </AssignMemberContainer>
     </Container>
   );
 }

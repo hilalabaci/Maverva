@@ -7,7 +7,6 @@ import {
   Textarea,
 } from "./styles";
 
-
 function AddCard(props) {
   const [content, setContent] = useState("");
   function handleChange(event) {
@@ -39,6 +38,9 @@ function AddCard(props) {
   }
   return (
     <Container>
+      <ButtonWrapper>
+        <CloseIcon onClick={props.onClose} />
+      </ButtonWrapper>
       <Textarea
         name="addCardArea"
         value={content}
@@ -49,8 +51,7 @@ function AddCard(props) {
         cols="50"
       ></Textarea>
       <ButtonWrapper>
-        <Button onClick={submitNote}>Add card</Button>
-        <CloseIcon onClick={props.onClose} />
+        <Button onClick={submitNote}>Create</Button>
       </ButtonWrapper>
     </Container>
   );

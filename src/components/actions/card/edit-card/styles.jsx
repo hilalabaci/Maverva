@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
   width: 80px;
   gap: 10px;
   background: rgba(255, 255, 255, 0.17);
-  border-radius: 3px;
+  border-radius: 2px;
   clear: both;
   color: #c7d1db;
   float: left;

@@ -15,6 +15,7 @@ function MemberPhoto(props) {
         $userPhotoHeight={props.$userPhotoHeight}
         $userPhotoFontSize={props.$userPhotoFontSize}
         $userBorderadius={props.$userBorderadius}
+        $userBorder={props.$userBorder}
       >
         {firstName[0]}
         {lastName[0]}

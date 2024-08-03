@@ -6,7 +6,7 @@ export const Container = styled.div`
   width: 304px;
   background: rgba(255, 255, 255, 0.17);
   margin-left: 15px;
-  border-radius: 3px;
+  border-radius: 2px;
 `;
 export const Header = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ export const Content = styled.div`
 export const Label = styled.div`
   width: 56px;
   height: 32px;
-  border-radius: 3px;
+  border-radius: 2px;
   background-color: ${(props) => props.colourLabel};
   flex: 1;
   :hover {

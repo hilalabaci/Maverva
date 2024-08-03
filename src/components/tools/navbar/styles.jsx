@@ -1,7 +1,8 @@
 import styled, { createGlobalStyle } from "styled-components";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 export const GlobalStyle = createGlobalStyle`
 #root,
@@ -49,16 +50,24 @@ export const SearchUser = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
-  gap: 15px;
 `;
 export const UserWrapper = styled.div``;
 export const SearchWrapper = styled.div``;
 
 export const LightMode = styled(LightModeIcon)`
   color: ${(props) => props.theme.fontColour};
-  font-size: 16px !important;
+  font-size: 23px !important;
 `;
 export const DarkMode = styled(DarkModeIcon)`
   color: ${(props) => props.theme.fontColour};
-  font-size: 16px !important;
+  font-size: 23px !important;
+`;
+export const ButtonNotification = styled.button`
+  outline: none;
+  border: none;
+  background-color:  ${(props) => props.theme.primary};;
+`;
+export const IconNotification = styled(NotificationsIcon)`
+  color: ${(props) => props.theme.fontColour};
+  font-size: 23px !important;
 `;
