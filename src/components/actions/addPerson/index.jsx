@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+//import { formatDistanceToNow } from "date-fns";
 import {
   ButtonWrapper,
   Container,
@@ -17,19 +18,30 @@ import Modal from "../modal";
 import AddedPerson from "../addedPerson";
 
 function AddPerson(props) {
-  const [emailforAddPerson, setEmailforAddPerson] = useState("");
+  //const [boardTitle, setBoardTitle] = useState("");
   const [showModal, setShowModal] = useState(false);
+  //const [clickTime, setClickTime] = useState(null);
 
-  function handleChange(event) {
-    setEmailforAddPerson(event.target.value);
-  }
-
-  function openModal(e) {
+  function openModal() {
     setShowModal(true);
-    e.preventDefault();
   }
   function closeModal() {
     setShowModal(false);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    /**const now = new Date();
+    setClickTime(now);
+    const timeForAddPerson = formatDistanceToNow(clickTime, {
+      addSuffix: true,
+    });
+    console.log(timeForAddPerson);**/
+
+    const result = await props.onSubmit();
+    if (result) {
+      openModal();
+    }
   }
 
   return (
@@ -38,7 +50,7 @@ function AddPerson(props) {
         <Modal onClose={closeModal}>
           <AddedPerson
             onClose={closeModal}
-            emailforAddPerson={emailforAddPerson}
+            emailforAddPerson={props.emailforAddPerson}
           />
         </Modal>
       )}
@@ -47,12 +59,12 @@ function AddPerson(props) {
           <TitleWrapper>
             <Title>Add People</Title>
           </TitleWrapper>
-          <FormWrapper>
+          <FormWrapper onSubmit={handleSubmit} >
             <MailWrapper>
               <LabelTitle for="email">Names or emails</LabelTitle>
               <MailInput
-                onChange={handleChange}
-                value={emailforAddPerson}
+                onChange={props.handleChange}
+                value={props.emailforAddPerson}
                 name="email"
                 placeholder="e.g., Maria, maria@company.com"
               ></MailInput>
@@ -63,7 +75,7 @@ function AddPerson(props) {
             </RoleWrapper> */}
             <ButtonWrapper>
               <CancelButton onClick={props.closeModal}>Cancel</CancelButton>
-              <SubmitButton onClick={openModal}>Add</SubmitButton>
+              <SubmitButton type="submit">Add</SubmitButton>
             </ButtonWrapper>
           </FormWrapper>
         </FielsetWrapper>

@@ -13,9 +13,15 @@ import {
 import MemberPhoto from "../../tools/user/member-photo";
 import Modal from "../modal";
 import AddPerson from "../addPerson";
+import { useUserContext } from "../../../contexts/UserContext";
 
 function TopMenu(props) {
   const [boardTitle, setBoardTitle] = useState(props.topMenuTitle);
+  const { user } = useUserContext();
+  const [emailforAddPerson, setEmailforAddPerson] = useState("");
+  function handleChange(event) {
+    setEmailforAddPerson(event.target.value);
+  }
 
   useEffect(() => {
     setBoardTitle(props.topMenuTitle);
@@ -54,11 +60,37 @@ function TopMenu(props) {
   function closeModal() {
     setShowModal(false);
   }
+  async function onSubmit() {
+    const boardId = props.boardId;
+    const boardData = {
+      boardId: boardId,
+      email: emailforAddPerson,
+      userId: user._id,
+    };
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "board/add-user",
+      {
+        method: "POST",
+        body: JSON.stringify(boardData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return response.ok;
+  }
+
   return (
     <Container onBlur={closeEditBoardTitle}>
       {showModal && (
-        <Modal onClose={closeModal} >
-          <AddPerson closeModal={closeModal}/>
+        <Modal onClose={closeModal}>
+          <AddPerson
+            closeModal={closeModal}
+            onSubmit={onSubmit}
+            emailforAddPerson={emailforAddPerson}
+            handleChange={handleChange}
+          />
         </Modal>
       )}
       <TitleContainer>

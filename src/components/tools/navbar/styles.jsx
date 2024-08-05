@@ -65,9 +65,19 @@ export const DarkMode = styled(DarkModeIcon)`
 export const ButtonNotification = styled.button`
   outline: none;
   border: none;
-  background-color:  ${(props) => props.theme.primary};;
+  background-color: ${(props) => props.theme.primary};
 `;
 export const IconNotification = styled(NotificationsIcon)`
   color: ${(props) => props.theme.fontColour};
   font-size: 23px !important;
+`;
+export const NotificationCount = styled.span`
+  position: absolute;
+  top: 12px;
+  right: 102px;
+  background: rgba(224, 53, 13, 255);
+  color: white;
+  border-radius: 8px;
+  padding: 1px 8px;
+  font-size: 10px;
 `;

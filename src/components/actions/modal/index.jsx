@@ -5,7 +5,7 @@ import useOutsideClick from "../../../hooks/useOutsideClick";
 function Modal(props) {
   const ref = useOutsideClick(props.onClose);
   return (
-    <Backdrop>
+    <Backdrop style={props.style}>
       <Container ref={ref}>{props.children}</Container>
     </Backdrop>
   );

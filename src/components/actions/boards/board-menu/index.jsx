@@ -13,9 +13,10 @@ import {
   PlusIcon,
 } from "./styles";
 import BoardCreate from "../board-add/create";
-import BoardList from "../board-list/index"
+import BoardList from "../board-list/index";
 
 function BoardMenu(props) {
+  const { user } = useUserContext();
   const [key, setKey] = useState(false);
   const [hideMenu, setHideMenu] = useState(false);
 
@@ -52,7 +53,7 @@ function BoardMenu(props) {
     props.setBoards([data, ...props.boards]);
     setKey(false);
   }
-  const { user } = useUserContext();
+
   const userFullName = user.fullName;
   const chars = userFullName.split(" ");
   const firstName = chars[0];

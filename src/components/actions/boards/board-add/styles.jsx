@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from "styled-components";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export const InputStyle = styled.input`

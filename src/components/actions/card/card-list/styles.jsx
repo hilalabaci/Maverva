@@ -37,7 +37,7 @@ export const Title = styled.title`
 `;
 export const CardWrapper = styled.div`
   overflow: scroll;
-  max-height:400px;
+  max-height:480px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
