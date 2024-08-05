@@ -27,6 +27,7 @@ function Navbar(props) {
   const [notifications, setNotifications] = useState([]);
   function openModal() {
     if (!showModal) setShowModal(true);
+    markNotificationsRead();
   }
   function closeModal() {
     setShowModal(false);
@@ -35,6 +36,27 @@ function Navbar(props) {
   useEffect(() => {
     loadNotificatios();
   }, []);
+
+  async function markNotificationsRead() {
+    const unReadNotificationIds = notifications
+      .filter((n) => !n.isRead)
+      .map((n) => n._id);
+    if (unReadNotificationIds.length <= 0) return;
+    const body = { notificationIds: unReadNotificationIds };
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "notification/mark-read",
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      setNotifications(notifications.map((n) => ({ ...n, isRead: true })));
+    }
+  }
 
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
 
