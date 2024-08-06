@@ -45,6 +45,3 @@ export const TimeInfo = styled.span`
   opacity: 0.5;
   margin-left: 5px;
 `;
-export const BoardTitleforNotification = styled.span`
-  font-weight: bold;
-`;

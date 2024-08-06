@@ -10,7 +10,6 @@ import {
   Main,
   MainInfo,
   TimeInfo,
-  BoardTitleforNotification
 } from "./styles";
 
 function Notification(props) {
@@ -29,7 +28,6 @@ function Notification(props) {
           <Main>
             <MainInfo>
               {notification.message}
-              <BoardTitleforNotification>{notification.boardId.title}</BoardTitleforNotification>
             </MainInfo>
             <TimeInfo>
               {formatDistanceToNow(notification.createdAdd, {
