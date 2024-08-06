@@ -14,9 +14,10 @@ export const Backdrop = styled.div`
   align-items: center;
 `;
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
   background: none;
   border-radius: 2px;
   max-width: 100%;
   box-sizing: border-box;
-
 `;
