@@ -12,6 +12,9 @@ import {
   ButtonNotification,
   IconNotification,
   NotificationCount,
+  NotificationContainer,
+  NotificationWrapper,
+  Title,
 } from "./styles";
 import { Button } from "@mui/material";
 import { useTheme } from "../../../contexts/ThemeContext";
@@ -111,13 +114,18 @@ function Navbar(props) {
             alignItems: "flex-start",
             justifyContent: "flex-end",
             top: "61px",
-            right: "4px",
+            right: "110px",
             background: "none",
           }}
         >
-          {notifications.map((n) => {
-            return <Notification key={n._id} notification={n} />;
-          })}
+          <NotificationContainer>
+            <NotificationWrapper>
+            <Title>Notification</Title>
+            {notifications.map((n) => {
+              return <Notification key={n._id} notification={n} />;
+            })}
+            </NotificationWrapper>
+          </NotificationContainer>
         </Modal>
       )}
     </NavbarContainer>

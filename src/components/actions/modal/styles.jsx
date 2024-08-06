@@ -19,12 +19,5 @@ export const Container = styled.div`
   background: none;
   border-radius: 2px;
   max-width: 100%;
-  height: 90%;
-  overflow: scroll;
   box-sizing: border-box;
-  box-shadow: var(
-    --ds-shadow-overlay,
-    0 4px 8px -2px rgba(9, 30, 66, 0.25),
-    0 0 1px rgba(9, 30, 66, 0.31)
-  );
 `;

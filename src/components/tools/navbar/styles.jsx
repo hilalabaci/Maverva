@@ -81,3 +81,20 @@ export const NotificationCount = styled.span`
   padding: 1px 8px;
   font-size: 10px;
 `;
+export const NotificationContainer = styled.div`
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  box-shadow: var(
+    --ds-shadow-overlay,
+    0 4px 8px -2px rgba(9, 30, 66, 0.25),
+    0 0 1px rgba(9, 30, 66, 0.31)
+  );
+`;
+export const NotificationWrapper = styled.div`
+  padding: 15px;
+`;
+export const Title = styled.header`
+  border-bottom: 2px solid rgba(225, 227, 231, 255);
+  font-size: 24px;
+`;

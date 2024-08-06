@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 export const GenerelWrapper = styled.div`
   width: 354px;
-  background-color: #282e32;
+  background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.fontColour};
   font-weight: 600;
   font-family: Inter;
@@ -39,9 +39,9 @@ export const LabelTitle = styled.label`
   color: rgba(136, 151, 165, 255);
 `;
 export const MailInput = styled.input`
-  background-color: #22272b;
+  background-color: ${(props) => props.theme.modalInputBg};
   padding: 10px;
-  border: 1px solid rgba(55, 64, 73, 255);
+  border: 1px solid rgb(136, 151, 165);
   border-radius: 2px;
   color: ${(props) => props.theme.fontColour};
   :focus-visible {
@@ -74,7 +74,7 @@ export const ButtonWrapper = styled.div`
 `;
 export const CancelButton = styled.button`
   color: ${(props) => props.theme.fontColour};
-  background-color: #282e32;
+  background-color: ${(props) => props.theme.modalBg};
   border: none;
   outline: none;
   font-size: 14px;
@@ -82,7 +82,7 @@ export const CancelButton = styled.button`
   border-radius: 2px;
   padding: 9px;
   :hover {
-    background-color: rgba(50, 57, 64, 255);
+    background-color: ${(props) => props.theme.modalInputBg};
   }
 `;
 export const SubmitButton = styled.button`

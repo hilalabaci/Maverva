@@ -2,19 +2,13 @@ import styled from "styled-components";
 import Markdown from "react-markdown";
 
 export const Container = styled.div`
-  width: 320px;
-  padding: 10px;
   background-color: ${(props) =>
     props.$isRead ? props.theme.ModalBg : "  rgba(168, 204, 255, 0.3);"};
-  font-family: Inter;
-  border-bottom: ${(props) => props.theme.borderforModal};
-  box-shadow: var(
-    --ds-shadow-overlay,
-    0 4px 8px -2px rgba(9, 30, 66, 0.25),
-    0 0 1px rgba(9, 30, 66, 0.31)
-  );
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen",
+    Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  margin: 15px 0;
 `;
-export const Title = styled.h2``;
+
 export const Wrapper = styled.div`
   display: flex;
   align-items: flex-start;
