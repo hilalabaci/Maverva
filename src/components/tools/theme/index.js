@@ -9,11 +9,13 @@ export const darkTheme = {
   boardBG: "rgba(255, 255, 255, 0.16)",
   searchBorder: " rgba(255, 255, 255, 0.54)",
   activeBorder: "2px solid rgba(143,180,230,255)",
-  // #579dff active button
+  ModalBg: "rgb(40, 46, 50)",
+  borderforModal: "1px solid rgba(55, 64, 73, 255)",
 
+  // #579dff active button
 };
 export const lightTheme = {
-  primary: "#fff",
+  primary: "rgba(255,255,255,255)",
   boardColour: "#F4F5F7",
   cardBG: "#fff",
   cardBGHover: "#F4F5F7",
@@ -23,4 +25,5 @@ export const lightTheme = {
   boardBG: "rgba(24, 27, 30, 0.1)",
   searchBorder: "rgba(24, 27, 30, 0.2)",
   activeBorder: "2px solid rgba(143,180,230,255)",
+  ModalBg: "#fff",
 };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import { formatDistanceToNow } from "date-fns";
 import {
   ButtonWrapper,
   Container,
@@ -18,9 +17,7 @@ import Modal from "../modal";
 import AddedPerson from "../addedPerson";
 
 function AddPerson(props) {
-  //const [boardTitle, setBoardTitle] = useState("");
   const [showModal, setShowModal] = useState(false);
-  //const [clickTime, setClickTime] = useState(null);
 
   function openModal() {
     setShowModal(true);
@@ -31,13 +28,6 @@ function AddPerson(props) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    /**const now = new Date();
-    setClickTime(now);
-    const timeForAddPerson = formatDistanceToNow(clickTime, {
-      addSuffix: true,
-    });
-    console.log(timeForAddPerson);**/
-
     const result = await props.onSubmit();
     if (result) {
       openModal();
@@ -49,7 +39,10 @@ function AddPerson(props) {
       {showModal && (
         <Modal onClose={closeModal}>
           <AddedPerson
-            onClose={closeModal}
+            onClose={() => {
+              closeModal();
+              props.closeModal();
+            }}
             emailforAddPerson={props.emailforAddPerson}
           />
         </Modal>
@@ -59,7 +52,7 @@ function AddPerson(props) {
           <TitleWrapper>
             <Title>Add People</Title>
           </TitleWrapper>
-          <FormWrapper onSubmit={handleSubmit} >
+          <FormWrapper onSubmit={handleSubmit}>
             <MailWrapper>
               <LabelTitle for="email">Names or emails</LabelTitle>
               <MailInput

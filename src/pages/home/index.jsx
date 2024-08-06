@@ -14,13 +14,13 @@ import {
   GlobalStyle,
   MainContainer,
 } from "./styles";
+import { useApplicationContext } from "../../contexts/ApplicationContext";
 
 function Home(props) {
+  const { setBoard, board } = useApplicationContext();
   const [cards, setCards] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
   const [boards, setBoards] = useState([]);
-  const [boardId, setBoardId] = useState("");
-  const [boardTitle, setBoardTitle] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
@@ -29,11 +29,10 @@ function Home(props) {
     );
   }, [searchInput, cards]);
 
-  async function loadCards(boardId, boardTitle) {
-    setBoardId(boardId);
-    setBoardTitle(boardTitle);
+  async function loadCards(board) {
+    setBoard(board);
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "card?boardId=" + boardId,
+      process.env.REACT_APP_API_URL + "card?boardId=" + board._id,
       {
         method: "GET",
         headers: {
@@ -89,16 +88,16 @@ function Home(props) {
           />
         </Menu>
         <MainContainer>
-          {boardId ? (
+          {board ? (
             <TopMenu
               onBoardUpdate={onBoardUpdate}
-              boardId={boardId}
-              topMenuTitle={boardTitle}
+              boardId={board._id}
+              topMenuTitle={board.title}
             />
           ) : undefined}
 
           <Main>
-            {boardId ? (
+            {board ? (
               <DndProvider backend={HTML5Backend}>
                 <CardList
                   onUpdate={updateCard}
@@ -111,7 +110,7 @@ function Home(props) {
                   numberOfCards={
                     cards.filter((card) => card.status === 1).length
                   }
-                  boardId={boardId}
+                  boardId={board._id}
                   cards={filteredCards.filter((card) => card.status === 1)}
                   status={1}
                 />
@@ -126,7 +125,7 @@ function Home(props) {
                   numberOfCards={
                     cards.filter((card) => card.status === 2).length
                   }
-                  boardId={boardId}
+                  boardId={board._id}
                   cards={filteredCards.filter((card) => card.status === 2)}
                   status={2}
                 />
@@ -141,7 +140,7 @@ function Home(props) {
                   numberOfCards={
                     cards.filter((card) => card.status === 3).length
                   }
-                  boardId={boardId}
+                  boardId={board._id}
                   cards={filteredCards.filter((card) => card.status === 3)}
                   status={3}
                 />

@@ -25,17 +25,19 @@ function Navbar(props) {
   const { changeMode, mode, theme } = useTheme();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  function openModal() {
-    if (!showModal) setShowModal(true);
-    markNotificationsRead();
-  }
-  function closeModal() {
-    setShowModal(false);
+
+  function toggleModal() {
+    setShowModal((prev) => !prev);
+    if (!showModal) {
+      markNotificationsRead();
+    }
   }
 
   useEffect(() => {
-    loadNotificatios();
-  }, []);
+    if (user?._id) {
+      loadNotificatios();
+    }
+  }, [user]);
 
   async function markNotificationsRead() {
     const unReadNotificationIds = notifications
@@ -54,7 +56,9 @@ function Navbar(props) {
       }
     );
     if (response.ok) {
-      setNotifications(notifications.map((n) => ({ ...n, isRead: true })));
+      setTimeout(() => {
+        setNotifications(notifications.map((n) => ({ ...n, isRead: true })));
+      }, 5000);
     }
   }
 
@@ -84,11 +88,7 @@ function Navbar(props) {
       </BrandContainer>
       <SearchUser>
         <Search onSearch={props.onSearch} />
-        <ButtonNotification
-          onClick={() => {
-            !showModal ? openModal() : closeModal();
-          }}
-        >
+        <ButtonNotification onClick={toggleModal}>
           {unReadNotificationCount > 0 && (
             <NotificationCount>{unReadNotificationCount}</NotificationCount>
           )}
@@ -106,7 +106,7 @@ function Navbar(props) {
       </SearchUser>
       {showModal && (
         <Modal
-          onClose={closeModal}
+          onClose={toggleModal}
           style={{
             alignItems: "flex-start",
             justifyContent: "flex-end",
@@ -116,7 +116,7 @@ function Navbar(props) {
           }}
         >
           {notifications.map((n) => {
-            return <Notification notification={n} />;
+            return <Notification key={n._id} notification={n} />;
           })}
         </Modal>
       )}

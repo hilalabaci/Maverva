@@ -1,4 +1,3 @@
-import React from "react";
 import { ButtonStylesforIconPerson, IconPerson } from "../top-menu/styles";
 import { formatDistanceToNow } from "date-fns";
 import {
@@ -16,7 +15,7 @@ function Notification(props) {
   const { notification } = props;
 
   return (
-    <Container>
+    <Container $isRead={notification.isRead}>
       <Wrapper>
         <UserInfo>
           <ButtonStylesforIconPerson style={{ margin: 0 }}>
@@ -26,9 +25,7 @@ function Notification(props) {
         <Info>
           <UserName>{notification.fromUserId.fullName}</UserName>
           <Main>
-            <MainInfo>
-              {notification.message}
-            </MainInfo>
+            <MainInfo>{notification.message}</MainInfo>
             <TimeInfo>
               {formatDistanceToNow(notification.createdAdd, {
                 addSuffix: true,

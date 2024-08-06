@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
+import { ApplicationProvider } from "./contexts/ApplicationContext";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,7 +42,9 @@ function App() {
   return (
     <ThemeProvider>
       <UserProvider>
-        <RouterProvider router={router} />
+        <ApplicationProvider>
+          <RouterProvider router={router} />
+        </ApplicationProvider>
       </UserProvider>
     </ThemeProvider>
   );
