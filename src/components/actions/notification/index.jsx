@@ -23,8 +23,8 @@ function Notification(props) {
           </ButtonStylesforIconPerson>
         </UserInfo>
         <Info>
-          <UserName>{notification.fromUserId.fullName}</UserName>
           <Main>
+            <UserName>{notification.fromUserId.fullName}</UserName>
             <MainInfo>{notification.message}</MainInfo>
             <TimeInfo>
               {formatDistanceToNow(notification.createdAdd, {
