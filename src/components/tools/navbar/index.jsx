@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import MemberButton from "../user/member-button";
 
 import {
@@ -41,12 +41,27 @@ function Navbar(props) {
       markNotificationsRead();
     }
   }
+  const loadNotificatios = useCallback(async () => {
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "notification?userId=" + user._id,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      setNotifications(data);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user?._id) {
       loadNotificatios();
     }
-  });
+  }, [user, loadNotificatios]);
 
   async function markNotificationsRead() {
     const unReadNotificationIds = notifications
@@ -73,21 +88,6 @@ function Navbar(props) {
 
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
 
-  async function loadNotificatios() {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "notification?userId=" + user._id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setNotifications(data);
-    }
-  }
   return (
     <NavbarContainer color={theme.primary}>
       <GlobalStyle />

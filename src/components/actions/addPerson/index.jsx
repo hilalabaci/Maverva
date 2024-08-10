@@ -12,7 +12,6 @@ import {
   TitleWrapper,
   CancelButton,
   SubmitButton,
-  WarningMessage
 } from "./styles";
 import Modal from "../modal";
 import AddedPerson from "../addedPerson";
