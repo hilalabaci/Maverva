@@ -7,7 +7,6 @@ import {
   UserName,
   Info,
   Main,
-  MainInfo,
   TimeInfo,
 } from "./styles";
 
@@ -24,13 +23,14 @@ function Notification(props) {
         </UserInfo>
         <Info>
           <Main>
-            <UserName>{notification.fromUserId.fullName}</UserName>
-            <MainInfo>{notification.message}</MainInfo>
-            <TimeInfo>
-              {formatDistanceToNow(notification.createdAdd, {
-                addSuffix: true,
-              })}
-            </TimeInfo>
+            <UserName>
+              {notification.fromUserId.fullName} {notification.message}
+              <TimeInfo>
+                {formatDistanceToNow(notification.createdAdd, {
+                  addSuffix: true,
+                })}
+              </TimeInfo>
+            </UserName>
           </Main>
         </Info>
       </Wrapper>

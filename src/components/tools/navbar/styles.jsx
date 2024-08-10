@@ -26,7 +26,6 @@ export const BrandContainer = styled.a`
   align-items: center;
   text-align: center;
   letter-spacing: 0.05em;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
@@ -50,6 +49,8 @@ export const SearchUser = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  gap: 15px;
+  padding: 0px 15px;
 `;
 export const UserWrapper = styled.div``;
 export const SearchWrapper = styled.div``;
@@ -62,39 +63,70 @@ export const DarkMode = styled(DarkModeIcon)`
   color: ${(props) => props.theme.fontColour};
   font-size: 23px !important;
 `;
-export const ButtonNotification = styled.button`
+export const ButtonforNotification = styled.button`
   outline: none;
   border: none;
+  padding: 3px 4px;
+  border-radius: 50px;
+  //background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) =>
+    props.$isNotificationModalOpen ? "#E9F2FF" : props.theme.primary};
+  :hover {
+    background-color: #091e4224;
+  }
+`;
+export const ButtonforTheme = styled.button`
+  outline: none;
+  border: none;
+  padding: 3px 4px;
   background-color: ${(props) => props.theme.primary};
+
+  :hover {
+    border-radius: 50px;
+    background-color: #091e4224;
+  }
 `;
 export const IconNotification = styled(NotificationsIcon)`
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) =>
+    props.$isNotificationModalOpen ? "#0c66e4" : props.theme.fontColour};
   font-size: 23px !important;
 `;
 export const NotificationCount = styled.span`
   position: absolute;
-  top: 12px;
-  right: 102px;
-  background: rgba(224, 53, 13, 255);
+  top: 11px;
+  right: 109px;
+  background: #c9372c;
   color: white;
-  border-radius: 8px;
-  padding: 1px 8px;
-  font-size: 10px;
+  border-radius: 10px;
+  padding: 0px 8px;
+  font-size: 11px;
+  font: var(
+    --ds-font-body-UNSAFE_small,
+    normal 400 12px/16px ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    system-ui,
+    "Helvetica Neue",
+    sans-serif
+  );
 `;
 export const NotificationContainer = styled.div`
-  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   background-color: ${(props) => props.theme.modalBg};
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   border: 1px solid #dfe1e6; /* İsteğe bağlı olarak bir border ekleyebilirsiniz */
   border-radius: 8px;
+  width: 60%;
   //transform: translate3d(-142px, 51.5px, 0px);
 `;
 export const NotificationWrapper = styled.div`
   padding: 15px;
+  display: flex;
+  flex-direction: column-reverse;
 `;
 export const Title = styled.header`
   border-bottom: 2px solid rgba(225, 227, 231, 255);
   font-size: 24px;
-  
+  padding: 15px;
 `;

@@ -2,17 +2,16 @@ import styled from "styled-components";
 import Diversity1Icon from "@mui/icons-material/Diversity1";
 export const GenerelWrapper = styled.div`
   width: 354px;
-  background-color: #282e32;
+  background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.fontColour};
   font-weight: 600;
-  font-family: Inter;
   border-radius: 2px;
   padding: 15px 20px;
 `;
 export const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap:10px;
+  gap: 10px;
 `;
 export const Title = styled.h3``;
 export const IconAddedPerson = styled(Diversity1Icon)``;

@@ -24,7 +24,7 @@ export const TitleWrapper = styled.div`
   gap: 15px;
 `;
 export const Title = styled.title`
-  font-family: "Inter";
+  
   font-style: normal;
   font-weight: 600;
   font-size: 15px;
@@ -58,7 +58,6 @@ export const AddCardButton = styled.button`
   outline: none;
   border: none;
   border-radius: 2px;
-  font-family: "Inter";
   font-size: 13px;
   color: ${(props) => props.theme.fontColour};
   display: flex;

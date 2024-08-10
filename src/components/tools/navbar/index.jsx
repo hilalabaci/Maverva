@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MemberButton from "../user/member-button";
 
 import {
@@ -9,12 +9,13 @@ import {
   SearchUser,
   LightMode,
   DarkMode,
-  ButtonNotification,
   IconNotification,
   NotificationCount,
   NotificationContainer,
   NotificationWrapper,
   Title,
+  ButtonforTheme,
+  ButtonforNotification,
 } from "./styles";
 import { Button } from "@mui/material";
 import { useTheme } from "../../../contexts/ThemeContext";
@@ -25,13 +26,18 @@ import { useUserContext } from "../../../contexts/UserContext";
 
 function Navbar(props) {
   const { user } = useUserContext();
+  const notificationIconRef = useRef(null);
   const { changeMode, mode, theme } = useTheme();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  function closeModal() {
+    setShowModal(false);
+  }
 
   function toggleModal() {
-    setShowModal((prev) => !prev);
-    if (!showModal) {
+    setShowModal(!showModal);
+
+    if (!showModal && unReadNotificationCount > 0) {
       markNotificationsRead();
     }
   }
@@ -40,7 +46,7 @@ function Navbar(props) {
     if (user?._id) {
       loadNotificatios();
     }
-  }, [user]);
+  });
 
   async function markNotificationsRead() {
     const unReadNotificationIds = notifications
@@ -91,39 +97,48 @@ function Navbar(props) {
       </BrandContainer>
       <SearchUser>
         <Search onSearch={props.onSearch} />
-        <ButtonNotification onClick={toggleModal}>
+        <ButtonforNotification
+          $isNotificationModalOpen={showModal}
+          onClick={toggleModal}
+          ref={notificationIconRef}
+        >
           {unReadNotificationCount > 0 && (
             <NotificationCount>{unReadNotificationCount}</NotificationCount>
           )}
 
-          <IconNotification />
-        </ButtonNotification>
-        <Button
-          onClick={() => {
-            changeMode(mode === "light" ? "dark" : "light");
-          }}
-        >
-          {mode === "light" ? <DarkMode /> : <LightMode />}
-        </Button>
+          <IconNotification $isNotificationModalOpen={showModal} />
+        </ButtonforNotification>
+        <ButtonforTheme>
+          <Button
+            style={{ minWidth: "0px", padding: "0" }}
+            onClick={() => {
+              changeMode(mode === "light" ? "dark" : "light");
+            }}
+          >
+            {mode === "light" ? <DarkMode /> : <LightMode />}
+          </Button>
+        </ButtonforTheme>
+
         <MemberButton />
       </SearchUser>
       {showModal && (
         <Modal
-          onClose={toggleModal}
+          onClose={closeModal}
+          excludedRef={notificationIconRef}
           style={{
             alignItems: "flex-start",
             justifyContent: "flex-end",
             top: "61px",
-            right: "110px",
+            right: "-220px",
             background: "none",
           }}
         >
           <NotificationContainer>
-            <NotificationWrapper>
             <Title>Notification</Title>
-            {notifications.map((n) => {
-              return <Notification key={n._id} notification={n} />;
-            })}
+            <NotificationWrapper>
+              {notifications.map((n) => {
+                return <Notification key={n._id} notification={n} />;
+              })}
             </NotificationWrapper>
           </NotificationContainer>
         </Modal>

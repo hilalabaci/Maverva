@@ -20,7 +20,7 @@ function AddedPerson(props) {
       <GenerelWrapper>
         <TitleWrapper>
           <IconAddedPerson />
-          <Title>Added people to project</Title>
+          <Title>Added people to <span>{props.boardTitle}</span> </Title>
         </TitleWrapper>
         <Info>
           You have added 1 person to your project and 1 new license has been

@@ -12,6 +12,7 @@ import {
   TitleWrapper,
   CancelButton,
   SubmitButton,
+  WarningMessage
 } from "./styles";
 import Modal from "../modal";
 import AddedPerson from "../addedPerson";
@@ -43,6 +44,7 @@ function AddPerson(props) {
               closeModal();
               props.closeModal();
             }}
+            boardTitle={props.boardTitle}
             emailforAddPerson={props.emailforAddPerson}
           />
         </Modal>
@@ -62,6 +64,7 @@ function AddPerson(props) {
                 placeholder="e.g., Maria, maria@company.com"
               ></MailInput>
             </MailWrapper>
+            {/*<WarningMessage>user not found</WarningMessage>*/}
             {/* <RoleWrapper>
               <LabelTitle for="role">Role</LabelTitle>
               <RoleCheckbox></RoleCheckbox>

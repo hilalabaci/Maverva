@@ -1,13 +1,17 @@
 import styled from "styled-components";
-import Markdown from "react-markdown";
+//import Markdown from "react-markdown";
 
 export const Container = styled.div`
   background-color: ${(props) =>
     props.$isRead ? props.theme.ModalBg : "  rgba(168, 204, 255, 0.3);"};
   font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
     "Oxygen", Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  margin: 15px 0;
+  padding: 15px 0;
   font-size: 12px;
+  border-radius: 3px;
+  :hover {
+    background-color: var(--ds-background-neutral-subtle-hovered, #f4f5f7);
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -16,30 +20,33 @@ export const Wrapper = styled.div`
 `;
 export const UserInfo = styled.div`
   display: flex;
-  align-items: center;
 `;
-export const UserName = styled.span`
+export const UserName = styled.div`
   font-weight: 600;
   font-size: 13px;
   text-transform: capitalize;
+  overflow: hidden;
+  word-wrap: break-word;
 `;
 export const Info = styled.div`
   gap: 2px;
   padding: 2px;
   display: flex;
+  overflow: hidden;
 `;
 
 export const Main = styled.div`
-display: flex;
+  display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   gap: 4px;
+  overflow: hidden;
 `;
 
-export const MainInfo = styled(Markdown)`
-  font-weight: 500;
-  margin: 0;
-`;
 export const TimeInfo = styled.span`
   opacity: 0.5;
+  margin-left: 5px;
+  font-size: 12px;
+  font-weight: 400;
 `;

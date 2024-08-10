@@ -18,7 +18,7 @@ export const Memberphoto = styled.div`
   color: white;
   text-transform: uppercase;
   font-weight: 700;
-  font-family: "Inter";
+  
   @media only screen and (max-width: 768px) {
     width: 25px;
     height: 25px;

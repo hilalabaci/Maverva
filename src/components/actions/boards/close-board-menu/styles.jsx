@@ -12,7 +12,7 @@ export const Container = styled.div`
   border-radius: 2px;
   color: rgba(255, 255, 255, 0.7);
   font-size: 15px;
-  font-family: "Inter";
+  
 `;
 export const Header = styled.div`
   display: flex;

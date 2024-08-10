@@ -5,7 +5,7 @@ export const InputStyle = styled.input`
   background-color: ${(props) => props.theme.primary};
   border: none;
   color: ${(props) => props.theme.fontColour};
-  font-family: "Inter";
+  
   outline: none;
   letter-spacing: 0.05em;
   text-align: center;

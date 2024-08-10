@@ -14,7 +14,6 @@
 }
 .title {
   width: 254px;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -36,7 +35,6 @@
   padding-top: 10px;
 }
 .label-wrapper {
-  font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 15px;

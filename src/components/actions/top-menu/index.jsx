@@ -88,6 +88,7 @@ function TopMenu(props) {
           <AddPerson
             closeModal={closeModal}
             onSubmit={onSubmit}
+            boardTitle={boardTitle}
             emailforAddPerson={emailforAddPerson}
             handleChange={handleChange}
           />

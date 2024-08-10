@@ -6,7 +6,7 @@ export const Container = styled.div`
   right: -5px;
   background-color: rgba(255, 255, 255, 0.16);
   width: 200px;
-  font-family: "Inter";
+  
   color: ${(props) => props.theme.fontColour};
   padding: 15px;
   border-radius: 2px;
@@ -48,7 +48,7 @@ export const Memberphoto = styled.div`
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 700;
-  font-family: "Inter";
+  
   @media only screen and (max-width: 768px) {
     width: 25px;
     height: 25px;
@@ -74,7 +74,7 @@ export const MemberEmail = styled.div`
 export const Options = styled.div`
   font-size: 14px;
   font-weight: 400;
-  font-family: "Inter";
+  
   padding: 10px 0;
   vertical-align: center;
   :focus {
@@ -88,7 +88,6 @@ export const Options = styled.div`
 export const Logout = styled.div`
   font-size: 14px;
   font-weight: 400;
-  font-family: "Inter";
   display: flex;
   flex-direction: column;
   padding: 10px 0;

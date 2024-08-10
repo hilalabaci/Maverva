@@ -18,6 +18,5 @@ export const Container = styled.div`
   flex-direction: column-reverse;
   background: none;
   border-radius: 2px;
-  max-width: 100%;
   box-sizing: border-box;
 `;

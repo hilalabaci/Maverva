@@ -18,7 +18,7 @@ export const Container = styled.div`
   }
 `;
 export const AddBoardWrapper = styled.div`
-  font-family: "Inter";
+  
   font-style: normal;
   font-weight: 600;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
@@ -50,7 +50,7 @@ export const UserInfo = styled.div`
 `;
 export const MemberName = styled.span`
   color: ${(props) => props.theme.fontColour};
-  font-family: "Inter";
+  
   font-size: 17px;
   font-weight: bold;
   display: ${(props) => (props.$hidden ? "none" : "flex")};

@@ -18,7 +18,7 @@ export const LoginContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
-  font-family: "Inter";
+  
 `;
 export const BrandContainer = styled.div`
   flex: 1;
@@ -80,7 +80,6 @@ export const FormTitle = styled.h2`
 export const StyledLink = styled(Link)`
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  font-family: "Inter";
   opacity: 0.5;
   :hover {
     color: #007bff;

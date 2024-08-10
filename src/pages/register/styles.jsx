@@ -16,7 +16,6 @@ export const MainContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
-  font-family: "Inter";
   @media only screen and (max-width: 768px) {
     flex-direction: column;
   }

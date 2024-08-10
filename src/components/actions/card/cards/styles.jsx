@@ -43,7 +43,6 @@ export const CardTopWrapper = styled.div`
 export const NoteWrapper = styled.div`
   flex: 1;
   display: flex;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 500;
   font-size: 13px;

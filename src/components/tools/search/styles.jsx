@@ -7,7 +7,6 @@ export const SearchContainer = styled.div`
   align-items: center;
   border-radius: 5px;
   border: 1px solid #738496;
-  margin-right: 20px;
   //border: 1.5px solid ${(props) => props.theme.searchBorder};
   transition: width 10s ease-in-out 0.5s;
   ::placeholder {
@@ -45,7 +44,6 @@ export const InputWrapper = styled.div`
 `;
 export const Input = styled.input`
   flex: 1;
-  font-family: "Inter";
   outline: none;
   border: none;
   background-color: ${(props) => props.theme.primary};

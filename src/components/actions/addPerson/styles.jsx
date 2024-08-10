@@ -7,6 +7,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vh;
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+  "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 export const GenerelWrapper = styled.div`
   width: 354px;
@@ -37,6 +39,8 @@ export const MailWrapper = styled.section`
 export const LabelTitle = styled.label`
   font-size: 12px;
   color: rgba(136, 151, 165, 255);
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+  "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 export const MailInput = styled.input`
   background-color: ${(props) => props.theme.modalInputBg};
@@ -95,4 +99,9 @@ export const SubmitButton = styled.button`
   :hover {
     background-color: rgba(143, 180, 230, 255);
   }
+`;
+export const WarningMessage = styled.span`
+  font-size: 12px;
+  color: #c9372c;
+  font-weight: 500;
 `;

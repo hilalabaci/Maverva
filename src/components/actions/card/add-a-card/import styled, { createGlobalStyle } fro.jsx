@@ -15,7 +15,7 @@ export const BoardTitle = styled.h1`
   margin: 15px;
   font-weight: 600;
   color: #ffffff;
-  font-family: "Inter";
+  
   letter-spacing: 1px;
   display: flex;
   justify-content: center;
@@ -47,7 +47,6 @@ export const EditBoardTitle = styled.input`
   font-size: 17px;
   font-weight: 600;
   color: #ffffff;
-  font-family: "Inter";
   letter-spacing: 1px;
   text-align: center;
   vertical-align: center;

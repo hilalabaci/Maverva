@@ -32,7 +32,7 @@ export const Label = styled.label`
   border: none;
   color: ${(props) => props.theme.fontColour};
   font-size: 15px;
-  font-family: "Inter";
+  
   outline: none;
   letter-spacing: 0.05em;
   font-weight: 600;
