@@ -28,11 +28,9 @@ export const Wrapper = styled.div`
   }
 `;
 export const Label = styled.label`
-  text-transform: uppercase;
   border: none;
   color: ${(props) => props.theme.fontColour};
   font-size: 15px;
-  
   outline: none;
   letter-spacing: 0.05em;
   font-weight: 600;

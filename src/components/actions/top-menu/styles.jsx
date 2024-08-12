@@ -25,7 +25,6 @@ export const BoardTitle = styled.h1`
   letter-spacing: 1px;
   display: flex;
   justify-content: center;
-  text-transform: uppercase;
   overflow: hidden;
   max-width: 600px;
   :hover {

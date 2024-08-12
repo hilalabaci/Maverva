@@ -12,6 +12,7 @@ export const darkTheme = {
   modalBg: "rgb(40, 46, 50)",
   modalInputBg: "#22272b",
   borderforModal: "1px solid rgba(55, 64, 73, 255)",
+  borderforNotificationContainer: "none",
 
   // #579dff active button
   /**box-shadow: var(
@@ -33,4 +34,6 @@ export const lightTheme = {
   activeBorder: "2px solid rgba(143,180,230,255)",
   modalBg: "#fff",
   modalInputBg: "rgb(244, 245, 247)",
+  borderforModal: "1px solid rgba(55, 64, 73, 255)",
+  borderforNotificationContainer: "1px solid #dfe1e6",
 };

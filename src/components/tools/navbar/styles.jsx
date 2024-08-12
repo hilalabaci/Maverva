@@ -115,7 +115,9 @@ export const NotificationCount = styled.span`
 export const NotificationContainer = styled.div`
   background-color: ${(props) => props.theme.modalBg};
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
-  border: 1px solid #dfe1e6; /* İsteğe bağlı olarak bir border ekleyebilirsiniz */
+  border: ${(props) =>
+    props.theme
+      .borderforNotificationContainer}; /* İsteğe bağlı olarak bir border ekleyebilirsiniz */
   border-radius: 8px;
   width: 60%;
   //transform: translate3d(-142px, 51.5px, 0px);
