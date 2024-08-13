@@ -14,15 +14,24 @@ import {
 } from "./styles";
 import BoardCreate from "../board-add/create";
 import BoardList from "../board-list/index";
+import Modal from "../../modal";
 
 function BoardMenu(props) {
   const { user } = useUserContext();
-  const [key, setKey] = useState(false);
+  //const [key, setKey] = useState(false);
   const [hideMenu, setHideMenu] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  function handlerClick() {
-    setKey(true);
+  function openModal() {
+    setShowModal(true);
   }
+  function closeModal() {
+    setShowModal(false);
+  }
+
+  // function handlerClick() {
+  //   setKey(true);
+  // }
 
   useEffect(() => {
     loadBoards();
@@ -51,7 +60,7 @@ function BoardMenu(props) {
 
   function onCreate(data) {
     props.setBoards([data, ...props.boards]);
-    setKey(false);
+    // setKey(false);
   }
 
   const userFullName = user.fullName;
@@ -60,6 +69,11 @@ function BoardMenu(props) {
 
   return (
     <Container $hidden={hideMenu}>
+      {showModal && (
+        <Modal onClose={closeModal}>
+          <BoardCreate onCreate={onCreate} onClose={closeModal} />
+        </Modal>
+      )}
       <UserInfo $hidden={hideMenu}>
         <MemberPhoto
           $userPhotoWidth="40px"
@@ -79,9 +93,8 @@ function BoardMenu(props) {
       </UserInfo>
       <AddBoardWrapper $hidden={hideMenu}>
         <div>Your Boards</div>
-        <PlusIcon onClick={handlerClick} />
+        <PlusIcon onClick={openModal} />
       </AddBoardWrapper>
-      {key && <BoardCreate onCreate={onCreate} />}
       <ListWrapper $hidden={hideMenu}>
         <BoardList
           onBoardChange={props.onBoardChange}
