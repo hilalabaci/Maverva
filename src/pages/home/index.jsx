@@ -73,11 +73,19 @@ function Home(props) {
     setSearchInput(e.target.value);
   };
 
+  const addBoard = (board) => {
+    const index = boards.findIndex((b) => b._id === board._id);
+    const newBoards = [...boards];
+    if (index !== -1) newBoards[index] = board;
+    else newBoards.push(board);
+    setBoards(newBoards);
+  };
+
   return (
     <Container>
       <GlobalStyle />
       <NavbarWrapper>
-        <Navbar onSearch={onSearch} />
+        <Navbar onSearch={onSearch} onCreate={addBoard} />
       </NavbarWrapper>
       <Wrapper>
         <Menu>

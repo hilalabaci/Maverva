@@ -3,6 +3,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export const GlobalStyle = createGlobalStyle`
 #root,
@@ -11,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 `;
 
-export const NavbarContainer = styled.nav`
+export const HeaderContainer = styled.header`
   background-color: ${(props) => props.theme.primary};
   display: flex;
   border-bottom: 1px solid ${(props) => props.theme.borderLineColour};
@@ -19,7 +20,65 @@ export const NavbarContainer = styled.nav`
     inset rgba(0, 0, 0, 0.23) 0px 1px 1px;
   padding: 10px;
   justify-content: space-between;
+  color: ${(props) => props.theme.navbarFontColour};
+  font-family: inherit;
 `;
+export const NavbarContainer = styled.nav`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+`;
+export const Presentation = styled.div`
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+`;
+export const Projects = styled.div``;
+export const ProjectsButton = styled.button`
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  color: ${(props) => props.theme.navbarFontColour};
+  background-color: ${(props) => props.theme.primary};
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 3px;
+  padding: 7px;
+  :hover {
+    background-color: #dddfe4;
+  }
+
+  :focus-visible {
+    color: #0c66e4;
+  }
+`;
+export const ProjectsSpan = styled(KeyboardArrowDownIcon)`
+  font-size: 16px !important;
+`;
+export const CreateWrapper = styled.div``;
+export const CreateButton = styled.button`
+  display: flex;
+  align-items: center;
+  border: none;
+  outline: none;
+  color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.primary};
+  font-size: 15px;
+  border-radius: 3px;
+  padding: 8px 12px;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.navbarButtonBG};
+  :hover {
+    background-color: ${(props) => props.theme.navbarButtonBGHover};
+  }
+`;
+
 export const BrandContainer = styled.a`
   color: ${(props) => props.theme.fontColour};
   display: flex;
@@ -28,7 +87,7 @@ export const BrandContainer = styled.a`
   letter-spacing: 0.05em;
   font-style: normal;
   font-weight: 600;
-  font-size: 22px;
+  font-size: 18px;
   line-height: 39px;
   /* identical to box height */
   @media only screen and (max-width: 768px) {
@@ -36,8 +95,8 @@ export const BrandContainer = styled.a`
   }
 `;
 export const BrandLogo = styled(DashboardRoundedIcon)`
-  font-size: 30px !important;
-  margin: 0px 20px;
+  font-size: 20px !important;
+  margin: 0px 5px;
   @media only screen and (max-width: 768px) {
     width: 20px;
     height: 20px;

@@ -18,7 +18,8 @@ export const LoginContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
-  
+    font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 export const BrandContainer = styled.div`
   flex: 1;

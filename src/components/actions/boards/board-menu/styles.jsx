@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import AddIcon from "@mui/icons-material/Add";
 export const Container = styled.div`
   //display: ${(props) => (props.$hidden ? "none" : "flex")};
   display: flex;
@@ -67,12 +66,5 @@ export const ArrowIcon = styled.div`
     margin: 0;
     font-size: 18px !important;
     padding-top: 5px;
-  }
-`;
-export const PlusIcon = styled(AddIcon)`
-  font-size: 20px !important;
-  @media only screen and (max-width: 768px) {
-    font-size: 18px !important;
-    margin-left: 5px;
   }
 `;

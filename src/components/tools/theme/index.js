@@ -13,6 +13,9 @@ export const darkTheme = {
   modalInputBg: "#22272b",
   borderforModal: "1px solid rgba(55, 64, 73, 255)",
   borderforNotificationContainer: "none",
+  navbarFontColour: "#9FADBC",
+  navbarButtonBG: "#579DFF",
+  navbarButtonBGHover: "#85B8FF",
 
   // #579dff active button
   /**box-shadow: var(
@@ -36,5 +39,8 @@ export const lightTheme = {
   modalInputBg: "rgb(244, 245, 247)",
   borderforModal: "1px solid rgba(55, 64, 73, 255)",
   borderforNotificationContainer: "1px solid #dfe1e6",
-  NewBoardModalFontColour:"rgb(23, 43, 77)"
+  NewBoardModalFontColour: "rgb(23, 43, 77)",
+  navbarFontColour: "#495a73",
+  navbarButtonBG: "#0C66E4",
+  navbarButtonBGHover: "#0055CC",
 };

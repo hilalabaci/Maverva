@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import MemberPhoto from "../../../tools/user/member-photo";
+import BoardList from "../board-list/index";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {
@@ -10,28 +11,11 @@ import {
   UserInfo,
   MemberName,
   ArrowIcon,
-  PlusIcon,
 } from "./styles";
-import BoardCreate from "../board-add/create";
-import BoardList from "../board-list/index";
-import Modal from "../../modal";
 
 function BoardMenu(props) {
   const { user } = useUserContext();
-  //const [key, setKey] = useState(false);
   const [hideMenu, setHideMenu] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-
-  function openModal() {
-    setShowModal(true);
-  }
-  function closeModal() {
-    setShowModal(false);
-  }
-
-  // function handlerClick() {
-  //   setKey(true);
-  // }
 
   useEffect(() => {
     loadBoards();
@@ -60,7 +44,6 @@ function BoardMenu(props) {
 
   function onCreate(data) {
     props.setBoards([data, ...props.boards]);
-    // setKey(false);
   }
 
   const userFullName = user.fullName;
@@ -69,11 +52,6 @@ function BoardMenu(props) {
 
   return (
     <Container $hidden={hideMenu}>
-      {showModal && (
-        <Modal onClose={closeModal}>
-          <BoardCreate onCreate={onCreate} onClose={closeModal} />
-        </Modal>
-      )}
       <UserInfo $hidden={hideMenu}>
         <MemberPhoto
           $userPhotoWidth="40px"
@@ -93,7 +71,6 @@ function BoardMenu(props) {
       </UserInfo>
       <AddBoardWrapper $hidden={hideMenu}>
         <div>Your Boards</div>
-        <PlusIcon onClick={openModal} />
       </AddBoardWrapper>
       <ListWrapper $hidden={hideMenu}>
         <BoardList

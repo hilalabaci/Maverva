@@ -4,7 +4,12 @@ import MemberButton from "../user/member-button";
 import {
   BrandContainer,
   BrandLogo,
+  HeaderContainer,
   NavbarContainer,
+  Presentation,
+  Projects,
+  ProjectsButton,
+  ProjectsSpan,
   GlobalStyle,
   SearchUser,
   LightMode,
@@ -16,6 +21,8 @@ import {
   Title,
   ButtonforTheme,
   ButtonforNotification,
+  CreateWrapper,
+  CreateButton,
 } from "./styles";
 import { Button } from "@mui/material";
 import { useTheme } from "../../../contexts/ThemeContext";
@@ -23,6 +30,7 @@ import Search from "../search";
 import Modal from "../../actions/modal";
 import Notification from "../../actions/notification";
 import { useUserContext } from "../../../contexts/UserContext";
+import BoardCreate from "../../actions/boards/board-add/create";
 
 function Navbar(props) {
   const { user } = useUserContext();
@@ -30,6 +38,15 @@ function Navbar(props) {
   const { changeMode, mode, theme } = useTheme();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [showModalforCreateButton, setShowModalforCreateButton] =
+    useState(false);
+
+  function openModalforCreateButton() {
+    setShowModalforCreateButton(true);
+  }
+  function closeModalforCreateButton() {
+    setShowModalforCreateButton(false);
+  }
   function closeModal() {
     setShowModal(false);
   }
@@ -89,12 +106,35 @@ function Navbar(props) {
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <NavbarContainer color={theme.primary}>
-      <GlobalStyle />
-      <BrandContainer>
-        <BrandLogo />
-        PROCESS
-      </BrandContainer>
+    <HeaderContainer color={theme.primary}>
+      {showModalforCreateButton && (
+        <Modal onClose={closeModalforCreateButton}>
+          <BoardCreate
+            onCreate={props.onCreate}
+            onClose={closeModalforCreateButton}
+          />
+        </Modal>
+      )}
+      <NavbarContainer>
+        <GlobalStyle />
+        <BrandContainer>
+          <BrandLogo />
+          Process
+        </BrandContainer>
+        <Presentation>
+          <Projects>
+            <ProjectsButton>
+              Projects
+              <ProjectsSpan />
+            </ProjectsButton>
+          </Projects>
+          <CreateWrapper>
+            <CreateButton onClick={openModalforCreateButton}>
+              Create
+            </CreateButton>
+          </CreateWrapper>
+        </Presentation>
+      </NavbarContainer>
       <SearchUser>
         <Search onSearch={props.onSearch} />
         <ButtonforNotification
@@ -143,7 +183,7 @@ function Navbar(props) {
           </NotificationContainer>
         </Modal>
       )}
-    </NavbarContainer>
+    </HeaderContainer>
   );
 }
 export default Navbar;

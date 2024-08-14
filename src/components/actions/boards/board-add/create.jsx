@@ -33,7 +33,6 @@ function BoardCreate(props) {
   }
   async function onSubmit(event) {
     event.preventDefault();
-    console.log("here");
     const boardData = { title: boardTitle, userId: userId };
     const response = await fetch(process.env.REACT_APP_API_URL + "board", {
       method: "POST",
@@ -49,7 +48,6 @@ function BoardCreate(props) {
       props.onClose();
     }
   }
-
   return (
     <Container>
       <GeneralWrapper onSubmit={onSubmit}>
@@ -97,15 +95,6 @@ function BoardCreate(props) {
           <SubmitButton type="submit">Create Board</SubmitButton>
           <CancelButton onClick={props.onClose}>Cancel</CancelButton>
         </Options>
-        {/* <InputStyle
-        placeholder="Create your Board"
-        type="text"
-        value={boardTitle}
-        onChange={handleChange}
-      />
-      <SubmitButton type="submit">
-        <Okicon />
-      </SubmitButton> */}
       </GeneralWrapper>
     </Container>
   );
