@@ -9,10 +9,10 @@ export const Container = styled.div`
   flex-direction: column;
   width: 900px;
   background-color: ${(props) => props.theme.modalBg};
-  border: 1px solid ${(props) => props.theme.fontColour};
+  //border: 1px solid ${(props) => props.theme.fontColour};
   //height: 45px;
   border-radius: 5px;
-  color: #172b4d;
+  color: ${(props) => props.theme.fontColour};
   font: var(
     --ds-font-body,
     normal 400 14px / 1.42857142857143 -apple-system,
@@ -48,7 +48,7 @@ export const InputStyle = styled.input`
   height: 20px;
   font-size: 14px;
   font-weight: 14px;
-  background-color: ${(props) => props.theme.primary};
+  background-color: rgb(34, 39, 43);
   border: 1px solid;
   border-radius: 3px;
   padding: 4px 7px 5px;
@@ -66,7 +66,7 @@ export const InputforProjectLead = styled.div`
   height: 20px;
   font-size: 14px;
   font-weight: 14px;
-  background-color: ${(props) => props.theme.primary};
+  background-color: rgb(34, 39, 43);
   border: 1px solid;
   border-radius: 3px;
   padding: 4px 7px 5px;

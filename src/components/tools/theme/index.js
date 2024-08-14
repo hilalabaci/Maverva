@@ -26,7 +26,7 @@ export const lightTheme = {
   boardColour: "#F4F5F7",
   cardBG: "#fff",
   cardBGHover: "#F4F5F7",
-  fontColour: "#42526E",
+  fontColour: "#rgb(23, 43, 77);",
   borderLineColour: "rgba(24, 27, 30, 0.1)",
   BorderMenuBG: "#FAFBFC",
   boardBG: "rgba(24, 27, 30, 0.1)",
@@ -36,4 +36,5 @@ export const lightTheme = {
   modalInputBg: "rgb(244, 245, 247)",
   borderforModal: "1px solid rgba(55, 64, 73, 255)",
   borderforNotificationContainer: "1px solid #dfe1e6",
+  //NewBoardModalFontColour:"rgb(23, 43, 77)"
 };
