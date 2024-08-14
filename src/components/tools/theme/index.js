@@ -16,6 +16,9 @@ export const darkTheme = {
   navbarFontColour: "#9FADBC",
   navbarButtonBG: "#579DFF",
   navbarButtonBGHover: "#85B8FF",
+  themeActiveColor: "#579DFF",
+  themeActiveBG: "#09326C",
+  themeActiveBorder: "3px solid #579dff",
 
   // #579dff active button
   /**box-shadow: var(
@@ -43,4 +46,7 @@ export const lightTheme = {
   navbarFontColour: "#495a73",
   navbarButtonBG: "#0C66E4",
   navbarButtonBGHover: "#0055CC",
+  themeActiveColor: "#0c66e4",
+  themeActiveBG: "#E9F2ff",
+  themeActiveBorder: "3px solid #0052cc",
 };

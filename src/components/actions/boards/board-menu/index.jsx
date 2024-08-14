@@ -42,10 +42,6 @@ function BoardMenu(props) {
     props.setBoards(props.boards.filter((board) => board._id !== id));
   }
 
-  function onCreate(data) {
-    props.setBoards([data, ...props.boards]);
-  }
-
   const userFullName = user.fullName;
   const chars = userFullName.split(" ");
   const firstName = chars[0];

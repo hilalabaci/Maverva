@@ -12,20 +12,15 @@ import {
   ProjectsSpan,
   GlobalStyle,
   SearchUser,
-  LightMode,
-  DarkMode,
   IconNotification,
   NotificationCount,
   NotificationContainer,
   NotificationWrapper,
   Title,
-  ButtonforTheme,
   ButtonforNotification,
   CreateWrapper,
   CreateButton,
 } from "./styles";
-import { Button } from "@mui/material";
-import { useTheme } from "../../../contexts/ThemeContext";
 import Search from "../search";
 import Modal from "../../actions/modal";
 import Notification from "../../actions/notification";
@@ -35,7 +30,6 @@ import BoardCreate from "../../actions/boards/board-add/create";
 function Navbar(props) {
   const { user } = useUserContext();
   const notificationIconRef = useRef(null);
-  const { changeMode, mode, theme } = useTheme();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [showModalforCreateButton, setShowModalforCreateButton] =
@@ -106,7 +100,7 @@ function Navbar(props) {
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <HeaderContainer color={theme.primary}>
+    <HeaderContainer >
       {showModalforCreateButton && (
         <Modal onClose={closeModalforCreateButton}>
           <BoardCreate
@@ -148,16 +142,6 @@ function Navbar(props) {
 
           <IconNotification $isNotificationModalOpen={showModal} />
         </ButtonforNotification>
-        <ButtonforTheme>
-          <Button
-            style={{ minWidth: "0px", padding: "0" }}
-            onClick={() => {
-              changeMode(mode === "light" ? "dark" : "light");
-            }}
-          >
-            {mode === "light" ? <DarkMode /> : <LightMode />}
-          </Button>
-        </ButtonforTheme>
 
         <MemberButton />
       </SearchUser>

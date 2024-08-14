@@ -1,6 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -114,14 +113,7 @@ export const SearchUser = styled.div`
 export const UserWrapper = styled.div``;
 export const SearchWrapper = styled.div``;
 
-export const LightMode = styled(LightModeIcon)`
-  color: ${(props) => props.theme.fontColour};
-  font-size: 23px !important;
-`;
-export const DarkMode = styled(DarkModeIcon)`
-  color: ${(props) => props.theme.fontColour};
-  font-size: 23px !important;
-`;
+
 export const ButtonforNotification = styled.button`
   outline: none;
   border: none;

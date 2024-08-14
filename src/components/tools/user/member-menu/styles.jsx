@@ -1,12 +1,14 @@
 import styled from "styled-components";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export const Container = styled.div`
   position: absolute;
   top: 50px;
   right: -5px;
-  background-color: rgba(255, 255, 255, 0.16);
+  background-color: ${(props) => props.theme.modalBg};
   width: 200px;
-  
   color: ${(props) => props.theme.fontColour};
   padding: 15px;
   border-radius: 2px;
@@ -48,7 +50,7 @@ export const Memberphoto = styled.div`
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 700;
-  
+
   @media only screen and (max-width: 768px) {
     width: 25px;
     height: 25px;
@@ -72,9 +74,9 @@ export const MemberEmail = styled.div`
   }
 `;
 export const Options = styled.div`
+  display: flex;
   font-size: 14px;
   font-weight: 400;
-  
   padding: 10px 0;
   vertical-align: center;
   :focus {
@@ -100,3 +102,26 @@ export const Logout = styled.div`
     padding: 5px 0;
   }
 `;
+export const LightMode = styled(LightModeIcon)`
+  color: ${(props) => props.theme.fontColour};
+  font-size: 23px !important;
+`;
+export const DarkMode = styled(DarkModeIcon)`
+  color: ${(props) => props.theme.fontColour};
+  font-size: 23px !important;
+`;
+export const ButtonforTheme = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  border: none;
+  padding: 0;
+  color: ${(props) => props.theme.fontColour};
+  background-color: ${(props) => props.theme.modalBg};
+  font-size: 14px;
+  font-weight: 400;
+  flex: 1;
+`;
+export const ArrowforButton = styled(KeyboardArrowRightIcon)``;

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
+import ChangeThemeModal from "../../../actions/changeThemeModal";
 import {
   Container,
   Title,
@@ -10,10 +12,13 @@ import {
   MemberName,
   MemberEmail,
   Logout,
+  ButtonforTheme,
+  ArrowforButton,
 } from "./styles";
-import useOutsideClick from "../../../../hooks/useOutsideClick";
+import Modal from "../../../actions/modal";
 
 function MemberMenu(props) {
+  const [showModal, setShowModal] = useState(false);
   const { setUser } = useUserContext();
   const { user } = useUserContext();
   const ref = useOutsideClick(props.onClose);
@@ -23,12 +28,24 @@ function MemberMenu(props) {
   const firstName = chars[0];
   const lastName = chars.length > 1 ? chars[1] : "";
 
+  function openModal() {
+    setShowModal(true);
+  }
+  function closeModal() {
+    setShowModal(false);
+  }
+
   function logOut() {
     setUser(undefined);
   }
   return (
     <Container ref={ref}>
       <Title>Account</Title>
+      {showModal && (
+        <Modal onClose={closeModal}>
+          <ChangeThemeModal  />
+        </Modal>
+      )}
       <Accountdetails>
         <Memberphoto>
           {firstName[0]}
@@ -40,6 +57,13 @@ function MemberMenu(props) {
         </Memberinfo>
       </Accountdetails>
       <Options> Manage account</Options>
+      <Options>
+        <ButtonforTheme onClick={openModal}>
+          Theme
+          <ArrowforButton />
+        </ButtonforTheme>
+      </Options>
+
       <Logout onClick={logOut}> Log out</Logout>
     </Container>
   );
