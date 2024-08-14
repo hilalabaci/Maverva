@@ -34,7 +34,7 @@ export const Container = styled.div`
   }
 `;
 export const GeneralWrapper = styled.form`
-  padding: 30px;
+  padding: 40px 30px;
 `;
 export const FielsetWrapper = styled.fieldset`
   display: flex;
@@ -48,7 +48,7 @@ export const InputStyle = styled.input`
   height: 20px;
   font-size: 14px;
   font-weight: 14px;
-  background-color: rgb(34, 39, 43);
+  background-color: ${(props) => props.theme.modalInputBg};
   border: 1px solid;
   border-radius: 3px;
   padding: 4px 7px 5px;
@@ -56,6 +56,10 @@ export const InputStyle = styled.input`
   color: ${(props) => props.theme.fontColour};
   outline: none;
   letter-spacing: 0.05em;
+  :focus-visible {
+    border: ${(props) => props.theme.activeBorder};
+    outline: none;
+  }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
@@ -66,7 +70,7 @@ export const InputforProjectLead = styled.div`
   height: 20px;
   font-size: 14px;
   font-weight: 14px;
-  background-color: rgb(34, 39, 43);
+  background-color: ${(props) => props.theme.modalInputBg};
   border: 1px solid;
   border-radius: 3px;
   padding: 4px 7px 5px;
