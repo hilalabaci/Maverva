@@ -29,7 +29,7 @@ export const darkTheme = {
 };
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
-  boardColour: "#F4F5F7",
+  boardColour: "rgba(247,248,249,255)",
   cardBG: "#fff",
   cardBGHover: "#F4F5F7",
   fontColour: "#42526E",
@@ -40,7 +40,7 @@ export const lightTheme = {
   activeBorder: "2px solid rgba(143,180,230,255)",
   modalBg: "#fff",
   modalInputBg: "rgb(244, 245, 247)",
-  borderforModal: "1px solid rgba(55, 64, 73, 255)",
+  borderforModal: "1px solid rgba(221,223,228,255)",
   borderforNotificationContainer: "1px solid #dfe1e6",
   NewBoardModalFontColour: "rgb(23, 43, 77)",
   navbarFontColour: "#495a73",

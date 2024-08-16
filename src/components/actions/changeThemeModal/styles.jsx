@@ -4,8 +4,16 @@ export const Container = styled.div`
   position: absolute;
   top: 234px;
   right: 256px;
+  z-index: 1;
   background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.fontColour};
+  border-radius: 2px;
+  border: 1px solid ${(props) => props.theme.borderLineColour};
+  box-shadow: var(
+    --ds-shadow-overlay,
+    0 4px 8px -2px rgba(9, 30, 66, 0.25),
+    0 0 1px rgba(9, 30, 66, 0.31)
+  );
   display: flex;
   flex-direction: column;
   align-items: center;

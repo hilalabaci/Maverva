@@ -113,7 +113,6 @@ export const SearchUser = styled.div`
 export const UserWrapper = styled.div``;
 export const SearchWrapper = styled.div``;
 
-
 export const ButtonforNotification = styled.button`
   outline: none;
   border: none;
@@ -145,7 +144,7 @@ export const IconNotification = styled(NotificationsIcon)`
 export const NotificationCount = styled.span`
   position: absolute;
   top: 11px;
-  right: 109px;
+  right: 66px;
   background: #c9372c;
   color: white;
   border-radius: 10px;

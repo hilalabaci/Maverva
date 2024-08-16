@@ -62,6 +62,7 @@ function CardList(props) {
             key={index}
             title={card.content}
             labels={card.labels}
+            user={card.userId}
           />
         ))}
       </CardWrapper>

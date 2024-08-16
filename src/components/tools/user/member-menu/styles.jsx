@@ -1,18 +1,21 @@
 import styled from "styled-components";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 export const Container = styled.div`
   position: absolute;
-  top: 50px;
+  top: 45px;
   right: -5px;
+  z-index: 1;
   background-color: ${(props) => props.theme.modalBg};
-  width: 200px;
   color: ${(props) => props.theme.fontColour};
-  padding: 15px;
   border-radius: 2px;
   border: 1px solid ${(props) => props.theme.borderLineColour};
+  box-shadow: var(
+    --ds-shadow-overlay,
+    0 4px 8px -2px rgba(9, 30, 66, 0.25),
+    0 0 1px rgba(9, 30, 66, 0.31)
+  );
   @media only screen and (max-width: 768px) {
     width: 100px;
     padding: 5px;
@@ -22,7 +25,9 @@ export const Container = styled.div`
 `;
 export const Title = styled.div`
   text-transform: uppercase;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 15px;
   @media only screen and (max-width: 768px) {
     font-size: 10px;
   }
@@ -30,9 +35,8 @@ export const Title = styled.div`
 export const Accountdetails = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px 0;
   gap: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  padding: 15px;
   @media only screen and (max-width: 768px) {
     padding: 10px 0;
   }
@@ -45,12 +49,11 @@ export const Memberphoto = styled.div`
   height: 30px;
   border-radius: 100px;
   color: ${(props) => props.theme.primary};
-  background-color: ${(props) => props.theme.fontColour};
+  background-color: rgb(222, 131, 93);
   position: relative;
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 700;
-
   @media only screen and (max-width: 768px) {
     width: 25px;
     height: 25px;
@@ -75,12 +78,16 @@ export const MemberEmail = styled.div`
 `;
 export const Options = styled.div`
   display: flex;
+  justify-content: space-between;
   font-size: 14px;
   font-weight: 400;
-  padding: 10px 0;
+  padding: 15px;
   vertical-align: center;
-  :focus {
-    background-color: #a1bdd914;
+  border-bottom: ${(props) => props.theme.borderforModal};
+  :hover {
+    background-color: ${(props) => props.theme.themeActiveBG};
+    // color: ${(props) => props.theme.themeActiveColor};
+    //border-left: ${(props) => props.theme.themeActiveBorder};
   }
   @media only screen and (max-width: 768px) {
     font-size: 10px;
@@ -92,23 +99,16 @@ export const Logout = styled.div`
   font-weight: 400;
   display: flex;
   flex-direction: column;
-  padding: 10px 0;
+  padding: 5px;
   border-top: 1px solid rgba(255, 255, 255, 0.13);
-  :focus {
-    background-color: #a1bdd914;
+  :hover {
+    background-color: ${(props) => props.theme.themeActiveBG};
   }
+
   @media only screen and (max-width: 768px) {
     font-size: 10px;
     padding: 5px 0;
   }
-`;
-export const LightMode = styled(LightModeIcon)`
-  color: ${(props) => props.theme.fontColour};
-  font-size: 23px !important;
-`;
-export const DarkMode = styled(DarkModeIcon)`
-  color: ${(props) => props.theme.fontColour};
-  font-size: 23px !important;
 `;
 export const ButtonforTheme = styled.button`
   display: flex;
@@ -123,5 +123,13 @@ export const ButtonforTheme = styled.button`
   font-size: 14px;
   font-weight: 400;
   flex: 1;
+  ${Options}:hover & {
+    background-color: ${(props) => props.theme.themeActiveBG};
+  }
 `;
-export const ArrowforButton = styled(KeyboardArrowRightIcon)``;
+export const ArrowforButton = styled(KeyboardArrowRightIcon)`
+  font-size: 20px !important;
+`;
+export const IconforManaAccount = styled(ManageAccountsIcon)`
+  font-size: 20px !important;
+`;

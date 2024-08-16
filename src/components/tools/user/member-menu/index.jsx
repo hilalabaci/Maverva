@@ -14,6 +14,7 @@ import {
   Logout,
   ButtonforTheme,
   ArrowforButton,
+  IconforManaAccount,
 } from "./styles";
 import Modal from "../../../actions/modal";
 
@@ -41,11 +42,6 @@ function MemberMenu(props) {
   return (
     <Container ref={ref}>
       <Title>Account</Title>
-      {showModal && (
-        <Modal onClose={closeModal}>
-          <ChangeThemeModal  />
-        </Modal>
-      )}
       <Accountdetails>
         <Memberphoto>
           {firstName[0]}
@@ -56,15 +52,28 @@ function MemberMenu(props) {
           <MemberEmail>{userEmail}</MemberEmail>
         </Memberinfo>
       </Accountdetails>
-      <Options> Manage account</Options>
+      <Options>
+        Manage account <IconforManaAccount />
+      </Options>
       <Options>
         <ButtonforTheme onClick={openModal}>
           Theme
           <ArrowforButton />
         </ButtonforTheme>
       </Options>
-
-      <Logout onClick={logOut}> Log out</Logout>
+      <Options>
+        <Logout onClick={logOut}> Log out</Logout>
+      </Options>
+      {showModal && (
+        <Modal
+          style={{
+            background: "none",
+          }}
+          onClose={closeModal}
+        >
+          <ChangeThemeModal />
+        </Modal>
+      )}
     </Container>
   );
 }

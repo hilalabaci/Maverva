@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Backdrop = styled.div`
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.4);
   bottom: 0;
   left: 0;
   overflow: auto;

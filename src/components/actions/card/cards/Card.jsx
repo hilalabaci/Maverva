@@ -65,6 +65,7 @@ function Card(props) {
           $userPhotoHeight="25px"
           $userPhotoFontSize="10px"
           $userBorderadius="50px"
+          user={props.user}
         />
       </CardButtomWrapper>
     </Container>

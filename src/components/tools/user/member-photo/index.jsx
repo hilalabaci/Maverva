@@ -1,13 +1,15 @@
-import React from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { Container, Memberphoto } from "./styles";
 
 function MemberPhoto(props) {
-  const { user } = useUserContext();
-  const userFullName = user.fullName;
-  const chars = userFullName.split(" ");
+  const { user: contextUser } = useUserContext();
+  // const user = props.user ? props.user : contextUser;
+  const user = props.user ?? contextUser;
+
+  const chars = user.fullName.split(" ");
   const firstName = chars[0];
   const lastName = chars.length > 1 ? chars[1] : "";
+
   return (
     <Container $hidden={props.$hidden}>
       <Memberphoto

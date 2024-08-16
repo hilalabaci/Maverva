@@ -100,9 +100,9 @@ function Navbar(props) {
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <HeaderContainer >
+    <HeaderContainer>
       {showModalforCreateButton && (
-        <Modal onClose={closeModalforCreateButton}>
+        <Modal onClose={closeModalforCreateButton} >
           <BoardCreate
             onCreate={props.onCreate}
             onClose={closeModalforCreateButton}

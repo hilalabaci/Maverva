@@ -6,9 +6,12 @@ import {
   Container,
   Textarea,
 } from "./styles";
+import { useUserContext } from "../../../../contexts/UserContext";
 
 function AddCard(props) {
   const [content, setContent] = useState("");
+  const { user } = useUserContext();
+  const userId = user._id;
   function handleChange(event) {
     const { value } = event.target;
     setContent(value);
@@ -16,6 +19,7 @@ function AddCard(props) {
   async function submitNote(event) {
     event.preventDefault();
     const cardData = {
+      userId: userId,
       content: content,
       boardId: props.boardId,
       status: props.status,
