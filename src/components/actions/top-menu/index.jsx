@@ -7,7 +7,7 @@ import {
   AssignMemberContainer,
   ButtonStylesforPersonAdd,
   IconPersonAdd,
-  IconPerson,
+  HostMemberContainer,
   ButtonStylesforIconPerson,
 } from "./styles";
 import MemberPhoto from "../../tools/user/member-photo";
@@ -107,15 +107,25 @@ function TopMenu(props) {
         )}
       </TitleContainer>
       <AssignMemberContainer>
-        <MemberPhoto
-          $userPhotoWidth="40px"
-          $userPhotoHeight="40px"
-          $userPhotoFontSize="15px"
-          $userBorderadius="50px"
-          $userBorder="2px solid rgba(143,180,230,255)"
-        />
+        <HostMemberContainer>
+          <MemberPhoto
+            $userPhotoWidth="40px"
+            $userPhotoHeight="40px"
+            $userPhotoFontSize="15px"
+            $userBorderadius="50px"
+            $userBorder="2px solid rgba(143,180,230,255)"
+            user={props.user}
+          />
+        </HostMemberContainer>
+
         <ButtonStylesforIconPerson>
-          <IconPerson />
+          <MemberPhoto
+            $userPhotoWidth="40px"
+            $userPhotoHeight="40px"
+            $userPhotoFontSize="15px"
+            $userBorderadius="50px"
+            user={props.user}
+          />
         </ButtonStylesforIconPerson>
         <ButtonStylesforPersonAdd onClick={openModal}>
           <IconPersonAdd />

@@ -69,18 +69,19 @@ export const EditBoardTitle = styled.input`
 export const AssignMemberContainer = styled.div`
   display: flex;
 `;
+export const HostMemberContainer = styled.div`
+`;
 export const ButtonStylesforIconPerson = styled.button`
   border: none;
   outline: none;
   display: flex;
   align-items: center;
-  margin-left: -10px;
+  padding: 0;
+  background: none;
+  margin-left: -15px;
   border-radius: 50px;
   font-family: Inter;
-  width: 40px;
-  height: 40px;
-  background-color: #b6c2cf;
-  border: 2px solid  ${(props) => props.theme.primary};
+  border: 2px solid ${(props) => props.theme.primary};
   :hover {
     z-index: 1;
   }

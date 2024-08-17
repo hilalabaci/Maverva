@@ -5,8 +5,9 @@ function MemberPhoto(props) {
   const { user: contextUser } = useUserContext();
   // const user = props.user ? props.user : contextUser;
   const user = props.user ?? contextUser;
+  console.log(user);
 
-  const chars = user.fullName.split(" ");
+  const chars = user.fullName?.split(" ");
   const firstName = chars[0];
   const lastName = chars.length > 1 ? chars[1] : "";
 

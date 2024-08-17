@@ -23,7 +23,7 @@ export const Container = styled.div`
   padding: 5px;
   border-radius: 2px;
   gap: 3px;
-  --jsw-card-background-color: var(--ds-surface-raised, #FFFFFF);
+  --jsw-card-background-color: var(--ds-surface-raised, #ffffff);
   box-shadow: var(
     --ds-shadow-raised,
     0 1px 1px rgba(23, 43, 77, 0.2),
@@ -32,10 +32,13 @@ export const Container = styled.div`
   cursor: pointer;
   background-color: ${(props) => props.theme.cardBG};
   :hover {
-    //background-color: ${(props) => props.theme.cardBGHover};
-    background-color: var(--ds-background-neutral-subtle-hovered, #F4F5F7);
-    --jsw-card-background-color: var(--ds-background-neutral-subtle-hovered, #F4F5F7);
-    color: var(--ds-text, #172B4D);
+    background-color: ${(props) => props.theme.cardBGHover};
+    // background-color: var(--ds-background-neutral-subtle-hovered, #F4F5F7);
+    --jsw-card-background-color: var(
+      --ds-background-neutral-subtle-hovered,
+      #f4f5f7
+    );
+    color: var(--ds-text, #172b4d);
   }
   :hover ${EditIcon} {
     opacity: 1;

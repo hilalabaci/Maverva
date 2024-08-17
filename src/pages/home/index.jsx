@@ -101,6 +101,7 @@ function Home(props) {
               onBoardUpdate={onBoardUpdate}
               boardId={board._id}
               topMenuTitle={board.title}
+              user={board.userId}
             />
           ) : undefined}
 
