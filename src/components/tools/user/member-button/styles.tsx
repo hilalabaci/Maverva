@@ -22,7 +22,6 @@ export const Container = styled.div`
       z-index: -1;
       inset: -2px;
       border-radius: 100px;
-      background: linear-gradient(220.94deg, #3d80ff 30%, #903bf5 70%);
     }
   }
   @media only screen and (max-width: 768px) {
