@@ -12,7 +12,7 @@ export const SearchContainer = styled.div`
   ::placeholder {
     opacity: 0.1;
   }
-  :hover{
+  &:hover{
 
   }
   :focus-visible {

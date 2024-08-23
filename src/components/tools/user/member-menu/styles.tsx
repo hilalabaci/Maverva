@@ -7,8 +7,9 @@ export const Container = styled.div`
   top: 45px;
   right: -5px;
   z-index: 1;
+  min-width: 234px;
   background-color: ${(props) => props.theme.modalBg};
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.memberMenuFontColor};
   border-radius: 2px;
   border: 1px solid ${(props) => props.theme.borderLineColour};
   box-shadow: var(
@@ -76,7 +77,10 @@ export const MemberEmail = styled.div`
     font-size: 5px;
   }
 `;
-export const Options = styled.div`
+type ButtonforThemePropsType = {
+  $active?: boolean;
+};
+export const Options = styled.div<ButtonforThemePropsType>`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
@@ -84,8 +88,12 @@ export const Options = styled.div`
   padding: 15px;
   vertical-align: center;
   border-bottom: ${(props) => props.theme.borderforModal};
-  :hover {
-    background-color: ${(props) => props.theme.themeActiveBG};
+  border-left: ${(props) =>
+    props.$active ? props.theme.themeActiveBorder : "none"};
+  background-color: ${(props) =>
+    props.$active ? props.theme.themeActiveBG : props.theme.modalBg};
+  &:hover {
+    background-color: ${(props) => props.theme.memberMenuHoverBg};
     // color: ${(props) => props.theme.themeActiveColor};
     //border-left: ${(props) => props.theme.themeActiveBorder};
   }
@@ -100,9 +108,8 @@ export const Logout = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
-  border-top: 1px solid rgba(255, 255, 255, 0.13);
-  :hover {
-    background-color: ${(props) => props.theme.themeActiveBG};
+  &:hover {
+    background-color: transparent;
   }
 
   @media only screen and (max-width: 768px) {
@@ -110,6 +117,7 @@ export const Logout = styled.div`
     padding: 5px 0;
   }
 `;
+
 export const ButtonforTheme = styled.button`
   display: flex;
   flex-direction: row;
@@ -119,12 +127,12 @@ export const ButtonforTheme = styled.button`
   border: none;
   padding: 0;
   color: ${(props) => props.theme.fontColour};
-  background-color: ${(props) => props.theme.modalBg};
+  background-color: transparent;
   font-size: 14px;
   font-weight: 400;
   flex: 1;
   ${Options}:hover & {
-    background-color: ${(props) => props.theme.themeActiveBG};
+    background-color: transparent;
   }
 `;
 export const ArrowforButton = styled(KeyboardArrowRightIcon)`

@@ -130,7 +130,7 @@ export const Okicon = styled(CheckCircleIcon)`
   color: ${(props) => props.theme.fontColour};
   opacity: 0.5;
   font-size: 18px !important;
-  :hover {
+  &:hover {
     color: #14641c;
     border-radius: 50%;
     opacity: 1;

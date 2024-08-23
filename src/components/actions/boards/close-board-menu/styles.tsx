@@ -52,12 +52,12 @@ export const DeleteButton = styled.button`
   justify-content: center;
   align-items: center;
   border: 1px solid black;
-  :hover {
+  &:hover {
     background-color: #ff9c8f;
   }
 `;
 export const Close = styled(CloseIcon)`
-  :hover {
+  &:hover {
     color: white;
   }
 `;

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
   top: 234px;
   right: 256px;
   z-index: 1;
@@ -38,8 +38,12 @@ export const Wrapper = styled.button<WrapperPropsType>`
   outline: none;
   padding: 8px 5px;
   background-color: ${(props) => props.theme.modalBg};
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.themeColor};
   ${(props) => props.active && activeStyle}
+  &:hover {
+    color: ${(props) =>
+      props.active ? props.theme.themeActiveColor : props.theme.fontColour};
+  }
 `;
 
 const activeStyle = css`

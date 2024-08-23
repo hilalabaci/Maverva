@@ -50,7 +50,7 @@ export const ProjectsButton = styled.button`
   font-size: 15px;
   border-radius: 3px;
   padding: 7px;
-  :hover {
+  &:hover {
     background-color: #dddfe4;
   }
 
@@ -76,7 +76,7 @@ export const CreateButton = styled.button`
   border: none;
   border-radius: 3px;
   background-color: ${(props) => props.theme.navbarButtonBG};
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme.navbarButtonBGHover};
   }
 `;
@@ -124,7 +124,7 @@ export const ButtonforNotification = styled.button<ButtonforNotificationProps>`
   //background-color: ${(props) => props.theme.primary};
   background-color: ${(props) =>
     props.$isNotificationModalOpen ? "#E9F2FF" : props.theme.primary};
-  :hover {
+  &:hover {
     background-color: #091e4224;
   }
 `;
@@ -134,7 +134,7 @@ export const ButtonforTheme = styled.button`
   padding: 3px 4px;
   background-color: ${(props) => props.theme.primary};
 
-  :hover {
+  &:hover {
     border-radius: 50px;
     background-color: #091e4224;
   }

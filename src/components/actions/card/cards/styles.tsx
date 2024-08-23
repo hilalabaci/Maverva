@@ -31,7 +31,7 @@ export const Container = styled.div`
   );
   cursor: pointer;
   background-color: ${(props) => props.theme.cardBG};
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme.cardBGHover};
     // background-color: var(--ds-background-neutral-subtle-hovered, #F4F5F7);
     --jsw-card-background-color: var(
@@ -40,7 +40,7 @@ export const Container = styled.div`
     );
     color: var(--ds-text, #172b4d);
   }
-  :hover ${EditIcon} {
+  &:hover ${EditIcon} {
     opacity: 1;
   }
   @media only screen and (max-width: 768px) {

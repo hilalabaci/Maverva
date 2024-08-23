@@ -24,7 +24,7 @@ export const InputWrapper = styled.div`
   border: 1px solid #ccc;
   border-radius: 2px;
   background-color: whitesmoke;
-  :hover {
+  &:hover {
     border-color: #9b59b6;
   }
 `;

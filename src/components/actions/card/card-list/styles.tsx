@@ -64,7 +64,7 @@ export const AddCardButton = styled.button`
   align-items: center;
   justify-content: flex-start;
   opacity: 0.5;
-  :hover {
+  &:hover {
     opacity: 1;
   }
   @media only screen and (max-width: 768px) {

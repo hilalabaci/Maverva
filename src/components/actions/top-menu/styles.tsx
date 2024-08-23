@@ -27,7 +27,7 @@ export const BoardTitle = styled.h1`
   justify-content: center;
   overflow: hidden;
   max-width: 600px;
-  :hover {
+  &:hover {
     background-color: ${(props) => props.theme.boardBG};
   }
   @media only screen and (max-width: 768px) {
@@ -82,7 +82,7 @@ export const ButtonStylesforIconPerson = styled.button`
   border-radius: 50px;
   font-family: Inter;
   border: 2px solid ${(props) => props.theme.primary};
-  :hover {
+  &:hover {
     z-index: 1;
   }
 `;
@@ -98,7 +98,7 @@ export const ButtonStylesforPersonAdd = styled.button`
   height: 40px;
   background-color: #a1bdd914;
   color: #b6c2cf;
-  :hover {
+  &:hover {
     background-color: #a6c5e229;
   }
 `;

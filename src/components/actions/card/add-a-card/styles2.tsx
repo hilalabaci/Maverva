@@ -22,7 +22,7 @@ export const BoardTitle = styled.h1`
   text-transform: uppercase;
   overflow: hidden;
   max-width: 600px;
-  :hover {
+  &:hover {
     background-color: #535353;
   }
  

@@ -45,7 +45,7 @@ export const Button = styled.button`
   border-radius: 2px;
   opacity: 0.6;
   padding: 5px;
-  :hover {
+  &:hover {
     background-color: #a8ccff;
   }
   @media only screen and (max-width: 768px) {

@@ -12,7 +12,7 @@ export const Container = styled.div<ContainerPropsType>`
   padding: 15px 0;
   font-size: 12px;
   border-radius: 3px;
-  :hover {
+  &:hover {
     background-color: var(--ds-background-neutral-subtle-hovered, #f4f5f7);
   }
 `;

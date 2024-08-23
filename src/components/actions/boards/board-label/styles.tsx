@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
     rgb(155, 89, 182, 0.3)
   );
   //background-color: ${(props) => props.theme.boardBG};
-  :hover {
+  &:hover {
     background-color: rgba(255, 255, 255, 0.427);
   }
   @media only screen and (max-width: 768px) {
@@ -45,7 +45,7 @@ export const EditIcon = styled(DeleteIcon)`
   opacity: 0.5;
   font-size: 20px !important;
 
-  :hover {
+  &:hover {
     opacity: 1;
   }
   @media only screen and (max-width: 768px) {

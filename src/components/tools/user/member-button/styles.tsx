@@ -14,7 +14,7 @@ export const Container = styled.div`
   //background: linear-gradient(135deg, #71b7e6, #9b59b6);
   background-color: #de835d;
   position: relative;
-  :hover {
+  &:hover {
     animation-duration: 4s;
     ::before {
       content: "";

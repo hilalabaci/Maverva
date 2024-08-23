@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   margin: 0 0 4px 8px;
   padding: 6px 12px 6px 8px;
   text-decoration: none;
-  :hover {
+  &:hover {
     background: rgba(255, 255, 255, 0.17);
     color: #fff;
     text-decoration: none;

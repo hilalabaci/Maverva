@@ -61,7 +61,7 @@ function MemberMenu(props: MemberMenuProps) {
       <Options>
         Manage account <IconforManaAccount />
       </Options>
-      <Options>
+      <Options $active={showModal}>
         <ButtonforTheme onClick={openModal}>
           Theme
           <ArrowforButton />

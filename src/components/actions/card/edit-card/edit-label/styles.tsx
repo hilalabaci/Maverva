@@ -43,7 +43,7 @@ export const Label = styled.div<LabelProps>`
   border-radius: 2px;
   background-color: ${(props) => props.colour};
   flex: 1;
-  :hover {
+  &:hover {
     opacity: 0.8;
   }
 `;

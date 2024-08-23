@@ -82,7 +82,7 @@ export const StyledLink = styled(Link)`
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   opacity: 0.5;
-  :hover {
+  &:hover {
     color: #007bff;
     opacity: 1;
   }

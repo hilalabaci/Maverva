@@ -76,9 +76,9 @@ export const ButtonWrapper = styled.div`
   gap: 10px;
   margin-top: 10px;
 `;
-export const CancelButton = styled.button`
+export const CancelButton = &:hover
   color: ${(props) => props.theme.fontColour};
-  background-color: ${(props) => props.theme.modalBg};
+  background-color:transparent;
   border: none;
   outline: none;
   font-size: 14px;
@@ -89,7 +89,7 @@ export const CancelButton = styled.button`
     background-color: ${(props) => props.theme.modalInputBg};
   }
 `;
-export const SubmitButton = styled.button`
+export const SubmitButton = &:hover
   font-size: 14px;
   padding: 9px;
   background-color: #579dff;
