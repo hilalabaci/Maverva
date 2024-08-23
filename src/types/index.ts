@@ -10,6 +10,7 @@ export type BoardType = {
   _id: string;
   title: string;
   users: UserType[];
+  userId: UserType;
 };
 export type CardType = {
   _id: string;
@@ -35,4 +36,6 @@ export type NotificationType = {
   isRead: boolean;
   _id: string;
   message: string;
+  fromUserId: UserType;
+  createdAdd: Date;
 };

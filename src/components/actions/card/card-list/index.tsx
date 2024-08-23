@@ -25,7 +25,7 @@ interface CardListProps {
   boardId: string;
   onUpdate: (card: CardType) => void; // Adjust 'any' to a specific type if known
   onDelete: (id: string) => void;
-  addedCard?: (card: any) => void; // Adjust 'any' to a specific type if known
+  addedCard: (card: CardType) => void; // Adjust 'any' to a specific type if known
 }
 
 function CardList(props: CardListProps) {

@@ -1,8 +1,7 @@
-import React from "react";
 import { Container, Wrapper, ImgforTheme } from "./styles";
 import { useTheme } from "../../../contexts/ThemeContext";
 
-function ChangeThemeModal(props) {
+function ChangeThemeModal() {
   const { changeMode, mode, theme } = useTheme();
   const HandlerChangeLight = () => {
     if (mode === "dark") {

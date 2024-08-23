@@ -9,8 +9,12 @@ import {
   Main,
   TimeInfo,
 } from "./styles";
+import { NotificationType } from "../../../types";
 
-function Notification(props) {
+type NotificationPropsType = {
+  notification: NotificationType;
+};
+function Notification(props: NotificationPropsType) {
   const { notification } = props;
 
   return (

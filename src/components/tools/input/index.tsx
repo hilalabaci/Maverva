@@ -10,7 +10,7 @@ import {
 type InputPropsType = {
   title: string;
   error?: string;
-  onChange: (value: string) => void;
+  onChange: (value: string, name: string) => void;
   value: string;
   type?: React.HTMLInputTypeAttribute;
   name?: string;
@@ -29,7 +29,7 @@ function Input(props: InputPropsType) {
         }
       >
         <Inputs
-          onChange={(e) => props.onChange(e.target.value)}
+          onChange={(e) => props.onChange(e.target.value, e.target.name)}
           value={props.value}
           type={props.type}
           name={props.name}

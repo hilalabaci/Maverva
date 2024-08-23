@@ -70,8 +70,8 @@ function Home() {
     setBoards(newBoards);
   }
 
-  const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
+  const onSearch = (value: string) => {
+    setSearchInput(value);
   };
 
   const addBoard = (board: BoardType) => {

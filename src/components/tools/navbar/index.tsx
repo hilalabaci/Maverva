@@ -33,7 +33,7 @@ type NavbarPropsType = {
 
 function Navbar(props: NavbarPropsType) {
   const { user } = useUserContext();
-  const notificationIconRef = useRef(null);
+  const notificationIconRef = useRef<HTMLButtonElement | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
   const [showModalforCreateButton, setShowModalforCreateButton] =

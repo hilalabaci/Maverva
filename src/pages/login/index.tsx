@@ -22,10 +22,10 @@ interface FormError {
   password?: string;
 }
 interface FormData {
-  fullName:string,
-  email:string,
-  password:string,
-  confirmPassword:string,
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
 function Login() {
@@ -44,8 +44,7 @@ function Login() {
     email: undefined,
     password: undefined,
   });
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const { value, name } = event.target;
+  function handleChange(value: string, name: string) {
     setLogin((prevValue) => ({ ...prevValue, [name]: value }));
 
     if (error.password) {

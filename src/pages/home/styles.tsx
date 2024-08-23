@@ -21,7 +21,11 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const Menu = styled.div`
+
+type MenuPropsType = {
+  $hidden?: boolean;
+};
+export const Menu = styled.div<MenuPropsType>`
   display: flex;
   width: ${(props) => (props.$hidden ? "50px" : "")};
 `;
@@ -37,7 +41,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin:0 10px;
+  margin: 0 10px;
   @media only screen and (max-width: 768px) {
     margin-left: 7px;
     overflow-x: scroll;

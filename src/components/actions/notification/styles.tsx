@@ -1,7 +1,10 @@
 import styled from "styled-components";
 //import Markdown from "react-markdown";
 
-export const Container = styled.div`
+type ContainerPropsType = {
+  $isRead?: boolean;
+};
+export const Container = styled.div<ContainerPropsType>`
   background-color: ${(props) =>
     props.$isRead ? props.theme.ModalBg : "  rgba(168, 204, 255, 0.3);"};
   font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",

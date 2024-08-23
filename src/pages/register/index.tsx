@@ -69,8 +69,7 @@ function Register() {
     register.fullName,
     error.email,
   ]);
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const { value, name } = event.target;
+  function handleChange(value: string, name: string) {
     setRegister((prevValue) => ({ ...prevValue, [name]: value }));
 
     if (error.password) {

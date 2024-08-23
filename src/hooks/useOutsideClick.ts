@@ -1,8 +1,11 @@
 import React from "react";
 
-const useOutsideClick = <T extends HTMLElement>(
+const useOutsideClick = <
+  T extends HTMLElement,
+  K extends HTMLElement = HTMLElement
+>(
   callback: () => void,
-  excludedRef?: React.MutableRefObject<T | undefined>
+  excludedRef?: React.MutableRefObject<K | null>
 ) => {
   const ref = React.useRef<T | null>(null);
 

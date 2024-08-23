@@ -24,7 +24,11 @@ export const Container = styled.div`
   border-radius: 3px;
   font-weight: 400;
 `;
-export const Wrapper = styled.button`
+
+type WrapperPropsType = {
+  active?: boolean;
+};
+export const Wrapper = styled.button<WrapperPropsType>`
   display: flex;
   align-items: center;
   width: 100%;
