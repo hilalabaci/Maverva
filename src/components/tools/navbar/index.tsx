@@ -10,7 +10,7 @@ import {
   ProjectsButton,
   ProjectsSpan,
   GlobalStyle,
-  SearchUser,
+  NavbarLeftSideWrapper,
   IconNotification,
   NotificationCount,
   NotificationContainer,
@@ -19,6 +19,7 @@ import {
   ButtonforNotification,
   CreateWrapper,
   CreateButton,
+  MemberButtonWrapper,
 } from "./styles";
 import Search from "../search";
 import Modal from "../../actions/modal";
@@ -29,6 +30,7 @@ import { BoardType, NotificationType } from "../../../types";
 type NavbarPropsType = {
   onSearch: (value: string) => void;
   onCreate: (board: BoardType) => void;
+  isMemberButtoOpen: boolean;
 };
 
 function Navbar(props: NavbarPropsType) {
@@ -36,6 +38,14 @@ function Navbar(props: NavbarPropsType) {
   const notificationIconRef = useRef<HTMLButtonElement | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const [memberMenu, setMemberMenu] = useState(false);
+  function openMemberMenu() {
+    setMemberMenu(true);
+  }
+  function closeMemberMenu() {
+    setMemberMenu(false);
+  }
+
   const [showModalforCreateButton, setShowModalforCreateButton] =
     useState(false);
 
@@ -105,14 +115,6 @@ function Navbar(props: NavbarPropsType) {
 
   return (
     <HeaderContainer>
-      {showModalforCreateButton && (
-        <Modal onClose={closeModalforCreateButton}>
-          <BoardCreate
-            onCreate={props.onCreate}
-            onClose={closeModalforCreateButton}
-          />
-        </Modal>
-      )}
       <NavbarContainer>
         <GlobalStyle />
         <BrandContainer>
@@ -133,7 +135,7 @@ function Navbar(props: NavbarPropsType) {
           </CreateWrapper>
         </Presentation>
       </NavbarContainer>
-      <SearchUser>
+      <NavbarLeftSideWrapper>
         <Search onSearch={props.onSearch} />
         <ButtonforNotification
           $isNotificationModalOpen={showModal}
@@ -146,9 +148,22 @@ function Navbar(props: NavbarPropsType) {
 
           <IconNotification $isNotificationModalOpen={showModal} />
         </ButtonforNotification>
-
-        <MemberButton />
-      </SearchUser>
+        <MemberButtonWrapper $isMemberButtonOpen={memberMenu}>
+          <MemberButton
+            onClick={openMemberMenu}
+            closeMenu={closeMemberMenu}
+            showMenu={memberMenu}
+          />
+        </MemberButtonWrapper>
+      </NavbarLeftSideWrapper>
+      {showModalforCreateButton && (
+        <Modal onClose={closeModalforCreateButton}>
+          <BoardCreate
+            onCreate={props.onCreate}
+            onClose={closeModalforCreateButton}
+          />
+        </Modal>
+      )}
       {showModal && (
         <Modal
           onClose={closeModal}
@@ -156,8 +171,8 @@ function Navbar(props: NavbarPropsType) {
           style={{
             alignItems: "flex-start",
             justifyContent: "flex-end",
-            top: "61px",
-            right: "-220px",
+            top: "60px",
+            right: "70px",
             background: "none",
           }}
         >

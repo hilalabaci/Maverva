@@ -1,32 +1,23 @@
-import React, { useState } from "react";
-import { Container, UserInitials } from "./styles";
-import { useUserContext } from "../../../../contexts/UserContext";
+import { Container } from "./styles";
 import MemberMenu from "../member-menu";
+import MemberPhoto from "../member-photo";
+type MemberButtonPropsType = {
+  closeMenu: () => void;
+  showMenu: boolean;
+  onClick: () => void;
+};
 
-function MemberButton() {
-  const { user } = useUserContext();
-  const [showMenu, setShowMenu] = useState(false);
-  function openMenu() {
-    setShowMenu(true);
-  }
-  function closeMenu() {
-    setShowMenu(false);
-  }
-  if (!user) {
-    return null;
-  }
-  const userFullName = user.fullName;
-  const chars = userFullName.split(" ");
-  const firstName = chars[0];
-  const lastName = chars.length > 1 ? chars[1] : "";
-
+function MemberButton(props: MemberButtonPropsType) {
   return (
-    <Container onClick={openMenu}>
-      {showMenu && <MemberMenu onClose={closeMenu} />}
-      <UserInitials>
-        {firstName[0]}
-        {lastName[0]}
-      </UserInitials>
+    <Container onClick={props.onClick}>
+      <MemberPhoto
+        $userPhotoWidth="24px"
+        $userPhotoHeight="24px"
+        $userPhotoFontSize="10px"
+        $userBorderadius="50px"
+        $fontWeight="600"
+      />
+      {props.showMenu && <MemberMenu onClose={props.closeMenu} />}
     </Container>
   );
 }

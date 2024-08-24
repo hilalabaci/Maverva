@@ -11,6 +11,7 @@ interface MemberphotoProps {
   $userPhotoFontSize?: string;
   $userBorderadius?: string;
   $userBorder?: string;
+  $fontWeight?: string;
 }
 export const Container = styled.div<ContainerProps>`
   display: ${(props) => (props.$hidden ? "none" : "flex")};
@@ -27,9 +28,9 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   //background: linear-gradient(135deg, #71b7e6, #9b59b6);
   background-color: #de835d;
   position: relative;
-  color: white;
+  color: #182a4e;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: ${(props) => props.$fontWeight};
 
   @media only screen and (max-width: 768px) {
     width: 25px;

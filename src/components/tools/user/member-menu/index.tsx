@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 import ChangeThemeModal from "../../../actions/changeThemeModal";
+import Modal from "../../../actions/modal";
+import MemberPhoto from "../member-photo";
 import {
   Container,
   Title,
   Accountdetails,
   Options,
-  Memberphoto,
   Memberinfo,
   MemberName,
   MemberEmail,
@@ -16,7 +17,6 @@ import {
   ArrowforButton,
   IconforManaAccount,
 } from "./styles";
-import Modal from "../../../actions/modal";
 
 type MemberMenuProps = {
   onClose: () => void;
@@ -31,14 +31,12 @@ function MemberMenu(props: MemberMenuProps) {
   }
   const userFullName = user.fullName;
   const userEmail = user.email;
-  const chars = userFullName.split(" ");
-  const firstName = chars[0];
-  const lastName = chars.length > 1 ? chars[1] : "";
 
   function openModal() {
     setShowModal(true);
   }
   function closeModal() {
+    console.log("geldi");
     setShowModal(false);
   }
 
@@ -49,10 +47,13 @@ function MemberMenu(props: MemberMenuProps) {
     <Container ref={ref}>
       <Title>Account</Title>
       <Accountdetails>
-        <Memberphoto>
-          {firstName[0]}
-          {lastName[0]}
-        </Memberphoto>
+        <MemberPhoto
+          $userPhotoWidth="35px"
+          $userPhotoHeight="35px"
+          $userPhotoFontSize="15px"
+          $userBorderadius="50px"
+          $fontWeight="500"
+        />
         <Memberinfo>
           <MemberName>{userFullName}</MemberName>
           <MemberEmail>{userEmail}</MemberEmail>
@@ -71,12 +72,7 @@ function MemberMenu(props: MemberMenuProps) {
         <Logout onClick={logOut}> Log out</Logout>
       </Options>
       {showModal && (
-        <Modal
-          style={{
-            background: "none",
-          }}
-          onClose={closeModal}
-        >
+        <Modal noBackdrop onClose={closeModal}>
           <ChangeThemeModal />
         </Modal>
       )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "../../modal";
 import { Label, Wrapper, EditIcon } from "./styles";
 import CloseBoardMenu from "../close-board-menu";

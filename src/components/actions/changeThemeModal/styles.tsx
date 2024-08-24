@@ -2,9 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   position: fixed;
-  top: 234px;
-  right: 256px;
-  z-index: 1;
+  transform: translate3d(-178px, 45.5px, 0px);
   background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.fontColour};
   border-radius: 2px;

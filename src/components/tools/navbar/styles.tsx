@@ -3,8 +3,9 @@ import styled, { createGlobalStyle } from "styled-components";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-interface ButtonforNotificationProps {
+interface ModalsToggleProps {
   $isNotificationModalOpen?: boolean; // Mark as optional
+  $isMemberButtonOpen?: boolean;
 }
 
 export const GlobalStyle = createGlobalStyle`
@@ -106,7 +107,7 @@ export const BrandLogo = styled(DashboardRoundedIcon)`
   }
 `;
 
-export const SearchUser = styled.div`
+export const NavbarLeftSideWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -116,16 +117,18 @@ export const SearchUser = styled.div`
 export const UserWrapper = styled.div``;
 export const SearchWrapper = styled.div``;
 
-export const ButtonforNotification = styled.button<ButtonforNotificationProps>`
+export const ButtonforNotification = styled.button<ModalsToggleProps>`
   outline: none;
   border: none;
   padding: 3px 4px;
   border-radius: 50px;
   //background-color: ${(props) => props.theme.primary};
   background-color: ${(props) =>
-    props.$isNotificationModalOpen ? "#E9F2FF" : props.theme.primary};
+    props.$isNotificationModalOpen
+      ? props.theme.navbarActiveButton
+      : props.theme.primary};
   &:hover {
-    background-color: #091e4224;
+    background-color: ${(props) => props.theme.navbarHoverButton};
   }
 `;
 export const ButtonforTheme = styled.button`
@@ -139,11 +142,11 @@ export const ButtonforTheme = styled.button`
     background-color: #091e4224;
   }
 `;
-export const IconNotification = styled(
-  NotificationsIcon
-)<ButtonforNotificationProps>`
+export const IconNotification = styled(NotificationsIcon)<ModalsToggleProps>`
   color: ${(props) =>
-    props.$isNotificationModalOpen ? "#0c66e4" : props.theme.fontColour};
+    props.$isNotificationModalOpen
+      ? props.theme.navbarActiveFontColour
+      : props.theme.fontColour};
   font-size: 23px !important;
 `;
 export const NotificationCount = styled.span`
@@ -170,11 +173,9 @@ export const NotificationCount = styled.span`
 export const NotificationContainer = styled.div`
   background-color: ${(props) => props.theme.modalBg};
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
-  border: ${(props) =>
-    props.theme
-      .borderforNotificationContainer}; /* İsteğe bağlı olarak bir border ekleyebilirsiniz */
+  border: ${(props) => props.theme.borderforNotificationContainer};
   border-radius: 8px;
-  width: 60%;
+  width: 100%;
   //transform: translate3d(-142px, 51.5px, 0px);
 `;
 export const NotificationWrapper = styled.div`
@@ -186,4 +187,21 @@ export const Title = styled.header`
   border-bottom: 2px solid rgba(225, 227, 231, 255);
   font-size: 24px;
   padding: 15px;
+`;
+
+export const MemberButtonWrapper = styled.div<ModalsToggleProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+  background-color: ${(props) =>
+    props.$isMemberButtonOpen
+      ? props.theme.navbarActiveButton
+      : props.theme.primary};
+
+  &:hover {
+    background-color: ${(props) => props.theme.navbarHoverButton};
+  }
 `;

@@ -17,18 +17,14 @@ export const darkTheme = {
   navbarButtonBG: "#579DFF",
   navbarButtonBGHover: "#85B8FF",
   memberMenuFontColor: "#B6C2CF",
-  memberMenuHoverBg:"#323940",
+  memberMenuHoverBg: "#323940",
   themeColor: "rgba(182, 194, 207,0.5)",
   themeActiveColor: "#579DFF",
   themeActiveBG: "#09326C",
   themeActiveBorder: "3px solid #579dff",
-
-  // #579dff active button
-  /**box-shadow: var(
-    --ds-shadow-overlay,
-    0 4px 8px -2px rgba(9, 30, 66, 0.25),
-    0 0 1px rgba(9, 30, 66, 0.31)
-  );**/
+  navbarHoverButton: "#333c44",
+  navbarActiveButton: "#1c2b41",
+  navbarActiveFontColour: "#579dff",
 };
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
@@ -55,4 +51,7 @@ export const lightTheme = {
   themeActiveColor: "#0c66e4",
   themeActiveBG: "#E9F2ff",
   themeActiveBorder: "3px solid #0052cc",
+  navbarHoverButton: "#091e4224",
+  navbarActiveButton: "#E9F2FF",
+  navbarActiveFontColour: "#0c66e4",
 };

@@ -10,7 +10,7 @@ function ChangeThemeModal() {
   };
   const HandlerChangeDark = () => {
     if (mode === "light") {
-      changeMode("dark");
+      changeMode("dark"); 
     }
   };
   return (

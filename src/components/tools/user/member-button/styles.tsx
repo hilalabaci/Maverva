@@ -3,12 +3,12 @@ import styled, { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 
 `;
-export const Container = styled.div`
+export const Container = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   border-radius: 100px;
   //border: 1px solid ${(props) => props.theme.fontColour};
   //background: linear-gradient(135deg, #71b7e6, #9b59b6);
@@ -30,9 +30,9 @@ export const Container = styled.div`
   }
 `;
 export const UserInitials = styled.h1`
-  font-size: 14px;
+  font-size: 10px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: #182a4e;
   @media only screen and (max-width: 768px) {
     font-size: 15px;
   }

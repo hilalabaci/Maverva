@@ -9,6 +9,7 @@ interface MemberPhotoProps {
   $userPhotoFontSize?: string;
   $userBorderadius?: string;
   $userBorder?: string;
+  $fontWeight?: string;
 }
 
 function MemberPhoto(props: MemberPhotoProps) {
@@ -29,6 +30,7 @@ function MemberPhoto(props: MemberPhotoProps) {
         $userPhotoFontSize={props.$userPhotoFontSize}
         $userBorderadius={props.$userBorderadius}
         $userBorder={props.$userBorder}
+        $fontWeight={props.$fontWeight}
       >
         {firstName[0]}
         {lastName[0]}

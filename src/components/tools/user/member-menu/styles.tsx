@@ -3,10 +3,10 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 export const Container = styled.div`
-  position: absolute;
-  top: 45px;
-  right: -5px;
+  position: fixed;
+  inset: 0px 0px auto auto;
   z-index: 1;
+  transform: translate3d(-23px, 58.5px, 0px);
   min-width: 234px;
   background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.memberMenuFontColor};
@@ -25,6 +25,7 @@ export const Container = styled.div`
   }
 `;
 export const Title = styled.div`
+  display: flex;
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 600;
@@ -36,32 +37,18 @@ export const Title = styled.div`
 export const Accountdetails = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   padding: 15px;
   @media only screen and (max-width: 768px) {
     padding: 10px 0;
   }
 `;
-export const Memberphoto = styled.div`
+
+export const Memberinfo = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 100px;
-  color: ${(props) => props.theme.primary};
-  background-color: rgb(222, 131, 93);
-  position: relative;
-  text-transform: uppercase;
-  font-size: 13px;
-  font-weight: 700;
-  @media only screen and (max-width: 768px) {
-    width: 25px;
-    height: 25px;
-    font-size: 10px;
-  }
+  flex-direction: column;
+  align-items: flex-start;
 `;
-export const Memberinfo = styled.div``;
 export const MemberName = styled.div`
   text-transform: capitalize;
   font-size: 14px;
@@ -80,14 +67,14 @@ export const MemberEmail = styled.div`
 type ButtonforThemePropsType = {
   $active?: boolean;
 };
-export const Options = styled.div<ButtonforThemePropsType>`
+export const Options = styled.ul<ButtonforThemePropsType>`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
   font-weight: 400;
   padding: 15px;
   vertical-align: center;
-  border-bottom: ${(props) => props.theme.borderforModal};
+  //border-bottom: ${(props) => props.theme.borderforModal};
   border-left: ${(props) =>
     props.$active ? props.theme.themeActiveBorder : "none"};
   background-color: ${(props) =>
@@ -111,7 +98,6 @@ export const Logout = styled.div`
   &:hover {
     background-color: transparent;
   }
-
   @media only screen and (max-width: 768px) {
     font-size: 10px;
     padding: 5px 0;
