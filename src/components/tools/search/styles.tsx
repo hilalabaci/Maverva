@@ -1,34 +1,38 @@
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 
-export const SearchContainer = styled.div`
-  height: 30px;
+export const SearchContainer = styled.button<{ isClicked: boolean }>`
+  height: 40px;
   display: flex;
+  padding-left: 8px;
+  gap: 5px;
   align-items: center;
-  border-radius: 5px;
-  border: 1px solid #738496;
-  //border: 1.5px solid ${(props) => props.theme.searchBorder};
-  transition: width 10s ease-in-out 0.5s;
+  border-radius: 3px;
+  outline: none;
+  border: ${(props) => props.theme.searchBorder};
+  outline: ${(props) =>
+    props.isClicked ? props.theme.searchOutlineColour : "none"};
+  background-color: ${(props) => props.theme.searchInputBg};
+  transition: border-width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  box-sizing: border-box;
   ::placeholder {
-    opacity: 0.1;
+    opacity: 1;
+    color: ${(props) => props.theme.searchPlaceHolderFontColour};
   }
-  &:hover{
-
-  }
-  :focus-visible {
-    //width: 700px;
-    border: 1px solid
-      linear-gradient(135deg, rgb(113, 183, 230, 0.3), rgb(155, 89, 182, 0.3));
+  &:hover {
+    background-color: ${(props) => props.theme.searchInputBgHover};
   }
   @media only screen and (max-width: 768px) {
     border: none;
   }
 `;
 export const IconWrapper = styled.button`
-  background-color: ${(props) => props.theme.primary};
+  background-color: transparent;
   border: none;
   outline: none;
   color: #a1bdd914;
+  padding: 0;
+  margin: 0;
   @media only screen and (max-width: 768px) {
     background: none;
   }
@@ -37,19 +41,17 @@ export const IconWrapper = styled.button`
 export const InputWrapper = styled.div`
   display: flex;
   :focus-visible {
-    width: 700px;
     border: 1px solid
       linear-gradient(135deg, rgb(113, 183, 230, 0.3), rgb(155, 89, 182, 0.3));
   }
 `;
 export const Input = styled.input`
-  flex: 1;
   outline: none;
   border: none;
-  background-color: ${(props) => props.theme.primary};
+  background-color: transparent;
   font-size: 15px;
-  color: #738496;
-  //color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.fontColour};
+  padding: 0;
   input[type="search"]::-webkit-search-decoration {
     display: none;
   }
@@ -61,8 +63,7 @@ export const Icon = styled(SearchIcon)`
   border: none;
   outline: none;
   margin-top: 3px;
-  color: #738496;
-  //color: ${(props) => props.theme.searchBorder};
+  color: ${(props) => props.theme.searchPlaceHolderFontColour};
   display: flex;
-  font-size: 15px !important;
+  font-size: 16px !important;
 `;

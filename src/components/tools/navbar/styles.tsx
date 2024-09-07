@@ -39,7 +39,10 @@ export const Presentation = styled.div`
   align-items: center;
   gap: 10px;
 `;
-export const Projects = styled.div``;
+export const Projects = styled.a`
+ text-decoration: none;
+
+`;
 export const ProjectsButton = styled.button`
   display: flex;
   align-items: center;
@@ -52,7 +55,7 @@ export const ProjectsButton = styled.button`
   border-radius: 3px;
   padding: 7px;
   &:hover {
-    background-color: #dddfe4;
+    background-color: ${(props) => props.theme.navbarHoverButton};
   }
 
   :focus-visible {

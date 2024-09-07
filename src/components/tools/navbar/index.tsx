@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MemberButton from "../user/member-button";
 import {
   BrandContainer,
@@ -21,20 +22,18 @@ import {
   CreateButton,
   MemberButtonWrapper,
 } from "./styles";
-import Search from "../search";
 import Modal from "../../actions/modal";
 import Notification from "../../actions/notification";
 import { useUserContext } from "../../../contexts/UserContext";
 import BoardCreate from "../../actions/boards/board-add/create";
 import { BoardType, NotificationType } from "../../../types";
 type NavbarPropsType = {
-  onSearch: (value: string) => void;
   onCreate: (board: BoardType) => void;
-  isMemberButtoOpen: boolean;
 };
 
 function Navbar(props: NavbarPropsType) {
   const { user } = useUserContext();
+  const navigate = useNavigate();
   const notificationIconRef = useRef<HTMLButtonElement | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
@@ -112,6 +111,10 @@ function Navbar(props: NavbarPropsType) {
   }
 
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
+  function handleProjectsClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault(); // Tarayıcının varsayılan sayfa yenilemesini engeller
+    navigate("/projects"); // Yönlendirme işlemi
+  }
 
   return (
     <HeaderContainer>
@@ -122,7 +125,7 @@ function Navbar(props: NavbarPropsType) {
           Process
         </BrandContainer>
         <Presentation>
-          <Projects>
+          <Projects onClick={handleProjectsClick} href="/projects">
             <ProjectsButton>
               Projects
               <ProjectsSpan />
@@ -136,7 +139,6 @@ function Navbar(props: NavbarPropsType) {
         </Presentation>
       </NavbarContainer>
       <NavbarLeftSideWrapper>
-        <Search onSearch={props.onSearch} />
         <ButtonforNotification
           $isNotificationModalOpen={showModal}
           onClick={toggleModal}

@@ -54,11 +54,9 @@ export const InputStyle = styled.input`
   padding: 4px 7px 5px;
   width: 250px;
   color: ${(props) => props.theme.fontColour};
-  outline: none;
   letter-spacing: 0.05em;
-  :focus-visible {
-    border: ${(props) => props.theme.activeBorder};
-    outline: none;
+  &:focus-visible {
+    outline: ${(props) => props.theme.activeBorder};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
@@ -111,6 +109,7 @@ export const DetailTitle = styled.h3``;
 export const AddBoardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 3px;
 `;
 export const DetailsInfo = styled.div``;
 export const ProjectLeadInputWrapper = styled.div``;

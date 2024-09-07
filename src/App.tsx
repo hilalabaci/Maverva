@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import Home from "./pages/home";
 import Register from "./pages/register";
@@ -12,6 +11,7 @@ import {
 import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
+import Projects from "./pages/projects";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,6 +26,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path:"/projects",
+    element:<Projects/>
+  }
 ]);
 
 function PrivateRoute() {

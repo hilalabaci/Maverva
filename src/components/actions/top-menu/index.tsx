@@ -15,17 +15,20 @@ import Modal from "../modal";
 import AddPerson from "../addPerson";
 import { useUserContext } from "../../../contexts/UserContext";
 import { BoardType, UserType } from "../../../types";
+import Search from "../../tools/search";
 type TopMenuPropsType = {
   topMenuTitle: string;
   boardId: string;
   onBoardUpdate: (board: BoardType) => void;
   user?: UserType;
+  setSearchInput: (value: string) => void;
 };
 
 function TopMenu(props: TopMenuPropsType) {
   const [boardTitle, setBoardTitle] = useState(props.topMenuTitle);
   const { user } = useUserContext();
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
+
   function handleChange(value: string) {
     setEmailforAddPerson(value);
   }
@@ -87,6 +90,9 @@ function TopMenu(props: TopMenuPropsType) {
 
     return response.ok;
   }
+  const onSearch = (value: string) => {
+    props.setSearchInput(value);
+  };
 
   return (
     <Container onBlur={closeEditBoardTitle}>
@@ -101,6 +107,7 @@ function TopMenu(props: TopMenuPropsType) {
           />
         </Modal>
       )}
+      <Search onSearch={onSearch} placeHolderForSearchButton="Search Card" />
       <TitleContainer>
         {editBoardTitle ? (
           <EditBoardTitle

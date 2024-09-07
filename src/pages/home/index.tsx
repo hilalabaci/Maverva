@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BoardMenu from "../../components/actions/boards/board-menu";
-import Navbar from "../../components/tools/navbar";
 import CardList from "../../components/actions/card/card-list/index";
 import TopMenu from "../../components/actions/top-menu";
 import { useApplicationContext } from "../../contexts/ApplicationContext";
-import {
-  Container,
-  NavbarWrapper,
-  Wrapper,
-  Menu,
-  Main,
-  GlobalStyle,
-  MainContainer,
-} from "./styles";
 import { BoardType, CardType } from "../../types";
+import Layout from "../templates/layout";
+import { Wrapper, Menu, Main, MainContainer } from "./styles";
 
 function Home() {
   const { setBoard, board } = useApplicationContext();
@@ -70,24 +62,8 @@ function Home() {
     setBoards(newBoards);
   }
 
-  const onSearch = (value: string) => {
-    setSearchInput(value);
-  };
-
-  const addBoard = (board: BoardType) => {
-    const index = boards.findIndex((b) => b._id === board._id);
-    const newBoards = [...boards];
-    if (index !== -1) newBoards[index] = board;
-    else newBoards.push(board);
-    setBoards(newBoards);
-  };
-
   return (
-    <Container>
-      <GlobalStyle />
-      <NavbarWrapper>
-        <Navbar onSearch={onSearch} onCreate={addBoard} />
-      </NavbarWrapper>
+    <Layout onBoardCrate={(board) => onBoardUpdate(board)}>
       <Wrapper>
         <Menu>
           <BoardMenu
@@ -103,9 +79,9 @@ function Home() {
               boardId={board._id}
               topMenuTitle={board.title}
               user={board.userId}
+              setSearchInput={setSearchInput}
             />
           )}
-
           <Main>
             {board ? (
               <DndProvider backend={HTML5Backend}>
@@ -159,7 +135,7 @@ function Home() {
           </Main>
         </MainContainer>
       </Wrapper>
-    </Container>
+    </Layout>
   );
 }
 export default Home;
