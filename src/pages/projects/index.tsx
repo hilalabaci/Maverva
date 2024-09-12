@@ -27,11 +27,16 @@ import {
   MoreIcon,
   FilletStar,
   IconWrapper,
+  MoreIconButton,
+  LinkforProjects,
+  DataKey,
 } from "./styles";
 import Search from "../../components/tools/search";
 import { useUserContext } from "../../contexts/UserContext";
 import { BoardType } from "../../types";
 import MemberPhoto from "../../components/tools/user/member-photo";
+import { DropdownMenu } from "../../components/tools/dropdownMenu/index";
+import CloseBoardMenu from "../../components/actions/boards/close-board-menu";
 
 type ProjectsPropsType = {
   onBoardChange: (board: BoardType) => void;
@@ -40,14 +45,12 @@ type ProjectsPropsType = {
 function Projects(props: ProjectsPropsType) {
   const { user } = useUserContext();
   const [boards, setBoards] = useState<BoardType[]>([]);
+  const [selectedBoard, setSelectedBoard] = useState<BoardType | undefined>();
+  const [filteredBoard, setFilteredBoard] = useState<BoardType[]>([]);
+  const [searchInput, setSearchInput] = useState("");
   const [showModalforCreateButton, setShowModalforCreateButton] =
     useState(false);
-
-  useEffect(() => {
-    if (!user) return;
-    loadBoards();
-    // eslint-disable-next-line
-  }, [user]);
+  const [showModalforDeleteBoard, setShowModalforDeleteBoard] = useState(false);
 
   async function loadBoards() {
     const response = await fetch(
@@ -64,8 +67,49 @@ function Projects(props: ProjectsPropsType) {
       setBoards(data);
     }
   }
+
   function onDelete(id: string) {
     setBoards(boards.filter((board) => board._id !== id));
+  }
+
+  async function deleteItem(id: string) {
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "board?id=" + id,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      onDelete(id);
+    }
+  }
+
+  useEffect(() => {
+    if (!user) return;
+    loadBoards();
+    // eslint-disable-next-line
+  }, [user]);
+
+  useEffect(() => {
+    const filtered = boards.filter((board) =>
+      board.title.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setFilteredBoard(filtered);
+  }, [searchInput, boards]);
+
+  function openModal(board: BoardType) {
+    setShowModalforDeleteBoard(true);
+    setSelectedBoard(board);
+  }
+  function closeModal() {
+    setShowModalforDeleteBoard(false);
+    setSelectedBoard(undefined);
+  }
+  function addBoard(board: BoardType) {
+    setBoards([...boards, board]);
   }
 
   return (
@@ -85,9 +129,7 @@ function Projects(props: ProjectsPropsType) {
           <SearchWrapper>
             <Search
               placeHolderForSearchButton="Search Projects"
-              onSearch={function (value: string): void {
-                throw new Error("Function not implemented.");
-              }}
+              onSearch={setSearchInput}
             />
           </SearchWrapper>
           <DataContainer>
@@ -100,19 +142,25 @@ function Projects(props: ProjectsPropsType) {
                   <Titles>
                     Name <OrderIcon />
                   </Titles>
+                  <Titles>Key</Titles>
                   <Titles>Lead</Titles>
                   <Titles>Project URL</Titles>
                   <Titles>More action</Titles>
                 </TableTitleWrapper>
               </TableHead>
               <TableBody>
-                {boards.map((board, index) => (
+                {filteredBoard.map((board, index) => (
                   <DataWrapper>
                     <IconWrapper>
                       <FavIcon />
                     </IconWrapper>
-                    <DataLeadName>{board.title}</DataLeadName>
                     <DataProjectsName>
+                      <LinkforProjects to={`/projects/${board.projectKey}`}>
+                        {board.title}
+                      </LinkforProjects>
+                    </DataProjectsName>
+                    <DataKey>{board.projectKey}</DataKey>
+                    <DataLeadName>
                       <MemberPhoto
                         $userPhotoWidth="25px"
                         $userPhotoHeight="25px"
@@ -122,10 +170,26 @@ function Projects(props: ProjectsPropsType) {
                         $fontWeight="600"
                       />
                       {user?.fullName}
-                    </DataProjectsName>
+                    </DataLeadName>
                     <IconWrapper />
                     <IconWrapper>
-                      <MoreIcon />
+                      <DropdownMenu
+                        trigger={
+                          <MoreIconButton className="dropdown-trigger">
+                            <MoreIcon />
+                          </MoreIconButton>
+                        }
+                        items={[
+                          {
+                            label: "Move to trash",
+                            action: () => openModal(board),
+                          },
+                          {
+                            label: "Archive",
+                            action: () => console.log("Go to settings"),
+                          },
+                        ]}
+                      />
                     </IconWrapper>
                   </DataWrapper>
                 ))}
@@ -135,8 +199,21 @@ function Projects(props: ProjectsPropsType) {
           {showModalforCreateButton && (
             <Modal onClose={() => setShowModalforCreateButton(false)}>
               <BoardCreate
-                onCreate={() => {}}
+                onCreate={addBoard}
                 onClose={() => setShowModalforCreateButton(false)}
+                projectKey={selectedBoard?.projectKey}
+              />
+            </Modal>
+          )}
+          {showModalforDeleteBoard && selectedBoard && (
+            <Modal onClose={closeModal}>
+              <CloseBoardMenu
+                onDelete={() => {
+                  deleteItem(selectedBoard._id);
+                  closeModal();
+                }}
+                onClose={closeModal}
+                boardName={selectedBoard.title}
               />
             </Modal>
           )}

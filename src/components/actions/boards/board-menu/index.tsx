@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import MemberPhoto from "../../../tools/user/member-photo";
-import BoardList from "../board-list/index";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {
@@ -44,9 +43,6 @@ function BoardMenu(props: BoardMenuPropsType) {
     }
   }
 
-  function onDelete(id: string) {
-    props.setBoards(props.boards.filter((board) => board._id !== id));
-  }
   if (!user) {
     return null;
   }
@@ -77,11 +73,6 @@ function BoardMenu(props: BoardMenuPropsType) {
         <div>Your Boards</div>
       </AddBoardWrapper>
       <ListWrapper $hidden={hideMenu}>
-        <BoardList
-          onBoardChange={props.onBoardChange}
-          boards={props.boards}
-          onDelete={onDelete}
-        />
       </ListWrapper>
     </Container>
   );

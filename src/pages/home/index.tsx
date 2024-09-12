@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import BoardMenu from "../../components/actions/boards/board-menu";
 import CardList from "../../components/actions/card/card-list/index";
 import TopMenu from "../../components/actions/top-menu";
 import { useApplicationContext } from "../../contexts/ApplicationContext";
 import { BoardType, CardType } from "../../types";
 import Layout from "../templates/layout";
 import { Wrapper, Menu, Main, MainContainer } from "./styles";
+import { useParams } from "react-router-dom";
 
 function Home() {
+  const { projectKey } = useParams<{ projectKey: string }>();
   const { setBoard, board } = useApplicationContext();
   const [cards, setCards] = useState<CardType[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
-  const [boards, setBoards] = useState<BoardType[]>([]);
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
@@ -22,10 +22,12 @@ function Home() {
     );
   }, [searchInput, cards]);
 
+  async function loadBoard() {}
+
   async function loadCards(board: BoardType) {
     setBoard(board);
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "card?boardId=" + board._id,
+      process.env.REACT_APP_API_URL + "card?boardId=" + projectKey,
       {
         method: "GET",
         headers: {
@@ -55,27 +57,13 @@ function Home() {
     setCards([...cards, card]);
   }
 
-  function onBoardUpdate(board: BoardType) {
-    const index = boards.findIndex((b: BoardType) => b._id === board._id);
-    const newBoards = [...boards];
-    newBoards[index] = board;
-    setBoards(newBoards);
-  }
-
   return (
-    <Layout onBoardCrate={(board) => onBoardUpdate(board)}>
+    <Layout onBoardCrate={(board) => {}}>
       <Wrapper>
-        <Menu>
-          <BoardMenu
-            setBoards={setBoards}
-            onBoardChange={loadCards}
-            boards={boards}
-          />
-        </Menu>
         <MainContainer>
           {board && (
             <TopMenu
-              onBoardUpdate={onBoardUpdate}
+              onBoardUpdate={() => {}}
               boardId={board._id}
               topMenuTitle={board.title}
               user={board.userId}

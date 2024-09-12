@@ -12,6 +12,7 @@ import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import Projects from "./pages/projects";
+import { BoardType } from "./types";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,9 +28,21 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path:"/projects",
-    element:<Projects/>
-  }
+    path: "/projects",
+    element: (
+      <Projects
+        onBoardChange={function (board: BoardType): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    ),
+    children: [
+      {
+        path: `:projectKey`,
+        element: <Home />,
+      },
+    ],
+  },
 ]);
 
 function PrivateRoute() {

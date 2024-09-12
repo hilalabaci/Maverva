@@ -6,11 +6,11 @@ export const Container = styled.div`
   position: fixed;
   inset: 0px 0px auto auto;
   z-index: 1;
-  transform: translate3d(-23px, 58.5px, 0px);
   min-width: 234px;
   background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.memberMenuFontColor};
   border-radius: 2px;
+  transform: translate3d(-23px, 58.5px, 0px);
   border: 1px solid ${(props) => props.theme.borderLineColour};
   box-shadow: var(
     --ds-shadow-overlay,

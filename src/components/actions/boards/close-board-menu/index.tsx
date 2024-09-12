@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Container,
   Header,
@@ -7,8 +6,10 @@ import {
   ButtonWrapper,
   DeleteButton,
   BoardTitle,
-  Close,
+  WarningIcon,
 } from "./styles";
+import { CancelButton } from "../../addPerson/styles";
+
 type CloseBoardMenuPropsType = {
   boardName: string;
   onClose: () => void;
@@ -20,16 +21,19 @@ function CloseBoardMenu(props: CloseBoardMenuPropsType) {
   return (
     <Container>
       <Header>
-        <Title>Close board?</Title>
-        <Close onClick={props.onClose} />
+        <WarningIcon />
+        <Title>Move to trash?</Title>
       </Header>
       <Content>
-        Are you sure you want to close card <BoardTitle>{boardName}</BoardTitle>{" "}
-        ,all your cards belonging to card <BoardTitle>{boardName}</BoardTitle>{" "}
-        will be deleted in it?
+        Are you sure you want to delete the <BoardTitle>{boardName}</BoardTitle>{" "}
+        card? This action will also delete all cards associated with it.
+      </Content>
+      <Content>
+        Only Process admins can restore the project from the trash.
       </Content>
       <ButtonWrapper>
-        <DeleteButton onClick={props.onDelete}>Close</DeleteButton>
+        <CancelButton onClick={props.onClose}>Cancel</CancelButton>
+        <DeleteButton onClick={props.onDelete}>Delete</DeleteButton>
       </ButtonWrapper>
     </Container>
   );

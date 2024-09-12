@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
-import CloseIcon from "@mui/icons-material/Close";
+import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -7,57 +7,67 @@ export const GlobalStyle = createGlobalStyle`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 304px;
-  background: rgba(255, 255, 255, 0.17);
-  border-radius: 2px;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 15px;
-  
+  width: 400px;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.modalBg};
+  color: ${(props) => props.theme.memberMenuFontColor};
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  padding: 12px;
+  box-shadow: var(
+    --ds-shadow-overlay,
+    0 0 0 1px rgba(9, 30, 66, 0.08),
+    0 2px 1px rgba(9, 30, 66, 0.08),
+    0 0 20px -6px rgba(9, 30, 66, 0.31)
+  );
 `;
 export const Header = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 10px;
-  border-bottom: 0.5px solid;
-  margin: 10px;
+  padding: 20px 10px;
+  font-weight: 500;
+  font-size: 20px;
+  gap: 10px;
 `;
 export const Title = styled.span`
   flex: 1;
-  text-align: center;
+`;
+export const WarningIcon = styled(WarningRoundedIcon)`
+  color: #c9372c;
+  font-size: 28px !important;
 `;
 export const Content = styled.div`
   padding: 6px 12px;
   text-align: start;
   line-height: 25px;
+  font-size: 14px;
+  color: ${(props) => props.theme.memberMenuFontColor};
 `;
 export const BoardTitle = styled.span`
-  font-weight: 800;
-  text-transform: uppercase;
+  font-weight: 700;
 `;
 export const ButtonWrapper = styled.div`
   display: flex;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
   padding: 8px 10px 12px;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 8px;
 `;
 export const DeleteButton = styled.button`
-  background: #f87462;
-  border-radius: 2px;
-  height: 38px;
+  background: #c9372c;
+  border-radius: 3px;
   display: flex;
-  width: 100%;
   align-content: center;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  outline: none;
+  border: none;
+  color: white;
+  padding: 0 10px;
+  font-weight: 500;
+  font-size: 14px;
   &:hover {
     background-color: #ff9c8f;
-  }
-`;
-export const Close = styled(CloseIcon)`
-  &:hover {
-    color: white;
   }
 `;

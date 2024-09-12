@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
@@ -55,8 +56,18 @@ export const IconWrapper = styled.th`
 `;
 export const DataWrapper = styled.tr`
   border-bottom: 3px solid #eeeff2;
+  &:hover {
+    background-color: ${(props) => props.theme.projectsBgHover};
+  }
 `;
-export const DataProjectsName = styled.td`
+export const LinkforProjects = styled(Link)`
+  color: ${(props) => props.theme.themeActiveColor};
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+export const DataLeadName = styled.td`
   display: flex;
   align-items: center;
   gap: 7px;
@@ -66,12 +77,23 @@ export const DataProjectsName = styled.td`
   font-weight: 400;
   color: ${(props) => props.theme.themeActiveColor};
 `;
-export const DataLeadName = styled.td`
+export const DataKey = styled.td`
+  font-size: 14px;
+`;
+export const DataProjectsName = styled.td`
   padding-top: 12px;
   padding-bottom: 12px;
   font-size: 14px;
   font-weight: 400;
   color: ${(props) => props.theme.themeActiveColor};
+`;
+export const MoreIconButton = styled.button`
+  border: none;
+  outline: none;
+  background-color: transparent;
+  &:hover {
+    background-color: ${(props) => props.theme.projectsIconHover};
+  }
 `;
 export const FavIcon = styled(StarOutlineRoundedIcon)``;
 export const MoreIcon = styled(MoreHorizRoundedIcon)``;

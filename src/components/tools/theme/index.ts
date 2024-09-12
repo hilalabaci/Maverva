@@ -29,6 +29,8 @@ export const darkTheme = {
   navbarHoverButton: "#333c44",
   navbarActiveButton: "#1c2b41",
   navbarActiveFontColour: "#579dff",
+  projectsBgHover: "#f1f2f4",
+  projectsIconHover: "#e4e6e9",
 };
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
@@ -62,4 +64,6 @@ export const lightTheme = {
   navbarHoverButton: "#091e4224",
   navbarActiveButton: "#E9F2FF",
   navbarActiveFontColour: "#0c66e4",
+  projectsBgHover: "#f1f2f4",
+  projectsIconHover: "#e4e6e9",
 };

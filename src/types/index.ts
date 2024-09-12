@@ -11,6 +11,7 @@ export type BoardType = {
   title: string;
   users: UserType[];
   userId: UserType;
+  projectKey: string;
 };
 export type CardType = {
   _id: string;
