@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 export const Container = styled.div`
   width: 250px;
   padding: 10px 20px;
-  background-color: ${(props) => props.theme.boardColour};
+  background-color: ${(props) => props.theme.projectColour};
   border-radius: 2px;
   margin-right: 40px;
   @media only screen and (max-width: 768px) {
@@ -51,7 +51,7 @@ export const AddCardButtonWrapper = styled.div`
   margin-top: 15px;
 `;
 export const AddCardButton = styled.button`
-  background-color: ${(props) => props.theme.boardColour};
+  background-color: ${(props) => props.theme.projectColour};
   width: 259px;
   height: 45px;
   outline: none;

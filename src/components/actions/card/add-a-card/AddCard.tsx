@@ -9,7 +9,7 @@ import {
 import { useUserContext } from "../../../../contexts/UserContext";
 import { CardType } from "../../../../types";
 type AddCardPropsType = {
-  boardId: string;
+  projectId: string;
   status: number;
   onClose: () => void;
   addedCard: (card: CardType) => void;
@@ -26,7 +26,7 @@ function AddCard(props: AddCardPropsType) {
     const cardData = {
       userId: userId,
       content: content,
-      boardId: props.boardId,
+      projectId: props.projectId,
       status: props.status,
     };
     const response = await fetch(process.env.REACT_APP_API_URL + "card", {

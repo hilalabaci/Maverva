@@ -4,14 +4,14 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import CardList from "../../components/actions/card/card-list/index";
 import TopMenu from "../../components/actions/top-menu";
 import { useApplicationContext } from "../../contexts/ApplicationContext";
-import { BoardType, CardType } from "../../types";
+import { ProjectType, CardType } from "../../types";
 import Layout from "../templates/layout";
-import { Wrapper, Menu, Main, MainContainer } from "./styles";
+import { Wrapper, Main, MainContainer } from "./styles";
 import { useParams } from "react-router-dom";
 
 function Home() {
   const { projectKey } = useParams<{ projectKey: string }>();
-  const { setBoard, board } = useApplicationContext();
+  const { project, setProject } = useApplicationContext();
   const [cards, setCards] = useState<CardType[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
   const [searchInput, setSearchInput] = useState("");
@@ -22,12 +22,10 @@ function Home() {
     );
   }, [searchInput, cards]);
 
-  async function loadBoard() {}
-
-  async function loadCards(board: BoardType) {
-    setBoard(board);
+  async function loadCards(project: ProjectType) {
+    setProject(project);
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "card?boardId=" + projectKey,
+      process.env.REACT_APP_API_URL + "card?projectKey=" + projectKey,
       {
         method: "GET",
         headers: {
@@ -58,20 +56,20 @@ function Home() {
   }
 
   return (
-    <Layout onBoardCrate={(board) => {}}>
+    <Layout onProjectCrate={(project) => {}}>
       <Wrapper>
         <MainContainer>
-          {board && (
+          {project && (
             <TopMenu
-              onBoardUpdate={() => {}}
-              boardId={board._id}
-              topMenuTitle={board.title}
-              user={board.userId}
+              onProjectUpdate={() => {}}
+              projectId={project._id}
+              topMenuTitle={project.title}
+              user={project.userId}
               setSearchInput={setSearchInput}
             />
           )}
           <Main>
-            {board ? (
+            {project ? (
               <DndProvider backend={HTML5Backend}>
                 <CardList
                   onUpdate={updateCard}
@@ -84,7 +82,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 1).length
                   }
-                  boardId={board._id}
+                  projectId={project._id}
                   cards={filteredCards.filter((card) => card.status === 1)}
                   status={1}
                 />
@@ -99,7 +97,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 2).length
                   }
-                  boardId={board._id}
+                  projectId={project._id}
                   cards={filteredCards.filter((card) => card.status === 2)}
                   status={2}
                 />
@@ -114,7 +112,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 3).length
                   }
-                  boardId={board._id}
+                  projectId={project._id}
                   cards={filteredCards.filter((card) => card.status === 3)}
                   status={3}
                 />

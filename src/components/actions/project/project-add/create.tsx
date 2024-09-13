@@ -6,11 +6,11 @@ import {
   InfoTitle,
   InputStyle,
   GlobalStyle,
-  TitleforBoard,
+  TitleforProject,
   DetailTitle,
   InputforProjectLead,
   FielsetWrapper,
-  AddBoardWrapper,
+  AddProjectWrapper,
   ProjectLeadWrapper,
   ProjectLeadInputWrapper,
   DetailsInfo,
@@ -21,20 +21,20 @@ import {
 } from "./styles";
 import MemberPhoto from "../../../tools/user/member-photo";
 import { CancelButton, SubmitButton } from "../../addPerson/styles";
-import { BoardType } from "../../../../types";
-type BoardCreatePropsType = {
-  onCreate: (board: BoardType) => void;
+import { ProjectType } from "../../../../types";
+type ProjectCreatePropsType = {
+  onCreate: (project: ProjectType) => void;
   onClose: () => void;
-  userBorder?: string;
+  userProject?: string;
   projectKey?: string;
 };
-type CreateBoardResponse = {
+type CreateProjectResponse = {
   message: string;
-  newBoard: BoardType;
+  newProject: ProjectType;
 };
 
-function BoardCreate(props: BoardCreatePropsType) {
-  const [boardTitle, setBoardTitle] = useState("");
+function ProjectCreate(props: ProjectCreatePropsType) {
+  const [projectTitle, setProjectTitle] = useState("");
   const [projectKey, setProjectKey] = useState("");
   const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useUserContext();
@@ -48,7 +48,6 @@ function BoardCreate(props: BoardCreatePropsType) {
     };
 
     websocket.onmessage = (event) => {
-      console.log("event", event);
       const data = JSON.parse(event.data);
       if (data.projectKey) {
         setProjectKey(data.projectKey);
@@ -59,29 +58,28 @@ function BoardCreate(props: BoardCreatePropsType) {
       websocket.close();
     };
   }, []);
-  console.log(`this is a ${projectKey}`);
-
   function handleChange(value: string) {
-    setBoardTitle(value);
+    setProjectTitle(value);
     ws?.send(JSON.stringify({ title: value }));
   }
   async function onSubmit() {
-    const boardData = {
-      title: boardTitle,
+    const projectData = {
+      title: projectTitle,
       userId: userId,
       projectKey: projectKey,
     };
-    const response = await fetch(process.env.REACT_APP_API_URL + "board", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "project", {
       method: "POST",
-      body: JSON.stringify(boardData),
+      body: JSON.stringify(projectData),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
     if (response.ok) {
-      const data = (await response.json()) as CreateBoardResponse;
-      props.onCreate(data.newBoard);
+      const data = (await response.json()) as CreateProjectResponse;
+      console.log(data);
+      props.onCreate(data.newProject);
       props.onClose();
     }
   }
@@ -94,25 +92,25 @@ function BoardCreate(props: BoardCreatePropsType) {
         }}
       >
         <GlobalStyle />
-        <InfoTitle>New project with board</InfoTitle>
+        <InfoTitle>New project</InfoTitle>
         <Wrapper>
           <WrapperChild>
             <FielsetWrapper>
-              <AddBoardWrapper>
-                <TitleforBoard>Project name</TitleforBoard>
+              <AddProjectWrapper>
+                <TitleforProject>Project name</TitleforProject>
                 <InputStyle
                   type="text"
-                  value={boardTitle}
+                  value={projectTitle}
                   onChange={(e) => handleChange(e.target.value)}
                   maxLength={64}
                 />
-              </AddBoardWrapper>
-              <AddBoardWrapper>
-                <TitleforBoard>Key</TitleforBoard>
+              </AddProjectWrapper>
+              <AddProjectWrapper>
+                <TitleforProject>Key</TitleforProject>
                 <InputforProjectLead>{projectKey}</InputforProjectLead>
-              </AddBoardWrapper>
+              </AddProjectWrapper>
               <ProjectLeadWrapper>
-                <TitleforBoard>Project lead</TitleforBoard>
+                <TitleforProject>Project lead</TitleforProject>
                 <ProjectLeadInputWrapper>
                   <InputforProjectLead>
                     <MemberPhoto
@@ -120,7 +118,7 @@ function BoardCreate(props: BoardCreatePropsType) {
                       $userPhotoHeight="19px"
                       $userPhotoFontSize="7px"
                       $userBorderadius="50px"
-                      $userBorder={props.userBorder}
+                      $userBorder={props.userProject}
                     />
                     {user?.fullName}
                   </InputforProjectLead>
@@ -131,18 +129,18 @@ function BoardCreate(props: BoardCreatePropsType) {
           <DetailWrapper>
             <DetailTitle>Creating a project</DetailTitle>
             <DetailsInfo>
-              A board will be created with your project, and will be named after
-              your project. You can rename your board in the board settings
+              A project will be created with your project, and will be named after
+              your project. You can rename your project in the project settings
               screen.
             </DetailsInfo>
           </DetailWrapper>
         </Wrapper>
         <Options>
-          <SubmitButton type="submit">Create Board</SubmitButton>
+          <SubmitButton type="submit">Create Project</SubmitButton>
           <CancelButton onClick={props.onClose}>Cancel</CancelButton>
         </Options>
       </GeneralWrapper>
     </Container>
   );
 }
-export default BoardCreate;
+export default ProjectCreate;

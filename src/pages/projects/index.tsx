@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Layout from "../templates/layout";
 import Modal from "../../components/actions/modal";
-import BoardCreate from "../../components/actions/boards/board-add/create";
 import {
   CreateButton,
   CreateWrapper,
@@ -33,28 +32,32 @@ import {
 } from "./styles";
 import Search from "../../components/tools/search";
 import { useUserContext } from "../../contexts/UserContext";
-import { BoardType } from "../../types";
+import { ProjectType } from "../../types";
 import MemberPhoto from "../../components/tools/user/member-photo";
 import { DropdownMenu } from "../../components/tools/dropdownMenu/index";
-import CloseBoardMenu from "../../components/actions/boards/close-board-menu";
+import CloseProjectMenu from "../../components/actions/project/close-project-menu";
+import ProjectCreate from "../../components/actions/project/project-add/create";
 
 type ProjectsPropsType = {
-  onBoardChange: (board: BoardType) => void;
+  onProjectChange: (project: ProjectType) => void;
 };
 
 function Projects(props: ProjectsPropsType) {
   const { user } = useUserContext();
-  const [boards, setBoards] = useState<BoardType[]>([]);
-  const [selectedBoard, setSelectedBoard] = useState<BoardType | undefined>();
-  const [filteredBoard, setFilteredBoard] = useState<BoardType[]>([]);
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [selectedProject, setSelectedProject] = useState<
+    ProjectType | undefined
+  >();
+  const [filteredProject, setFilteredProject] = useState<ProjectType[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [showModalforCreateButton, setShowModalforCreateButton] =
     useState(false);
-  const [showModalforDeleteBoard, setShowModalforDeleteBoard] = useState(false);
+  const [showModalforDeleteProject, setShowModalforDeleteProject] =
+    useState(false);
 
-  async function loadBoards() {
+  async function loadProjects() {
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "board?userId=" + user?._id,
+      process.env.REACT_APP_API_URL + "project?userId=" + user?._id,
       {
         method: "GET",
         headers: {
@@ -63,18 +66,18 @@ function Projects(props: ProjectsPropsType) {
       }
     );
     if (response.ok) {
-      const data = (await response.json()) as BoardType[];
-      setBoards(data);
+      const data = (await response.json()) as ProjectType[];
+      setProjects(data);
     }
   }
 
   function onDelete(id: string) {
-    setBoards(boards.filter((board) => board._id !== id));
+    setProjects(projects.filter((project) => project._id !== id));
   }
 
   async function deleteItem(id: string) {
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "board?id=" + id,
+      process.env.REACT_APP_API_URL + "project?id=" + id,
       {
         method: "DELETE",
         headers: {
@@ -89,31 +92,31 @@ function Projects(props: ProjectsPropsType) {
 
   useEffect(() => {
     if (!user) return;
-    loadBoards();
+    loadProjects();
     // eslint-disable-next-line
   }, [user]);
 
   useEffect(() => {
-    const filtered = boards.filter((board) =>
-      board.title.toLowerCase().includes(searchInput.toLowerCase())
+    const filtered = projects.filter((project) =>
+      project.title.toLowerCase().includes(searchInput.toLowerCase())
     );
-    setFilteredBoard(filtered);
-  }, [searchInput, boards]);
+    setFilteredProject(filtered);
+  }, [searchInput, projects]);
 
-  function openModal(board: BoardType) {
-    setShowModalforDeleteBoard(true);
-    setSelectedBoard(board);
+  function openModal(project: ProjectType) {
+    setShowModalforDeleteProject(true);
+    setSelectedProject(project);
   }
   function closeModal() {
-    setShowModalforDeleteBoard(false);
-    setSelectedBoard(undefined);
+    setShowModalforDeleteProject(false);
+    setSelectedProject(undefined);
   }
-  function addBoard(board: BoardType) {
-    setBoards([...boards, board]);
+  function addProject(project: ProjectType) {
+    setProjects([...projects, project]);
   }
 
   return (
-    <Layout onBoardCrate={() => {}}>
+    <Layout onProjectCrate={addProject}>
       <Container>
         <Wrapper>
           <HeaderAndCreateWrapper>
@@ -149,17 +152,17 @@ function Projects(props: ProjectsPropsType) {
                 </TableTitleWrapper>
               </TableHead>
               <TableBody>
-                {filteredBoard.map((board, index) => (
+                {filteredProject.map((project, index) => (
                   <DataWrapper>
                     <IconWrapper>
                       <FavIcon />
                     </IconWrapper>
                     <DataProjectsName>
-                      <LinkforProjects to={`/projects/${board.projectKey}`}>
-                        {board.title}
+                      <LinkforProjects to={`/projects/${project.projectKey}`}>
+                        {project.title}
                       </LinkforProjects>
                     </DataProjectsName>
-                    <DataKey>{board.projectKey}</DataKey>
+                    <DataKey>{project.projectKey}</DataKey>
                     <DataLeadName>
                       <MemberPhoto
                         $userPhotoWidth="25px"
@@ -182,7 +185,7 @@ function Projects(props: ProjectsPropsType) {
                         items={[
                           {
                             label: "Move to trash",
-                            action: () => openModal(board),
+                            action: () => openModal(project),
                           },
                           {
                             label: "Archive",
@@ -198,22 +201,22 @@ function Projects(props: ProjectsPropsType) {
           </DataContainer>
           {showModalforCreateButton && (
             <Modal onClose={() => setShowModalforCreateButton(false)}>
-              <BoardCreate
-                onCreate={addBoard}
+              <ProjectCreate
+                onCreate={addProject}
                 onClose={() => setShowModalforCreateButton(false)}
-                projectKey={selectedBoard?.projectKey}
+                projectKey={selectedProject?.projectKey}
               />
             </Modal>
           )}
-          {showModalforDeleteBoard && selectedBoard && (
+          {showModalforDeleteProject && selectedProject && (
             <Modal onClose={closeModal}>
-              <CloseBoardMenu
+              <CloseProjectMenu
                 onDelete={() => {
-                  deleteItem(selectedBoard._id);
+                  deleteItem(selectedProject._id);
                   closeModal();
                 }}
                 onClose={closeModal}
-                boardName={selectedBoard.title}
+                projectName={selectedProject.title}
               />
             </Modal>
           )}

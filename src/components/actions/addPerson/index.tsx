@@ -16,7 +16,7 @@ import {
 import Modal from "../modal";
 import AddedPerson from "../addedPerson";
 type AddPersonPropsType = {
-  boardTitle: string;
+  projectTitle: string;
   emailforAddPerson: string;
   closeModal: () => void;
   onSubmit: () => Promise<boolean>;
@@ -49,7 +49,7 @@ function AddPerson(props: AddPersonPropsType) {
               closeModal();
               props.closeModal();
             }}
-            boardTitle={props.boardTitle}
+            projectTitle={props.projectTitle}
             emailforAddPerson={props.emailforAddPerson}
           />
         </Modal>

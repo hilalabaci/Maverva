@@ -10,7 +10,7 @@ export const Container = styled.div`
   }
 `;
 
-export const BoardTitle = styled.h1`
+export const ProjectTitle = styled.h1`
   font-size: 17px;
   margin: 15px;
   font-weight: 600;
@@ -38,7 +38,7 @@ export const TitleContainer = styled.div`
   align-items: center;
 `;
 
-export const EditBoardTitle = styled.input`
+export const EditProjectTitle = styled.input`
   background-color: rgba(0, 0, 0, 0.003);
   border: 2px solid #007bff;
 

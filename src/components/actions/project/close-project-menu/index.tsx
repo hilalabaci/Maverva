@@ -5,19 +5,19 @@ import {
   Content,
   ButtonWrapper,
   DeleteButton,
-  BoardTitle,
+  ProjectTitle,
   WarningIcon,
 } from "./styles";
 import { CancelButton } from "../../addPerson/styles";
 
-type CloseBoardMenuPropsType = {
-  boardName: string;
+type CloseProjectMenuPropsType = {
+  projectName: string;
   onClose: () => void;
   onDelete: () => void;
 };
 
-function CloseBoardMenu(props: CloseBoardMenuPropsType) {
-  const boardName = props.boardName;
+function CloseProjectMenu(props: CloseProjectMenuPropsType) {
+  const projectName = props.projectName;
   return (
     <Container>
       <Header>
@@ -25,7 +25,7 @@ function CloseBoardMenu(props: CloseBoardMenuPropsType) {
         <Title>Move to trash?</Title>
       </Header>
       <Content>
-        Are you sure you want to delete the <BoardTitle>{boardName}</BoardTitle>{" "}
+        Are you sure you want to delete the <ProjectTitle>{projectName}</ProjectTitle>{" "}
         card? This action will also delete all cards associated with it.
       </Content>
       <Content>
@@ -38,4 +38,4 @@ function CloseBoardMenu(props: CloseBoardMenuPropsType) {
     </Container>
   );
 }
-export default CloseBoardMenu;
+export default CloseProjectMenu;

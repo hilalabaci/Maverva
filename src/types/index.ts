@@ -3,10 +3,10 @@ export type UserType = {
   fullName: string;
   email: string;
   password: string;
-  boards: BoardType[];
+  projects: ProjectType[];
 };
 
-export type BoardType = {
+export type ProjectType = {
   _id: string;
   title: string;
   users: UserType[];
@@ -17,7 +17,7 @@ export type CardType = {
   _id: string;
   userId: UserType;
   content: string;
-  boardId: BoardType;
+  projectId: ProjectType;
   status: number;
   labels: LabelType[];
 };

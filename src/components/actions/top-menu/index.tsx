@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   Container,
-  BoardTitle,
-  EditBoardTitle,
+  ProjectTitle,
+  EditProjectTitle,
   TitleContainer,
   AssignMemberContainer,
   ButtonStylesforPersonAdd,
@@ -14,18 +14,18 @@ import MemberPhoto from "../../tools/user/member-photo";
 import Modal from "../modal";
 import AddPerson from "../addPerson";
 import { useUserContext } from "../../../contexts/UserContext";
-import { BoardType, UserType } from "../../../types";
+import { ProjectType, UserType } from "../../../types";
 import Search from "../../tools/search";
 type TopMenuPropsType = {
   topMenuTitle: string;
-  boardId: string;
-  onBoardUpdate: (board: BoardType) => void;
+  projectId: string;
+  onProjectUpdate: (project: ProjectType) => void;
   user?: UserType;
   setSearchInput: (value: string) => void;
 };
 
 function TopMenu(props: TopMenuPropsType) {
-  const [boardTitle, setBoardTitle] = useState(props.topMenuTitle);
+  const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
   const { user } = useUserContext();
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
 
@@ -34,14 +34,14 @@ function TopMenu(props: TopMenuPropsType) {
   }
 
   useEffect(() => {
-    setBoardTitle(props.topMenuTitle);
+    setProjectTitle(props.topMenuTitle);
   }, [props.topMenuTitle]);
 
   async function updateTitle() {
-    const id = props.boardId;
-    const title = boardTitle;
+    const id = props.projectId;
+    const title = projectTitle;
     const body = { title, id };
-    const response = await fetch(process.env.REACT_APP_API_URL + "board", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "project", {
       method: "PATCH",
       body: JSON.stringify(body),
       headers: {
@@ -49,17 +49,17 @@ function TopMenu(props: TopMenuPropsType) {
       },
     });
     if (response.ok) {
-      const data = (await response.json()) as BoardType;
-      props.onBoardUpdate(data);
+      const data = (await response.json()) as ProjectType;
+      props.onProjectUpdate(data);
     }
   }
 
-  const [editBoardTitle, setEditBoardTitle] = useState(false);
-  function openEditBoardTitle() {
-    setEditBoardTitle(true);
+  const [editProjectTitle, setEditProjectTitle] = useState(false);
+  function openEditProjectTitle() {
+    setEditProjectTitle(true);
   }
-  function closeEditBoardTitle() {
-    setEditBoardTitle(false);
+  function closeEditProjectTitle() {
+    setEditProjectTitle(false);
     updateTitle();
   }
   const [showModal, setShowModal] = useState(false);
@@ -71,17 +71,17 @@ function TopMenu(props: TopMenuPropsType) {
     setShowModal(false);
   }
   async function onSubmit() {
-    const boardId = props.boardId;
-    const boardData = {
-      boardId: boardId,
+    const projectId = props.projectId;
+    const projectData = {
+      projectId: projectId,
       email: emailforAddPerson,
       userId: user?._id,
     };
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "board/add-user",
+      process.env.REACT_APP_API_URL + "project/add-user",
       {
         method: "POST",
-        body: JSON.stringify(boardData),
+        body: JSON.stringify(projectData),
         headers: {
           "Content-Type": "application/json",
         },
@@ -95,13 +95,13 @@ function TopMenu(props: TopMenuPropsType) {
   };
 
   return (
-    <Container onBlur={closeEditBoardTitle}>
+    <Container onBlur={closeEditProjectTitle}>
       {showModal && (
         <Modal onClose={closeModal}>
           <AddPerson
             closeModal={closeModal}
             onSubmit={onSubmit}
-            boardTitle={boardTitle}
+            projectTitle={projectTitle}
             emailforAddPerson={emailforAddPerson}
             handleChange={handleChange}
           />
@@ -109,15 +109,17 @@ function TopMenu(props: TopMenuPropsType) {
       )}
       <Search onSearch={onSearch} placeHolderForSearchButton="Search Card" />
       <TitleContainer>
-        {editBoardTitle ? (
-          <EditBoardTitle
-            value={boardTitle}
+        {editProjectTitle ? (
+          <EditProjectTitle
+            value={projectTitle}
             onChange={(e) => {
-              setBoardTitle(e.target.value);
+              setProjectTitle(e.target.value);
             }}
           />
         ) : (
-          <BoardTitle onClick={openEditBoardTitle}>{boardTitle}</BoardTitle>
+          <ProjectTitle onClick={openEditProjectTitle}>
+            {projectTitle}
+          </ProjectTitle>
         )}
       </TitleContainer>
       <AssignMemberContainer>

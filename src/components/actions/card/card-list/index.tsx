@@ -22,7 +22,7 @@ interface CardListProps {
   numberOfFilteredCards: number;
   cards: CardType[];
   status: number;
-  boardId: string;
+  projectId: string;
   onUpdate: (card: CardType) => void; // Adjust 'any' to a specific type if known
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void; // Adjust 'any' to a specific type if known
@@ -84,7 +84,7 @@ function CardList(props: CardListProps) {
         {showAdd ? (
           <AddCard
             addedCard={props.addedCard}
-            boardId={props.boardId}
+            projectId={props.projectId}
             onClose={closeAddCard}
             status={props.status}
           />

@@ -12,7 +12,7 @@ import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import Projects from "./pages/projects";
-import { BoardType } from "./types";
+import { ProjectType } from "./types";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
     path: "/projects",
     element: (
       <Projects
-        onBoardChange={function (board: BoardType): void {
+        onProjectChange={function (project: ProjectType): void {
           throw new Error("Function not implemented.");
         }}
       />

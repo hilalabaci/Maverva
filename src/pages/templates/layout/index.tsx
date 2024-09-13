@@ -1,17 +1,17 @@
 import { PropsWithChildren } from "react";
 import Navbar from "../../../components/tools/navbar";
 import { Container, GlobalStyle, NavbarWrapper } from "../../home/styles";
-import { BoardType } from "../../../types";
+import { ProjectType } from "../../../types";
 
 type LayoutPropsType = PropsWithChildren<{
-  onBoardCrate: (board: BoardType) => void;
+  onProjectCrate: (project: ProjectType) => void;
 }>;
-const Layout = ({ children, onBoardCrate }: LayoutPropsType) => {
+const Layout = ({ children, onProjectCrate }: LayoutPropsType) => {
   return (
     <Container>
       <GlobalStyle />
       <NavbarWrapper>
-        <Navbar onCreate={onBoardCrate} />
+        <Navbar onCreate={onProjectCrate} />
       </NavbarWrapper>
       {children}
     </Container>

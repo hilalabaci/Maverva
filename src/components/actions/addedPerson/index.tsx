@@ -15,7 +15,7 @@ import {
 import { ButtonStylesforIconPerson, IconPerson } from "../top-menu/styles";
 
 interface AddedPersonProps {
-  boardTitle: string;
+  projectTitle: string;
   emailforAddPerson: string;
   onClose: () => void;
 }
@@ -26,7 +26,7 @@ function AddedPerson(props: AddedPersonProps) {
         <TitleWrapper>
           <IconAddedPerson />
           <Title>
-            Added people to <span>{props.boardTitle}</span>{" "}
+            Added people to <span>{props.projectTitle}</span>{" "}
           </Title>
         </TitleWrapper>
         <Info>

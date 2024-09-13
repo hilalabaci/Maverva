@@ -17,7 +17,7 @@ export const Container = styled.div`
   }
 `;
 
-export const BoardTitle = styled.h1`
+export const ProjectTitle = styled.h1`
   font-size: 17px;
   margin: 15px;
   font-weight: 600;
@@ -28,7 +28,7 @@ export const BoardTitle = styled.h1`
   overflow: hidden;
   max-width: 600px;
   &:hover {
-    background-color: ${(props) => props.theme.boardBG};
+    background-color: ${(props) => props.theme.projectBG};
   }
   @media only screen and (max-width: 768px) {
     font-size: 11px;
@@ -37,7 +37,7 @@ export const BoardTitle = styled.h1`
 `;
 
 export const TitleContainer = styled.div`
-  //background-color: ${(props) => props.theme.boardColour};
+  //background-color: ${(props) => props.theme.projectColour};
   border-radius: 2px;
   height: 48px;
   display: flex;
@@ -50,8 +50,8 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const EditBoardTitle = styled.input`
-  background-color: ${(props) => props.theme.boardColour};
+export const EditProjectTitle = styled.input`
+  background-color: ${(props) => props.theme.projectColour};
   border: 2px solid #007bff;
   display: flex;
   align-items: center;

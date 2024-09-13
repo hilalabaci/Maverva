@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Modal from "../../modal";
 import { Label, Wrapper, EditIcon } from "./styles";
-import CloseBoardMenu from "../close-board-menu";
+import CloseProjectMenu from "../close-project-menu";
 
-type BoardLabelPropsType = {
+type ProjectLabelPropsType = {
   onClick: () => void;
   onDelete: () => void;
   title: string;
 };
-function BoardLabel(props: BoardLabelPropsType) {
+function ProjectLabel(props: ProjectLabelPropsType) {
   const [showModal, setShowModal] = useState(false);
   function openModal() {
     setShowModal(true);
@@ -20,10 +20,10 @@ function BoardLabel(props: BoardLabelPropsType) {
     <Wrapper onClick={props.onClick}>
       {showModal && (
         <Modal onClose={closeModal}>
-          <CloseBoardMenu
+          <CloseProjectMenu
             onDelete={props.onDelete}
             onClose={closeModal}
-            boardName={props.title}
+            projectName={props.title}
           />
         </Modal>
       )}
@@ -34,4 +34,4 @@ function BoardLabel(props: BoardLabelPropsType) {
     </Wrapper>
   );
 }
-export default BoardLabel;
+export default ProjectLabel;

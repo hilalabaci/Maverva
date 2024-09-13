@@ -5,31 +5,31 @@ import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftR
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {
   Container,
-  AddBoardWrapper,
+  AddProjectWrapper,
   ListWrapper,
   UserInfo,
   MemberName,
   ArrowIcon,
 } from "./styles";
-import { BoardType } from "../../../../types";
-type BoardMenuPropsType = {
-  setBoards: (boards: BoardType[]) => void;
-  boards: BoardType[];
-  onBoardChange: (board: BoardType) => void;
+import { ProjectType } from "../../../../types";
+type ProjectMenuPropsType = {
+  setProjects: (projects: ProjectType[]) => void;
+  projects: ProjectType[];
+  onProjectChange: (project: ProjectType) => void;
 };
 
-function BoardMenu(props: BoardMenuPropsType) {
+function ProjectMenu(props: ProjectMenuPropsType) {
   const { user } = useUserContext();
   const [hideMenu, setHideMenu] = useState(false);
 
   useEffect(() => {
-    loadBoards();
+    loadProjects();
     // eslint-disable-next-line
   }, []);
 
-  async function loadBoards() {
+  async function loadProjects() {
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "board?userId=" + user?._id,
+      process.env.REACT_APP_API_URL + "project?userId=" + user?._id,
       {
         method: "GET",
         headers: {
@@ -38,8 +38,8 @@ function BoardMenu(props: BoardMenuPropsType) {
       }
     );
     if (response.ok) {
-      const data = (await response.json()) as BoardType[];
-      props.setBoards(data);
+      const data = (await response.json()) as ProjectType[];
+      props.setProjects(data);
     }
   }
 
@@ -69,12 +69,11 @@ function BoardMenu(props: BoardMenuPropsType) {
           }}
         />
       </UserInfo>
-      <AddBoardWrapper $hidden={hideMenu}>
-        <div>Your Boards</div>
-      </AddBoardWrapper>
-      <ListWrapper $hidden={hideMenu}>
-      </ListWrapper>
+      <AddProjectWrapper $hidden={hideMenu}>
+        <div>Your Projects</div>
+      </AddProjectWrapper>
+      <ListWrapper $hidden={hideMenu}></ListWrapper>
     </Container>
   );
 }
-export default BoardMenu;
+export default ProjectMenu;

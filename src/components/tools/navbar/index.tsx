@@ -25,10 +25,10 @@ import {
 import Modal from "../../actions/modal";
 import Notification from "../../actions/notification";
 import { useUserContext } from "../../../contexts/UserContext";
-import BoardCreate from "../../actions/boards/board-add/create";
-import { BoardType, NotificationType } from "../../../types";
+import { ProjectType, NotificationType } from "../../../types";
+import ProjectCreate from "../../actions/project/project-add/create";
 type NavbarPropsType = {
-  onCreate: (board: BoardType) => void;
+  onCreate: (project: ProjectType) => void;
 };
 
 function Navbar(props: NavbarPropsType) {
@@ -160,7 +160,7 @@ function Navbar(props: NavbarPropsType) {
       </NavbarLeftSideWrapper>
       {showModalforCreateButton && (
         <Modal onClose={closeModalforCreateButton}>
-          <BoardCreate
+          <ProjectCreate
             onCreate={props.onCreate}
             onClose={closeModalforCreateButton}
           />

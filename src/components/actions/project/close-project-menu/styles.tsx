@@ -44,7 +44,7 @@ export const Content = styled.div`
   font-size: 14px;
   color: ${(props) => props.theme.memberMenuFontColor};
 `;
-export const BoardTitle = styled.span`
+export const ProjectTitle = styled.span`
   font-weight: 700;
 `;
 export const ButtonWrapper = styled.div`

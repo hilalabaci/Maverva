@@ -19,7 +19,7 @@ export const Container = styled.div<CommonPropsType>`
     width: ${(props) => (props.$hidden ? "20px" : "fit-content")};
   }
 `;
-export const AddBoardWrapper = styled.div<CommonPropsType>`
+export const AddProjectWrapper = styled.div<CommonPropsType>`
   font-style: normal;
   font-weight: 600;
   display: ${(props) => (props.$hidden ? "none" : "flex")};

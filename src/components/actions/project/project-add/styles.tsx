@@ -91,7 +91,7 @@ export const InfoTitle = styled.h2`
   box-sizing: border-box;
   font-weight: 400;
 `;
-export const TitleforBoard = styled.label`
+export const TitleforProject = styled.label`
   font-size: 12px;
   font-weight: 600;
   padding: 5px 0 0;
@@ -106,7 +106,7 @@ export const TitleforBoard = styled.label`
 
 export const DetailTitle = styled.h3``;
 
-export const AddBoardWrapper = styled.div`
+export const AddProjectWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3px;
