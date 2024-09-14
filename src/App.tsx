@@ -17,7 +17,37 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <PrivateRoute />,
-    children: [{ index: true, element: <Home /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Projects
+            onProjectChange={function (project: ProjectType): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
+        ),
+      },
+      {
+        path: "/projects",
+        children: [
+          {
+            index: true,
+            element: (
+              <Projects
+                onProjectChange={function (project: ProjectType): void {
+                  throw new Error("Function not implemented.");
+                }}
+              />
+            ),
+          },
+          {
+            path: `:projectKey`,
+            element: <Home />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/register",
@@ -26,22 +56,6 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/projects",
-    element: (
-      <Projects
-        onProjectChange={function (project: ProjectType): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
-    ),
-    children: [
-      {
-        path: `:projectKey`,
-        element: <Home />,
-      },
-    ],
   },
 ]);
 

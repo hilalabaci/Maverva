@@ -3,39 +3,68 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import CardList from "../../components/actions/card/card-list/index";
 import TopMenu from "../../components/actions/top-menu";
-import { useApplicationContext } from "../../contexts/ApplicationContext";
 import { ProjectType, CardType } from "../../types";
 import Layout from "../templates/layout";
-import { Wrapper, Main, MainContainer } from "./styles";
+import { Wrapper, Main, MainContainer, ProjectMenuAndSideBar } from "./styles";
 import { useParams } from "react-router-dom";
+import ProjectMenu from "../../components/actions/project/project-menu";
+import SideBar from "../../components/tools/sideBar";
 
 function Home() {
   const { projectKey } = useParams<{ projectKey: string }>();
-  const { project, setProject } = useApplicationContext();
   const [cards, setCards] = useState<CardType[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
   const [searchInput, setSearchInput] = useState("");
+  const [selectedProject, setSelectedProject] = useState<ProjectType>();
+  const [hideMenu, setHideMenu] = useState(false);
 
-  useEffect(() => {
-    setFilteredCards(
-      cards.filter((card) => card.content.includes(searchInput))
-    );
-  }, [searchInput, cards]);
+  async function loadSelectedProject() {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}projects/${projectKey}`, // Backend endpoint
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const projectData = await response.json();
+        setSelectedProject(projectData); // Projeyi state'e kaydediyoruz
+        console.log("Selected Project:", projectData);
+      } else {
+        console.error("Failed to fetch project. Status:", response.status);
+      }
+    } catch (error) {
+      console.log("Frontend projectKey:", projectKey);
+      console.error("Error fetching project:", error);
+    }
+  }
 
   async function loadCards(project: ProjectType) {
-    setProject(project);
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "card?projectKey=" + projectKey,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    setSelectedProject(project);
+    try {
+      const response = await fetch(
+        process.env.REACT_APP_API_URL + "card?projectKey=" + projectKey,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setCards(data);
+        console.log("Project:", project);
+        console.log("Project Key:", projectKey);
       }
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setCards(data);
+    } catch (error: any) {
+      console.error("Fetch error:", error);
+      console.log("Project:", project);
+      console.log("Project Key:", projectKey);
     }
   }
 
@@ -50,6 +79,22 @@ function Home() {
     setCards(newCards);
     /*    setCards([...cards.filter((card) => card._id !== id), card]); */
   }
+  useEffect(() => {
+    if (selectedProject) {
+      loadCards(selectedProject);
+    }
+  }, [selectedProject]);
+  useEffect(() => {
+    if (projectKey) {
+      loadSelectedProject();
+    }
+  }, [projectKey]);
+
+  useEffect(() => {
+    setFilteredCards(
+      cards.filter((card) => card.content.includes(searchInput))
+    );
+  }, [searchInput, cards]);
 
   function addedCard(card: CardType) {
     setCards([...cards, card]);
@@ -58,18 +103,25 @@ function Home() {
   return (
     <Layout onProjectCrate={(project) => {}}>
       <Wrapper>
+        <ProjectMenuAndSideBar>
+          <ProjectMenu
+            hideMenu={hideMenu}
+            ProjectTitle={selectedProject?.title as string}
+          />
+          <SideBar hideMenu={hideMenu} setHideMenu={setHideMenu} />
+        </ProjectMenuAndSideBar>
         <MainContainer>
-          {project && (
+          {selectedProject && (
             <TopMenu
               onProjectUpdate={() => {}}
-              projectId={project._id}
-              topMenuTitle={project.title}
-              user={project.userId}
+              projectId={selectedProject?._id as string}
+              topMenuTitle={selectedProject?.title as string}
+              user={selectedProject?.userId}
               setSearchInput={setSearchInput}
             />
           )}
           <Main>
-            {project ? (
+            {selectedProject ? (
               <DndProvider backend={HTML5Backend}>
                 <CardList
                   onUpdate={updateCard}
@@ -82,7 +134,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 1).length
                   }
-                  projectId={project._id}
+                  projectKey={selectedProject.projectKey}
                   cards={filteredCards.filter((card) => card.status === 1)}
                   status={1}
                 />
@@ -97,7 +149,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 2).length
                   }
-                  projectId={project._id}
+                  projectKey={selectedProject.projectKey}
                   cards={filteredCards.filter((card) => card.status === 2)}
                   status={2}
                 />
@@ -112,7 +164,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 3).length
                   }
-                  projectId={project._id}
+                  projectKey={selectedProject.projectKey}
                   cards={filteredCards.filter((card) => card.status === 3)}
                   status={3}
                 />

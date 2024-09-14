@@ -3,12 +3,18 @@ import {
   Container,
   ProjectTitle,
   EditProjectTitle,
-  TitleContainer,
   AssignMemberContainer,
   ButtonStylesforPersonAdd,
   IconPersonAdd,
   HostMemberContainer,
   ButtonStylesforIconPerson,
+  TitleWrapper,
+  Title,
+  SearchAndAssignMemberContainer,
+  PathInfo,
+  PathLink,
+  PathList,
+  Pathitem,
 } from "./styles";
 import MemberPhoto from "../../tools/user/member-photo";
 import Modal from "../modal";
@@ -107,46 +113,60 @@ function TopMenu(props: TopMenuPropsType) {
           />
         </Modal>
       )}
-      <Search onSearch={onSearch} placeHolderForSearchButton="Search Card" />
-      <TitleContainer>
-        {editProjectTitle ? (
-          <EditProjectTitle
-            value={projectTitle}
-            onChange={(e) => {
-              setProjectTitle(e.target.value);
-            }}
-          />
-        ) : (
-          <ProjectTitle onClick={openEditProjectTitle}>
-            {projectTitle}
-          </ProjectTitle>
-        )}
-      </TitleContainer>
-      <AssignMemberContainer>
-        <HostMemberContainer>
-          <MemberPhoto
-            $userPhotoWidth="40px"
-            $userPhotoHeight="40px"
-            $userPhotoFontSize="15px"
-            $userBorderadius="50px"
-            $userBorder="2px solid rgba(143,180,230,255)"
-            user={props.user}
-          />
-        </HostMemberContainer>
+      <TitleWrapper>
+        <PathInfo>
+          <PathList>
+            <Pathitem>
+              <PathLink to={"/projects"}>Projects</PathLink> /{" "}
+            </Pathitem>
+            <Pathitem>
+              <PathLink to={"projects"}>{projectTitle}</PathLink>
+            </Pathitem>
+          </PathList>
+        </PathInfo>
+        <Title>
+          {editProjectTitle ? (
+            <EditProjectTitle
+              value={projectTitle}
+              onChange={(e) => {
+                setProjectTitle(e.target.value);
+              }}
+            />
+          ) : (
+            <ProjectTitle onClick={openEditProjectTitle}>
+              {projectTitle}
+            </ProjectTitle>
+          )}
+        </Title>
+      </TitleWrapper>
+      <SearchAndAssignMemberContainer>
+        <Search onSearch={onSearch} placeHolderForSearchButton="Search Card" />
+        <AssignMemberContainer>
+          <HostMemberContainer>
+            <MemberPhoto
+              $userPhotoWidth="40px"
+              $userPhotoHeight="40px"
+              $userPhotoFontSize="15px"
+              $userBorderadius="50px"
+              $userBorder="2px solid rgba(143,180,230,255)"
+              user={props.user}
+            />
+          </HostMemberContainer>
 
-        <ButtonStylesforIconPerson>
-          <MemberPhoto
-            $userPhotoWidth="40px"
-            $userPhotoHeight="40px"
-            $userPhotoFontSize="15px"
-            $userBorderadius="50px"
-            user={props.user}
-          />
-        </ButtonStylesforIconPerson>
-        <ButtonStylesforPersonAdd onClick={openModal}>
-          <IconPersonAdd />
-        </ButtonStylesforPersonAdd>
-      </AssignMemberContainer>
+          <ButtonStylesforIconPerson>
+            <MemberPhoto
+              $userPhotoWidth="40px"
+              $userPhotoHeight="40px"
+              $userPhotoFontSize="15px"
+              $userBorderadius="50px"
+              user={props.user}
+            />
+          </ButtonStylesforIconPerson>
+          <ButtonStylesforPersonAdd onClick={openModal}>
+            <IconPersonAdd />
+          </ButtonStylesforPersonAdd>
+        </AssignMemberContainer>
+      </SearchAndAssignMemberContainer>
     </Container>
   );
 }
