@@ -39,6 +39,7 @@ export const Main = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
+  padding-top: 10pxs;
 `;
 export const MainContainer = styled.div`
   flex: 1;

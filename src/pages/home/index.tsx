@@ -105,6 +105,7 @@ function Home() {
       <Wrapper>
         <ProjectMenuAndSideBar>
           <ProjectMenu
+            projectKey={selectedProject?.projectKey as string}
             hideMenu={hideMenu}
             ProjectTitle={selectedProject?.title as string}
           />
@@ -113,6 +114,7 @@ function Home() {
         <MainContainer>
           {selectedProject && (
             <TopMenu
+              projectKey={selectedProject.projectKey}
               onProjectUpdate={() => {}}
               projectId={selectedProject?._id as string}
               topMenuTitle={selectedProject?.title as string}

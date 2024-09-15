@@ -37,7 +37,7 @@ export const PathList = styled.ol`
   display: flex;
   color: #44546f;
   font-size: 14px;
-  padding: 10px 0;
+  padding: 10px 0 0;
 `;
 export const Pathitem = styled.li`
   padding-left: 5px;
@@ -99,6 +99,8 @@ export const EditProjectTitle = styled.input`
 `;
 export const SearchAndAssignMemberContainer = styled.div`
   display: flex;
+  padding: 10px 0;
+  gap: 15px;
 `;
 export const AssignMemberContainer = styled.div`
   display: flex;

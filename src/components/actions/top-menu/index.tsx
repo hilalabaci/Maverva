@@ -25,6 +25,7 @@ import Search from "../../tools/search";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
+  projectKey: string;
   onProjectUpdate: (project: ProjectType) => void;
   user?: UserType;
   setSearchInput: (value: string) => void;
@@ -127,14 +128,14 @@ function TopMenu(props: TopMenuPropsType) {
         <Title>
           {editProjectTitle ? (
             <EditProjectTitle
-              value={projectTitle}
+              value={props.projectKey + " " + "board"}
               onChange={(e) => {
                 setProjectTitle(e.target.value);
               }}
             />
           ) : (
             <ProjectTitle onClick={openEditProjectTitle}>
-              {projectTitle}
+              {props.projectKey} board
             </ProjectTitle>
           )}
         </Title>
