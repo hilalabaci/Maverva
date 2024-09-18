@@ -8,7 +8,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100vh;
   font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-  "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 export const GenerelWrapper = styled.div`
   width: 354px;
@@ -40,7 +40,7 @@ export const LabelTitle = styled.label`
   font-size: 12px;
   color: rgba(136, 151, 165, 255);
   font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-  "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 export const MailInput = styled.input`
   background-color: ${(props) => props.theme.modalInputBg};
@@ -92,7 +92,8 @@ export const CancelButton = styled.button`
 export const SubmitButton = styled.button`
   font-size: 14px;
   padding: 9px;
-  background-color: #579dff;
+  background-color: #0c66e4;
+  color: white;
   outline: none;
   border: none;
   border-radius: 2px;

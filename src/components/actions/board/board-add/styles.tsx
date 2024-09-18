@@ -4,10 +4,14 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 export const GlobalStyle = createGlobalStyle`
 
 `;
+export const OptionalContainer = styled.div``;
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 900px;
+  justify-content: space-evenly;
+  padding: 10px 25px;
+  min-width: 900px;
+  min-height: 293px;
   background-color: ${(props) => props.theme.modalBg};
   //border: 1px solid ${(props) => props.theme.fontColour};
   //height: 45px;
@@ -33,16 +37,18 @@ export const Container = styled.div`
     height: 30px;
   }
 `;
-export const GeneralWrapper = styled.form`
-  padding: 40px 30px;
-`;
+export const GeneralWrapper = styled.form``;
 export const FielsetWrapper = styled.fieldset`
   display: flex;
   flex-direction: column;
   border: none;
   gap: 12px;
   padding: 0;
+  color: ${(props) => props.theme.memberMenuFontColor};
+  margin-top: 20px;
 `;
+
+export const WrapperforText = styled.div``;
 
 export const InputStyle = styled.input`
   height: 20px;
@@ -94,7 +100,6 @@ export const InfoTitle = styled.h2`
 export const TitleforProject = styled.label`
   font-size: 12px;
   font-weight: 600;
-  padding: 5px 0 0;
   &::after {
     content: "*";
     margin-left: 3px;
@@ -120,11 +125,11 @@ export const DetailWrapper = styled.div`
 `;
 export const ProjectLeadWrapper = styled.div``;
 
-export const SubmitButton = styled.button`
-  background-color: transparent;
-  border: none;
-  outline: none;
-`;
+// export const SubmitButton = styled.button`
+//   background-color: transparent;
+//   border: none;
+//   outline: none;
+// `;
 export const Okicon = styled(CheckCircleIcon)`
   color: ${(props) => props.theme.fontColour};
   opacity: 0.5;
@@ -148,3 +153,9 @@ export const Options = styled.div`
 `;
 export const CreateButton = styled.button``;
 export const LinkforCancelButton = styled.a``;
+export const Description = styled.div`
+  font-size: 12px;
+  margin: 4px 0 0 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+`;

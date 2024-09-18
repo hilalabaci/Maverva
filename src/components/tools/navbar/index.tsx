@@ -26,7 +26,7 @@ import Modal from "../../actions/modal";
 import Notification from "../../actions/notification";
 import { useUserContext } from "../../../contexts/UserContext";
 import { ProjectType, NotificationType } from "../../../types";
-import ProjectCreate from "../../actions/project/project-add/create";
+import OptionalBoardCreate from "../../actions/board/optional/create";
 type NavbarPropsType = {
   onCreate: (project: ProjectType) => void;
 };
@@ -158,14 +158,6 @@ function Navbar(props: NavbarPropsType) {
           />
         </MemberButtonWrapper>
       </NavbarLeftSideWrapper>
-      {showModalforCreateButton && (
-        <Modal onClose={closeModalforCreateButton}>
-          <ProjectCreate
-            onCreate={props.onCreate}
-            onClose={closeModalforCreateButton}
-          />
-        </Modal>
-      )}
       {showModal && (
         <Modal
           onClose={closeModal}
@@ -186,6 +178,14 @@ function Navbar(props: NavbarPropsType) {
               })}
             </NotificationWrapper>
           </NotificationContainer>
+        </Modal>
+      )}
+      {showModalforCreateButton && (
+        <Modal onClose={closeModalforCreateButton}>
+          <OptionalBoardCreate
+            // onCreate={props.onCreate}
+            onClose={closeModalforCreateButton}
+          />
         </Modal>
       )}
     </HeaderContainer>
