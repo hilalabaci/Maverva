@@ -136,6 +136,7 @@ function Projects(props: ProjectsPropsType) {
                   onClose={() => setShowModalforCreateButton(false)}
                 >
                   <ProjectCreate
+                    isOptional={false}
                     onCreate={addProject}
                     onClose={() => setShowModalforCreateButton(false)}
                     projectKey={selectedProject?.projectKey}

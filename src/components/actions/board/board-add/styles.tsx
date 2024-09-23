@@ -201,10 +201,11 @@ export const SubmitButton = styled.button<SubmitButtonStyledButton>`
   padding: 9px;
   background-color: ${(props) => (props.$isFilled ? " #0c66e4" : "#091e4208")};
   color: ${(props) => (props.$isFilled ? "white" : "#091e424f")};
+  transition: all 0.5s ease-out allow-discrete;
   outline: none;
   border: none;
   border-radius: 2px;
   &:hover {
-     background-color: ${(props) => props.theme.submitButtonHover};
+    background-color: ${(props) => props.theme.submitButtonHover};
   }
 `;

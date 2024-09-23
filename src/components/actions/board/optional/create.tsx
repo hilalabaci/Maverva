@@ -14,11 +14,11 @@ import {
   TitleforLabel,
   Details,
   NextButton,
-  BackButton,
   CancelButton,
 } from "./styles";
 import BoardCreate from "../board-add";
 import { ProjectType } from "../../../../types";
+import ProjectCreate from "../../project/project-add/create";
 
 type Option = "addBoardwithProject" | "addBoard";
 
@@ -88,11 +88,16 @@ function OptionalBoardCreate(props: OptionalBoardCreateTypeProps) {
 
       {/* Adım 2: Seçilen Seçeneğe Bağlı Adımlar */}
       {step === 2 && selectedOption === "addBoardwithProject" && (
-        <div>
-          <h2>Adım 2 (Seçenek 1): Detayları Girin</h2>
-          <button onClick={handleBack}>Back</button>
-          <button onClick={handleNext}>Next</button>
-        </div>
+        <ProjectCreate
+          BackButton={handleBack}
+          isOptional={true}
+          onCreate={function (project: ProjectType): void {
+            throw new Error("Function not implemented.");
+          }}
+          onClose={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       )}
 
       {step === 2 && selectedOption === "addBoard" && (

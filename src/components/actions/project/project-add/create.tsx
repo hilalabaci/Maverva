@@ -18,15 +18,19 @@ import {
   WrapperChild,
   Wrapper,
   Options,
+  SubmitButton,
 } from "./styles";
 import MemberPhoto from "../../../tools/user/member-photo";
-import { CancelButton, SubmitButton } from "../../addPerson/styles";
+import { CancelButton } from "../../addPerson/styles";
 import { ProjectType } from "../../../../types";
+import { BackButton } from "../../board/optional/styles";
 type ProjectCreatePropsType = {
   onCreate: (project: ProjectType) => void;
   onClose: () => void;
   userProject?: string;
   projectKey?: string;
+  isOptional?: boolean;
+  BackButton: () => void;
 };
 type CreateProjectResponse = {
   message: string;
@@ -39,6 +43,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
   const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useUserContext();
   const userId = user?._id;
+  const [boardTitle, setBoardTitle] = useState("");
 
   useEffect(() => {
     const websocket = new WebSocket("ws://localhost:8080");
@@ -62,6 +67,10 @@ function ProjectCreate(props: ProjectCreatePropsType) {
     setProjectTitle(value);
     ws?.send(JSON.stringify({ title: value }));
   }
+  function handleChangeforBoard(value: string) {
+    setBoardTitle(value);
+    // ws?.send(JSON.stringify({ title: value }));
+  }
   async function onSubmit() {
     const projectData = {
       title: projectTitle,
@@ -83,12 +92,16 @@ function ProjectCreate(props: ProjectCreatePropsType) {
       props.onClose();
     }
   }
+
   return (
     <Container>
       <GeneralWrapper
         onSubmit={async (e) => {
+          if (!!projectKey && !!projectTitle && !!boardTitle) {
+            e.preventDefault();
+            await onSubmit();
+          }
           e.preventDefault();
-          await onSubmit();
         }}
       >
         <GlobalStyle />
@@ -109,6 +122,16 @@ function ProjectCreate(props: ProjectCreatePropsType) {
                 <TitleforProject>Key</TitleforProject>
                 <InputforProjectLead>{projectKey}</InputforProjectLead>
               </AddProjectWrapper>
+              {props.isOptional && (
+                <AddProjectWrapper>
+                  <TitleforProject>Board name</TitleforProject>
+                  <InputStyle
+                    type="text"
+                    value={boardTitle}
+                    onChange={(e) => handleChangeforBoard(e.target.value)}
+                  />
+                </AddProjectWrapper>
+              )}
               <ProjectLeadWrapper>
                 <TitleforProject>Project lead</TitleforProject>
                 <ProjectLeadInputWrapper>
@@ -129,14 +152,22 @@ function ProjectCreate(props: ProjectCreatePropsType) {
           <DetailWrapper>
             <DetailTitle>Creating a project</DetailTitle>
             <DetailsInfo>
-              A project will be created with your project, and will be named after
-              your project. You can rename your project in the project settings
-              screen.
+              A project will be created with your project, and will be named
+              after your project. You can rename your project in the project
+              settings screen.
             </DetailsInfo>
           </DetailWrapper>
         </Wrapper>
         <Options>
-          <SubmitButton type="submit">Create Project</SubmitButton>
+          {props.isOptional && (
+            <BackButton onClick={props.BackButton}>Back</BackButton>
+          )}
+          <SubmitButton
+            $isFilled={!!projectKey && !!projectTitle && !!boardTitle}
+            type="submit"
+          >
+            Create Project
+          </SubmitButton>
           <CancelButton onClick={props.onClose}>Cancel</CancelButton>
         </Options>
       </GeneralWrapper>

@@ -120,11 +120,6 @@ export const DetailWrapper = styled.div`
 `;
 export const ProjectLeadWrapper = styled.div``;
 
-export const SubmitButton = styled.button`
-  background-color: transparent;
-  border: none;
-  outline: none;
-`;
 export const Okicon = styled(CheckCircleIcon)`
   color: ${(props) => props.theme.fontColour};
   opacity: 0.5;
@@ -148,3 +143,19 @@ export const Options = styled.div`
 `;
 export const CreateButton = styled.button``;
 export const LinkforCancelButton = styled.a``;
+export interface SubmitButtonStyledButton {
+  $isFilled?: boolean;
+}
+export const SubmitButton = styled.button<SubmitButtonStyledButton>`
+  font-size: 14px;
+  padding: 9px;
+  background-color: ${(props) => (props.$isFilled ? " #0c66e4" : "#091e4208")};
+  color: ${(props) => (props.$isFilled ? "white" : "#091e424f")};
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  transition: all 0.5s ease-out allow-discrete;
+  &:hover {
+    background-color: ${(props) => props.theme.submitButtonHover};
+  }
+`;
