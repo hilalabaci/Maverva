@@ -33,7 +33,7 @@ export const NextButton = styled.button`
   color: white;
   margin-right: 7px;
   &:hover {
-    background-color: rgba(143, 180, 230, 255);
+     background-color: ${(props) => props.theme.submitButtonHover};
   }
 `;
 export const BackButton = styled.button`

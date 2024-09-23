@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { DropdownContentProps, DropDownItemProps } from "./types";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 export const DropDownContainer = styled(DropdownMenuPrimitive.Root)`
   z-index: 1;
@@ -32,10 +33,20 @@ export const DropdownContent = styled(
       width: var(--radix-dropdown-menu-trigger-width);
     `};
 `;
-export const DropDownItemWrapper = styled.div`
+export const DropDownItemContainer = styled.div`
   padding: 5px 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+export const DropDownItemWrapper = styled.div`
+  padding: 7px 0;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 7px;
+  &:hover {
+    background-color: #f0f0f0;
+  }
 `;
 
 export const DropDownItem = styled(
@@ -43,25 +54,26 @@ export const DropDownItem = styled(
 )<DropDownItemProps>`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  padding: 10px 5px;
-  cursor: pointer;
   font-size: 14px;
   font-weight: 400;
   outline: none;
-  border-radius: 5px;
+  padding: 0 10px;
   //background-color: ${(props) => (props.$isSelected ? "green" : "red")};
-  &:hover {
-    background-color: #f0f0f0;
-  }
+  //border-bottom: 1px solid #f3f3f3;
 `;
 export const TitleforDropDownMenu = styled.h2`
   font-size: 15px;
   padding: 0 19px;
 `;
 export const IconForSelect = styled(CheckCircleRoundedIcon)`
-  font-size: 15px !important;
+  font-size: 17px !important;
   color: ${(props) => props.theme.themeActiveColor};
+`;
+
+export const IconForUnselect = styled(CircleOutlinedIcon)`
+  font-size: 17px !important;
+  color: #e2e1e0;
+  //color: ${(props) => props.theme.themeActiveColor};
 `;

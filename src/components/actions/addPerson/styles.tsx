@@ -98,7 +98,7 @@ export const SubmitButton = styled.button`
   border: none;
   border-radius: 2px;
   &:hover {
-    background-color: rgba(143, 180, 230, 255);
+    background-color: ${(props) => props.theme.submitButtonHover};
   }
 `;
 export const WarningMessage = styled.span`

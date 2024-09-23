@@ -6,7 +6,9 @@ import {
   DropDownItem,
   DropDownItemWrapper,
   IconForSelect,
+  IconForUnselect,
   TitleforDropDownMenu,
+  DropDownItemContainer,
 } from "./styles";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
@@ -32,19 +34,21 @@ export const DropdownSelectMenu: React.FC<DropdownSelectMenuProps> = ({
 
       <DropdownContent $triggerWidth={triggerWidth}>
         {title && <TitleforDropDownMenu>{title}</TitleforDropDownMenu>}
-        <DropDownItemWrapper>
+        <DropDownItemContainer>
           {items.map((item, index) => (
-            <DropDownItem
-              key={index}
-              $isSelected={item.isSelected}
-              className="dropdown-item"
-              onSelect={item.action}
-            >
-              {item.isSelected ? <IconForSelect /> : ""}
-              {item.label}
-            </DropDownItem>
+            <DropDownItemWrapper>
+              <DropDownItem
+                key={index}
+                $isSelected={item.isSelected}
+                className="dropdown-item"
+                onSelect={item.action}
+              >
+                {item.label}
+                {item.isSelected ? <IconForSelect /> : <IconForUnselect />}
+              </DropDownItem>
+            </DropDownItemWrapper>
           ))}
-        </DropDownItemWrapper>
+        </DropDownItemContainer>
       </DropdownContent>
     </DropDownContainer>
   );

@@ -64,7 +64,7 @@ export const InputWrapperwithIcon = styled.div`
   align-items: center;
 `;
 export const InputforProjectDropDown = styled.input`
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 14px;
   background-color: transparent;
   border: none;
@@ -192,4 +192,19 @@ export const Description = styled.div`
   margin: 4px 0 0 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+`;
+export interface SubmitButtonStyledButton {
+  $isFilled?: boolean;
+}
+export const SubmitButton = styled.button<SubmitButtonStyledButton>`
+  font-size: 14px;
+  padding: 9px;
+  background-color: ${(props) => (props.$isFilled ? " #0c66e4" : "#091e4208")};
+  color: ${(props) => (props.$isFilled ? "white" : "#091e424f")};
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  &:hover {
+     background-color: ${(props) => props.theme.submitButtonHover};
+  }
 `;

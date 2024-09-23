@@ -20,9 +20,9 @@ import {
   InputWrapperwithIcon,
   IconDown,
   InputforProjectDropDown,
+  SubmitButton,
 } from "./styles";
 import MemberPhoto from "../../../tools/user/member-photo";
-import { SubmitButton } from "../../addPerson/styles";
 import { ProjectType } from "../../../../types";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
@@ -115,8 +115,11 @@ function BoardCreate(props: BoardCreatePropsType) {
     <Container>
       <GeneralWrapper
         onSubmit={async (e) => {
+          if (!!selectedProjects.length && projectTitle) {
+            e.preventDefault();
+            await onSubmit();
+          }
           e.preventDefault();
-          await onSubmit();
         }}
       >
         <GlobalStyle />
@@ -208,7 +211,12 @@ function BoardCreate(props: BoardCreatePropsType) {
         </Wrapper>
         <Options>
           <BackButton onClick={props.BackButton}>Back</BackButton>
-          <SubmitButton type="submit">Create Project</SubmitButton>
+          <SubmitButton
+            $isFilled={!!selectedProjects.length && !!projectTitle}
+            type="submit"
+          >
+            Create Project
+          </SubmitButton>
           <CancelButton onClick={props.onClose}>Cancel</CancelButton>
           {/* // <CancelButton onClick={props.onClose}>Cancel</CancelButton> */}
         </Options>

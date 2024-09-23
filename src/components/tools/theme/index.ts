@@ -31,6 +31,7 @@ export const darkTheme = {
   navbarActiveFontColour: "#579dff",
   projectsBgHover: "#f1f2f4",
   projectsIconHover: "#e4e6e9",
+  submitButtonHover: "#0055cc",
 };
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
@@ -66,4 +67,5 @@ export const lightTheme = {
   navbarActiveFontColour: "#0c66e4",
   projectsBgHover: "#f1f2f4",
   projectsIconHover: "#e4e6e9",
+  submitButtonHover: "#0055cc",
 };
