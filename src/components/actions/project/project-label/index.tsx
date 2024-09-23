@@ -18,15 +18,13 @@ function ProjectLabel(props: ProjectLabelPropsType) {
   }
   return (
     <Wrapper onClick={props.onClick}>
-      {showModal && (
-        <Modal onClose={closeModal}>
-          <CloseProjectMenu
-            onDelete={props.onDelete}
-            onClose={closeModal}
-            projectName={props.title}
-          />
-        </Modal>
-      )}
+      <Modal onClose={closeModal} open={showModal} onChange={setShowModal}>
+        <CloseProjectMenu
+          onDelete={props.onDelete}
+          onClose={closeModal}
+          projectName={props.title}
+        />
+      </Modal>
       <Label>{props.title}</Label>
       <div>
         <EditIcon onClick={openModal} />

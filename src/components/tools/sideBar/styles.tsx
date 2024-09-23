@@ -10,7 +10,6 @@ export const BorderforSideBar = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
   width: 2px;
   background-color: #091e4224;
   opacity: 0.5;
@@ -29,7 +28,6 @@ export const ArrowContainer = styled.div`
   position: absolute;
   top: 40px;
   left: -8px;
-  z-index: 2;
 `;
 export const ArrowIcon = styled.button<CommonPropsType>`
   width: 25px;

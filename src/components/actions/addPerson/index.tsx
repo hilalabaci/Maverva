@@ -42,23 +42,12 @@ function AddPerson(props: AddPersonPropsType) {
 
   return (
     <Container>
-      {showModal && (
-        <Modal onClose={closeModal}>
-          <AddedPerson
-            onClose={() => {
-              closeModal();
-              props.closeModal();
-            }}
-            projectTitle={props.projectTitle}
-            emailforAddPerson={props.emailforAddPerson}
-          />
-        </Modal>
-      )}
       <GenerelWrapper>
         <FielsetWrapper>
           <TitleWrapper>
             <Title>Add People</Title>
           </TitleWrapper>
+
           <FormWrapper
             onSubmit={(e) => {
               e.preventDefault();
@@ -81,7 +70,21 @@ function AddPerson(props: AddPersonPropsType) {
             </RoleWrapper> */}
             <ButtonWrapper>
               <CancelButton onClick={props.closeModal}>Cancel</CancelButton>
-              <SubmitButton type="submit">Add</SubmitButton>
+              <Modal
+                trigger={<SubmitButton type="submit">Add</SubmitButton>}
+                onClose={closeModal}
+                open={showModal}
+                onChange={setShowModal}
+              >
+                <AddedPerson
+                  onClose={() => {
+                    closeModal();
+                    props.closeModal();
+                  }}
+                  projectTitle={props.projectTitle}
+                  emailforAddPerson={props.emailforAddPerson}
+                />
+              </Modal>
             </ButtonWrapper>
           </FormWrapper>
         </FielsetWrapper>

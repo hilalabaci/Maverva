@@ -63,19 +63,30 @@ function MemberMenu(props: MemberMenuProps) {
         Manage account <IconforManaAccount />
       </Options>
       <Options $active={showModal}>
-        <ButtonforTheme onClick={openModal}>
-          Theme
-          <ArrowforButton />
-        </ButtonforTheme>
+        <Modal
+          noBackdrop
+          trigger={
+            <ButtonforTheme onClick={openModal}>
+              Theme
+              <ArrowforButton />
+            </ButtonforTheme>
+          }
+          onClose={closeModal}
+          open={showModal}
+          onChange={setShowModal}
+          style={{
+            transform: "transform: translate3d(-262px, 248.5px, 0px);",
+            top: 0,
+            right: 0,
+            left: "unset",
+          }}
+        >
+          <ChangeThemeModal />
+        </Modal>
       </Options>
       <Options>
         <Logout onClick={logOut}> Log out</Logout>
       </Options>
-      {showModal && (
-        <Modal noBackdrop onClose={closeModal}>
-          <ChangeThemeModal />
-        </Modal>
-      )}
     </Container>
   );
 }

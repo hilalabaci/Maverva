@@ -41,7 +41,6 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  z-index: 1;
   -webkit-overflow-scrolling: touch;
   @media only screen and (max-width: 768px) {
     margin-top: 10px;

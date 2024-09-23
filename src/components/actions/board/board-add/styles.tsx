@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -49,7 +50,34 @@ export const FielsetWrapper = styled.fieldset`
 `;
 
 export const WrapperforText = styled.div``;
-
+export const InputWrapperwithIcon = styled.div`
+  height: 20px;
+  font-size: 14px;
+  background-color: ${(props) => props.theme.modalInputBg};
+  width: 250px;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 4px 7px 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const InputforProjectDropDown = styled.input`
+  font-size: 12px;
+  font-weight: 14px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: ${(props) => props.theme.fontColour};
+  width: 100%;
+  &:focus-visible {
+    outline: ${(props) => props.theme.activeBorder};
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+`;
 export const InputStyle = styled.input`
   height: 20px;
   font-size: 14px;
@@ -67,6 +95,10 @@ export const InputStyle = styled.input`
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
+`;
+export const IconDown = styled(KeyboardArrowDownOutlinedIcon)`
+  font-size: 16px !important;
+  font-weight: 700 !important;
 `;
 export const InputforProjectLead = styled.div`
   display: flex;
@@ -96,6 +128,8 @@ export const WrapperChild = styled.div``;
 export const InfoTitle = styled.h2`
   box-sizing: border-box;
   font-weight: 400;
+  font-size: 20px;
+  color: ${(props) => props.theme.memberMenuFontColor};
 `;
 export const TitleforProject = styled.label`
   font-size: 12px;

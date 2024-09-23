@@ -49,8 +49,19 @@ function Card(props: CardProps) {
   return (
     <Container ref={drag}>
       <GlobalStyle />
-      {showModal && (
-        <Modal onClose={closeModal}>
+
+      <CardTopWrapper>
+        <LabelWrapper>
+          {props.labels.map((label, index) => {
+            return <Label key={index} colour={label.colour} />;
+          })}
+        </LabelWrapper>
+        <Modal
+          trigger={<EditIcon onClick={openModal} />}
+          open={showModal}
+          onChange={setShowModal}
+          onClose={closeModal}
+        >
           <EditCard
             labels={props.labels}
             onDelete={(id) => {
@@ -64,14 +75,6 @@ function Card(props: CardProps) {
             id={props.id}
           />
         </Modal>
-      )}
-      <CardTopWrapper>
-        <LabelWrapper>
-          {props.labels.map((label, index) => {
-            return <Label key={index} colour={label.colour} />;
-          })}
-        </LabelWrapper>
-        <EditIcon onClick={openModal} />
       </CardTopWrapper>
       <NoteWrapper>{props.content}</NoteWrapper>
       <CardButtomWrapper>

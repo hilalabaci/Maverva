@@ -1,17 +1,14 @@
 import styled from "styled-components";
+import * as Dialog from "@radix-ui/react-dialog";
 
-export const Backdrop = styled.div`
+export const Backdrop = styled(Dialog.Overlay)`
   background: rgba(0, 0, 0, 0.4);
-  bottom: 0;
-  left: 0;
+  inset: 0;
   overflow: auto;
   position: fixed;
-  right: 0;
-  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
 `;
 export const Container = styled.div`
   display: flex;
@@ -19,4 +16,11 @@ export const Container = styled.div`
   background: none;
   border-radius: 2px;
   box-sizing: border-box;
+`;
+
+export const ModalContent = styled(Dialog.Content)`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;

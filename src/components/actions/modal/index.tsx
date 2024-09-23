@@ -1,23 +1,28 @@
 import React, { PropsWithChildren } from "react";
-import { Backdrop, Container } from "./styles";
-import useOutsideClick from "../../../hooks/useOutsideClick";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Backdrop, ModalContent } from "./styles";
 
 type ModalPropsType = PropsWithChildren<{
   onClose: () => void;
-  excludedRef?: React.MutableRefObject<HTMLButtonElement | null>;
   style?: React.CSSProperties;
   noBackdrop?: boolean;
+  trigger?: React.ReactElement;
+  open?: boolean;
+  onChange?: (open: boolean) => void;
 }>;
 function Modal(props: ModalPropsType) {
-  const ref = useOutsideClick<HTMLDivElement>(props.onClose, props.excludedRef);
-
-  if (props.noBackdrop)
-    return <Container ref={ref}>{props.children}</Container>;
-
   return (
-    <Backdrop style={props.style}>
-      <Container ref={ref}>{props.children}</Container>
-    </Backdrop>
+    <Dialog.Root open={props.open} onOpenChange={props.onChange}>
+      <Dialog.Trigger asChild={!!props.trigger}>{props.trigger}</Dialog.Trigger>
+      <Dialog.Portal>
+        {!props.noBackdrop && <Backdrop />}
+        <VisuallyHidden.Root>
+          <Dialog.Title></Dialog.Title>
+        </VisuallyHidden.Root>
+        <ModalContent style={props.style}>{props.children}</ModalContent>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
 export default Modal;

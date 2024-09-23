@@ -17,6 +17,9 @@ import {
   Wrapper,
   Options,
   Description,
+  InputWrapperwithIcon,
+  IconDown,
+  InputforProjectDropDown,
 } from "./styles";
 import MemberPhoto from "../../../tools/user/member-photo";
 import { SubmitButton } from "../../addPerson/styles";
@@ -24,6 +27,7 @@ import { ProjectType } from "../../../../types";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { BackButton, CancelButton } from "../optional/styles";
+import { DropdownSelectMenu } from "../../../tools/select";
 type BoardCreatePropsType = {
   onCreate: (project: ProjectType) => void;
   BackButton: () => void;
@@ -39,9 +43,11 @@ type CreateProjectResponse = {
 function BoardCreate(props: BoardCreatePropsType) {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectKey, setProjectKey] = useState("");
+  const [projects, setProjects] = useState<ProjectType[]>([]);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useUserContext();
   const userId = user?._id;
+  const [selectedProjects, setSelectedProjects] = useState<ProjectType[]>([]);
 
   useEffect(() => {
     const websocket = new WebSocket("ws://localhost:8080");
@@ -61,6 +67,7 @@ function BoardCreate(props: BoardCreatePropsType) {
       websocket.close();
     };
   }, []);
+
   function handleChange(value: string) {
     setProjectTitle(value);
     ws?.send(JSON.stringify({ title: value }));
@@ -86,6 +93,24 @@ function BoardCreate(props: BoardCreatePropsType) {
       //props.onClose();
     }
   }
+  async function loadProjects() {
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "project?userId=" + user?._id,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = (await response.json()) as ProjectType[];
+      setProjects(data);
+    }
+  }
+  useEffect(() => {
+    loadProjects();
+  }, []);
   return (
     <Container>
       <GeneralWrapper
@@ -95,7 +120,7 @@ function BoardCreate(props: BoardCreatePropsType) {
         }}
       >
         <GlobalStyle />
-        <InfoTitle>New project</InfoTitle>
+        <InfoTitle>Name this board</InfoTitle>
         <Wrapper>
           <WrapperChild>
             <FielsetWrapper>
@@ -105,16 +130,51 @@ function BoardCreate(props: BoardCreatePropsType) {
                   type="text"
                   value={projectTitle}
                   onChange={(e) => handleChange(e.target.value)}
-                  maxLength={64}
                 />
               </AddProjectWrapper>
               <AddProjectWrapper>
                 <TitleforProject>Project</TitleforProject>
-                <InputStyle
-                  type="text"
-                  value={projectTitle}
-                  onChange={(e) => handleChange(e.target.value)}
-                  maxLength={64}
+                <DropdownSelectMenu
+                  triggerWidth={true}
+                  title="Project"
+                  trigger={
+                    <InputWrapperwithIcon>
+                      <InputforProjectDropDown
+                        type="text"
+                        value={selectedProjects
+                          .map((p) => ({ title: p.title, key: p.projectKey }))
+                          .reduce(
+                            (acc, project) =>
+                              acc + `${project.title}(${project.key}) `,
+                            ""
+                          )}
+                        //onChange={(e) => handleChange(e.target.value)}
+                        maxLength={64}
+                      />
+                      <IconDown />
+                    </InputWrapperwithIcon>
+                  }
+                  items={projects.map((project) => {
+                    return {
+                      label: project.title + " (" + project.projectKey + ")",
+                      isSelected: !!selectedProjects.find(
+                        (p) => p._id === project._id
+                      ),
+                      action: () => {
+                        const selected = selectedProjects.find(
+                          (p) => p._id === project._id
+                        );
+                        if (selected)
+                          setSelectedProjects(
+                            selectedProjects.filter(
+                              (p) => p._id !== selected._id
+                            )
+                          );
+                        else
+                          setSelectedProjects([...selectedProjects, project]);
+                      },
+                    };
+                  })}
                 />
                 <Description>
                   Select one or more projects to include in this board

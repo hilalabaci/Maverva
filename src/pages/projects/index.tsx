@@ -123,9 +123,24 @@ function Projects(props: ProjectsPropsType) {
             <HeaderWrapper>
               <Header>Projects</Header>
               <CreateWrapper>
-                <CreateButton onClick={() => setShowModalforCreateButton(true)}>
-                  Create Projects
-                </CreateButton>
+                <Modal
+                  trigger={
+                    <CreateButton
+                      onClick={() => setShowModalforCreateButton(true)}
+                    >
+                      Create Projects
+                    </CreateButton>
+                  }
+                  open={showModalforCreateButton}
+                  onChange={setShowModalforCreateButton}
+                  onClose={() => setShowModalforCreateButton(false)}
+                >
+                  <ProjectCreate
+                    onCreate={addProject}
+                    onClose={() => setShowModalforCreateButton(false)}
+                    projectKey={selectedProject?.projectKey}
+                  />
+                </Modal>
               </CreateWrapper>
             </HeaderWrapper>
           </HeaderAndCreateWrapper>
@@ -199,17 +214,13 @@ function Projects(props: ProjectsPropsType) {
               </TableBody>
             </Tables>
           </DataContainer>
-          {showModalforCreateButton && (
-            <Modal onClose={() => setShowModalforCreateButton(false)}>
-              <ProjectCreate
-                onCreate={addProject}
-                onClose={() => setShowModalforCreateButton(false)}
-                projectKey={selectedProject?.projectKey}
-              />
-            </Modal>
-          )}
-          {showModalforDeleteProject && selectedProject && (
-            <Modal onClose={closeModal}>
+          {selectedProject && (
+            <Modal
+              trigger={<></>}
+              onClose={closeModal}
+              open={showModalforDeleteProject}
+              onChange={setShowModalforDeleteProject}
+            >
               <CloseProjectMenu
                 onDelete={() => {
                   deleteItem(selectedProject._id);

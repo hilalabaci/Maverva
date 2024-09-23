@@ -34,7 +34,6 @@ type NavbarPropsType = {
 function Navbar(props: NavbarPropsType) {
   const { user } = useUserContext();
   const navigate = useNavigate();
-  const notificationIconRef = useRef<HTMLButtonElement | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
   const [memberMenu, setMemberMenu] = useState(false);
@@ -132,42 +131,50 @@ function Navbar(props: NavbarPropsType) {
             </ProjectsButton>
           </Projects>
           <CreateWrapper>
-            <CreateButton onClick={openModalforCreateButton}>
-              Create
-            </CreateButton>
+            <Modal
+              onClose={closeModalforCreateButton}
+              open={showModalforCreateButton}
+              trigger={
+                <CreateButton onClick={openModalforCreateButton}>
+                  Create
+                </CreateButton>
+              }
+              onChange={setShowModalforCreateButton}
+            >
+              <OptionalBoardCreate
+                // onCreate={props.onCreate}
+                onClose={closeModalforCreateButton}
+              />
+            </Modal>
           </CreateWrapper>
         </Presentation>
       </NavbarContainer>
       <NavbarLeftSideWrapper>
-        <ButtonforNotification
-          $isNotificationModalOpen={showModal}
-          onClick={toggleModal}
-          ref={notificationIconRef}
-        >
-          {unReadNotificationCount > 0 && (
-            <NotificationCount>{unReadNotificationCount}</NotificationCount>
-          )}
-
-          <IconNotification $isNotificationModalOpen={showModal} />
-        </ButtonforNotification>
-        <MemberButtonWrapper $isMemberButtonOpen={memberMenu}>
-          <MemberButton
-            onClick={openMemberMenu}
-            closeMenu={closeMemberMenu}
-            showMenu={memberMenu}
-          />
-        </MemberButtonWrapper>
-      </NavbarLeftSideWrapper>
-      {showModal && (
         <Modal
+          open={showModal}
+          noBackdrop
+          onChange={setShowModal}
+          trigger={
+            <ButtonforNotification
+              $isNotificationModalOpen={showModal}
+              onClick={toggleModal}
+            >
+              {unReadNotificationCount > 0 && (
+                <NotificationCount>{unReadNotificationCount}</NotificationCount>
+              )}
+
+              <IconNotification $isNotificationModalOpen={showModal} />
+            </ButtonforNotification>
+          }
           onClose={closeModal}
-          excludedRef={notificationIconRef}
           style={{
             alignItems: "flex-start",
             justifyContent: "flex-end",
             top: "60px",
             right: "70px",
             background: "none",
+            transform: "none",
+            left: "unset"
           }}
         >
           <NotificationContainer>
@@ -179,15 +186,15 @@ function Navbar(props: NavbarPropsType) {
             </NotificationWrapper>
           </NotificationContainer>
         </Modal>
-      )}
-      {showModalforCreateButton && (
-        <Modal onClose={closeModalforCreateButton}>
-          <OptionalBoardCreate
-            // onCreate={props.onCreate}
-            onClose={closeModalforCreateButton}
+
+        <MemberButtonWrapper $isMemberButtonOpen={memberMenu}>
+          <MemberButton
+            onClick={openMemberMenu}
+            closeMenu={closeMemberMenu}
+            showMenu={memberMenu}
           />
-        </Modal>
-      )}
+        </MemberButtonWrapper>
+      </NavbarLeftSideWrapper>
     </HeaderContainer>
   );
 }

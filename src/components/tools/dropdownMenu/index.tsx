@@ -1,9 +1,10 @@
 // DropdownMenu.tsx
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { ReactNode } from "react";
-import "./styles.css";
+import { DropdownContent, DropDownItem } from "./styles";
+import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
 interface DropdownMenuProps {
+  triggerWidth?: boolean;
   trigger: ReactNode;
   items: Array<{ label: string; action: () => void }>;
 }
@@ -11,6 +12,7 @@ interface DropdownMenuProps {
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   trigger,
   items,
+  triggerWidth,
 }) => {
   return (
     <DropdownMenuPrimitive.Root>
@@ -18,17 +20,17 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
         {trigger}
       </DropdownMenuPrimitive.Trigger>
 
-      <DropdownMenuPrimitive.Content className="dropdown-content">
+      <DropdownContent $triggerWidth={triggerWidth}>
         {items.map((item, index) => (
-          <DropdownMenuPrimitive.Item
+          <DropDownItem
             key={index}
             className="dropdown-item"
             onSelect={item.action}
           >
             {item.label}
-          </DropdownMenuPrimitive.Item>
+          </DropDownItem>
         ))}
-      </DropdownMenuPrimitive.Content>
+      </DropdownContent>
     </DropdownMenuPrimitive.Root>
   );
 };

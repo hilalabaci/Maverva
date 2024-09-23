@@ -103,17 +103,6 @@ function TopMenu(props: TopMenuPropsType) {
 
   return (
     <Container onBlur={closeEditProjectTitle}>
-      {showModal && (
-        <Modal onClose={closeModal}>
-          <AddPerson
-            closeModal={closeModal}
-            onSubmit={onSubmit}
-            projectTitle={projectTitle}
-            emailforAddPerson={emailforAddPerson}
-            handleChange={handleChange}
-          />
-        </Modal>
-      )}
       <TitleWrapper>
         <PathInfo>
           <PathList>
@@ -163,9 +152,24 @@ function TopMenu(props: TopMenuPropsType) {
               user={props.user}
             />
           </ButtonStylesforIconPerson>
-          <ButtonStylesforPersonAdd onClick={openModal}>
-            <IconPersonAdd />
-          </ButtonStylesforPersonAdd>
+          <Modal
+            trigger={
+              <ButtonStylesforPersonAdd onClick={openModal}>
+                <IconPersonAdd />
+              </ButtonStylesforPersonAdd>
+            }
+            open={showModal}
+            onChange={setShowModal}
+            onClose={closeModal}
+          >
+            <AddPerson
+              closeModal={closeModal}
+              onSubmit={onSubmit}
+              projectTitle={projectTitle}
+              emailforAddPerson={emailforAddPerson}
+              handleChange={handleChange}
+            />
+          </Modal>
         </AssignMemberContainer>
       </SearchAndAssignMemberContainer>
     </Container>
