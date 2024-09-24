@@ -87,7 +87,6 @@ function Login() {
 
     const { email, password } = login;
     const registerData = { email, password };
-    console.log("API URL:", process.env.REACT_APP_API_URL);
     const response = await fetch(process.env.REACT_APP_API_URL + "login", {
       method: "POST",
       body: JSON.stringify(registerData),

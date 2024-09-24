@@ -140,6 +140,9 @@ function Projects(props: ProjectsPropsType) {
                     onCreate={addProject}
                     onClose={() => setShowModalforCreateButton(false)}
                     projectKey={selectedProject?.projectKey}
+                    BackButton={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
                   />
                 </Modal>
               </CreateWrapper>

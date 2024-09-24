@@ -23,74 +23,53 @@ import {
   SubmitButton,
 } from "./styles";
 import MemberPhoto from "../../../tools/user/member-photo";
-import { ProjectType } from "../../../../types";
+import { BoardType, ProjectType } from "../../../../types";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { BackButton, CancelButton } from "../optional/styles";
 import { DropdownSelectMenu } from "../../../tools/select";
 type BoardCreatePropsType = {
-  onCreate: (project: ProjectType) => void;
+  onCreate: (project: BoardType) => void;
   BackButton: () => void;
   onClose: () => void;
   userProject?: string;
   projectKey?: string;
 };
-type CreateProjectResponse = {
+type CreateBoardResponse = {
   message: string;
-  newProject: ProjectType;
+  newProject: BoardType;
 };
 
 function BoardCreate(props: BoardCreatePropsType) {
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectKey, setProjectKey] = useState("");
+  const [boardTitle, setBoardTitle] = useState("");
   const [projects, setProjects] = useState<ProjectType[]>([]);
-  const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useUserContext();
   const userId = user?._id;
   const [selectedProjects, setSelectedProjects] = useState<ProjectType[]>([]);
 
-  useEffect(() => {
-    const websocket = new WebSocket("ws://localhost:8080");
-    setWs(websocket);
-    websocket.onopen = () => {
-      console.log("WebSocket Connected");
-    };
-
-    websocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.projectKey) {
-        setProjectKey(data.projectKey);
-      }
-    };
-
-    return () => {
-      websocket.close();
-    };
-  }, []);
-
   function handleChange(value: string) {
-    setProjectTitle(value);
-    ws?.send(JSON.stringify({ title: value }));
+    setBoardTitle(value);
   }
   async function onSubmit() {
-    const projectData = {
-      title: projectTitle,
+    const projectIds = selectedProjects.map((project) => project._id);
+    console.log(projectIds);
+    const boardData = {
+      title: boardTitle,
       userId: userId,
-      projectKey: projectKey,
+      projectIds: projectIds,
     };
-    const response = await fetch(process.env.REACT_APP_API_URL + "project", {
+    const response = await fetch(process.env.REACT_APP_API_URL + "board", {
       method: "POST",
-      body: JSON.stringify(projectData),
+      body: JSON.stringify(boardData),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
     if (response.ok) {
-      const data = (await response.json()) as CreateProjectResponse;
-      console.log(data);
+      const data = (await response.json()) as CreateBoardResponse;
       props.onCreate(data.newProject);
-      //props.onClose();
+      props.onClose();
     }
   }
   async function loadProjects() {
@@ -115,7 +94,7 @@ function BoardCreate(props: BoardCreatePropsType) {
     <Container>
       <GeneralWrapper
         onSubmit={async (e) => {
-          if (!!selectedProjects.length && projectTitle) {
+          if (!!selectedProjects.length && boardTitle) {
             e.preventDefault();
             await onSubmit();
           }
@@ -131,7 +110,7 @@ function BoardCreate(props: BoardCreatePropsType) {
                 <TitleforProject>Board name</TitleforProject>
                 <InputStyle
                   type="text"
-                  value={projectTitle}
+                  value={boardTitle}
                   onChange={(e) => handleChange(e.target.value)}
                 />
               </AddProjectWrapper>
@@ -151,7 +130,6 @@ function BoardCreate(props: BoardCreatePropsType) {
                               acc + `${project.title}(${project.key}) `,
                             ""
                           )}
-                        //onChange={(e) => handleChange(e.target.value)}
                         maxLength={64}
                       />
                       <IconDown />
@@ -212,7 +190,7 @@ function BoardCreate(props: BoardCreatePropsType) {
         <Options>
           <BackButton onClick={props.BackButton}>Back</BackButton>
           <SubmitButton
-            $isFilled={!!selectedProjects.length && !!projectTitle}
+            $isFilled={!!selectedProjects.length && !!boardTitle}
             type="submit"
           >
             Create Project

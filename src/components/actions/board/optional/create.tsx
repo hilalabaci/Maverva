@@ -17,7 +17,7 @@ import {
   CancelButton,
 } from "./styles";
 import BoardCreate from "../board-add";
-import { ProjectType } from "../../../../types";
+import { BoardType, ProjectType } from "../../../../types";
 import ProjectCreate from "../../project/project-add/create";
 
 type Option = "addBoardwithProject" | "addBoard";
@@ -104,9 +104,7 @@ function OptionalBoardCreate(props: OptionalBoardCreateTypeProps) {
         <BoardCreate
           BackButton={handleBack}
           onClose={props.onClose}
-          onCreate={function (project: ProjectType): void {
-            throw new Error("Function not implemented.");
-          }}
+          onCreate={() => console.log("board created")}
         />
       )}
 

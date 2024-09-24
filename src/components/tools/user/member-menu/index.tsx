@@ -36,7 +36,6 @@ function MemberMenu(props: MemberMenuProps) {
     setShowModal(true);
   }
   function closeModal() {
-    console.log("geldi");
     setShowModal(false);
   }
 

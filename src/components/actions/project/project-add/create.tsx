@@ -87,7 +87,6 @@ function ProjectCreate(props: ProjectCreatePropsType) {
 
     if (response.ok) {
       const data = (await response.json()) as CreateProjectResponse;
-      console.log(data);
       props.onCreate(data.newProject);
       props.onClose();
     }
@@ -97,7 +96,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
     <Container>
       <GeneralWrapper
         onSubmit={async (e) => {
-          if (!!projectKey && !!projectTitle && !!boardTitle) {
+          if (!!projectKey && projectTitle) {
             e.preventDefault();
             await onSubmit();
           }
@@ -163,7 +162,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
             <BackButton onClick={props.BackButton}>Back</BackButton>
           )}
           <SubmitButton
-            $isFilled={!!projectKey && !!projectTitle && !!boardTitle}
+            $isFilled={!!projectKey && !!projectTitle}
             type="submit"
           >
             Create Project

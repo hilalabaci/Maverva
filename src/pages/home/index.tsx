@@ -33,12 +33,10 @@ function Home() {
       if (response.ok) {
         const projectData = await response.json();
         setSelectedProject(projectData); // Projeyi state'e kaydediyoruz
-        console.log("Selected Project:", projectData);
       } else {
         console.error("Failed to fetch project. Status:", response.status);
       }
     } catch (error) {
-      console.log("Frontend projectKey:", projectKey);
       console.error("Error fetching project:", error);
     }
   }
@@ -58,13 +56,9 @@ function Home() {
       if (response.ok) {
         const data = await response.json();
         setCards(data);
-        console.log("Project:", project);
-        console.log("Project Key:", projectKey);
       }
     } catch (error: any) {
       console.error("Fetch error:", error);
-      console.log("Project:", project);
-      console.log("Project Key:", projectKey);
     }
   }
 

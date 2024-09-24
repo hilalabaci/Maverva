@@ -13,6 +13,13 @@ export type ProjectType = {
   userId: UserType;
   projectKey: string;
 };
+export type BoardType = {
+  _id: string;
+  title: string;
+  users: UserType[];
+  userId: UserType;
+  projectIds: ProjectType[];
+};
 export type CardType = {
   _id: string;
   userId: UserType;
