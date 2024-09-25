@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CollapsibleDemo from "../../../tools/collapsible";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
@@ -21,15 +21,44 @@ import {
   GetBoardsListItem,
   GetBoardsListItemLink,
 } from "./styles";
+import { BoardType } from "../../../../types";
+import { useUserContext } from "../../../../contexts/UserContext";
 
 type ProjectMenuPropsType = {
   ProjectTitle: string;
   hideMenu: boolean;
   projectKey: string;
+  projectId: string;
 };
 
 function ProjectMenu(props: ProjectMenuPropsType) {
-  const [showBoards, setShowBoards] = useState(false);
+  const [boards, setBoards] = useState<BoardType[]>([]);
+  const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
+  const [showBoards, setShowBoards] = useState(true);
+  const { user } = useUserContext();
+
+  async function loadBoards() {
+    const response = await fetch(
+      process.env.REACT_APP_API_URL +
+        "board?projectKey=" +
+        props.projectKey +
+        "&userId=" +
+        user?._id,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = (await response.json()) as BoardType[];
+      setBoards(data);
+    }
+  }
+  useEffect(() => {
+    loadBoards();
+  }, []);
   return (
     <Container $hidden={props.hideMenu}>
       <Wrapper>
@@ -66,21 +95,16 @@ function ProjectMenu(props: ProjectMenuPropsType) {
             >
               <GetBoardsContainer>
                 <GetBoardsList>
-                  <GetBoardsListItem>
-                    <GetBoardsListItemLink to={"projects"}>
-                      Children Elements
-                    </GetBoardsListItemLink>
-                  </GetBoardsListItem>
-                  <GetBoardsListItem>
-                    <GetBoardsListItemLink to={"projects"}>
-                      Children Elements
-                    </GetBoardsListItemLink>
-                  </GetBoardsListItem>
-                  <GetBoardsListItem>
-                    <GetBoardsListItemLink to={"projects"}>
-                      Children Elements
-                    </GetBoardsListItemLink>
-                  </GetBoardsListItem>
+                  {boards.map((board, index) => (
+                    <GetBoardsListItem
+                      to={`/projects/${props.projectKey}/boards/${board._id}`}
+                      key={board._id}
+                      isSelected={selectedBoard === board._id}
+                      onClick={() => setSelectedBoard(board._id)}
+                    >
+                      {board.title}
+                    </GetBoardsListItem>
+                  ))}
                 </GetBoardsList>
               </GetBoardsContainer>
             </CollapsibleDemo>

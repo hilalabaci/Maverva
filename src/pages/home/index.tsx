@@ -3,19 +3,24 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import CardList from "../../components/actions/card/card-list/index";
 import TopMenu from "../../components/actions/top-menu";
-import { ProjectType, CardType } from "../../types";
+import { ProjectType, CardType, BoardType } from "../../types";
 import Layout from "../templates/layout";
 import { Wrapper, Main, MainContainer, ProjectMenuAndSideBar } from "./styles";
 import { useParams } from "react-router-dom";
 import ProjectMenu from "../../components/actions/project/project-menu";
 import SideBar from "../../components/tools/sideBar";
 
+type URLParams = {
+  projectKey: string;
+  boardId?: string;
+};
 function Home() {
-  const { projectKey } = useParams<{ projectKey: string }>();
+  const { projectKey, boardId } = useParams<URLParams>();
   const [cards, setCards] = useState<CardType[]>([]);
   const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedProject, setSelectedProject] = useState<ProjectType>();
+  const [selectedBoard, setSelectedBoard] = useState<BoardType>();
   const [hideMenu, setHideMenu] = useState(false);
 
   async function loadSelectedProject() {
@@ -38,6 +43,28 @@ function Home() {
       }
     } catch (error) {
       console.error("Error fetching project:", error);
+    }
+  }
+  async function loadSelectedBoard() {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}projects/${projectKey}/boards/${boardId}`, // Backend endpoint
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const boardData = (await response.json()) as BoardType;
+        setSelectedBoard(boardData); // Projeyi state'e kaydediyoruz
+      } else {
+        console.error("Failed to fetch board. Status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching board:", error);
     }
   }
 
@@ -73,6 +100,7 @@ function Home() {
     setCards(newCards);
     /*    setCards([...cards.filter((card) => card._id !== id), card]); */
   }
+
   useEffect(() => {
     if (selectedProject) {
       loadCards(selectedProject);
@@ -83,6 +111,14 @@ function Home() {
       loadSelectedProject();
     }
   }, [projectKey]);
+
+  useEffect(() => {
+    if (!boardId) {
+      setSelectedBoard(undefined);
+      return;
+    }
+    loadSelectedBoard();
+  }, [boardId]);
 
   useEffect(() => {
     setFilteredCards(
@@ -99,7 +135,8 @@ function Home() {
       <Wrapper>
         <ProjectMenuAndSideBar>
           <ProjectMenu
-            projectKey={selectedProject?.projectKey as string}
+            projectKey={projectKey as string}
+            projectId={selectedProject?._id as string}
             hideMenu={hideMenu}
             ProjectTitle={selectedProject?.title as string}
           />
@@ -108,7 +145,9 @@ function Home() {
         <MainContainer>
           {selectedProject && (
             <TopMenu
-              projectKey={selectedProject.projectKey}
+              selectedBoardId={selectedBoard?._id as string}
+              selectedBoardTitle={selectedBoard?.title as string}
+              projectKey={projectKey as string}
               onProjectUpdate={() => {}}
               projectId={selectedProject?._id as string}
               topMenuTitle={selectedProject?.title as string}
@@ -117,7 +156,7 @@ function Home() {
             />
           )}
           <Main>
-            {selectedProject ? (
+            {selectedBoard ? (
               <DndProvider backend={HTML5Backend}>
                 <CardList
                   onUpdate={updateCard}
@@ -130,7 +169,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 1).length
                   }
-                  projectKey={selectedProject.projectKey}
+                  projectKey={projectKey as string}
                   cards={filteredCards.filter((card) => card.status === 1)}
                   status={1}
                 />
@@ -145,7 +184,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 2).length
                   }
-                  projectKey={selectedProject.projectKey}
+                  projectKey={projectKey as string}
                   cards={filteredCards.filter((card) => card.status === 2)}
                   status={2}
                 />
@@ -160,7 +199,7 @@ function Home() {
                   numberOfCards={
                     cards.filter((card) => card.status === 3).length
                   }
-                  projectKey={selectedProject.projectKey}
+                  projectKey={projectKey as string}
                   cards={filteredCards.filter((card) => card.status === 3)}
                   status={3}
                 />

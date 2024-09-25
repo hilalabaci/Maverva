@@ -140,7 +140,7 @@ export const ArrowIcon = styled.button<CommonPropsType>`
   }
 `;
 export const GetBoardsContainer = styled.div``;
-export const GetBoardsList = styled.ul`
+export const GetBoardsList = styled.div`
   list-style-type: none;
   padding-inline-start: 0;
   font-weight: 500;
@@ -152,10 +152,16 @@ export const GetBoardsListItemLink = styled(Link)`
   text-decoration: none;
   color: rgba(68, 84, 111, 1);
 `;
-export const GetBoardsListItem = styled.li`
+export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
   font-size: 13px;
   padding: 16px;
   border-radius: 5px;
+  text-decoration: none;
+  color: rgba(68, 84, 111, 1);
+  background: ${({ isSelected }) =>
+    isSelected
+      ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
+      : "none"};
   &:hover {
     cursor: pointer;
     background: linear-gradient(

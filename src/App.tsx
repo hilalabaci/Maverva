@@ -44,6 +44,12 @@ const router = createBrowserRouter([
           {
             path: `:projectKey`,
             element: <Home />,
+            children: [
+              {
+                path: `boards/:boardId`,
+                element: <Home />,
+              },
+            ],
           },
         ],
       },

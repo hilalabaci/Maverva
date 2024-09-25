@@ -51,12 +51,12 @@ function BoardCreate(props: BoardCreatePropsType) {
     setBoardTitle(value);
   }
   async function onSubmit() {
-    const projectIds = selectedProjects.map((project) => project._id);
-    console.log(projectIds);
+    const projectKeys = selectedProjects.map((project) => project.projectKey);
+    console.log(projectKeys);
     const boardData = {
       title: boardTitle,
       userId: userId,
-      projectIds: projectIds,
+      projectIds: projectKeys,
     };
     const response = await fetch(process.env.REACT_APP_API_URL + "board", {
       method: "POST",

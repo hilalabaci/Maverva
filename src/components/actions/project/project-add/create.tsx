@@ -34,7 +34,7 @@ type ProjectCreatePropsType = {
 };
 type CreateProjectResponse = {
   message: string;
-  newProject: ProjectType;
+  project: ProjectType;
 };
 
 function ProjectCreate(props: ProjectCreatePropsType) {
@@ -87,7 +87,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
 
     if (response.ok) {
       const data = (await response.json()) as CreateProjectResponse;
-      props.onCreate(data.newProject);
+      props.onCreate(data.project);
       props.onClose();
     }
   }

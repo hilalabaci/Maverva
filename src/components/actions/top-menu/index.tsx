@@ -29,6 +29,8 @@ type TopMenuPropsType = {
   onProjectUpdate: (project: ProjectType) => void;
   user?: UserType;
   setSearchInput: (value: string) => void;
+  selectedBoardTitle: string;
+  selectedBoardId: string;
 };
 
 function TopMenu(props: TopMenuPropsType) {
@@ -107,24 +109,32 @@ function TopMenu(props: TopMenuPropsType) {
         <PathInfo>
           <PathList>
             <Pathitem>
-              <PathLink to={"/projects"}>Projects</PathLink> /{" "}
+              <PathLink to={"/projects"}>Projects</PathLink> /{"  "}
             </Pathitem>
             <Pathitem>
-              <PathLink to={"projects"}>{projectTitle}</PathLink>
+              <PathLink to={`/projects/${props.projectKey}`}>
+                {projectTitle}
+              </PathLink>{" "}
+              /{" "}
+            </Pathitem>
+            <Pathitem>
+              <PathLink to={`boards/${props.selectedBoardId}`}>
+                {props.selectedBoardTitle}
+              </PathLink>
             </Pathitem>
           </PathList>
         </PathInfo>
         <Title>
           {editProjectTitle ? (
             <EditProjectTitle
-              value={props.projectKey + " " + "board"}
+              value={props.selectedBoardTitle}
               onChange={(e) => {
                 setProjectTitle(e.target.value);
               }}
             />
           ) : (
             <ProjectTitle onClick={openEditProjectTitle}>
-              {props.projectKey} board
+              {props.selectedBoardTitle}
             </ProjectTitle>
           )}
         </Title>
