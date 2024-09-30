@@ -13,6 +13,7 @@ type AddCardPropsType = {
   status: number;
   onClose: () => void;
   addedCard: (card: CardType) => void;
+  boardId: string;
 };
 
 function AddCard(props: AddCardPropsType) {
@@ -28,6 +29,7 @@ function AddCard(props: AddCardPropsType) {
       content: content,
       projectKey: props.projectKey,
       status: props.status,
+      boardId: props.boardId,
     };
     const response = await fetch(process.env.REACT_APP_API_URL + "card", {
       method: "POST",

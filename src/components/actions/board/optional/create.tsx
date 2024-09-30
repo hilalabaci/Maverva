@@ -91,12 +91,8 @@ function OptionalBoardCreate(props: OptionalBoardCreateTypeProps) {
         <ProjectCreate
           BackButton={handleBack}
           isOptional={true}
-          onCreate={function (project: ProjectType): void {
-            throw new Error("Function not implemented.");
-          }}
-          onClose={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          onCreate={() => console.log("project created")}
+          onClose={props.onClose}
         />
       )}
 

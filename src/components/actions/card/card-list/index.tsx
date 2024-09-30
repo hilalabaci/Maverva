@@ -23,6 +23,7 @@ interface CardListProps {
   cards: CardType[];
   status: number;
   projectKey: string;
+  boardId: string;
   onUpdate: (card: CardType) => void; // Adjust 'any' to a specific type if known
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void; // Adjust 'any' to a specific type if known
@@ -87,6 +88,7 @@ function CardList(props: CardListProps) {
             projectKey={props.projectKey}
             onClose={closeAddCard}
             status={props.status}
+            boardId={props.boardId}
           />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">

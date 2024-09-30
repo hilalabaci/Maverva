@@ -64,6 +64,7 @@ function MemberMenu(props: MemberMenuProps) {
       <Options $active={showModal}>
         <Modal
           noBackdrop
+          container={ref.current as Element}
           trigger={
             <ButtonforTheme onClick={openModal}>
               Theme
@@ -75,8 +76,7 @@ function MemberMenu(props: MemberMenuProps) {
           onChange={setShowModal}
           style={{
             transform: "transform: translate3d(-262px, 248.5px, 0px);",
-            top: 0,
-            right: 0,
+            top: 140,
             left: "unset",
           }}
         >

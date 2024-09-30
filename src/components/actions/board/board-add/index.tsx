@@ -56,7 +56,7 @@ function BoardCreate(props: BoardCreatePropsType) {
     const boardData = {
       title: boardTitle,
       userId: userId,
-      projectIds: projectKeys,
+      projectKeys: projectKeys,
     };
     const response = await fetch(process.env.REACT_APP_API_URL + "board", {
       method: "POST",

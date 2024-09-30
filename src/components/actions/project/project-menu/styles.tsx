@@ -11,6 +11,8 @@ export const Container = styled.div<CommonPropsType>`
   @media only screen and (max-width: 768px) {
     width: ${(props) => (props.$hidden ? "20px" : "fit-content")};
   }
+  &:hover {
+  }
   /* ::after pseudo-element */
   &::after {
     display: inline-block;
@@ -147,6 +149,7 @@ export const GetBoardsList = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
+  gap: 3px;
 `;
 export const GetBoardsListItemLink = styled(Link)`
   text-decoration: none;

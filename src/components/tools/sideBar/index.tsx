@@ -10,12 +10,13 @@ import {
 type SideBarPropsType = {
   hideMenu: boolean;
   setHideMenu: (hideMenu: boolean) => void;
+  isHovered: boolean;
 };
 function SideBar(props: SideBarPropsType) {
   return (
     <Container>
       <BorderforSideBar></BorderforSideBar>
-      <ArrowContainer>
+      <ArrowContainer $isHovered={props.isHovered}>
         <ArrowIcon
           $hidden={props.hideMenu}
           as={

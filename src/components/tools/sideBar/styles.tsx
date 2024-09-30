@@ -11,8 +11,7 @@ export const BorderforSideBar = styled.div`
   top: 0;
   left: 0;
   width: 2px;
-  background-color: #091e4224;
-  opacity: 0.5;
+  background-color: ${(props) => props.theme.borderforSideBar};
   pointer-events: none;
   width: 4px;
   height: 100%;
@@ -22,18 +21,21 @@ export const BorderforSideBar = styled.div`
 `;
 type CommonPropsType = {
   $hidden?: boolean;
+  $isHovered?: boolean;
 };
 
-export const ArrowContainer = styled.div`
+export const ArrowContainer = styled.div<CommonPropsType>`
   position: absolute;
   top: 40px;
   left: -8px;
+  display: ${(props) => (props.$isHovered ? "block" : "none")};
 `;
 export const ArrowIcon = styled.button<CommonPropsType>`
   width: 25px;
   height: 25px;
   border-radius: 100%;
   font-size: 20px !important;
+  background-color: ${(props) => props.theme.primary};
   color: #44546f;
   box-shadow: rgba(9, 30, 66, 0.08) 0px 0px 0px 1px,
     rgba(9, 30, 66, 0.08) 0px 2px 4px 1px;

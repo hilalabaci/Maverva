@@ -22,6 +22,7 @@ function Home() {
   const [selectedProject, setSelectedProject] = useState<ProjectType>();
   const [selectedBoard, setSelectedBoard] = useState<BoardType>();
   const [hideMenu, setHideMenu] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   async function loadSelectedProject() {
     try {
@@ -72,7 +73,7 @@ function Home() {
     setSelectedProject(project);
     try {
       const response = await fetch(
-        process.env.REACT_APP_API_URL + "card?projectKey=" + projectKey,
+        process.env.REACT_APP_API_URL + "card?boardId=" + boardId,
         {
           method: "GET",
           headers: {
@@ -133,14 +134,21 @@ function Home() {
   return (
     <Layout onProjectCrate={(project) => {}}>
       <Wrapper>
-        <ProjectMenuAndSideBar>
+        <ProjectMenuAndSideBar
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <ProjectMenu
             projectKey={projectKey as string}
             projectId={selectedProject?._id as string}
             hideMenu={hideMenu}
             ProjectTitle={selectedProject?.title as string}
           />
-          <SideBar hideMenu={hideMenu} setHideMenu={setHideMenu} />
+          <SideBar
+            hideMenu={hideMenu}
+            setHideMenu={setHideMenu}
+            isHovered={isHovered}
+          />
         </ProjectMenuAndSideBar>
         <MainContainer>
           {selectedProject && (
@@ -172,6 +180,7 @@ function Home() {
                   projectKey={projectKey as string}
                   cards={filteredCards.filter((card) => card.status === 1)}
                   status={1}
+                  boardId={selectedBoard._id}
                 />
                 <CardList
                   onUpdate={updateCard}
@@ -187,6 +196,7 @@ function Home() {
                   projectKey={projectKey as string}
                   cards={filteredCards.filter((card) => card.status === 2)}
                   status={2}
+                  boardId={selectedBoard._id}
                 />
                 <CardList
                   onUpdate={updateCard}
@@ -202,6 +212,7 @@ function Home() {
                   projectKey={projectKey as string}
                   cards={filteredCards.filter((card) => card.status === 3)}
                   status={3}
+                  boardId={selectedBoard._id}
                 />
               </DndProvider>
             ) : undefined}

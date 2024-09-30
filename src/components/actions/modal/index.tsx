@@ -9,13 +9,14 @@ type ModalPropsType = PropsWithChildren<{
   noBackdrop?: boolean;
   trigger?: React.ReactElement;
   open?: boolean;
+  container?: Element;
   onChange?: (open: boolean) => void;
 }>;
 function Modal(props: ModalPropsType) {
   return (
     <Dialog.Root open={props.open} onOpenChange={props.onChange}>
       <Dialog.Trigger asChild={!!props.trigger}>{props.trigger}</Dialog.Trigger>
-      <Dialog.Portal>
+      <Dialog.Portal container={props.container}>
         {!props.noBackdrop && <Backdrop />}
         <VisuallyHidden.Root>
           <Dialog.Title></Dialog.Title>

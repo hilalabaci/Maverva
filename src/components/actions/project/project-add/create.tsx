@@ -76,6 +76,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
       title: projectTitle,
       userId: userId,
       projectKey: projectKey,
+      boardTitle: boardTitle,
     };
     const response = await fetch(process.env.REACT_APP_API_URL + "project", {
       method: "POST",

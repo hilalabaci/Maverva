@@ -29,6 +29,7 @@ type ProjectMenuPropsType = {
   hideMenu: boolean;
   projectKey: string;
   projectId: string;
+  onHover?: (hover: boolean) => void;
 };
 
 function ProjectMenu(props: ProjectMenuPropsType) {
@@ -60,7 +61,11 @@ function ProjectMenu(props: ProjectMenuPropsType) {
     loadBoards();
   }, []);
   return (
-    <Container $hidden={props.hideMenu}>
+    <Container
+      $hidden={props.hideMenu}
+      onMouseEnter={() => props.onHover?.(true)}
+      onMouseLeave={() => props.onHover?.(false)}
+    >
       <Wrapper>
         <UserInfo $hidden={props.hideMenu}>
           <ProjectIcon $hidden={props.hideMenu}>{props.projectKey}</ProjectIcon>
