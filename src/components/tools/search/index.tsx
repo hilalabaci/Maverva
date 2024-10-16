@@ -39,13 +39,13 @@ function Search(props: SearchPropsType) {
       ref={buttonRef}
     >
       <InputWrapper>
+        <IconWrapper>
+          <Icon />
+        </IconWrapper>
         <Input
           onChange={(e) => props.onSearch(e.target.value)}
           placeholder={props.placeHolderForSearchButton}
         />
-        <IconWrapper>
-          <Icon />
-        </IconWrapper>
       </InputWrapper>
     </SearchContainer>
   );

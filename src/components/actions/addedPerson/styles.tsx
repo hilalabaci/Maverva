@@ -5,7 +5,7 @@ export const GenerelWrapper = styled.div`
   background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.fontColour};
   font-weight: 600;
-  border-radius: 2px;
+  border-radius: 5px;
   padding: 15px 20px;
 `;
 export const TitleWrapper = styled.div`

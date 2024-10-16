@@ -100,7 +100,7 @@ export const EditProjectTitle = styled.input`
 export const SearchAndAssignMemberContainer = styled.div`
   display: flex;
   padding: 10px 0;
-  gap: 15px;
+  gap: 20px;
 `;
 export const AssignMemberContainer = styled.div`
   display: flex;
@@ -113,7 +113,6 @@ export const ButtonStylesforIconPerson = styled.button`
   align-items: center;
   padding: 0;
   background: none;
-  margin-left: -15px;
   border-radius: 50px;
   font-family: Inter;
   border: 2px solid ${(props) => props.theme.primary};

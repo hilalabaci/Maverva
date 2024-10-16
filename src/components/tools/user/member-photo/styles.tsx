@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 interface ContainerProps {
   $hidden?: boolean;
+  $userBorder?: string;
+  $marginLeft?: string;
 }
 
 // Memberphoto için props arayüzünü tanımla
@@ -15,6 +17,10 @@ interface MemberphotoProps {
 }
 export const Container = styled.div<ContainerProps>`
   display: ${(props) => (props.$hidden ? "none" : "flex")};
+  margin-left: ${(props) => props.$marginLeft};
+  &:hover {
+    border: ${(props) => props.$userBorder};
+  }
 `;
 export const Memberphoto = styled.div<MemberphotoProps>`
   display: flex;

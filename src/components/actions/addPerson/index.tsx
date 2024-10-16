@@ -37,6 +37,14 @@ function AddPerson(props: AddPersonPropsType) {
   const [selectedBoards, setSelectedBoards] = useState<BoardType[]>([]);
   const { user } = useUserContext();
 
+  async function handleSubmit() {
+    const result = await onSubmit();
+    if (result) {
+      // Yeni kullanıcı eklendikten sonra callback'i tetikle
+      openModal();
+    }
+  }
+
   async function loadBoards() {
     const response = await fetch(
       process.env.REACT_APP_API_URL +
@@ -74,12 +82,6 @@ function AddPerson(props: AddPersonPropsType) {
 
   function handleChange(value: string) {
     setEmailforAddPerson(value);
-  }
-  async function handleSubmit() {
-    const result = await onSubmit();
-    if (result) {
-      openModal();
-    }
   }
 
   async function onSubmit() {

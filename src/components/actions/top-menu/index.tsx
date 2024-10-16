@@ -21,6 +21,7 @@ import Modal from "../modal";
 import AddPerson from "../addPerson";
 import { ProjectType, UserType } from "../../../types";
 import Search from "../../tools/search";
+import { ToolTip } from "../../tools/toolstip";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -30,10 +31,28 @@ type TopMenuPropsType = {
   setSearchInput: (value: string) => void;
   selectedBoardTitle: string;
   selectedBoardId: string;
+  boardId?: string;
 };
 
 function TopMenu(props: TopMenuPropsType) {
   const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
+  const [editProjectTitle, setEditProjectTitle] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [users, setUsers] = useState<UserType[]>([]);
+
+  function openModal() {
+    setShowModal(true);
+  }
+  function closeModal() {
+    setShowModal(false);
+  }
+  function openEditProjectTitle() {
+    setEditProjectTitle(true);
+  }
+  function closeEditProjectTitle() {
+    setEditProjectTitle(false);
+    updateTitle();
+  }
 
   useEffect(() => {
     setProjectTitle(props.topMenuTitle);
@@ -55,23 +74,36 @@ function TopMenu(props: TopMenuPropsType) {
       props.onProjectUpdate(data);
     }
   }
+  async function loadUsers() {
+    const boardId = props.boardId;
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "users?boardId=" + boardId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = (await response.json()) as UserType[];
+      setUsers(data);
+    }
+  }
+  useEffect(
+    () => {
+      loadUsers();
+    },
+    [
+      /**DO:board ekledikten sonra kartlari guncelle**/
+    ]
+  );
+  useEffect(() => {
+    if (props.boardId) {
+      loadUsers();
+    }
+  }, [props.boardId]); // boardId değiştiğinde loadUsers çağırılır
 
-  const [editProjectTitle, setEditProjectTitle] = useState(false);
-  function openEditProjectTitle() {
-    setEditProjectTitle(true);
-  }
-  function closeEditProjectTitle() {
-    setEditProjectTitle(false);
-    updateTitle();
-  }
-  const [showModal, setShowModal] = useState(false);
-
-  function openModal() {
-    setShowModal(true);
-  }
-  function closeModal() {
-    setShowModal(false);
-  }
   const onSearch = (value: string) => {
     props.setSearchInput(value);
   };
@@ -115,7 +147,7 @@ function TopMenu(props: TopMenuPropsType) {
       <SearchAndAssignMemberContainer>
         <Search onSearch={onSearch} placeHolderForSearchButton="Search Card" />
         <AssignMemberContainer>
-          <HostMemberContainer>
+          {/* <HostMemberContainer>
             <MemberPhoto
               $userPhotoWidth="40px"
               $userPhotoHeight="40px"
@@ -124,16 +156,27 @@ function TopMenu(props: TopMenuPropsType) {
               $userBorder="2px solid rgba(143,180,230,255)"
               user={props.user}
             />
-          </HostMemberContainer>
-
+          </HostMemberContainer> */}
           <ButtonStylesforIconPerson>
-            <MemberPhoto
-              $userPhotoWidth="40px"
-              $userPhotoHeight="40px"
-              $userPhotoFontSize="15px"
-              $userBorderadius="50px"
-              user={props.user}
-            />
+            {users.map((user, index) => (
+              <ToolTip
+                contentStyle={{ zIndex: users.length - index }}
+                trigger={
+                  <MemberPhoto
+                    key={user._id}
+                    $userPhotoWidth="35px"
+                    $userPhotoHeight="35px"
+                    $userPhotoFontSize="12px"
+                    $userBorderadius="50px"
+                    $fontWeight="600"
+                    $userBorder="2px solid white"
+                    $marginLeft="-9px"
+                    user={user}
+                  />
+                }
+                content={user.fullName}
+              ></ToolTip>
+            ))}
           </ButtonStylesforIconPerson>
           <Modal
             trigger={

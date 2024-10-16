@@ -38,7 +38,7 @@ function Home() {
 
       if (response.ok) {
         const projectData = await response.json();
-        setSelectedProject(projectData); // Projeyi state'e kaydediyoruz
+        setSelectedProject(projectData);
       } else {
         console.error("Failed to fetch project. Status:", response.status);
       }
@@ -84,7 +84,6 @@ function Home() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(`this is a data: ${data}`);
         setCards(data);
       }
     } catch (error: any) {
@@ -163,6 +162,7 @@ function Home() {
               topMenuTitle={selectedProject?.title as string}
               user={selectedProject?.userId}
               setSearchInput={setSearchInput}
+              boardId={boardId}
             />
           )}
           <Main>

@@ -102,7 +102,7 @@ export const SubmitButton = styled.button`
   color: white;
   outline: none;
   border: none;
-  border-radius: 2px;
+  border-radius: 5px;
   &:hover {
     background-color: ${(props) => props.theme.submitButtonHover};
   }

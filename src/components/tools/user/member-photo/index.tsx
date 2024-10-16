@@ -10,11 +10,12 @@ interface MemberPhotoProps {
   $userBorderadius?: string;
   $userBorder?: string;
   $fontWeight?: string;
+  $marginLeft?: string;
+  style?: { zIndex?: number };
 }
 
 function MemberPhoto(props: MemberPhotoProps) {
   const { user: contextUser } = useUserContext();
-  // const user = props.user ? props.user : contextUser;
   const user = props.user ?? contextUser;
 
   const chars = user?.fullName?.split(" ") ?? ["Undefined"];
@@ -22,7 +23,11 @@ function MemberPhoto(props: MemberPhotoProps) {
   const lastName = chars.length > 1 ? chars[1] : "";
 
   return (
-    <Container $hidden={props.$hidden}>
+    <Container
+      style={{ zIndex: props.style?.zIndex }}
+      $hidden={props.$hidden}
+      $marginLeft={props.$marginLeft}
+    >
       <Memberphoto
         $userPhotoWidth={props.$userPhotoWidth}
         $userPhotoHeight={props.$userPhotoHeight}

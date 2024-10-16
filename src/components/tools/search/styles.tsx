@@ -2,12 +2,10 @@ import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 
 export const SearchContainer = styled.button<{ isClicked: boolean }>`
-  height: 40px;
+  height: 35px;
   display: flex;
-  padding-left: 8px;
-  gap: 5px;
   align-items: center;
-  border-radius: 3px;
+  border-radius: 5px;
   outline: none;
   border: ${(props) => props.theme.searchBorder};
   outline: ${(props) =>
@@ -40,6 +38,8 @@ export const IconWrapper = styled.button`
 
 export const InputWrapper = styled.div`
   display: flex;
+  padding: 0 5px;
+  gap: 5px;
   :focus-visible {
     border: 1px solid
       linear-gradient(135deg, rgb(113, 183, 230, 0.3), rgb(155, 89, 182, 0.3));
@@ -49,7 +49,7 @@ export const Input = styled.input`
   outline: none;
   border: none;
   background-color: transparent;
-  font-size: 15px;
+  font-size: 14px;
   color: ${(props) => props.theme.fontColour};
   padding: 0;
   input[type="search"]::-webkit-search-decoration {
