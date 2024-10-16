@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Container,
   ProjectTitle,
@@ -19,7 +19,6 @@ import {
 import MemberPhoto from "../../tools/user/member-photo";
 import Modal from "../modal";
 import AddPerson from "../addPerson";
-import { useUserContext } from "../../../contexts/UserContext";
 import { ProjectType, UserType } from "../../../types";
 import Search from "../../tools/search";
 type TopMenuPropsType = {
@@ -35,12 +34,6 @@ type TopMenuPropsType = {
 
 function TopMenu(props: TopMenuPropsType) {
   const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
-  const { user } = useUserContext();
-  const [emailforAddPerson, setEmailforAddPerson] = useState("");
-
-  function handleChange(value: string) {
-    setEmailforAddPerson(value);
-  }
 
   useEffect(() => {
     setProjectTitle(props.topMenuTitle);
@@ -78,26 +71,6 @@ function TopMenu(props: TopMenuPropsType) {
   }
   function closeModal() {
     setShowModal(false);
-  }
-  async function onSubmit() {
-    const projectId = props.projectId;
-    const projectData = {
-      projectId: projectId,
-      email: emailforAddPerson,
-      userId: user?._id,
-    };
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "project/add-user",
-      {
-        method: "POST",
-        body: JSON.stringify(projectData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return response.ok;
   }
   const onSearch = (value: string) => {
     props.setSearchInput(value);
@@ -174,10 +147,9 @@ function TopMenu(props: TopMenuPropsType) {
           >
             <AddPerson
               closeModal={closeModal}
-              onSubmit={onSubmit}
               projectTitle={projectTitle}
-              emailforAddPerson={emailforAddPerson}
-              handleChange={handleChange}
+              projectKey={props.projectKey}
+              projectId={props.projectId}
             />
           </Modal>
         </AssignMemberContainer>

@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 export const GlobalStyle = createGlobalStyle`
 
 `;
@@ -38,15 +39,20 @@ export const MailWrapper = styled.section`
 `;
 export const LabelTitle = styled.label`
   font-size: 12px;
-  color: rgba(136, 151, 165, 255);
-  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  &::after {
+    content: "*";
+    margin-left: 3px;
+    position: relative;
+    top: -2px;
+    color: red;
+  }
 `;
 export const MailInput = styled.input`
   background-color: ${(props) => props.theme.modalInputBg};
-  padding: 10px;
-  border: 1px solid rgb(136, 151, 165);
-  border-radius: 2px;
+  padding: 7px 5px;
+  border: 1px solid ;
+  border-radius: 3px;
   color: ${(props) => props.theme.fontColour};
   :focus-visible {
     border: ${(props) => props.theme.activeBorder};
@@ -105,4 +111,51 @@ export const WarningMessage = styled.span`
   font-size: 12px;
   color: #c9372c;
   font-weight: 500;
+`;
+export const AddProjectWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+`;
+export const IconDown = styled(KeyboardArrowDownOutlinedIcon)`
+  font-size: 16px !important;
+  font-weight: 700 !important;
+`;
+export const InputforProjectDropDown = styled.input`
+  font-size: 14px;
+  font-weight: 14px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: ${(props) => props.theme.fontColour};
+  width: 100%;
+  &:focus-visible {
+    outline: ${(props) => props.theme.activeBorder};
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+`;
+export const InputWrapperwithIcon = styled.div`
+  height: 20px;
+  font-size: 14px;
+  background-color: ${(props) => props.theme.modalInputBg};
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 4px 7px 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const TitleforProject = styled.label`
+  font-size: 12px;
+  font-weight: 600;
+  &::after {
+    content: "*";
+    margin-left: 3px;
+    position: relative;
+    top: -2px;
+    color: red;
+  }
 `;

@@ -73,6 +73,7 @@ function Home() {
     setSelectedProject(project);
     try {
       const response = await fetch(
+        // `${process.env.REACT_APP_API_URL}projects/${projectKey}/boards/${boardId}`,
         process.env.REACT_APP_API_URL + "card?boardId=" + boardId,
         {
           method: "GET",
@@ -83,6 +84,7 @@ function Home() {
       );
       if (response.ok) {
         const data = await response.json();
+        console.log(`this is a data: ${data}`);
         setCards(data);
       }
     } catch (error: any) {
@@ -106,7 +108,7 @@ function Home() {
     if (selectedProject) {
       loadCards(selectedProject);
     }
-  }, [selectedProject]);
+  }, [selectedProject, boardId]);
   useEffect(() => {
     if (projectKey) {
       loadSelectedProject();

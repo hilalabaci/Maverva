@@ -57,9 +57,14 @@ function ProjectMenu(props: ProjectMenuPropsType) {
       setBoards(data);
     }
   }
-  useEffect(() => {
-    loadBoards();
-  }, []);
+  useEffect(
+    () => {
+      loadBoards();
+    },
+    [
+      /**DO:board ekledikten sonra kartlari guncelle**/
+    ]
+  );
   return (
     <Container
       $hidden={props.hideMenu}

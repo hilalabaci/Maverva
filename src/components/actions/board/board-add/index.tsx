@@ -52,7 +52,6 @@ function BoardCreate(props: BoardCreatePropsType) {
   }
   async function onSubmit() {
     const projectKeys = selectedProjects.map((project) => project.projectKey);
-    console.log(projectKeys);
     const boardData = {
       title: boardTitle,
       userId: userId,
@@ -69,7 +68,6 @@ function BoardCreate(props: BoardCreatePropsType) {
     if (response.ok) {
       const data = (await response.json()) as CreateBoardResponse;
       props.onCreate(data.newProject);
-      props.onClose();
     }
   }
   async function loadProjects() {
@@ -97,6 +95,7 @@ function BoardCreate(props: BoardCreatePropsType) {
           if (!!selectedProjects.length && boardTitle) {
             e.preventDefault();
             await onSubmit();
+            props.onClose();
           }
           e.preventDefault();
         }}

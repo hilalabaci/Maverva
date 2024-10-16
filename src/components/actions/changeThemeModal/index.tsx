@@ -1,5 +1,6 @@
 import { Container, Wrapper, ImgforTheme } from "./styles";
 import { useTheme } from "../../../contexts/ThemeContext";
+import DarkThemeImg from "../../../../public/icons/dark.png";
 
 function ChangeThemeModal() {
   const { changeMode, mode, theme } = useTheme();
@@ -10,7 +11,7 @@ function ChangeThemeModal() {
   };
   const HandlerChangeDark = () => {
     if (mode === "light") {
-      changeMode("dark"); 
+      changeMode("dark");
     }
   };
   return (
