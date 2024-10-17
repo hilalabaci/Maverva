@@ -161,6 +161,8 @@ export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
   border-radius: 5px;
   text-decoration: none;
   color: rgba(68, 84, 111, 1);
+  overflow: hidden;
+  text-overflow: ellipsis; 
   background: ${({ isSelected }) =>
     isSelected
       ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`

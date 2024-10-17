@@ -23,6 +23,8 @@ import AddedPerson from "../addedPerson";
 import { DropdownSelectMenu } from "../../tools/select";
 import { BoardType } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
+import { useApplicationContext } from "../../../contexts/ApplicationContext";
+import apiHelper from "../../../api/apiHelper";
 type AddPersonPropsType = {
   projectTitle: string;
   closeModal: () => void;
@@ -33,46 +35,9 @@ type AddPersonPropsType = {
 function AddPerson(props: AddPersonPropsType) {
   const [showModal, setShowModal] = useState(false);
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
-  const [boards, setBoards] = useState<BoardType[]>([]);
+  const { boards, setBoards } = useApplicationContext();
   const [selectedBoards, setSelectedBoards] = useState<BoardType[]>([]);
   const { user } = useUserContext();
-
-  async function handleSubmit() {
-    const result = await onSubmit();
-    if (result) {
-      // Yeni kullanıcı eklendikten sonra callback'i tetikle
-      openModal();
-    }
-  }
-
-  async function loadBoards() {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL +
-        "board?projectKey=" +
-        props.projectKey +
-        "&userId=" +
-        user?._id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response.ok) {
-      const data = (await response.json()) as BoardType[];
-      setBoards(data);
-    }
-  }
-  useEffect(
-    () => {
-      loadBoards();
-    },
-    [
-      /**DO:board ekledikten sonra kartlari guncelle**/
-    ]
-  );
-
   function openModal() {
     setShowModal(true);
   }
@@ -80,11 +45,28 @@ function AddPerson(props: AddPersonPropsType) {
     setShowModal(false);
   }
 
+  async function handleSubmit() {
+    const result = await addUserToBoard();
+    if (result) {
+      openModal();
+    }
+  }
+  async function loadBoards() {
+    if (!user) return;
+    const { ok, data } = await apiHelper.getBoards(props.projectKey, user._id);
+    if (ok && data) {
+      setBoards(data);
+    }
+  }
+  useEffect(() => {
+    loadBoards();
+  }, []);
+
   function handleChange(value: string) {
     setEmailforAddPerson(value);
   }
 
-  async function onSubmit() {
+  async function addUserToBoard() {
     const projectId = props.projectId;
     const boardIds = selectedBoards.map((board) => board._id);
     const projectData = {
@@ -92,20 +74,9 @@ function AddPerson(props: AddPersonPropsType) {
       boardIds: boardIds,
       email: emailforAddPerson,
     };
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "project/boards/add-user",
-      {
-        method: "POST",
-        body: JSON.stringify(projectData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    return response.ok;
+    const { ok, data } = await apiHelper.addUsertoBoard(projectData);
+    if (ok && data) return ok;
   }
-
   return (
     <Container>
       <GenerelWrapper>

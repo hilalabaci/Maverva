@@ -19,10 +19,10 @@ import {
   ProjectBoardTitleWrapper,
   GetBoardsList,
   GetBoardsListItem,
-  GetBoardsListItemLink,
 } from "./styles";
-import { BoardType } from "../../../../types";
 import { useUserContext } from "../../../../contexts/UserContext";
+import { useApplicationContext } from "../../../../contexts/ApplicationContext";
+import apiHelper from "../../../../api/apiHelper";
 
 type ProjectMenuPropsType = {
   ProjectTitle: string;
@@ -33,38 +33,21 @@ type ProjectMenuPropsType = {
 };
 
 function ProjectMenu(props: ProjectMenuPropsType) {
-  const [boards, setBoards] = useState<BoardType[]>([]);
+  const { boards, setBoards } = useApplicationContext();
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
   const [showBoards, setShowBoards] = useState(true);
   const { user } = useUserContext();
 
   async function loadBoards() {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL +
-        "board?projectKey=" +
-        props.projectKey +
-        "&userId=" +
-        user?._id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response.ok) {
-      const data = (await response.json()) as BoardType[];
+    if (!user) return;
+    const { ok, data } = await apiHelper.getBoards(props.projectKey, user._id);
+    if (ok && data) {
       setBoards(data);
     }
   }
-  useEffect(
-    () => {
-      loadBoards();
-    },
-    [
-      /**DO:board ekledikten sonra kartlari guncelle**/
-    ]
-  );
+  useEffect(() => {
+    loadBoards();
+  }, []);
   return (
     <Container
       $hidden={props.hideMenu}

@@ -174,7 +174,7 @@ function Navbar(props: NavbarPropsType) {
             right: "70px",
             background: "none",
             transform: "none",
-            left: "unset"
+            left: "unset",
           }}
         >
           <NotificationContainer>

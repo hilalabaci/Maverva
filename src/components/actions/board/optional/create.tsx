@@ -86,7 +86,6 @@ function OptionalBoardCreate(props: OptionalBoardCreateTypeProps) {
         </Container>
       )}
 
-      {/* Adım 2: Seçilen Seçeneğe Bağlı Adımlar */}
       {step === 2 && selectedOption === "addBoardwithProject" && (
         <ProjectCreate
           BackButton={handleBack}

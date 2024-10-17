@@ -28,6 +28,9 @@ import { useEffect, useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { BackButton, CancelButton } from "../optional/styles";
 import { DropdownSelectMenu } from "../../../tools/select";
+import { useApplicationContext } from "../../../../contexts/ApplicationContext";
+import apiHelper from "../../../../api/apiHelper";
+import { useParams } from "react-router-dom";
 type BoardCreatePropsType = {
   onCreate: (project: BoardType) => void;
   BackButton: () => void;
@@ -35,14 +38,15 @@ type BoardCreatePropsType = {
   userProject?: string;
   projectKey?: string;
 };
-type CreateBoardResponse = {
-  message: string;
-  newProject: BoardType;
+
+type URLParams = {
+  projectKey: string;
 };
 
 function BoardCreate(props: BoardCreatePropsType) {
+  const { projectKey } = useParams<URLParams>();
   const [boardTitle, setBoardTitle] = useState("");
-  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const { projects, setProjects, setBoards } = useApplicationContext();
   const { user } = useUserContext();
   const userId = user?._id;
   const [selectedProjects, setSelectedProjects] = useState<ProjectType[]>([]);
@@ -51,23 +55,22 @@ function BoardCreate(props: BoardCreatePropsType) {
     setBoardTitle(value);
   }
   async function onSubmit() {
+    if (!userId) return;
     const projectKeys = selectedProjects.map((project) => project.projectKey);
     const boardData = {
       title: boardTitle,
       userId: userId,
       projectKeys: projectKeys,
     };
-    const response = await fetch(process.env.REACT_APP_API_URL + "board", {
-      method: "POST",
-      body: JSON.stringify(boardData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
 
-    if (response.ok) {
-      const data = (await response.json()) as CreateBoardResponse;
+    const { ok, data } = await apiHelper.addBoard(boardData);
+    if (ok && data) {
       props.onCreate(data.newProject);
+
+      if (projectKey) {
+        const { ok, data } = await apiHelper.getBoards(projectKey, userId);
+        if (ok && data) setBoards(data);
+      }
     }
   }
   async function loadProjects() {

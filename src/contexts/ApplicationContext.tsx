@@ -1,33 +1,47 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 import { BoardType, ProjectType } from "../types";
 
 type ApplicationProviderProps = PropsWithChildren;
 type ApplicationContextType = {
-  project?: ProjectType;
-  setProject: (project?: ProjectType) => void;
-  board?: BoardType;
-  setBoard: (board?: BoardType) => void;
+  projects: ProjectType[];
+  setProjects: Dispatch<SetStateAction<ProjectType[]>>;
+  boards: BoardType[];
+  setBoards: Dispatch<SetStateAction<BoardType[]>>;
+  selectedBoard: BoardType | undefined;
+  setSelectedBoard: Dispatch<SetStateAction<BoardType | undefined>>;
 };
 
 const ApplicationContext = createContext<ApplicationContextType>({
-  project: undefined,
-  setProject: () => {},
-  board: undefined,
-  setBoard: () => {},
+  projects: [],
+  setProjects: () => {},
+  boards: [],
+  setBoards: () => {},
+  selectedBoard: undefined,
+  setSelectedBoard: () => {},
 });
 //const storageKey = "process_user";
 
 export const ApplicationProvider = (props: ApplicationProviderProps) => {
-  const [project, setProject] = useState<ProjectType | undefined>();
-  const [board, setBoard] = useState<BoardType | undefined>();
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [boards, setBoards] = useState<BoardType[]>([]);
+  const [selectedBoard, setSelectedBoard] = useState<BoardType | undefined>();
 
   return (
     <ApplicationContext.Provider
       value={{
-        project: project,
-        setProject: setProject,
-        board: board,
-        setBoard: setBoard,
+        projects,
+        setProjects,
+        boards,
+        setBoards,
+        selectedBoard,
+        setSelectedBoard,
       }}
     >
       {props.children}
