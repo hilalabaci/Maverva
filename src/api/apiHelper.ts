@@ -22,7 +22,7 @@ class ApiHelper {
     });
   }
   async addUsertoBoard(data: AddUserToBoardRequest) {
-    return await this.baseCall("project/board/add-user", {
+    return await this.baseCall("project/boards/add-user", {
       method: "POST",
       data: data,
     });

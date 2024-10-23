@@ -22,13 +22,14 @@ import {
   DataLeadName,
   TableHead,
   OrderIcon,
-  FavIcon,
   MoreIcon,
-  FilletStar,
   IconWrapper,
   MoreIconButton,
   LinkforProjects,
   DataKey,
+  IconFav,
+  FilledIconFav,
+  FavIconTable,
 } from "./styles";
 import Search from "../../components/tools/search";
 import { useUserContext } from "../../contexts/UserContext";
@@ -37,6 +38,8 @@ import MemberPhoto from "../../components/tools/user/member-photo";
 import { DropdownMenu } from "../../components/tools/dropdownMenu/index";
 import CloseProjectMenu from "../../components/actions/project/close-project-menu";
 import ProjectCreate from "../../components/actions/project/project-add/create";
+import ProjectAvatar from "../../components/tools/user/project-avatar";
+import Toggle from "../../components/tools/toggle";
 
 type ProjectsPropsType = {
   onProjectChange: (project: ProjectType) => void;
@@ -54,6 +57,7 @@ function Projects(props: ProjectsPropsType) {
     useState(false);
   const [showModalforDeleteProject, setShowModalforDeleteProject] =
     useState(false);
+  const [FavIconToggle, setFavIconToggle] = useState(false);
 
   async function loadProjects() {
     const response = await fetch(
@@ -68,6 +72,8 @@ function Projects(props: ProjectsPropsType) {
     if (response.ok) {
       const data = (await response.json()) as ProjectType[];
       setProjects(data);
+      console.log(data);
+      console.log(`this is a project data: ${data}`);
     }
   }
 
@@ -128,7 +134,7 @@ function Projects(props: ProjectsPropsType) {
                     <CreateButton
                       onClick={() => setShowModalforCreateButton(true)}
                     >
-                      Create Projects
+                      Create Project
                     </CreateButton>
                   }
                   open={showModalforCreateButton}
@@ -159,7 +165,7 @@ function Projects(props: ProjectsPropsType) {
               <TableHead>
                 <TableTitleWrapper>
                   <IconWrapper>
-                    <FilletStar />
+                    <FavIconTable />
                   </IconWrapper>
                   <Titles>
                     Name <OrderIcon />
@@ -174,9 +180,21 @@ function Projects(props: ProjectsPropsType) {
                 {filteredProject.map((project, index) => (
                   <DataWrapper>
                     <IconWrapper>
-                      <FavIcon />
+                      <Toggle
+                        activeIcon={<FilledIconFav />}
+                        icon={<IconFav />}
+                      />
                     </IconWrapper>
                     <DataProjectsName>
+                      <ProjectAvatar
+                        $userPhotoWidth="25px"
+                        $userPhotoHeight="25px"
+                        $userPhotoFontSize="10px"
+                        $userBorderadius="50px"
+                        //$userBorder={props.$userBorder}
+                        $fontWeight="600"
+                        projectId={project._id}
+                      />
                       <LinkforProjects to={`/projects/${project.projectKey}`}>
                         {project.title}
                       </LinkforProjects>
@@ -184,14 +202,15 @@ function Projects(props: ProjectsPropsType) {
                     <DataKey>{project.projectKey}</DataKey>
                     <DataLeadName>
                       <MemberPhoto
-                        $userPhotoWidth="25px"
-                        $userPhotoHeight="25px"
+                        $userPhotoWidth="30px"
+                        $userPhotoHeight="30px"
                         $userPhotoFontSize="10px"
                         $userBorderadius="50px"
                         //$userBorder={props.$userBorder}
                         $fontWeight="600"
+                        user={project.leadUser}
                       />
-                      {user?.fullName}
+                      {project.leadUser.fullName}
                     </DataLeadName>
                     <IconWrapper />
                     <IconWrapper>

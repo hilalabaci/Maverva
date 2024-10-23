@@ -14,7 +14,6 @@ export const GlobalStyle = createGlobalStyle`
 export const Container = styled.div`
   background-color: ${(props) => props.theme.primary};
   color: ${(props) => props.theme.fontColour};
-  flex: 1;
 `;
 export const NavbarWrapper = styled.div``;
 export const Wrapper = styled.div`
@@ -38,16 +37,13 @@ export const Main = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
-  padding-top: 10pxs;
+  justify-content: flex-start;
+  padding-top: 10px;
 `;
 export const MainContainer = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 0 10px;
-  padding-left: 40px;
+  flex-direction: column;;
   @media only screen and (max-width: 768px) {
     margin-left: 7px;
     overflow-x: scroll;

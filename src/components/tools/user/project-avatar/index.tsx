@@ -1,8 +1,6 @@
-import { useUserContext } from "../../../../contexts/UserContext";
-import { UserType } from "../../../../types";
 import { Container, MemberAvatar, Memberphoto } from "./styles";
-interface MemberPhotoProps {
-  user?: UserType;
+interface ProjectAvatarProps {
+  projectId?: string;
   $hidden?: boolean;
   $userPhotoWidth?: string;
   $userPhotoHeight?: string;
@@ -14,9 +12,8 @@ interface MemberPhotoProps {
   style?: { zIndex?: number };
 }
 
-function MemberPhoto(props: MemberPhotoProps) {
-  const { user: contextUser } = useUserContext();
-  const user = props.user ?? contextUser;
+function ProjectAvatar(props: ProjectAvatarProps) {
+  const projectId = props.projectId;
   return (
     <Container
       style={{ zIndex: props.style?.zIndex }}
@@ -32,10 +29,10 @@ function MemberPhoto(props: MemberPhotoProps) {
         $fontWeight={props.$fontWeight}
       >
         <MemberAvatar
-          src={`https://api.dicebear.com/9.x/avataaars/svg?scale=100&radius=50&randomizeIds=true&seed=${user?._id}`}
+          src={`https://api.dicebear.com/9.x/icons/svg?scale=100&radius=20&randomizeIds=true&seed=${projectId}`}
         />
       </Memberphoto>
     </Container>
   );
 }
-export default MemberPhoto;
+export default ProjectAvatar;

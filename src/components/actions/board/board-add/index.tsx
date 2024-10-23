@@ -168,8 +168,8 @@ function BoardCreate(props: BoardCreatePropsType) {
                 <ProjectLeadInputWrapper>
                   <InputforProjectLead>
                     <MemberPhoto
-                      $userPhotoWidth="19px"
-                      $userPhotoHeight="19px"
+                      $userPhotoWidth="20px"
+                      $userPhotoHeight="20px"
                       $userPhotoFontSize="7px"
                       $userBorderadius="50px"
                       $userBorder={props.userProject}

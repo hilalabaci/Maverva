@@ -9,6 +9,7 @@ import { Wrapper, Main, MainContainer, ProjectMenuAndSideBar } from "./styles";
 import { useParams } from "react-router-dom";
 import ProjectMenu from "../../components/actions/project/project-menu";
 import SideBar from "../../components/tools/sideBar";
+import MainContainerLayout from "../templates/mainContainerLayout";
 
 type URLParams = {
   projectKey: string;
@@ -134,23 +135,18 @@ function Home() {
 
   return (
     <Layout onProjectCrate={(project) => {}}>
-      <Wrapper>
-        <ProjectMenuAndSideBar
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <ProjectMenu
-            projectKey={projectKey as string}
-            projectId={selectedProject?._id as string}
-            hideMenu={hideMenu}
-            ProjectTitle={selectedProject?.title as string}
-          />
-          <SideBar
-            hideMenu={hideMenu}
-            setHideMenu={setHideMenu}
-            isHovered={isHovered}
-          />
-        </ProjectMenuAndSideBar>
+      <MainContainerLayout
+        projectKey={projectKey as string}
+        projectId={selectedProject?._id as string}
+        projectTitle={selectedProject?.title as string}
+        selectedBoardTitle={selectedBoard?.title as string}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        hideMenu={hideMenu}
+        setHideMenu={setHideMenu}
+        isHovered={isHovered}
+        selectedBoardId={selectedBoard?._id as string}
+      >
         <MainContainer>
           {selectedProject && (
             <TopMenu
@@ -220,7 +216,7 @@ function Home() {
             ) : undefined}
           </Main>
         </MainContainer>
-      </Wrapper>
+      </MainContainerLayout>
     </Layout>
   );
 }

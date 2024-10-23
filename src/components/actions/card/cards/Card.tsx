@@ -79,8 +79,8 @@ function Card(props: CardProps) {
       <NoteWrapper>{props.content}</NoteWrapper>
       <CardButtomWrapper>
         <MemberPhoto
-          $userPhotoWidth="25px"
-          $userPhotoHeight="25px"
+          $userPhotoWidth="30px"
+          $userPhotoHeight="30px"
           $userPhotoFontSize="10px"
           $userBorderadius="50px"
           user={props.userId}

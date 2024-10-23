@@ -42,7 +42,6 @@ function ProjectCreate(props: ProjectCreatePropsType) {
   const [projectKey, setProjectKey] = useState("");
   const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useUserContext();
-  const userId = user?._id;
   const [boardTitle, setBoardTitle] = useState("");
 
   useEffect(() => {
@@ -74,7 +73,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
   async function onSubmit() {
     const projectData = {
       title: projectTitle,
-      userId: userId,
+      leadUser: user,
       projectKey: projectKey,
       boardTitle: boardTitle,
     };

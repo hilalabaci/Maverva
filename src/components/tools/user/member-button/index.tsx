@@ -11,8 +11,8 @@ function MemberButton(props: MemberButtonPropsType) {
   return (
     <Container onClick={props.onClick}>
       <MemberPhoto
-        $userPhotoWidth="24px"
-        $userPhotoHeight="24px"
+        $userPhotoWidth="30px"
+        $userPhotoHeight="30px"
         $userPhotoFontSize="10px"
         $userBorderadius="50px"
         $fontWeight="600"

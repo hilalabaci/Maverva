@@ -33,6 +33,7 @@ export const darkTheme = {
   projectsIconHover: "#e4e6e9",
   submitButtonHover: "#0055cc",
   borderforSideBar: "rgba(40,47,53,255)",
+  sideBarFontColour: "#44546F",
 };
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
@@ -70,4 +71,5 @@ export const lightTheme = {
   projectsIconHover: "#e4e6e9",
   submitButtonHover: "#0055cc",
   borderforSideBar: "rgba(238,239,241,255)",
+  sideBarFontColour: "#44546F",
 };

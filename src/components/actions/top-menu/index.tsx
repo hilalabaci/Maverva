@@ -6,7 +6,6 @@ import {
   AssignMemberContainer,
   ButtonStylesforPersonAdd,
   IconPersonAdd,
-  HostMemberContainer,
   ButtonStylesforIconPerson,
   TitleWrapper,
   Title,
@@ -111,24 +110,6 @@ function TopMenu(props: TopMenuPropsType) {
   return (
     <Container onBlur={closeEditProjectTitle}>
       <TitleWrapper>
-        <PathInfo>
-          <PathList>
-            <Pathitem>
-              <PathLink to={"/projects"}>Projects</PathLink> /{"  "}
-            </Pathitem>
-            <Pathitem>
-              <PathLink to={`/projects/${props.projectKey}`}>
-                {projectTitle}
-              </PathLink>{" "}
-              /{" "}
-            </Pathitem>
-            <Pathitem>
-              <PathLink to={`boards/${props.selectedBoardId}`}>
-                {props.selectedBoardTitle}
-              </PathLink>
-            </Pathitem>
-          </PathList>
-        </PathInfo>
         <Title>
           {editProjectTitle ? (
             <EditProjectTitle
@@ -164,8 +145,8 @@ function TopMenu(props: TopMenuPropsType) {
                 trigger={
                   <MemberPhoto
                     key={user._id}
-                    $userPhotoWidth="35px"
-                    $userPhotoHeight="35px"
+                    $userPhotoWidth="40px"
+                    $userPhotoHeight="40px"
                     $userPhotoFontSize="12px"
                     $userBorderadius="50px"
                     $fontWeight="600"

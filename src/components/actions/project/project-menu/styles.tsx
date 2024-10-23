@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
+import { LayoutIcon, ListBulletIcon } from "@radix-ui/react-icons";
+import FormatAlignRightOutlinedIcon from "@mui/icons-material/FormatAlignRightOutlined";
+import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
+import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
+import AddIcon from "@mui/icons-material/Add";
 import styled from "styled-components";
 type CommonPropsType = {
   $hidden?: boolean;
 };
 export const Container = styled.div<CommonPropsType>`
   //display: ${(props) => (props.$hidden ? "none" : "flex")};
-  width: ${(props) => (props.$hidden ? "20px" : "270px")};
+  width: ${(props) => (props.$hidden ? "20px" : "300px")};
   height: 100vh;
   background-color: ${(props) => props.theme.BorderMenuBG};
   @media only screen and (max-width: 768px) {
@@ -42,6 +47,23 @@ export const AddProjectWrapper = styled.div<CommonPropsType>`
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
+`;
+export const SideBarItem = styled.div`
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+`;
+export const SideBarWrapper = styled.div`
+  background: linear-gradient(
+    135deg,
+    rgba(113, 183, 230, 0.3),
+    rgba(155, 89, 182, 0.3)
+  );
+  border-radius: 5px;
+`;
+export const SideBarListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 export const UserInfo = styled.div<CommonPropsType>`
   display: flex;
@@ -94,11 +116,6 @@ export const SelectedBoard = styled.span`
 export const BoardWrapper = styled.div`
   padding: 4px;
   border-radius: 5px;
-  background: linear-gradient(
-    135deg,
-    rgba(113, 183, 230, 0.3),
-    rgba(155, 89, 182, 0.3)
-  );
 `;
 export const ProjectBoardContainer = styled.div`
   display: flex;
@@ -116,7 +133,8 @@ export const ProjectBoardTitleWrapper = styled.div`
 `;
 export const ProjectBoardTitle = styled.span`
   color: #0c66e4;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 450;
 `;
 
 export const ArrowIcon = styled.button<CommonPropsType>`
@@ -141,7 +159,47 @@ export const ArrowIcon = styled.button<CommonPropsType>`
     color: white; */
   }
 `;
-export const GetBoardsContainer = styled.div``;
+export const GetBoardsContainer = styled.div`
+  box-shadow: var(
+    --ds-shadow-overlay,
+    0 0 0 1px rgba(9, 30, 66, 0.13),
+    0 4px 11px rgba(9, 30, 66, 0.13)
+  );
+  background-color: white;
+  box-sizing: border-box;
+  max-width: 200px;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  color: ${(props) => props.theme.memberMenuFontColor};
+`;
+export const CreateBoardinBoards = styled.button`
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-top: 2px solid #091e4224;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  font-size: 14px;
+  &:hover {
+    cursor: pointer;
+    background-color: #091e420f;
+  }
+`;
+export const IconPlus = styled(AddIcon)`
+  font-size: 19px !important;
+`;
+export const TitleGetBoards = styled.div`
+  font-size: 11px;
+  color: #626f86;
+  font-weight: 700;
+  padding: 8px 16px;
+`;
 export const GetBoardsList = styled.div`
   list-style-type: none;
   padding-inline-start: 0;
@@ -153,20 +211,43 @@ export const GetBoardsList = styled.div`
 `;
 export const GetBoardsListItemLink = styled(Link)`
   text-decoration: none;
-  color: rgba(68, 84, 111, 1);
 `;
 export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
+  padding: 8px 16px;
+  display: flex;
+  font: var(
+    --ds-font-body,
+    normal 400 14px / 20px ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Ubuntu,
+    system-ui,
+    "Helvetica Neue",
+    sans-serif
+  );
   font-size: 13px;
-  padding: 16px;
-  border-radius: 5px;
+  gap: 7px;
   text-decoration: none;
-  color: rgba(68, 84, 111, 1);
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
+  color: ${({ isSelected,theme }) =>
+    isSelected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
   background: ${({ isSelected }) =>
     isSelected
       ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
       : "none"};
+  &:hover {
+    cursor: pointer;
+    background-color: #091e420f;
+  }
+  &:hover ${GetBoardsListItemLink} {
+    color: #0c66e4;
+  }
+`;
+export const SideBarElement = styled(Link)`
+  text-decoration: none;
+  border-radius: 5px;
   &:hover {
     cursor: pointer;
     background: linear-gradient(
@@ -175,7 +256,24 @@ export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
       rgba(155, 89, 182, 0.7)
     );
   }
-  &:hover ${GetBoardsListItemLink} {
-    color: #0c66e4;
-  }
+`;
+export const SideBarElementWrapper = styled.span`
+  color: ${(props) => props.theme.sideBarFontColour};
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+  font-family: sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu,
+    system-ui, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  padding: 8px 8px 8px 14px;
+`;
+export const SideBarElementIcon = styled.span``;
+export const IconCalendarViewWeek = styled(CalendarViewWeekIcon)`
+  font-size: 1.3rem !important;
+`;
+export const IconLayout = styled(LayoutIcon)`
+  font-size: 1.3rem !important;
+`;
+export const IconListBullet = styled(FormatListBulletedOutlinedIcon)`
+  font-size: 1.3rem !important;
 `;

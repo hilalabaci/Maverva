@@ -12,6 +12,7 @@ export type ProjectType = {
   users: UserType[];
   userId: UserType;
   projectKey: string;
+  leadUser: UserType;
 };
 export type BoardType = {
   _id: string;

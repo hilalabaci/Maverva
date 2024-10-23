@@ -34,7 +34,7 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   //background: linear-gradient(135deg, #71b7e6, #9b59b6);
   background-color: #de835d;
   position: relative;
-  color: #182a4e; 
+  color: #182a4e;
   text-transform: uppercase;
   font-weight: ${(props) => props.$fontWeight};
 
@@ -44,5 +44,4 @@ export const Memberphoto = styled.div<MemberphotoProps>`
     font-size: 10px;
   }
 `;
-export const MemberAvatar = styled.img`
-`;
+export const MemberAvatar = styled.img``;
