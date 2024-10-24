@@ -57,7 +57,6 @@ function Projects(props: ProjectsPropsType) {
     useState(false);
   const [showModalforDeleteProject, setShowModalforDeleteProject] =
     useState(false);
-  const [FavIconToggle, setFavIconToggle] = useState(false);
 
   async function loadProjects() {
     const response = await fetch(
@@ -72,8 +71,6 @@ function Projects(props: ProjectsPropsType) {
     if (response.ok) {
       const data = (await response.json()) as ProjectType[];
       setProjects(data);
-      console.log(data);
-      console.log(`this is a project data: ${data}`);
     }
   }
 

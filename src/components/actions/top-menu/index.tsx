@@ -21,6 +21,7 @@ import AddPerson from "../addPerson";
 import { ProjectType, UserType } from "../../../types";
 import Search from "../../tools/search";
 import { ToolTip } from "../../tools/toolstip";
+import { useLocation } from "react-router-dom";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -34,6 +35,7 @@ type TopMenuPropsType = {
 };
 
 function TopMenu(props: TopMenuPropsType) {
+  const location = useLocation();
   const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
   const [editProjectTitle, setEditProjectTitle] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -120,24 +122,16 @@ function TopMenu(props: TopMenuPropsType) {
             />
           ) : (
             <ProjectTitle onClick={openEditProjectTitle}>
-              {props.selectedBoardTitle}
+              {location.pathname.includes("/backlog")
+                ? "Backlog"
+                : props.selectedBoardTitle}
             </ProjectTitle>
           )}
         </Title>
       </TitleWrapper>
       <SearchAndAssignMemberContainer>
-        <Search onSearch={onSearch} placeHolderForSearchButton="Search Card" />
+        <Search onSearch={onSearch} placeHolderForSearchButton="Search" />
         <AssignMemberContainer>
-          {/* <HostMemberContainer>
-            <MemberPhoto
-              $userPhotoWidth="40px"
-              $userPhotoHeight="40px"
-              $userPhotoFontSize="15px"
-              $userBorderadius="50px"
-              $userBorder="2px solid rgba(143,180,230,255)"
-              user={props.user}
-            />
-          </HostMemberContainer> */}
           <ButtonStylesforIconPerson>
             {users.map((user, index) => (
               <ToolTip
@@ -161,9 +155,15 @@ function TopMenu(props: TopMenuPropsType) {
           </ButtonStylesforIconPerson>
           <Modal
             trigger={
-              <ButtonStylesforPersonAdd onClick={openModal}>
-                <IconPersonAdd />
-              </ButtonStylesforPersonAdd>
+              <ToolTip
+                contentStyle={{ zIndex: 1 }}
+                trigger={
+                  <ButtonStylesforPersonAdd onClick={openModal}>
+                    <IconPersonAdd />
+                  </ButtonStylesforPersonAdd>
+                }
+                content="Add people"
+              ></ToolTip>
             }
             open={showModal}
             onChange={setShowModal}

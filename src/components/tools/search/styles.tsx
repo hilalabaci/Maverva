@@ -3,6 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export const SearchContainer = styled.button<{ isClicked: boolean }>`
   height: 35px;
+  width: 185px;
   display: flex;
   align-items: center;
   border-radius: 5px;

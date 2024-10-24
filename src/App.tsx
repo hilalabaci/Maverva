@@ -1,5 +1,5 @@
 import "./App.css";
-import Home from "./pages/home";
+import Home from "./pages/dynamicContentLoader";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import {
@@ -13,6 +13,8 @@ import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import Projects from "./pages/projects";
 import { ProjectType } from "./types";
+import DynamicContentLoader from "./pages/dynamicContentLoader";
+import Backlog from "./pages/contents/backlog";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,11 +45,14 @@ const router = createBrowserRouter([
           },
           {
             path: `:projectKey`,
-            element: <Home />,
             children: [
+              { index: true, element: <DynamicContentLoader /> },
               {
                 path: `boards/:boardId`,
-                element: <Home />,
+                children: [
+                  { index: true, element: <DynamicContentLoader /> },
+                  { path: `backlog`, element: <DynamicContentLoader /> },
+                ],
               },
             ],
           },

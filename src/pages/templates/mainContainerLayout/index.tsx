@@ -1,5 +1,9 @@
 import { PropsWithChildren } from "react";
-import { GlobalStyle, ProjectMenuAndSideBar, Wrapper } from "../../home/styles";
+import {
+  GlobalStyle,
+  ProjectMenuAndSideBar,
+  Wrapper,
+} from "../../dynamicContentLoader/styles";
 import ProjectMenu from "../../../components/actions/project/project-menu";
 import SideBar from "../../../components/tools/sideBar";
 import {

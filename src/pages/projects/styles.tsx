@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
+//import StarOutlineRoundedIcon from "@mui/icons-material/StarOutlineRounded";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
-import StarRoundedIcon from "@mui/icons-material/StarRounded";
+//import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 
 export const Container = styled.main`

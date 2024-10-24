@@ -1,4 +1,4 @@
-import { BoardType } from "../types";
+import { BoardType, CardType, ProjectType } from "../types";
 import {
   AddBoardRequest,
   AddBoardResponse,
@@ -9,6 +9,12 @@ import {
 } from "./types";
 
 class ApiHelper {
+  async getSelectedProject(projectKey: string) {
+    return await this.baseCall<ProjectType>(`projects/${projectKey}`, {
+      method: "GET",
+    });
+  }
+
   async addBoard(data: AddBoardRequest) {
     return await this.baseCall<AddBoardResponse>("board", {
       method: "POST",
@@ -21,6 +27,14 @@ class ApiHelper {
       urlParams: new URLSearchParams({ projectKey, userId }),
     });
   }
+  async getSelectedBoard(projectKey: string, boardId: string) {
+    return await this.baseCall<BoardType>(
+      `projects/${projectKey}/boards/${boardId}`,
+      {
+        method: "GET",
+      }
+    );
+  }
   async addUsertoBoard(data: AddUserToBoardRequest) {
     return await this.baseCall("project/boards/add-user", {
       method: "POST",
@@ -31,6 +45,12 @@ class ApiHelper {
     return await this.baseCall("card", {
       method: "POST",
       data: data,
+    });
+  }
+  async getCards(boardId: string) {
+    return await this.baseCall<CardType[]>("card", {
+      method: "GET",
+      urlParams: new URLSearchParams({ boardId }),
     });
   }
 

@@ -21,6 +21,7 @@ function ProjectAvatar(props: ProjectAvatarProps) {
       $marginLeft={props.$marginLeft}
     >
       <Memberphoto
+        $hidden={props.$hidden}
         $userPhotoWidth={props.$userPhotoWidth}
         $userPhotoHeight={props.$userPhotoHeight}
         $userPhotoFontSize={props.$userPhotoFontSize}

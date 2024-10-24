@@ -64,12 +64,13 @@ export const SideBarWrapper = styled.div`
 export const SideBarListWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 4px 0;
 `;
 export const UserInfo = styled.div<CommonPropsType>`
   display: flex;
   align-items: center;
   width: 100%;
-  gap: 15px;
+  gap: 10px;
   flex-direction: row;
   border-bottom: ${(props) =>
     props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"};
@@ -85,7 +86,7 @@ export const Title = styled.div`
 export const ProjectTitle = styled.span<CommonPropsType>`
   text-transform: uppercase;
   color: ${(props) => props.theme.fontColour};
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
   @media only screen and (max-width: 768px) {
@@ -231,7 +232,7 @@ export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
   text-decoration: none;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${({ isSelected,theme }) =>
+  color: ${({ isSelected, theme }) =>
     isSelected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
   background: ${({ isSelected }) =>
     isSelected
@@ -247,6 +248,24 @@ export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
 `;
 export const SideBarElement = styled(Link)`
   text-decoration: none;
+  padding: 1px 3px;
+`;
+export const SideBarElementWrapper = styled.span<{ isSelected: boolean }>`
+  color: ${(props) => props.theme.sideBarFontColour};
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+  font-family: sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu,
+    system-ui, "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  padding: 8px 8px 8px 14px;
+  align-items: center;
+  background: ${({ isSelected }) =>
+    isSelected
+      ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
+      : "none"};
+  color: ${({ isSelected, theme }) =>
+    isSelected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
   border-radius: 5px;
   &:hover {
     cursor: pointer;
@@ -256,16 +275,6 @@ export const SideBarElement = styled(Link)`
       rgba(155, 89, 182, 0.7)
     );
   }
-`;
-export const SideBarElementWrapper = styled.span`
-  color: ${(props) => props.theme.sideBarFontColour};
-  display: flex;
-  gap: 15px;
-  font-size: 14px;
-  font-family: sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu,
-    system-ui, "Helvetica Neue", sans-serif;
-  font-weight: 400;
-  padding: 8px 8px 8px 14px;
 `;
 export const SideBarElementIcon = styled.span``;
 export const IconCalendarViewWeek = styled(CalendarViewWeekIcon)`

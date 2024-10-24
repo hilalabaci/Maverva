@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
+import { CollapsibleRoot } from "./styles";
 
 type CollapsibleDemoProps = {
   trigger: ReactNode;
@@ -10,10 +11,10 @@ type CollapsibleDemoProps = {
 
 const CollapsibleDemo = (props: CollapsibleDemoProps) => {
   return (
-    <Collapsible.Root open={props.open} onOpenChange={props.setOpen}>
+    <CollapsibleRoot open={props.open} onOpenChange={props.setOpen}>
       <Collapsible.Trigger asChild>{props.trigger}</Collapsible.Trigger>
       <Collapsible.Content asChild>{props.children}</Collapsible.Content>
-    </Collapsible.Root>
+    </CollapsibleRoot>
   );
 };
 

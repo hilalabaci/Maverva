@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import Navbar from "../../../components/tools/navbar";
-import { Container, GlobalStyle, NavbarWrapper } from "../../home/styles";
+import { Container, GlobalStyle, NavbarWrapper } from "../../dynamicContentLoader/styles";
 import { ProjectType } from "../../../types";
 
 type LayoutPropsType = PropsWithChildren<{

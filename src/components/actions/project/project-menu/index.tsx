@@ -37,6 +37,8 @@ import apiHelper from "../../../../api/apiHelper";
 import Scroll from "../../../tools/scroll";
 import OptionalBoardCreate from "../../board/optional/create";
 import Modal from "../../modal";
+import ProjectAvatar from "../../../tools/user/project-avatar";
+import { useLocation } from "react-router-dom";
 
 type ProjectMenuPropsType = {
   ProjectTitle: string;
@@ -49,10 +51,15 @@ type ProjectMenuPropsType = {
 };
 
 function ProjectMenu(props: ProjectMenuPropsType) {
+  const location = useLocation();
+  const { user } = useUserContext();
   const { boards, setBoards } = useApplicationContext();
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
+  const [selectedBoardBacklog, setSelectedBoardBacklog] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
-  const { user } = useUserContext();
+
+  const isBacklog = location.pathname.includes("/backlog");
+  const isActiveSprint = !isBacklog;
   const [showModalforCreateButton, setShowModalforCreateButton] =
     useState(false);
 
@@ -81,7 +88,16 @@ function ProjectMenu(props: ProjectMenuPropsType) {
     >
       <Wrapper>
         <UserInfo $hidden={props.hideMenu}>
-          <ProjectIcon $hidden={props.hideMenu}>{props.projectKey}</ProjectIcon>
+          <ProjectAvatar
+            $hidden={props.hideMenu}
+            $userPhotoWidth="25px"
+            $userPhotoHeight="25px"
+            $userPhotoFontSize="10px"
+            $userBorderadius="3px"
+            //$userBorder={props.$userBorder}
+            $fontWeight="600"
+            projectId={props.projectId}
+          />
           <ProjectTitle $hidden={props.hideMenu}>
             {props.ProjectTitle}
           </ProjectTitle>
@@ -157,26 +173,30 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                   </GetBoardsContainer>
                 </CollapsibleDemo>
               </BoardWrapper>
-              <SideBarListWrapper>
-                <SideBarElement to={`/`}>
-                  <SideBarElementWrapper>
-                    <SideBarElementIcon>
-                      <IconListBullet strokeWidth={40} />
-                    </SideBarElementIcon>
-                    Backlog
-                  </SideBarElementWrapper>
-                </SideBarElement>
-                <SideBarElement
-                  to={`/projects/${props.projectKey}/boards/${selectedBoard}`}
-                >
-                  <SideBarElementWrapper>
-                    <SideBarElementIcon>
-                      <IconCalendarViewWeek strokeWidth="10px" />
-                    </SideBarElementIcon>
-                    Active sprints
-                  </SideBarElementWrapper>
-                </SideBarElement>
-              </SideBarListWrapper>
+              {selectedBoard && (
+                <SideBarListWrapper>
+                  <SideBarElement
+                    to={`/projects/${props.projectKey}/boards/${selectedBoard}/backlog`}
+                  >
+                    <SideBarElementWrapper isSelected={isBacklog}>
+                      <SideBarElementIcon>
+                        <IconListBullet strokeWidth={40} />
+                      </SideBarElementIcon>
+                      Backlog
+                    </SideBarElementWrapper>
+                  </SideBarElement>
+                  <SideBarElement
+                    to={`/projects/${props.projectKey}/boards/${selectedBoard}`}
+                  >
+                    <SideBarElementWrapper isSelected={isActiveSprint}>
+                      <SideBarElementIcon>
+                        <IconCalendarViewWeek strokeWidth="10px" />
+                      </SideBarElementIcon>
+                      Active sprints
+                    </SideBarElementWrapper>
+                  </SideBarElement>
+                </SideBarListWrapper>
+              )}
             </SideBarWrapper>
           </SideBarItem>
         </AddProjectWrapper>

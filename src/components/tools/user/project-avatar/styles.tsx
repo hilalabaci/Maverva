@@ -14,6 +14,7 @@ interface MemberphotoProps {
   $userBorderadius?: string;
   $userBorder?: string;
   $fontWeight?: string;
+  $hidden?: boolean;
 }
 export const Container = styled.div<ContainerProps>`
   display: ${(props) => (props.$hidden ? "none" : "flex")};
@@ -23,7 +24,7 @@ export const Container = styled.div<ContainerProps>`
   }
 `;
 export const Memberphoto = styled.div<MemberphotoProps>`
-  display: flex;
+  display: ${(props) => (props.$hidden ? "none" : "flex")};
   justify-content: center;
   align-items: center;
   width: ${(props) => props.$userPhotoWidth};
