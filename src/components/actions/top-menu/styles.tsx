@@ -132,6 +132,7 @@ export const ButtonStylesforPersonAdd = styled.button`
   height: 40px;
   background-color: #a1bdd914;
   color: #b6c2cf;
+  cursor: pointer;
   &:hover {
     background-color: #a6c5e229;
   }

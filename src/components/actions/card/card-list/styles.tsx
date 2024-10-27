@@ -40,7 +40,7 @@ export const CardWrapper = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 4px;
   -webkit-overflow-scrolling: touch;
   @media only screen and (max-width: 768px) {
     margin-top: 10px;
@@ -56,7 +56,8 @@ export const AddCardButton = styled.button`
   outline: none;
   border: none;
   border-radius: 2px;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 500;
   color: ${(props) => props.theme.fontColour};
   display: flex;
   flex-direction: row;
@@ -65,6 +66,8 @@ export const AddCardButton = styled.button`
   opacity: 0.5;
   &:hover {
     opacity: 1;
+    background-color: ${(props) => props.theme.cardBGHover};
+    color: ${(props) => props.theme.memberMenuFontColor};
   }
   @media only screen and (max-width: 768px) {
     width: fit-content;

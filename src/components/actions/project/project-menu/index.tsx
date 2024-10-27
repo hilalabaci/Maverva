@@ -8,7 +8,6 @@ import {
   AddProjectWrapper,
   UserInfo,
   ProjectTitle,
-  ProjectIcon,
   Title,
   ArrowIcon,
   ProjectBoardContainer,
@@ -55,7 +54,6 @@ function ProjectMenu(props: ProjectMenuPropsType) {
   const { user } = useUserContext();
   const { boards, setBoards } = useApplicationContext();
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
-  const [selectedBoardBacklog, setSelectedBoardBacklog] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
 
   const isBacklog = location.pathname.includes("/backlog");

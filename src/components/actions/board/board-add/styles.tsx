@@ -114,6 +114,7 @@ export const InputforProjectLead = styled.div`
   color: ${(props) => props.theme.fontColour};
   outline: none;
   gap: 5px;
+  cursor: pointer;
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }

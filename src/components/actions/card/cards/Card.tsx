@@ -10,7 +10,8 @@ import {
   LabelWrapper,
   GlobalStyle,
   EditIcon,
-  CardTopWrapper,
+  ContentWrapper,
+  ButtomWrapper,
 } from "./styles";
 import { useDrag } from "react-dnd";
 import {
@@ -20,6 +21,7 @@ import {
   LabelType,
   UserType,
 } from "../../../../types";
+import { ToolTip } from "../../../tools/toolstip";
 
 type CardProps = {
   id: string;
@@ -28,6 +30,7 @@ type CardProps = {
   onDelete: (id: string) => void;
   content: string;
   userId?: UserType;
+  userName: string;
 };
 function Card(props: CardProps) {
   const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
@@ -49,13 +52,13 @@ function Card(props: CardProps) {
   return (
     <Container ref={drag}>
       <GlobalStyle />
+      <ContentWrapper>
+        <ToolTip
+          contentStyle={{ zIndex: 0 }}
+          trigger={<NoteWrapper>{props.content}</NoteWrapper>}
+          content={props.content}
+        ></ToolTip>
 
-      <CardTopWrapper>
-        <LabelWrapper>
-          {props.labels.map((label, index) => {
-            return <Label key={index} colour={label.colour} />;
-          })}
-        </LabelWrapper>
         <Modal
           trigger={<EditIcon onClick={openModal} />}
           open={showModal}
@@ -75,17 +78,30 @@ function Card(props: CardProps) {
             id={props.id}
           />
         </Modal>
-      </CardTopWrapper>
-      <NoteWrapper>{props.content}</NoteWrapper>
+      </ContentWrapper>
+      <LabelWrapper>
+        {props.labels.map((label, index) => {
+          return <Label key={index} colour={label.colour} />;
+        })}
+      </LabelWrapper>
       <CardButtomWrapper>
-        <MemberPhoto
-          $userPhotoWidth="30px"
-          $userPhotoHeight="30px"
-          $userPhotoFontSize="10px"
-          $userBorderadius="50px"
-          user={props.userId}
-        />
+        <ToolTip
+          contentStyle={{ zIndex: 0 }}
+          trigger={
+            <ButtomWrapper>
+              <MemberPhoto
+                $userPhotoWidth="24px"
+                $userPhotoHeight="24px"
+                $userPhotoFontSize="10px"
+                $userBorderadius="50px"
+                user={props.userId}
+              />
+            </ButtomWrapper>
+          }
+          content={`Assignee: ${props.userName}`}
+        ></ToolTip>
       </CardButtomWrapper>
+      <ContentWrapper></ContentWrapper>
     </Container>
   );
 }

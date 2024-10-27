@@ -1,14 +1,19 @@
 import styled, { createGlobalStyle } from "styled-components";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 
 export const GlobalStyle = createGlobalStyle`
 
 `;
-export const EditIcon = styled(ModeEditOutlineOutlinedIcon)`
+export const EditIcon = styled(MoreHorizRoundedIcon)`
   opacity: 0;
   display: flex;
   justify-content: flex-end;
-  font-size: 17px !important;
+  padding: 4px;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.IconEditBg};
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
     opacity: 1;
@@ -20,24 +25,14 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5px;
-  border-radius: 2px;
-  gap: 3px;
-  --jsw-card-background-color: var(--ds-surface-raised, #ffffff);
-  box-shadow: var(
-    --ds-shadow-raised,
-    0 1px 1px rgba(23, 43, 77, 0.2),
-    0 0 1px rgba(23, 43, 77, 0.2)
-  );
+  padding: 5px 10px;
+  border-radius: 3px;
+  gap: 4px;
+  border: 1px solid rgba(245, 246, 248, 255);
+  box-shadow: var(--ds-shadow-raised, 0 1px 1px #172b4d33, 0 0 1px #172b4d33);
   cursor: pointer;
-  background-color: ${(props) => props.theme.cardBG};
   &:hover {
     background-color: ${(props) => props.theme.cardBGHover};
-    // background-color: var(--ds-background-neutral-subtle-hovered, #F4F5F7);
-    --jsw-card-background-color: var(
-      --ds-background-neutral-subtle-hovered,
-      #f4f5f7
-    );
     color: var(--ds-text, #172b4d);
   }
   &:hover ${EditIcon} {
@@ -49,7 +44,7 @@ export const Container = styled.div`
     height: 60px;
   }
 `;
-export const CardTopWrapper = styled.div`
+export const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
@@ -65,12 +60,17 @@ export const NoteWrapper = styled.div`
   resize: none;
   outline: none;
   border: none;
-  padding: 0 5px;
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  cursor: pointer;
   @media only screen and (max-width: 768px) {
     font-size: 10px;
     overflow: scroll;
   }
 `;
+export const ButtomWrapper = styled.div``;
 export const CardButtomWrapper = styled.div`
   display: flex;
   justify-content: flex-end;

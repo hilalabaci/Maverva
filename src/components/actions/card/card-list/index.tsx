@@ -78,6 +78,7 @@ function CardList(props: CardListProps) {
             content={card.content}
             labels={card.labels}
             userId={card.userId}
+            userName={card.userId.fullName}
           />
         ))}
       </CardWrapper>
