@@ -37,8 +37,11 @@ import {
 } from "./styles";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../tools/collapsible";
+import Modal from "../modal";
+import FormDemo from "../sprint/edit-sprint";
 
 function BacklogCards() {
+  const [showModal, setShowModal] = useState(false);
   const [showBacklog, setShowBacklog] = useState(false);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
   const [isHeaderSelected, setIsHeaderSelected] = useState(false);
@@ -48,6 +51,12 @@ function BacklogCards() {
   const refBacklogSelected = useOutsideClick<HTMLDivElement>(() =>
     setIsHeaderSelected(false)
   );
+  function openModal() {
+    setShowModal(true);
+  }
+  function closeModal() {
+    setShowModal(false);
+  }
   return (
     <Container>
       <CollapsibleDemo
@@ -78,7 +87,14 @@ function BacklogCards() {
               <HeaderStatus status={2}>2</HeaderStatus>
             </HeaderStatusWrapper>
             <HeaderButtonWrapper>
-              <HeaderButton>Create sprint</HeaderButton>
+              <Modal
+                trigger={<HeaderButton>Create sprint</HeaderButton>}
+                onClose={closeModal}
+                open={showModal}
+                onChange={setShowModal}
+              >
+                <FormDemo onClose={closeModal} />
+              </Modal>
             </HeaderButtonWrapper>
           </HeaderDropBlog>
         }

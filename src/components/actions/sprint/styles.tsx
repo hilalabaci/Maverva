@@ -188,6 +188,28 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
     opacity: 1;
   }
 `;
+// export const IconEditSprit = styled(EditIcon)`
+//   text-align: center;
+//   justify-self: center;
+//   align-self: center;
+//   align-content: center;
+//   padding-left: 10px;
+//   font-size: 14px !important;
+//   opacity: 1;
+//   border-radius: 3px;
+//   background-color: ${(props) => props.theme.IconEditBg};
+//   &:hover {
+//     background-color: ${(props) => props.theme.IconEditBGHover};
+//   }
+//   ${BacklogCardListItems}:hover & {
+//     opacity: 1;
+//   }
+
+//   @media only screen and (max-width: 768px) {
+//     font-size: 12px !important;
+//     opacity: 1;
+//   }
+// `;
 export const IconEdit = styled(EditIcon)`
   text-align: center;
   justify-self: center;
