@@ -8,6 +8,7 @@ import apiHelper from "../../api/apiHelper";
 import { Main, MainContainer } from "./styles";
 import Backlog from "../contents/backlog";
 import ActiveSprints from "../contents/active-sprints";
+import Scroll from "../../components/tools/scroll";
 
 type URLParams = {
   projectKey: string;
@@ -146,21 +147,26 @@ function DynamicContentLoader() {
               boardId={boardId}
             />
           )}
-          <Main>
-            {location.pathname.includes("/backlog") ? (
-              <Backlog />
-            ) : (
-              <ActiveSprints
-                selectedBoard={selectedBoard}
-                onUpdate={updateCard}
-                onDelete={deleteCard}
-                addedCard={addedCard}
-                filteredCards={filteredCards}
-                cards={filteredCards}
-                projectKey={projectKey}
-              />
-            )}
-          </Main>
+          <Scroll
+            children={
+              <Main>
+                {location.pathname.includes("/backlog") ? (
+                  <Backlog />
+                ) : (
+                  <ActiveSprints
+                    selectedBoard={selectedBoard}
+                    onUpdate={updateCard}
+                    onDelete={deleteCard}
+                    addedCard={addedCard}
+                    filteredCards={filteredCards}
+                    cards={filteredCards}
+                    projectKey={projectKey}
+                  />
+                )}
+              </Main>
+            }
+            scrollHeight="500px"
+          ></Scroll>
         </MainContainer>
       </MainContainerLayout>
     </Layout>

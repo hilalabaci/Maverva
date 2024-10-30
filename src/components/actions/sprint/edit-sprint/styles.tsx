@@ -4,7 +4,7 @@ export const FormRoot = styled(Form.Root)`
   background-color: ${(props) => props.theme.primary};
   color: ${(props) => props.theme.fontColour};
   width: 500px;
-  padding: 25px;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: var(
     --ds-shadow-overlay,

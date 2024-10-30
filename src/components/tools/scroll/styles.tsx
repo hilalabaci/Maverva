@@ -1,8 +1,12 @@
 import * as ScrollArea from "@radix-ui/react-scroll-area";
 import styled from "styled-components";
 
-export const ScrollAreaRoot = styled(ScrollArea.Root)`
-  height: 180px;
+type ScrollAreaRootType = {
+  scrollHeight: string;
+};
+
+export const ScrollAreaRoot = styled(ScrollArea.Root)<ScrollAreaRootType>`
+  height: ${(props) => props.scrollHeight};
   overflow: hidden;
   box-shadow: 0 2px 10px var(--black-a4);
   --scrollbar-size: 20px;

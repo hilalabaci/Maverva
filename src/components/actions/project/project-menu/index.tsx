@@ -128,7 +128,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                   }
                 >
                   <GetBoardsContainer>
-                    <Scroll>
+                    <Scroll scrollHeight="180px">
                       <GetBoardsList>
                         <TitleGetBoards>
                           Boards in {props.selectedProjectsTitle}

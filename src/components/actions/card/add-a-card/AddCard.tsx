@@ -8,6 +8,7 @@ import {
 } from "./styles";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { CardType } from "../../../../types";
+import apiHelper from "../../../../api/apiHelper";
 type AddCardPropsType = {
   projectKey: string;
   status: number;
@@ -24,28 +25,29 @@ function AddCard(props: AddCardPropsType) {
     setContent(value);
   }
   async function submitNote() {
-    const cardData = {
-      userId: userId,
-      content: content,
-      projectKey: props.projectKey,
-      status: props.status,
-      boardId: props.boardId,
-    };
-    const response = await fetch(process.env.REACT_APP_API_URL + "card", {
-      method: "POST",
-      body: JSON.stringify(cardData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const jsonResponse = (await response.json()) as CardType;
-    if (response.status === 400) {
-      console.log("Please check your details");
-      return;
+    try {
+      const cardData = {
+        userId: userId,
+        content: content,
+        projectKey: props.projectKey,
+        status: props.status,
+        boardId: props.boardId,
+      };
+
+      const { ok, data } = await apiHelper.addCard(cardData);
+
+      // if (response.status === 400) {
+      //   console.log("Please check your details");
+      //   return;
+      // }
+      if (ok && data) {
+      }
+      setContent("");
+      props.addedCard(data as CardType);
+      props.onClose();
+    } catch (error) {
+      console.error("Error fetching project:", error);
     }
-    setContent("");
-    props.addedCard(jsonResponse);
-    props.onClose();
   }
   return (
     <Container>

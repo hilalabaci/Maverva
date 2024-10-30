@@ -1,8 +1,9 @@
-import { BoardType, CardType, ProjectType } from "../types";
+import { BoardType, CardType, ProjectType, SprintType } from "../types";
 import {
   AddBoardRequest,
   AddBoardResponse,
   AddCardRequest,
+  AddSprintRequest,
   AddUserToBoardRequest,
   ApiCallOptions,
   ApiResponse,
@@ -49,6 +50,26 @@ class ApiHelper {
   }
   async getCards(boardId: string) {
     return await this.baseCall<CardType[]>("card", {
+      method: "GET",
+      urlParams: new URLSearchParams({ boardId }),
+    });
+  }
+  async getBacklogCards(projectKey: string, boardId: string) {
+    return await this.baseCall<CardType[]>(
+      `projects/${projectKey}/boards/${boardId}/backlog`,
+      {
+        method: "GET",
+      }
+    );
+  }
+  async addSprint(data: AddSprintRequest) {
+    return await this.baseCall("sprint", {
+      method: "POST",
+      data: data,
+    });
+  }
+  async getSprints(boardId: string) {
+    return await this.baseCall<SprintType[]>("sprint", {
       method: "GET",
       urlParams: new URLSearchParams({ boardId }),
     });

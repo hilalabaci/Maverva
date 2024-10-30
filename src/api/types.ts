@@ -1,4 +1,4 @@
-import { BoardType } from "../types";
+import { BoardType, UserType } from "../types";
 
 export type ApiCallOptions = {
   urlParams?: URLSearchParams;
@@ -28,9 +28,17 @@ export type AddUserToBoardRequest = {
   email: string;
 };
 export type AddCardRequest = {
-  userId: string;
-  content: string;
-  projectKey: string;
+  userId?: string;
+  content?: string;
+  projectKey?: string;
   status: number;
-  boardId: string;
+  boardId?: string;
+};
+export type AddSprintRequest = {
+  name: string;
+  sprintGoal: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  boardId: string | BoardType | undefined;
+  userId: string | UserType | undefined;
 };

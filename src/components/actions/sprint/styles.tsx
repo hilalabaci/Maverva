@@ -7,7 +7,6 @@ type FormProps = { $isSelected: boolean };
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1110px;
   background-color: ${(props) => props.theme.backlogBgHover};
   border-radius: 5px;
   padding: 8px 8px;
@@ -147,22 +146,6 @@ export const ContentText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-`;
-export const Status = styled.div`
-  justify-self: center;
-  align-self: center;
-  justify-content: stretch;
-  color: ${(props) => props.theme.fontColourDark};
-  background-color: ${(props) => props.theme.IconEditBg};
-  text-transform: uppercase;
-  border-radius: 3px;
-  font-size: 12px;
-  padding: 3px;
-  font-weight: 600;
-  cursor: pointer;
-  &:hover {
-    background-color: #d0d4dc;
-  }
 `;
 export const MemberWrapper = styled.div`
   justify-self: center;

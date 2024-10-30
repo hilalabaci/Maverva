@@ -1,13 +1,13 @@
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
+import { CardStatus } from "../../../types";
 
 type FormProps = { $isSelected: boolean };
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1110px;
   padding: 8px 8px;
 `;
 export const HeaderDropBlog = styled.div`
@@ -97,7 +97,7 @@ export const BacklogCardList = styled.div`
 `;
 export const BacklogCardListItems = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 10fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr 10fr 2fr 1fr 1fr;
   justify-content: stretch;
   border: ${(props) => props.theme.borderforModal};
   padding: 5px 0;
@@ -106,7 +106,7 @@ export const BacklogCardListItems = styled.div`
   }
 `;
 export const CardKey = styled.div`
-  justify-self: center;
+  justify-self: start;
   align-self: center;
   font-size: 12px;
   color: ${(props) => props.theme.sideBarFontColour};
@@ -137,18 +137,41 @@ export const ContentText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 14px;
 `;
-export const Status = styled.div`
-  justify-self: center;
+
+type StatusPropsType = {
+  status: number;
+};
+
+const handleColorType = (status: number, theme: DefaultTheme) => {
+  switch (status) {
+    case CardStatus.Backlog:
+      return {
+        backgroundColor: theme.IconEditBg,
+        color: theme.fontColourDark,
+      };
+    case CardStatus.ToDo:
+      return { backgroundColor: "#f5a142", color: "#000" };
+    case CardStatus.InProgress:
+      return { backgroundColor: "#e9f2ff", color: "#275fa0" };
+    case CardStatus.Done:
+      return { backgroundColor: "#dcfff1", color: "#206e4e" };
+    default:
+      return { backgroundColor: "#fff", color: "#000" };
+  }
+};
+export const Status = styled.div<StatusPropsType>`
+  justify-self: start;
   align-self: center;
-  justify-content: stretch;
-  color: ${(props) => props.theme.fontColourDark};
-  background-color: ${(props) => props.theme.IconEditBg};
+  background-color: ${({ status, theme }) =>
+    handleColorType(status, theme).backgroundColor};
+  color: ${({ status, theme }) => handleColorType(status, theme).color};
   text-transform: uppercase;
   border-radius: 3px;
   font-size: 12px;
   padding: 3px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   &:hover {
     background-color: #d0d4dc;

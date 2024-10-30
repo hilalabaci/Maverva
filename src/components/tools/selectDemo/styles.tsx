@@ -7,8 +7,8 @@ export const SelectTrigger = styled(Select.Trigger)`
   justify-content: center;
   font-size: 12px;
   line-height: 1;
-  color: ${(props) => props.theme.fontColourDark};
-  background-color: ${(props) => props.theme.IconEditBg};
+  //color: ${(props) => props.theme.fontColourDark};
+  //background-color: ${(props) => props.theme.IconEditBg};
   text-transform: uppercase;
   border-radius: 3px;
   max-width: 100px;
@@ -35,6 +35,11 @@ export const SelectContent = styled(Select.Content)`
   box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);
 `;
+export const ItemContainer = styled.div`
+  display: flex;
+  gap: 5px;
+`;
+
 export const Item = styled(Select.Item)`
   font-size: 13px;
   line-height: 1;
@@ -54,6 +59,9 @@ export const Item = styled(Select.Item)`
     outline: none;
     background-color: var(--violet-9);
     color: var(--violet-1);
+  }
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
   }
 `;
 

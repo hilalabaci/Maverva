@@ -21,13 +21,28 @@ export type BoardType = {
   userId: UserType;
   projectKeys: ProjectType[];
 };
+export type SprintType = {
+  _id: string;
+  name: string;
+  sprintGoal: string;
+  startDate: Date;
+  endDate: Date;
+  boardId?: BoardType;
+  userId?: UserType;
+  cardIds: CardType[];
+};
 export type CardType = {
   _id: string;
-  userId: UserType;
   content: string;
-  projectId: ProjectType;
   status: number;
+  userId: UserType;
+  cardKey: string;
+  createdAt?: Date;
+  inBacklog?: Boolean;
   labels: LabelType[];
+  sprint?: SprintType;
+  projectId: ProjectType;
+  boardId: BoardType;
 };
 export type LabelType = {
   cardId: CardType[];
@@ -48,3 +63,10 @@ export type NotificationType = {
   fromUserId: UserType;
   createdAdd: Date;
 };
+
+export enum CardStatus {
+  Backlog = 0,
+  ToDo = 1,
+  InProgress = 2,
+  Done = 3,
+}
