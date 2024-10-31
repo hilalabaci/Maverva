@@ -1,64 +1,90 @@
-import { useEffect, useState } from "react";
+import CheckboxRadixUi from "../checkboxRadixUI";
+import CollapsibleDemo from "../collapsible";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useDrag, useDrop } from "react-dnd";
+
 import {
   Accordion,
-  BacklogCardList,
-  Container,
-  HeaderDropBlog,
-  IconAdd,
-  CreateIssueButton,
-  CreateButtonWrapper,
-  DisplayCreateWrapper,
-  Form,
-  TextCreate,
-  HeaderTitleContent,
-  HeaderTitle,
   ArrowIcon,
-  HeaderIssue,
-  HeaderButtonWrapper,
+  BacklogCardList,
+  CheckboxWrapper,
+  Container,
+  CreateButtonWrapper,
+  CreateIssueButton,
+  DisplayCreateWrapper,
+  Duration,
+  Form,
   HeaderButton,
-  HeaderStatusWrapper,
+  HeaderButtonWrapper,
+  HeaderDropBlog,
+  HeaderIssue,
   HeaderStatus,
+  HeaderStatusWrapper,
+  HeaderTitle,
+  HeaderTitleContent,
+  IconAdd,
+  MoreIcon,
+  TextCreate,
 } from "./styles";
+import { useState } from "react";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import CollapsibleDemo from "../../tools/collapsible";
-import Modal from "../modal";
-import FormDemo from "../sprints/edit-sprint";
-import { CardType, DragDropCollect, DragItem } from "../../../types";
-import { useUserContext } from "../../../contexts/UserContext";
+import BacklogCard from "../backlogCard";
+import { getStatusLabel } from "../../../utils/label";
+import {
+  BacklogDragItems,
+  CardStatus,
+  DragItem,
+  SprintType,
+} from "../../../types";
+import { useDrop } from "react-dnd";
 import apiHelper from "../../../api/apiHelper";
 import { useParams } from "react-router-dom";
-import BacklogCard from "../../tools/backlogCard";
-import { CheckboxWrapper } from "../../tools/backlogCard/styles";
-import CheckboxRadixUi from "../../tools/checkboxRadixUI";
+import { useUserContext } from "../../../contexts/UserContext";
 
-type BacklogCardsPropsType = {
-  onClose: () => void;
-  AddedBacklogCard: (card: CardType) => void;
+type SprintPropsType = {
+  sprint: SprintType;
+  sprintId: string;
+  sprintName: string;
+  sprintStartDate: Date;
+  sprintEndDate: Date;
 };
+
 type URLParams = {
   projectKey: string;
-  boardId: string;
+  boardId?: string;
 };
 
-function BacklogCards(props: BacklogCardsPropsType) {
+function Sprint({
+  sprint,
+  sprintId,
+  sprintName,
+  sprintStartDate,
+  sprintEndDate,
+}: SprintPropsType) {
+  const { boardId, projectKey } = useParams<URLParams>();
   const { user } = useUserContext();
-  const { projectKey, boardId } = useParams<URLParams>();
-  const [content, setContent] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
   const [isHeaderSelected, setIsHeaderSelected] = useState(false);
-  const [backlogCards, setBacklogCards] = useState<CardType[]>([]);
+  const [content, setContent] = useState("");
+  const [selectedSprintId, setSelectedSprintId] = useState<String>();
 
-  const [, drop] = useDrop<DragItem>({
+  const [, drop] = useDrop<BacklogDragItems>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
       console.log("dropped", item);
     },
   });
+
+  const statusOptions = [
+    { label: getStatusLabel(CardStatus.Backlog), value: CardStatus.Backlog },
+    { label: getStatusLabel(CardStatus.ToDo), value: CardStatus.ToDo },
+    {
+      label: getStatusLabel(CardStatus.InProgress),
+      value: CardStatus.InProgress,
+    },
+    { label: getStatusLabel(CardStatus.Done), value: CardStatus.Done },
+  ];
 
   const refDisplayCreate = useOutsideClick<HTMLFormElement>(() =>
     setDisplayCreateTask(false)
@@ -66,16 +92,13 @@ function BacklogCards(props: BacklogCardsPropsType) {
   const refBacklogSelected = useOutsideClick<HTMLDivElement>(() =>
     setIsHeaderSelected(false)
   );
-  function openModal() {
-    setShowModal(true);
-  }
-  function closeModal() {
-    setShowModal(false);
-  }
+
+  const handleStatusChange = (status: string) => {
+    console.log("Selected status:", status);
+  };
   function handleChange(value: string) {
     setContent(value);
   }
-
   async function submitNote() {
     try {
       const cardData = {
@@ -84,73 +107,40 @@ function BacklogCards(props: BacklogCardsPropsType) {
         userId: user?._id,
         projectKey: projectKey,
         boardId: boardId,
+        newSprintId: selectedSprintId,
       };
+      console.log(` this is a selecttedSprintId${"selectedSprintId"}`);
 
       const { ok, data } = await apiHelper.addCard(cardData);
+
+      // if (response.status === 400) {
+      //   console.log("Please check your details");
+      //   return;
+      // }
       if (ok && data) {
       }
       setContent("");
-      props.AddedBacklogCard(data as CardType);
-      await loadBacklogCards();
-      props.onClose();
+      // await loadSprints();
     } catch (error) {
       console.error("Error fetching project:", error);
     }
   }
 
-  async function loadBacklogCards() {
-    try {
-      if (!projectKey) {
-        console.log(`projectKey not found ${projectKey}`);
-        return;
-      } else if (!boardId) {
-        console.log(`boardId not found ${boardId}`);
-        return;
-      }
-      const { ok, data } = await apiHelper.getBacklogCards(projectKey, boardId);
-      if (ok && data) {
-        setBacklogCards(data);
-      } else {
-        console.error("Failed to fetch board. Status:");
-      }
-    } catch (error) {
-      console.error("Error fetching board:", error);
-    }
-  }
-
-  async function updateCard(
-    id: string,
-    status: number,
-    sprintId?: string,
-    boardId?: string
-  ) {
-    const response = await apiHelper.updateCard(id, status, sprintId, boardId);
-    if (response.ok && response.data) {
-      // props.onUpdate(response.data);
-    } else {
-      console.error("Failed to update card:", response);
-    }
-  }
-
-  useEffect(() => {
-    if (!boardId) {
-      setBacklogCards([]);
-      return;
-    }
-    loadBacklogCards();
-  }, [boardId, projectKey]);
   return (
-    <Container>
+    <Container key={sprintId} ref={drop}>
       <CollapsibleDemo
         trigger={
           <HeaderDropBlog>
             <CheckboxWrapper>
               <CheckboxRadixUi />
             </CheckboxWrapper>
+
             <HeaderTitleContent
               ref={refBacklogSelected}
-              $isSelected={isHeaderSelected} // Pass selected state for border
-              onClick={() => setIsHeaderSelected(true)}
+              $isSelected={isHeaderSelected}
+              onClick={() => {
+                setIsHeaderSelected(true);
+              }}
             >
               <ArrowIcon
                 className="dropdown-trigger"
@@ -160,62 +150,69 @@ function BacklogCards(props: BacklogCardsPropsType) {
                     : KeyboardArrowRightIcon
                 }
               />
-              <HeaderTitle>Backlog</HeaderTitle>
-              <HeaderIssue>({backlogCards.length} issue)</HeaderIssue>
+              <HeaderTitle>{sprintName}</HeaderTitle>
+              <Duration>
+                {sprintStartDate && sprintEndDate
+                  ? `${new Date(
+                      sprintStartDate
+                    ).toLocaleDateString()} - ${new Date(
+                      sprintEndDate
+                    ).toLocaleDateString()}`
+                  : "Date not available"}
+              </Duration>
+              <HeaderIssue>
+                ({sprint.cardIds ? sprint.cardIds.length : 0})
+              </HeaderIssue>
             </HeaderTitleContent>
+
             <HeaderStatusWrapper>
               <HeaderStatus status={0}>0</HeaderStatus>
-              <HeaderStatus status={1}>1</HeaderStatus>
+              <HeaderStatus status={1}>8</HeaderStatus>
               <HeaderStatus status={2}>2</HeaderStatus>
             </HeaderStatusWrapper>
             <HeaderButtonWrapper>
-              <Modal
-                trigger={<HeaderButton>Create sprint</HeaderButton>}
-                onClose={closeModal}
-                open={showModal}
-                onChange={setShowModal}
-              >
-                <FormDemo onClose={closeModal} />
-              </Modal>
+              <HeaderButton>Complete sprint</HeaderButton>
             </HeaderButtonWrapper>
+            <MoreIcon />
           </HeaderDropBlog>
         }
         children={
           <Accordion>
-            <BacklogCardList ref={drop}>
-              {backlogCards.map((backlogCard) => (
+            <BacklogCardList>
+              {sprint.cardIds?.map((card) => (
                 <BacklogCard
-                  boardId={boardId as string}
-                  id={backlogCard._id}
-                  cardKey={backlogCard.cardKey}
-                  content={backlogCard.content}
+                  id={card._id}
+                  cardKey={card.cardKey}
+                  content={card.content}
                   status={0}
-                  user={backlogCard.userId}
+                  user={card.userId}
+                  sprintId={sprintId}
+                  boardId={boardId as string}
                 />
               ))}
             </BacklogCardList>
             <DisplayCreateWrapper>
               {displayCreateTask ? (
                 <Form
+                  ref={refDisplayCreate}
                   onSubmit={(e) => {
                     e.preventDefault();
                     submitNote();
                   }}
                   $isSelected={true}
-                  ref={refDisplayCreate}
                 >
                   <TextCreate
                     value={content}
                     onChange={(e) => handleChange(e.target.value)}
                     placeholder="What needs to be done?"
-                  />
+                  ></TextCreate>
                 </Form>
               ) : (
                 <CreateButtonWrapper
                   onClick={() => {
+                    setSelectedSprintId(sprintId);
                     setDisplayCreateTask(true);
                   }}
-                  tabIndex={0}
                 >
                   <IconAdd />
                   <CreateIssueButton>Create Issue</CreateIssueButton>
@@ -230,4 +227,4 @@ function BacklogCards(props: BacklogCardsPropsType) {
     </Container>
   );
 }
-export default BacklogCards;
+export default Sprint;

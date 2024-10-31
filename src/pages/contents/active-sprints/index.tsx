@@ -1,12 +1,12 @@
 import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import CardList from "../../../components/actions/card/card-list";
 import { Container } from "./styles";
 import { BoardType, CardType } from "../../../types";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
 type ActiveSprintsProps = {
   selectedBoard?: BoardType;
-  onUpdate: (card: CardType) => void; // Adjust 'any' to a specific type if known
+  onUpdate: (card: CardType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void;
   filteredCards: CardType[];

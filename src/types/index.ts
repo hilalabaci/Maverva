@@ -52,6 +52,11 @@ export type LabelType = {
 export type DragItem = {
   id: string;
 };
+export type BacklogDragItems = {
+  oldSprintId?: string;
+  cardId: string;
+  boardId: string;
+};
 
 export interface DragDropCollect {
   isDragging: boolean;

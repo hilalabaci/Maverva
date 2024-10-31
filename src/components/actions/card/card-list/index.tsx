@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Card from "../cards/Card";
-
 import NumberOfCards from "../number-cards";
+import AddCard from "../add-a-card/AddCard";
+import { useDrop } from "react-dnd";
+import { CardType, DragItem } from "../../../../types";
+import apiHelper from "../../../../api/apiHelper";
 import {
   CardWrapper,
   Container,
@@ -11,11 +14,7 @@ import {
   AddCardButton,
   IconAdd,
 } from "./styles";
-import AddCard from "../add-a-card/AddCard";
-import { useDrop } from "react-dnd";
-import { CardType, DragItem } from "../../../../types";
 
-// Define the type for the props
 interface CardListProps {
   title: string;
   numberOfCards: number;
@@ -24,26 +23,29 @@ interface CardListProps {
   status: number;
   projectKey: string;
   boardId: string;
-  onUpdate: (card: CardType) => void; // Adjust 'any' to a specific type if known
+  onUpdate: (card: CardType) => void;
   onDelete: (id: string) => void;
-  addedCard: (card: CardType) => void; // Adjust 'any' to a specific type if known
+  addedCard: (card: CardType) => void;
 }
 
 function CardList(props: CardListProps) {
+  const [showAdd, setShowAdd] = useState(false);
+  function dynamicAddCard() {
+    setShowAdd(true);
+  }
+  function closeAddCard() {
+    setShowAdd(false);
+  }
+
   async function updateStatus(id: string, status: number) {
-    const body = { status, id };
-    const response = await fetch(process.env.REACT_APP_API_URL + "card", {
-      method: "PATCH",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      const card = (await response.json()) as CardType;
-      props.onUpdate(card);
+    const response = await apiHelper.updateCard(id, status);
+    if (response.ok && response.data) {
+      props.onUpdate(response.data);
+    } else {
+      console.error("Failed to update card:", response);
     }
   }
+
   const [, drop] = useDrop<DragItem>({
     accept: "CARD",
     drop: (item) => {
@@ -51,14 +53,6 @@ function CardList(props: CardListProps) {
     },
   });
 
-  const [showAdd, setShowAdd] = useState(false);
-  function dynamicAddCard() {
-    setShowAdd(true);
-    /*  setCards([...cards, { note: "new note" }]); */
-  }
-  function closeAddCard() {
-    setShowAdd(false);
-  }
   return (
     <Container ref={drop}>
       <TitleWrapper>

@@ -42,6 +42,18 @@ class ApiHelper {
       data: data,
     });
   }
+  async addSprint(data: AddSprintRequest) {
+    return await this.baseCall("sprint", {
+      method: "POST",
+      data: data,
+    });
+  }
+  async getSprints(boardId: string) {
+    return await this.baseCall<SprintType[]>("sprint", {
+      method: "GET",
+      urlParams: new URLSearchParams({ boardId }),
+    });
+  }
   async addCard(data: AddCardRequest) {
     return await this.baseCall("card", {
       method: "POST",
@@ -62,16 +74,16 @@ class ApiHelper {
       }
     );
   }
-  async addSprint(data: AddSprintRequest) {
-    return await this.baseCall("sprint", {
-      method: "POST",
-      data: data,
-    });
-  }
-  async getSprints(boardId: string) {
-    return await this.baseCall<SprintType[]>("sprint", {
-      method: "GET",
-      urlParams: new URLSearchParams({ boardId }),
+  async updateCard(
+    cardId: string,
+    status: number,
+    newSprintId?: string,
+    oldSprintId?: string,
+    boardId?: string
+  ) {
+    return await this.baseCall<CardType>("card", {
+      method: "PUT",
+      data: { cardId, status, newSprintId, oldSprintId, boardId },
     });
   }
 
