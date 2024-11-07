@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SprintType } from "../../../types";
+import { CardType, SprintType } from "../../../types";
 import { useParams } from "react-router-dom";
 import apiHelper from "../../../api/apiHelper";
 import Sprint from "../../tools/sprint";
@@ -24,16 +24,20 @@ function Sprints() {
       console.error("Fetch error:", error);
     }
   }
-
   useEffect(() => {
     if (boardId) {
       loadSprints();
     }
   }, [boardId]);
+
+  function onUpdateCard(card: CardType | undefined) {
+    loadSprints();
+  }
   return (
     <>
       {sprints.map((sprint) => (
         <Sprint
+          onUpdate={onUpdateCard}
           sprint={sprint}
           sprintId={sprint._id}
           sprintName={sprint.name}

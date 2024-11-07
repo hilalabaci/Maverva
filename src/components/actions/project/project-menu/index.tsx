@@ -35,7 +35,7 @@ import { useApplicationContext } from "../../../../contexts/ApplicationContext";
 import apiHelper from "../../../../api/apiHelper";
 import Scroll from "../../../tools/scroll";
 import OptionalBoardCreate from "../../board/optional/create";
-import Modal from "../../modal";
+import Modal from "../../../tools/modal";
 import ProjectAvatar from "../../../tools/user/project-avatar";
 import { useLocation } from "react-router-dom";
 

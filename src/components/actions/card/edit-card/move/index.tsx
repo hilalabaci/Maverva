@@ -1,8 +1,11 @@
-import React from "react";
-import { Container, Title, Wrapper } from "./styles";
-import RestartAltIcon from "@mui/icons-material/RestartAlt";
-import RotateRightIcon from "@mui/icons-material/RotateRight";
-import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
+import {
+  Container,
+  Title,
+  Wrapper,
+  IconTodo,
+  IconInProgress,
+  IconDone,
+} from "./styles";
 import { CardType } from "../../../../../types";
 
 type MoveProps = {
@@ -14,7 +17,7 @@ function Move(props: MoveProps) {
     const id = props.cardId;
     const body = { status, id };
     const response = await fetch(process.env.REACT_APP_API_URL + "card", {
-      method: "PATCH",
+      method: "PUT",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
@@ -28,15 +31,15 @@ function Move(props: MoveProps) {
   return (
     <Container>
       <Wrapper onClick={() => updateStatus(1)}>
-        <RestartAltIcon />
+        <IconTodo />
         <Title>To Do</Title>
       </Wrapper>
       <Wrapper onClick={() => updateStatus(2)}>
-        <RotateRightIcon />
+        <IconInProgress />
         <Title>In Progress</Title>
       </Wrapper>
       <Wrapper onClick={() => updateStatus(3)}>
-        <PublishedWithChangesIcon />
+        <IconDone />
         <Title>Done</Title>
       </Wrapper>
     </Container>

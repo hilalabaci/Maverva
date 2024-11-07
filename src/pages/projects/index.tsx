@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Layout from "../templates/layout";
-import Modal from "../../components/actions/modal";
+import Modal from "../../components/tools/modal";
 import {
   CreateButton,
   CreateWrapper,

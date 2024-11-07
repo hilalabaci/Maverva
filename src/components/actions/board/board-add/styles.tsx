@@ -14,8 +14,6 @@ export const Container = styled.div`
   min-width: 900px;
   min-height: 293px;
   background-color: ${(props) => props.theme.modalBg};
-  //border: 1px solid ${(props) => props.theme.fontColour};
-  //height: 45px;
   border-radius: 5px;
   color: ${(props) => props.theme.fontColour};
   font: var(

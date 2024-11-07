@@ -54,6 +54,14 @@ class ApiHelper {
       urlParams: new URLSearchParams({ boardId }),
     });
   }
+  async getSprintCard(projectKey: string, boardId: string, sprintId: string) {
+    return await this.baseCall<CardType[]>(
+      `projects/${projectKey}/boards/${boardId}/backlog`,
+      {
+        method: "GET",
+      }
+    );
+  }
   async addCard(data: AddCardRequest) {
     return await this.baseCall("card", {
       method: "POST",
@@ -76,7 +84,7 @@ class ApiHelper {
   }
   async updateCard(
     cardId: string,
-    status: number,
+    status?: number,
     newSprintId?: string,
     oldSprintId?: string,
     boardId?: string
@@ -105,8 +113,17 @@ class ApiHelper {
 
     let responseData: T | undefined = undefined;
 
-    if (ok) {
-      responseData = (await response.json()) as T;
+    try {
+      if (ok) {
+        responseData = (await response.json()) as T;
+      } else {
+        const errorText = await response.text(); // Get raw response text
+        console.error("API call failed:", status, errorText); // Log the error
+        throw new Error(`Error: ${status}, ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Failed to parse response as JSON:", error);
+      throw error; // Rethrow the error for further handling
     }
 
     return { ok, status, data: responseData };

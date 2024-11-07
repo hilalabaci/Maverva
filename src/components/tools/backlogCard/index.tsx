@@ -23,6 +23,9 @@ import {
   MemberWrapper,
   MoreIcon,
 } from "./styles";
+import { useState } from "react";
+import { DropdownMenu } from "../dropdownMenu";
+import apiHelper from "../../../api/apiHelper";
 
 type BacklogCardPropsType = {
   cardKey: string;
@@ -32,6 +35,7 @@ type BacklogCardPropsType = {
   id: string;
   sprintId?: string;
   boardId: string;
+  updateCardsAfterDelete: (id: string) => void;
 };
 
 function BacklogCard({
@@ -42,6 +46,7 @@ function BacklogCard({
   id,
   sprintId,
   boardId,
+  updateCardsAfterDelete,
 }: BacklogCardPropsType) {
   const [{ isDragging }, drag] = useDrag<
     BacklogDragItems,
@@ -54,6 +59,14 @@ function BacklogCard({
       isDragging: monitor.isDragging(),
     }),
   });
+  const [showModal, setShowModal] = useState(false);
+
+  function openModal() {
+    setShowModal(true);
+  }
+  function closeModal() {
+    setShowModal(false);
+  }
   const statusOptions = [
     { label: getStatusLabel(CardStatus.Backlog), value: CardStatus.Backlog },
     { label: getStatusLabel(CardStatus.ToDo), value: CardStatus.ToDo },
@@ -64,9 +77,36 @@ function BacklogCard({
     { label: getStatusLabel(CardStatus.Done), value: CardStatus.Done },
   ];
 
-  const handleStatusChange = (status: string) => {
-    console.log("Selected status:", status);
+  async function updateCard(id: string, status: number) {
+    const response = await apiHelper.updateCard(id, status);
+    if (response.ok && response.data) {
+      // props.onUpdate(response.data);
+    } else {
+      console.error("Failed to update card:", response);
+    }
+  }
+  const handleStatusChange = async (status: CardStatus) => {
+    console.log(id, status, sprintId, boardId);
+    await updateCard(id, status);
+    console.log("aha geldi");
   };
+
+  async function deleteCard() {
+    const cardId = id;
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "card?id=" + cardId,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      updateCardsAfterDelete(id);
+    }
+  }
+
   return (
     <BacklogCardListItems role="button" ref={drag}>
       <CheckboxWrapper>
@@ -88,11 +128,10 @@ function BacklogCard({
       <Status status={status}>
         <SelectDemo
           items={statusOptions}
-          onSelect={handleStatusChange}
+          onSelect={(val) => handleStatusChange(val as CardStatus)}
           selectedValue={status}
         />
       </Status>
-
       <MemberWrapper>
         <ToolTip
           trigger={
@@ -107,7 +146,30 @@ function BacklogCard({
           content={user.fullName}
         ></ToolTip>
       </MemberWrapper>
-      <MoreIcon />
+      <DropdownMenu
+        trigger={<MoreIcon onClick={openModal} />}
+        items={[
+          {
+            label: "Move to",
+            action: () => console.log("Go to settings"),
+            subItems: [
+              { action: () => {}, label: "To Do" },
+              { action: () => {}, label: "In progress" },
+              { action: () => {}, label: "Done" },
+            ],
+          },
+          {
+            label: "Add label",
+            action: () => console.log("Go to settings"),
+          },
+          {
+            label: "Delete",
+            action: () => {
+              deleteCard();
+            },
+          },
+        ]}
+      />
     </BacklogCardListItems>
   );
 }

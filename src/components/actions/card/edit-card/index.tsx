@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Move from "./move";
-import { Container, Title, Wrapper, ModalBox, ModalBoxStatus } from "./styles";
-import TrendingFlatIcon from "@mui/icons-material/TrendingFlat";
-import LabelImportantIcon from "@mui/icons-material/LabelImportant";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import {
+  Container,
+  Title,
+  Wrapper,
+  ModalBox,
+  ModalBoxStatus,
+  IconMove,
+  IconLabel,
+  IconDelete,
+} from "./styles";
 import EditLabel from "./edit-label";
 import { CardType, LabelType } from "../../../../types";
+import { DropdownMenu } from "../../../tools/dropdownMenu";
 
 type EditCardProps = {
   onUpdate: (card: CardType) => void;
@@ -45,16 +52,21 @@ function EditCard(props: EditCardProps) {
   return (
     <Container>
       <ModalBox>
-        <Wrapper onClick={openModal}>
-          <TrendingFlatIcon />
-          <Title>Move</Title>
-        </Wrapper>
+        <DropdownMenu
+          trigger={
+            <Wrapper onClick={openModal}>
+              <IconMove />
+              <Title>Move to</Title>
+            </Wrapper>
+          }
+        ></DropdownMenu>
+
         <Wrapper onClick={openLabel}>
-          <LabelImportantIcon />
+          <IconLabel />
           <Title>Add Label</Title>
         </Wrapper>
         <Wrapper onClick={deleteCard}>
-          <RemoveCircleOutlineIcon />
+          <IconDelete />
           <Title>Delete</Title>
         </Wrapper>
       </ModalBox>

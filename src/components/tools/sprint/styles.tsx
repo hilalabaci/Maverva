@@ -2,6 +2,7 @@ import styled from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
+import { CardStatus } from "../../../types";
 
 type FormProps = { $isSelected: boolean };
 export const Container = styled.div`
@@ -13,9 +14,7 @@ export const Container = styled.div`
 `;
 export const HeaderDropBlog = styled.div`
   display: grid;
-  grid-template-columns: 1fr 9fr 2fr 2fr 1fr;
-  justify-self: center;
-  align-self: center;
+  grid-template-columns: 1fr 12fr 1fr 1fr;
 `;
 type BacklogHeaderProps = { $isSelected: boolean };
 export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
@@ -54,12 +53,13 @@ type StatusProps = {
 export const HeaderStatus = styled.span<StatusProps>`
   background-color: ${({ status, theme }) => {
     switch (status) {
-      case 0:
+      case CardStatus.Backlog || CardStatus.ToDo:
         return theme.statusColourGrey; // red for status 1
-      case 1:
+      case CardStatus.InProgress:
         return theme.statusColourBlue; // yellow for status 2
-      default:
-        return theme.statusColourGreen; // default green color
+      case CardStatus.Done:
+        return theme.statusColourGreen;
+      default: // default green color
     }
   }};
   color: ${({ status, theme }) => {

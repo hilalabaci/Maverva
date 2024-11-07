@@ -10,14 +10,7 @@ function Backlog() {
     <Container>
       <DndProvider backend={HTML5Backend}>
         <Sprint />
-        <BacklogCards
-          onClose={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-          AddedBacklogCard={function (card: CardType): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+        <BacklogCards />
       </DndProvider>
     </Container>
   );

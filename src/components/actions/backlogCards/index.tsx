@@ -21,12 +21,18 @@ import {
   HeaderButton,
   HeaderStatusWrapper,
   HeaderStatus,
+  MoreIcon,
 } from "./styles";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../tools/collapsible";
-import Modal from "../modal";
+import Modal from "../../tools/modal";
 import FormDemo from "../sprints/edit-sprint";
-import { CardType, DragDropCollect, DragItem } from "../../../types";
+import {
+  CardStatus,
+  CardType,
+  DragDropCollect,
+  DragItem,
+} from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import apiHelper from "../../../api/apiHelper";
 import { useParams } from "react-router-dom";
@@ -34,16 +40,12 @@ import BacklogCard from "../../tools/backlogCard";
 import { CheckboxWrapper } from "../../tools/backlogCard/styles";
 import CheckboxRadixUi from "../../tools/checkboxRadixUI";
 
-type BacklogCardsPropsType = {
-  onClose: () => void;
-  AddedBacklogCard: (card: CardType) => void;
-};
 type URLParams = {
   projectKey: string;
   boardId: string;
 };
 
-function BacklogCards(props: BacklogCardsPropsType) {
+function BacklogCards() {
   const { user } = useUserContext();
   const { projectKey, boardId } = useParams<URLParams>();
   const [content, setContent] = useState("");
@@ -56,7 +58,7 @@ function BacklogCards(props: BacklogCardsPropsType) {
   const [, drop] = useDrop<DragItem>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
-      console.log("dropped", item);
+      console.log("dropped,sprint to backlog", item);
     },
   });
 
@@ -66,36 +68,11 @@ function BacklogCards(props: BacklogCardsPropsType) {
   const refBacklogSelected = useOutsideClick<HTMLDivElement>(() =>
     setIsHeaderSelected(false)
   );
-  function openModal() {
-    setShowModal(true);
-  }
   function closeModal() {
     setShowModal(false);
   }
   function handleChange(value: string) {
     setContent(value);
-  }
-
-  async function submitNote() {
-    try {
-      const cardData = {
-        content: content,
-        status: 0,
-        userId: user?._id,
-        projectKey: projectKey,
-        boardId: boardId,
-      };
-
-      const { ok, data } = await apiHelper.addCard(cardData);
-      if (ok && data) {
-      }
-      setContent("");
-      props.AddedBacklogCard(data as CardType);
-      await loadBacklogCards();
-      props.onClose();
-    } catch (error) {
-      console.error("Error fetching project:", error);
-    }
   }
 
   async function loadBacklogCards() {
@@ -118,6 +95,26 @@ function BacklogCards(props: BacklogCardsPropsType) {
     }
   }
 
+  async function submitNote() {
+    try {
+      const cardData = {
+        content: content,
+        status: 0,
+        userId: user?._id,
+        projectKey: projectKey,
+        boardId: boardId,
+      };
+
+      const { ok } = await apiHelper.addCard(cardData);
+      if (ok) {
+        setContent("");
+        await loadBacklogCards();
+      }
+    } catch (error) {
+      console.error("Error fetching project:", error);
+    }
+  }
+
   async function updateCard(
     id: string,
     status: number,
@@ -131,6 +128,9 @@ function BacklogCards(props: BacklogCardsPropsType) {
       console.error("Failed to update card:", response);
     }
   }
+  function deleteCard(id: string) {
+    setBacklogCards(backlogCards.filter((card) => card._id !== id));
+  }
 
   useEffect(() => {
     if (!boardId) {
@@ -139,6 +139,10 @@ function BacklogCards(props: BacklogCardsPropsType) {
     }
     loadBacklogCards();
   }, [boardId, projectKey]);
+
+  function getStatusCount(status: CardStatus) {
+    return backlogCards.filter((card) => card.status === status).length;
+  }
   return (
     <Container>
       <CollapsibleDemo
@@ -164,9 +168,15 @@ function BacklogCards(props: BacklogCardsPropsType) {
               <HeaderIssue>({backlogCards.length} issue)</HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
-              <HeaderStatus status={0}>0</HeaderStatus>
-              <HeaderStatus status={1}>1</HeaderStatus>
-              <HeaderStatus status={2}>2</HeaderStatus>
+              <HeaderStatus status={CardStatus.Backlog}>
+                {getStatusCount(CardStatus.Backlog)}
+              </HeaderStatus>
+              <HeaderStatus status={CardStatus.InProgress}>
+                {getStatusCount(CardStatus.InProgress)}
+              </HeaderStatus>
+              <HeaderStatus status={CardStatus.Done}>
+                {getStatusCount(CardStatus.Done)}
+              </HeaderStatus>
             </HeaderStatusWrapper>
             <HeaderButtonWrapper>
               <Modal
@@ -178,6 +188,7 @@ function BacklogCards(props: BacklogCardsPropsType) {
                 <FormDemo onClose={closeModal} />
               </Modal>
             </HeaderButtonWrapper>
+            <MoreIcon />
           </HeaderDropBlog>
         }
         children={
@@ -185,11 +196,12 @@ function BacklogCards(props: BacklogCardsPropsType) {
             <BacklogCardList ref={drop}>
               {backlogCards.map((backlogCard) => (
                 <BacklogCard
+                  updateCardsAfterDelete={deleteCard}
                   boardId={boardId as string}
                   id={backlogCard._id}
                   cardKey={backlogCard.cardKey}
                   content={backlogCard.content}
-                  status={0}
+                  status={backlogCard.status}
                   user={backlogCard.userId}
                 />
               ))}

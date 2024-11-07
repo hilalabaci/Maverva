@@ -18,7 +18,7 @@ import {
   InputWrapperwithIcon,
   TitleforProject,
 } from "./styles";
-import Modal from "../modal";
+import Modal from "../../tools/modal";
 import AddedPerson from "../addedPerson";
 import { DropdownSelectMenu } from "../../tools/select";
 import { BoardType } from "../../../types";

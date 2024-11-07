@@ -16,7 +16,7 @@ import {
   Pathitem,
 } from "./styles";
 import MemberPhoto from "../../tools/user/member-photo";
-import Modal from "../modal";
+import Modal from "../../tools/modal";
 import AddPerson from "../addPerson";
 import { ProjectType, UserType } from "../../../types";
 import Search from "../../tools/search";

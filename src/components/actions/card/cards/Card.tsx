@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Label from "../card-label/index";
-import Modal from "../../modal";
+import Modal from "../../../tools/modal";
 import EditCard from "../edit-card/index";
 import MemberPhoto from "../../../tools/user/member-photo";
 import {
@@ -22,6 +22,7 @@ import {
   UserType,
 } from "../../../../types";
 import { ToolTip } from "../../../tools/toolstip";
+import { DropdownMenu } from "../../../tools/dropdownMenu";
 
 type CardProps = {
   id: string;
@@ -48,6 +49,34 @@ function Card(props: CardProps) {
   function closeModal() {
     setShowModal(false);
   }
+  const [showLabel, setShowLabel] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false);
+  function openModalEdit() {
+    setShowModalEdit(true);
+    setShowLabel(false);
+  }
+  function openLabel() {
+    setShowLabel(true);
+    setShowModalEdit(false);
+  }
+  function onCloseEdit() {
+    setShowLabel(false);
+  }
+  async function deleteCard() {
+    const cardId = props.id;
+    const response = await fetch(
+      process.env.REACT_APP_API_URL + "card?id=" + cardId,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      props.onDelete(cardId);
+    }
+  }
 
   return (
     <Container ref={drag}>
@@ -58,26 +87,30 @@ function Card(props: CardProps) {
           trigger={<NoteWrapper>{props.content}</NoteWrapper>}
           content={props.content}
         ></ToolTip>
-
-        <Modal
+        <DropdownMenu
           trigger={<EditIcon onClick={openModal} />}
-          open={showModal}
-          onChange={setShowModal}
-          onClose={closeModal}
-        >
-          <EditCard
-            labels={props.labels}
-            onDelete={(id) => {
-              props.onDelete(id);
-              closeModal();
-            }}
-            onUpdate={(card) => {
-              props.onUpdate(card);
-              closeModal();
-            }}
-            id={props.id}
-          />
-        </Modal>
+          items={[
+            {
+              action: () => {},
+              label: "Move to",
+              subItems: [
+                { action: () => {}, label: "To Do" },
+                { action: () => {}, label: "In progress" },
+                { action: () => {}, label: "Done" },
+              ],
+            },
+            {
+              action: () => {},
+              label: "Add Label",
+            },
+            {
+              action: () => {
+                deleteCard();
+              },
+              label: "Delete",
+            },
+          ]}
+        />
       </ContentWrapper>
       <LabelWrapper>
         {props.labels.map((label, index) => {

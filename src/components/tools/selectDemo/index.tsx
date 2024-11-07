@@ -19,7 +19,7 @@ interface SelectItemType {
 
 interface SelectDemoProps {
   items: SelectItemType[];
-  onSelect: (value: string) => void;
+  onSelect: (value: string | number) => void;
   selectedValue?: string | number;
 }
 

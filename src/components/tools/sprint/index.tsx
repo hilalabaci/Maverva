@@ -2,7 +2,6 @@ import CheckboxRadixUi from "../checkboxRadixUI";
 import CollapsibleDemo from "../collapsible";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-
 import {
   Accordion,
   ArrowIcon,
@@ -33,6 +32,7 @@ import { getStatusLabel } from "../../../utils/label";
 import {
   BacklogDragItems,
   CardStatus,
+  CardType,
   DragItem,
   SprintType,
 } from "../../../types";
@@ -47,6 +47,7 @@ type SprintPropsType = {
   sprintName: string;
   sprintStartDate: Date;
   sprintEndDate: Date;
+  onUpdate: (data?: CardType) => void;
 };
 
 type URLParams = {
@@ -60,6 +61,7 @@ function Sprint({
   sprintName,
   sprintStartDate,
   sprintEndDate,
+  onUpdate,
 }: SprintPropsType) {
   const { boardId, projectKey } = useParams<URLParams>();
   const { user } = useUserContext();
@@ -67,24 +69,48 @@ function Sprint({
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
   const [isHeaderSelected, setIsHeaderSelected] = useState(false);
   const [content, setContent] = useState("");
-  const [selectedSprintId, setSelectedSprintId] = useState<String>();
+  const [selectedSprintId, setSelectedSprintId] = useState<string | undefined>(
+    sprintId
+  );
+  const [sprintCards, setSprintCards] = useState<CardType[]>(sprint.cardIds);
+  const [getSprintButton, setGetSprintButton] = useState(false);
+
+  async function updateCardInfo(
+    id: string,
+    newSprintId: string,
+    boardId: string,
+    oldSprintId?: string
+  ) {
+    const response = await apiHelper.updateCard(
+      id,
+      undefined,
+      newSprintId,
+      oldSprintId,
+      boardId
+    );
+    if (response.ok && response.data) {
+      onUpdate(response.data);
+    } else {
+      console.error("Failed to update card:", response);
+    }
+  }
 
   const [, drop] = useDrop<BacklogDragItems>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
-      console.log("dropped", item);
+      console.log(selectedSprintId, boardId, item.oldSprintId);
+      if (selectedSprintId && boardId) {
+        updateCardInfo(
+          item.cardId,
+          selectedSprintId,
+          boardId,
+          item.oldSprintId
+        );
+      } else {
+        console.error("selectedSprintId is undefined");
+      }
     },
   });
-
-  const statusOptions = [
-    { label: getStatusLabel(CardStatus.Backlog), value: CardStatus.Backlog },
-    { label: getStatusLabel(CardStatus.ToDo), value: CardStatus.ToDo },
-    {
-      label: getStatusLabel(CardStatus.InProgress),
-      value: CardStatus.InProgress,
-    },
-    { label: getStatusLabel(CardStatus.Done), value: CardStatus.Done },
-  ];
 
   const refDisplayCreate = useOutsideClick<HTMLFormElement>(() =>
     setDisplayCreateTask(false)
@@ -92,10 +118,6 @@ function Sprint({
   const refBacklogSelected = useOutsideClick<HTMLDivElement>(() =>
     setIsHeaderSelected(false)
   );
-
-  const handleStatusChange = (status: string) => {
-    console.log("Selected status:", status);
-  };
   function handleChange(value: string) {
     setContent(value);
   }
@@ -109,7 +131,6 @@ function Sprint({
         boardId: boardId,
         newSprintId: selectedSprintId,
       };
-      console.log(` this is a selecttedSprintId${"selectedSprintId"}`);
 
       const { ok, data } = await apiHelper.addCard(cardData);
 
@@ -124,6 +145,13 @@ function Sprint({
     } catch (error) {
       console.error("Error fetching project:", error);
     }
+  }
+
+  function deleteCard(id: string) {
+    setSprintCards(sprintCards.filter((card) => card._id !== id));
+  }
+  function getStatusCount(status: CardStatus) {
+    return sprintCards.filter((card) => card.status === status).length;
   }
 
   return (
@@ -161,33 +189,44 @@ function Sprint({
                   : "Date not available"}
               </Duration>
               <HeaderIssue>
-                ({sprint.cardIds ? sprint.cardIds.length : 0})
+                ({sprint.cardIds ? sprint.cardIds.length : 0} issue)
               </HeaderIssue>
             </HeaderTitleContent>
 
-            <HeaderStatusWrapper>
-              <HeaderStatus status={0}>0</HeaderStatus>
-              <HeaderStatus status={1}>8</HeaderStatus>
-              <HeaderStatus status={2}>2</HeaderStatus>
-            </HeaderStatusWrapper>
-            <HeaderButtonWrapper>
-              <HeaderButton>Complete sprint</HeaderButton>
-            </HeaderButtonWrapper>
+            {getSprintButton ? (
+              <HeaderButtonWrapper>
+                <HeaderButton>Complete sprint</HeaderButton>
+              </HeaderButtonWrapper>
+            ) : (
+              <HeaderStatusWrapper>
+                <HeaderStatus status={CardStatus.Backlog}>
+                  {getStatusCount(CardStatus.Backlog)}
+                </HeaderStatus>
+                <HeaderStatus status={CardStatus.InProgress}>
+                  {getStatusCount(CardStatus.InProgress)}
+                </HeaderStatus>
+                <HeaderStatus status={CardStatus.Done}>
+                  {getStatusCount(CardStatus.InProgress)}
+                </HeaderStatus>
+              </HeaderStatusWrapper>
+            )}
+
             <MoreIcon />
           </HeaderDropBlog>
         }
         children={
           <Accordion>
             <BacklogCardList>
-              {sprint.cardIds?.map((card) => (
+              {sprintCards.map((card) => (
                 <BacklogCard
                   id={card._id}
                   cardKey={card.cardKey}
                   content={card.content}
-                  status={0}
+                  status={card.status}
                   user={card.userId}
                   sprintId={sprintId}
                   boardId={boardId as string}
+                  updateCardsAfterDelete={deleteCard}
                 />
               ))}
             </BacklogCardList>

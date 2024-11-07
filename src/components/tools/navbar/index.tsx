@@ -22,7 +22,7 @@ import {
   CreateButton,
   MemberButtonWrapper,
 } from "./styles";
-import Modal from "../../actions/modal";
+import Modal from "../modal";
 import Notification from "../../actions/notification";
 import { useUserContext } from "../../../contexts/UserContext";
 import { ProjectType, NotificationType } from "../../../types";

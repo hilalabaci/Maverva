@@ -1,12 +1,28 @@
 // DropdownMenu.tsx
 import { ReactNode } from "react";
-import { DropdownContent, DropDownItem } from "./styles";
+import {
+  DropdownContent,
+  DropDownItem,
+  DropdownMenuPrimitivePortal,
+  DropdownMenuPrimitiveRoot,
+  DropdownMenuPrimitiveSubContent,
+  DropdownMenuPrimitiveSubTrigger,
+  DropdownMenuSub,
+  RightSlot,
+} from "./styles";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 
 interface DropdownMenuProps {
   triggerWidth?: boolean;
   trigger: ReactNode;
-  items: Array<{ label: string; action: () => void }>;
+  items?: Array<DropdownMenuItem>;
+}
+
+interface DropdownMenuItem {
+  label: string;
+  action: () => void;
+  subItems?: Array<Omit<DropdownMenuItem, "subItems">>;
 }
 
 export const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -15,22 +31,45 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   triggerWidth,
 }) => {
   return (
-    <DropdownMenuPrimitive.Root>
+    <DropdownMenuPrimitiveRoot>
       <DropdownMenuPrimitive.Trigger asChild>
         {trigger}
       </DropdownMenuPrimitive.Trigger>
 
       <DropdownContent $triggerWidth={triggerWidth}>
-        {items.map((item, index) => (
-          <DropDownItem
-            key={index}
-            className="dropdown-item"
-            onSelect={item.action}
-          >
-            {item.label}
-          </DropDownItem>
-        ))}
+        {items?.map((item, index) =>
+          item.subItems?.length ? (
+            <>
+              <DropdownMenuSub>
+                <DropdownMenuPrimitiveSubTrigger>
+                  {item.label}
+                  <RightSlot>
+                    <ChevronRightIcon />
+                  </RightSlot>
+                </DropdownMenuPrimitiveSubTrigger>
+                <DropdownMenuPrimitivePortal>
+                  <DropdownMenuPrimitiveSubContent
+                    sideOffset={2}
+                    alignOffset={-5}
+                  >
+                    {item.subItems.map((subItem, subIndex) => (
+                      <DropDownItem key={subIndex} onSelect={subItem.action}>
+                        {subItem.label}
+                      </DropDownItem>
+                    ))}
+                  </DropdownMenuPrimitiveSubContent>
+                </DropdownMenuPrimitivePortal>
+              </DropdownMenuSub>
+            </>
+          ) : (
+            <>
+              <DropDownItem key={index} onSelect={item.action}>
+                {item.label}
+              </DropDownItem>
+            </>
+          )
+        )}
       </DropdownContent>
-    </DropdownMenuPrimitive.Root>
+    </DropdownMenuPrimitiveRoot>
   );
 };
