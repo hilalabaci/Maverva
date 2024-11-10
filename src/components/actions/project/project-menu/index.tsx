@@ -37,7 +37,7 @@ import Scroll from "../../../tools/scroll";
 import OptionalBoardCreate from "../../board/optional/create";
 import Modal from "../../../tools/modal";
 import ProjectAvatar from "../../../tools/user/project-avatar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 type ProjectMenuPropsType = {
   ProjectTitle: string;
@@ -48,9 +48,13 @@ type ProjectMenuPropsType = {
   selectedBoardTitle: string;
   selectedProjectsTitle: string;
 };
-
+type URLParams = {
+  projectKey: string;
+  boardId?: string;
+};
 function ProjectMenu(props: ProjectMenuPropsType) {
   const location = useLocation();
+  const { projectKey, boardId } = useParams<URLParams>();
   const { user } = useUserContext();
   const { boards, setBoards } = useApplicationContext();
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);

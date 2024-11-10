@@ -14,7 +14,7 @@ type AddCardPropsType = {
   status: number;
   onClose: () => void;
   addedCard: (card: CardType) => void;
-  boardId: string;
+  boardId?: string;
 };
 
 function AddCard(props: AddCardPropsType) {
@@ -35,11 +35,6 @@ function AddCard(props: AddCardPropsType) {
       };
 
       const { ok, data } = await apiHelper.addCard(cardData);
-
-      // if (response.status === 400) {
-      //   console.log("Please check your details");
-      //   return;
-      // }
       if (ok && data) {
       }
       setContent("");

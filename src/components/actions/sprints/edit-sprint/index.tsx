@@ -46,13 +46,7 @@ const FormDemo = (props: FormDemoType) => {
       };
 
       const { ok, data } = await apiHelper.addSprint(sprintData);
-
-      // if (response.status === 400) {
-      //   console.log("Please check your details");
-      //   return;
-      // }
       if (ok && data) {
-        console.log(data);
       }
       setSprintName("");
       setSprintGoal("");

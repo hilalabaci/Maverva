@@ -10,7 +10,7 @@ export const Container = styled.div`
   width: 250px;
   padding: 10px 20px;
   background-color: ${(props) => props.theme.projectColour};
-  border-radius: 2px;
+  border-radius: 5px;
   margin-right: 40px;
   @media only screen and (max-width: 768px) {
     width: 200px;
@@ -21,12 +21,11 @@ export const Container = styled.div`
 export const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 15px;
 `;
 export const Title = styled.h1`
   font-style: normal;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 29px;
   color: ${(props) => props.theme.fontColour};
   display: inline-block;

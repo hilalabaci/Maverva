@@ -18,7 +18,7 @@ import {
 import MemberPhoto from "../../tools/user/member-photo";
 import Modal from "../../tools/modal";
 import AddPerson from "../addPerson";
-import { ProjectType, UserType } from "../../../types";
+import { BoardType, ProjectType, UserType } from "../../../types";
 import Search from "../../tools/search";
 import { ToolTip } from "../../tools/toolstip";
 import { useLocation } from "react-router-dom";
@@ -31,7 +31,7 @@ type TopMenuPropsType = {
   setSearchInput: (value: string) => void;
   selectedBoardTitle: string;
   selectedBoardId: string;
-  boardId?: string;
+  boardId?: BoardType;
 };
 
 function TopMenu(props: TopMenuPropsType) {

@@ -14,7 +14,7 @@ export const Container = styled.div`
 `;
 export const HeaderDropBlog = styled.div`
   display: grid;
-  grid-template-columns: 1fr 12fr 1fr 1fr;
+  grid-template-columns: 1fr 9fr 1fr 2fr 1fr;
 `;
 type BacklogHeaderProps = { $isSelected: boolean };
 export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
@@ -23,6 +23,7 @@ export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
   outline: ${({ $isSelected, theme }) =>
     $isSelected ? `${theme.activeBorder}` : `none`};
   padding: 4px 0;
+  cursor: pointer;
 `;
 export const HeaderTitle = styled.div`
   color: ${(props) => props.theme.memberMenuFontColor};
@@ -72,6 +73,7 @@ export const HeaderStatus = styled.span<StatusProps>`
         return theme.primary; // default green color
     }
   }};
+  cursor: default;
   border-radius: 50px;
   font-size: 12px;
   padding: 2px 7px;
@@ -80,8 +82,13 @@ export const HeaderStatus = styled.span<StatusProps>`
 export const HeaderButtonWrapper = styled.div`
   justify-self: center;
   align-self: center;
+  cursor: pointer;
 `;
-export const HeaderButton = styled.button`
+
+type HeaderButtonPropsType = {
+  $isActive: boolean;
+};
+export const HeaderButton = styled.button<HeaderButtonPropsType>`
   border: none;
   outline: none;
   font-size: 14px;
@@ -91,7 +98,10 @@ export const HeaderButton = styled.button`
   text-align: center;
   cursor: pointer;
   padding: 8px 10px;
-  background-color: #091e420f;
+  background-color: ${(props) =>
+    props.$isActive ? "#091e420f" : props.theme.themeActiveColor};
+  color: ${(props) =>
+    props.$isActive ? props.theme.memberMenuFontColor : "white"};
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
@@ -159,6 +169,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
   justify-content: flex-end;
   border-radius: 3px;
   background-color: #091e420f;
+  cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }

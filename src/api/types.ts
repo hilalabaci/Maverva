@@ -33,6 +33,7 @@ export type AddCardRequest = {
   projectKey?: string;
   status: number;
   boardId?: string;
+  sprintId?: string;
 };
 export type AddSprintRequest = {
   name: string;

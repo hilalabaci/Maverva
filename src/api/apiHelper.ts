@@ -28,14 +28,6 @@ class ApiHelper {
       urlParams: new URLSearchParams({ projectKey, userId }),
     });
   }
-  async getSelectedBoard(projectKey: string, boardId: string) {
-    return await this.baseCall<BoardType>(
-      `projects/${projectKey}/boards/${boardId}`,
-      {
-        method: "GET",
-      }
-    );
-  }
   async addUsertoBoard(data: AddUserToBoardRequest) {
     return await this.baseCall("project/boards/add-user", {
       method: "POST",
@@ -54,14 +46,31 @@ class ApiHelper {
       urlParams: new URLSearchParams({ boardId }),
     });
   }
-  async getSprintCard(projectKey: string, boardId: string, sprintId: string) {
+
+  async updateSprint(sprintId: string, active: boolean, boardId: string) {
+    return await this.baseCall<SprintType>("sprint", {
+      method: "PUT",
+      data: { sprintId, active, boardId },
+    });
+  }
+
+  async getSprintCard(projectKey: string, boardId: string) {
     return await this.baseCall<CardType[]>(
-      `projects/${projectKey}/boards/${boardId}/backlog`,
+      `projects/${projectKey}/boards/${boardId}`,
       {
         method: "GET",
       }
     );
   }
+  async getActiveSprint(projectKey: string, boardId: string) {
+    return await this.baseCall<SprintType>(
+      `projects/${projectKey}/boards/${boardId}`,
+      {
+        method: "GET",
+      }
+    );
+  }
+
   async addCard(data: AddCardRequest) {
     return await this.baseCall("card", {
       method: "POST",

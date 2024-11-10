@@ -12,6 +12,7 @@ import {
   EditIcon,
   ContentWrapper,
   ButtomWrapper,
+  CardKeyWrapper,
 } from "./styles";
 import { useDrag } from "react-dnd";
 import {
@@ -23,20 +24,33 @@ import {
 } from "../../../../types";
 import { ToolTip } from "../../../tools/toolstip";
 import { DropdownMenu } from "../../../tools/dropdownMenu";
+import apiHelper from "../../../../api/apiHelper";
 
 type CardProps = {
   id: string;
-  onUpdate: (card: CardType) => void;
   labels: LabelType[];
-  onDelete: (id: string) => void;
   content: string;
   userId?: UserType;
   userName: string;
+  cardKey: string;
+  status: number;
+  onUpdate: (card: CardType) => void;
+  onDelete: (id: string) => void;
 };
-function Card(props: CardProps) {
+function Card({
+  id,
+  labels,
+  content,
+  userId,
+  userName,
+  cardKey,
+  status,
+  onUpdate,
+  onDelete,
+}: CardProps) {
   const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "CARD",
-    item: { id: props.id },
+    item: { id: id },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -63,7 +77,7 @@ function Card(props: CardProps) {
     setShowLabel(false);
   }
   async function deleteCard() {
-    const cardId = props.id;
+    const cardId = id;
     const response = await fetch(
       process.env.REACT_APP_API_URL + "card?id=" + cardId,
       {
@@ -74,7 +88,16 @@ function Card(props: CardProps) {
       }
     );
     if (response.ok) {
-      props.onDelete(cardId);
+      onDelete(cardId);
+    }
+  }
+
+  async function updateStatus(id: string, status: number) {
+    const response = await apiHelper.updateCard(id, status);
+    if (response.ok && response.data) {
+      onUpdate(response.data);
+    } else {
+      console.error("Failed to update card:", response);
     }
   }
 
@@ -84,8 +107,8 @@ function Card(props: CardProps) {
       <ContentWrapper>
         <ToolTip
           contentStyle={{ zIndex: 0 }}
-          trigger={<NoteWrapper>{props.content}</NoteWrapper>}
-          content={props.content}
+          trigger={<NoteWrapper>{content}</NoteWrapper>}
+          content={content}
         ></ToolTip>
         <DropdownMenu
           trigger={<EditIcon onClick={openModal} />}
@@ -94,9 +117,24 @@ function Card(props: CardProps) {
               action: () => {},
               label: "Move to",
               subItems: [
-                { action: () => {}, label: "To Do" },
-                { action: () => {}, label: "In progress" },
-                { action: () => {}, label: "Done" },
+                {
+                  action: () => {
+                    updateStatus(id, 1);
+                  },
+                  label: "To Do",
+                },
+                {
+                  action: () => {
+                    updateStatus(id, 2);
+                  },
+                  label: "In progress",
+                },
+                {
+                  action: () => {
+                    updateStatus(id, 3);
+                  },
+                  label: "Done",
+                },
               ],
             },
             {
@@ -113,11 +151,12 @@ function Card(props: CardProps) {
         />
       </ContentWrapper>
       <LabelWrapper>
-        {props.labels.map((label, index) => {
+        {labels.map((label, index) => {
           return <Label key={index} colour={label.colour} />;
         })}
       </LabelWrapper>
       <CardButtomWrapper>
+        <CardKeyWrapper>{cardKey}</CardKeyWrapper>
         <ToolTip
           contentStyle={{ zIndex: 0 }}
           trigger={
@@ -127,11 +166,11 @@ function Card(props: CardProps) {
                 $userPhotoHeight="24px"
                 $userPhotoFontSize="10px"
                 $userBorderadius="50px"
-                user={props.userId}
+                user={userId}
               />
             </ButtomWrapper>
           }
-          content={`Assignee: ${props.userName}`}
+          content={`Assignee: ${userName}`}
         ></ToolTip>
       </CardButtomWrapper>
       <ContentWrapper></ContentWrapper>

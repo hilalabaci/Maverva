@@ -2,6 +2,7 @@ import { useDrag } from "react-dnd";
 import {
   BacklogDragItems,
   CardStatus,
+  CardType,
   DragDropCollect,
   DragItem,
   UserType,
@@ -36,6 +37,8 @@ type BacklogCardPropsType = {
   sprintId?: string;
   boardId: string;
   updateCardsAfterDelete: (id: string) => void;
+  onUpdateCardStatus: (id: string, status: number) => void;
+  updateCardAfterDrag: (id: string) => void;
 };
 
 function BacklogCard({
@@ -47,6 +50,8 @@ function BacklogCard({
   sprintId,
   boardId,
   updateCardsAfterDelete,
+  onUpdateCardStatus,
+  updateCardAfterDrag,
 }: BacklogCardPropsType) {
   const [{ isDragging }, drag] = useDrag<
     BacklogDragItems,
@@ -58,6 +63,23 @@ function BacklogCard({
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    end(_, monitor) {
+      if (!monitor.didDrop()) {
+        return;
+      }
+
+      const dropResult = monitor.getDropResult<{
+        droppedCard: Promise<CardType | undefined>;
+      }>();
+
+      if (!dropResult?.droppedCard) return;
+
+      dropResult.droppedCard.then((card) => {
+        console.log("result is here", card);
+        if (!card) return;
+        updateCardAfterDrag(card._id);
+      });
+    },
   });
   const [showModal, setShowModal] = useState(false);
 
@@ -80,15 +102,13 @@ function BacklogCard({
   async function updateCard(id: string, status: number) {
     const response = await apiHelper.updateCard(id, status);
     if (response.ok && response.data) {
-      // props.onUpdate(response.data);
+      onUpdateCardStatus(response.data._id, response.data.status);
     } else {
       console.error("Failed to update card:", response);
     }
   }
   const handleStatusChange = async (status: CardStatus) => {
-    console.log(id, status, sprintId, boardId);
     await updateCard(id, status);
-    console.log("aha geldi");
   };
 
   async function deleteCard() {
@@ -153,9 +173,24 @@ function BacklogCard({
             label: "Move to",
             action: () => console.log("Go to settings"),
             subItems: [
-              { action: () => {}, label: "To Do" },
-              { action: () => {}, label: "In progress" },
-              { action: () => {}, label: "Done" },
+              {
+                action: () => {
+                  updateCard(id, 1);
+                },
+                label: "To Do",
+              },
+              {
+                action: () => {
+                  updateCard(id, 2);
+                },
+                label: "In progress",
+              },
+              {
+                action: () => {
+                  updateCard(id, 3);
+                },
+                label: "Done",
+              },
             ],
           },
           {

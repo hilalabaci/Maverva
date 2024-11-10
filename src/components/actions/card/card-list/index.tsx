@@ -22,7 +22,7 @@ interface CardListProps {
   cards: CardType[];
   status: number;
   projectKey: string;
-  boardId: string;
+  boardId?: string;
   onUpdate: (card: CardType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void;
@@ -73,6 +73,8 @@ function CardList(props: CardListProps) {
             labels={card.labels}
             userId={card.userId}
             userName={card.userId.fullName}
+            cardKey={card.cardKey}
+            status={card.status}
           />
         ))}
       </CardWrapper>

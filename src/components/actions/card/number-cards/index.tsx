@@ -5,10 +5,6 @@ type NumberOfCardsPropsType = {
 };
 
 function numberOfCards(props: NumberOfCardsPropsType) {
-  return (
-    <Container>
-      {props.numberOfFilteredCards}/{props.numberOfCards}
-    </Container>
-  );
+  return <Container>{props.numberOfCards}</Container>;
 }
 export default numberOfCards;

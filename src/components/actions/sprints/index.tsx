@@ -11,6 +11,7 @@ type URLParams = {
 function Sprints() {
   const { boardId } = useParams<URLParams>();
   const [sprints, setSprints] = useState<SprintType[]>([]);
+  const [activeToSprint, setActiveToSprint] = useState(false);
 
   async function loadSprints() {
     if (!boardId) {
@@ -33,6 +34,13 @@ function Sprints() {
   function onUpdateCard(card: CardType | undefined) {
     loadSprints();
   }
+  function ActiontoSprint(id: string) {
+    if (sprints[0]._id === id) {
+      setActiveToSprint(true);
+      return true;
+    }
+    return false;
+  }
   return (
     <>
       {sprints.map((sprint) => (
@@ -43,6 +51,8 @@ function Sprints() {
           sprintName={sprint.name}
           sprintStartDate={sprint.startDate}
           sprintEndDate={sprint.endDate}
+          activeToSprint={ActiontoSprint}
+          sprintIsActive={sprint.active}
         />
       ))}
     </>

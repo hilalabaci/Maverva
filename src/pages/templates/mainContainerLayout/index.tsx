@@ -13,13 +13,20 @@ import {
   PathList,
 } from "../../../components/actions/top-menu/styles";
 import { Container, MainContainer, Breadcrumbs } from "./styles";
+import { useParams } from "react-router-dom";
+import { BoardType } from "../../../types";
+
+type URLParams = {
+  projectKey: string;
+  boardId?: string;
+};
 
 type MainContainerLayoutPropsType = PropsWithChildren<{
   projectKey: string;
   projectId: string;
   projectTitle: string;
   selectedBoardTitle: string;
-  selectedBoardId: string;
+  selectedBoardId: BoardType;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   hideMenu: boolean;
@@ -31,7 +38,6 @@ const MainContainerLayout = ({
   onMouseEnter,
   children,
   hideMenu,
-  projectKey,
   projectId,
   projectTitle,
   selectedBoardTitle,
@@ -39,6 +45,8 @@ const MainContainerLayout = ({
   setHideMenu,
   isHovered,
 }: MainContainerLayoutPropsType) => {
+  const { projectKey, boardId } = useParams<URLParams>();
+  if (!projectKey || !boardId) return;
   return (
     <Container>
       <GlobalStyle />
@@ -76,7 +84,7 @@ const MainContainerLayout = ({
                   /{" "}
                 </Pathitem>
                 <Pathitem>
-                  <PathLink to={`boards/${selectedBoardId}`}>
+                  <PathLink to={`boards/${boardId}`}>
                     {selectedBoardTitle}
                   </PathLink>
                 </Pathitem>

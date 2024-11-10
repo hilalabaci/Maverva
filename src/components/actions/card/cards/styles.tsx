@@ -27,8 +27,6 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 5px 10px;
   border-radius: 3px;
-  gap: 4px;
-  border: 1px solid rgba(245, 246, 248, 255);
   box-shadow: var(--ds-shadow-raised, 0 1px 1px #172b4d33, 0 0 1px #172b4d33);
   cursor: pointer;
   &:hover {
@@ -52,15 +50,15 @@ export const NoteWrapper = styled.div`
   flex: 1;
   display: flex;
   font-style: normal;
-  font-weight: 500;
-  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
   line-height: 24px;
   letter-spacing: 0.065em;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.memberMenuFontColor};
   resize: none;
   outline: none;
-  border: none;
-  height: 50px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
@@ -73,7 +71,12 @@ export const NoteWrapper = styled.div`
 export const ButtomWrapper = styled.div``;
 export const CardButtomWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const CardKeyWrapper = styled.div`
+  font-size: 11px;
+  font-weight: 600;
 `;
 
 export const ContainerUser = styled.div`

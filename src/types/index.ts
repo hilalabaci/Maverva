@@ -28,8 +28,10 @@ export type SprintType = {
   startDate: Date;
   endDate: Date;
   boardId?: BoardType;
+  boardName: string;
   userId?: UserType;
   cardIds: CardType[];
+  active: boolean;
 };
 export type CardType = {
   _id: string;
@@ -41,6 +43,7 @@ export type CardType = {
   inBacklog?: Boolean;
   labels: LabelType[];
   sprint?: SprintType;
+  sprintId: string;
   projectId: ProjectType;
   boardId: BoardType;
 };

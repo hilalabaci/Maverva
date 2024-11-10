@@ -28,18 +28,17 @@ import {
 import { useState } from "react";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import BacklogCard from "../backlogCard";
-import { getStatusLabel } from "../../../utils/label";
 import {
   BacklogDragItems,
   CardStatus,
   CardType,
-  DragItem,
   SprintType,
 } from "../../../types";
 import { useDrop } from "react-dnd";
 import apiHelper from "../../../api/apiHelper";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
+import { ToolTip } from "../toolstip";
 
 type SprintPropsType = {
   sprint: SprintType;
@@ -47,7 +46,9 @@ type SprintPropsType = {
   sprintName: string;
   sprintStartDate: Date;
   sprintEndDate: Date;
+  sprintIsActive: boolean;
   onUpdate: (data?: CardType) => void;
+  activeToSprint: (id: string) => boolean;
 };
 
 type URLParams = {
@@ -61,7 +62,9 @@ function Sprint({
   sprintName,
   sprintStartDate,
   sprintEndDate,
+  sprintIsActive,
   onUpdate,
+  activeToSprint,
 }: SprintPropsType) {
   const { boardId, projectKey } = useParams<URLParams>();
   const { user } = useUserContext();
@@ -73,7 +76,7 @@ function Sprint({
     sprintId
   );
   const [sprintCards, setSprintCards] = useState<CardType[]>(sprint.cardIds);
-  const [getSprintButton, setGetSprintButton] = useState(false);
+  const [isActiveSprint, setIsActiveSprint] = useState(sprintIsActive);
 
   async function updateCardInfo(
     id: string,
@@ -90,25 +93,42 @@ function Sprint({
     );
     if (response.ok && response.data) {
       onUpdate(response.data);
+      return response.data;
     } else {
       console.error("Failed to update card:", response);
     }
   }
 
+  const handleDrop = async (item: BacklogDragItems) => {
+    if (selectedSprintId && boardId) {
+      const updatedCard = await updateCardInfo(
+        item.cardId,
+        selectedSprintId,
+        boardId,
+        item.oldSprintId
+      );
+      if (updatedCard) {
+        setSprintCards((prevCards) => {
+          const updatedCards = prevCards.filter(
+            (card) => card._id !== updatedCard._id
+          );
+          updatedCards.push(updatedCard);
+          return updatedCards;
+        });
+      }
+      return updatedCard;
+    } else {
+      console.error("selectedSprintId is undefined");
+      return undefined;
+    }
+  };
+
   const [, drop] = useDrop<BacklogDragItems>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
-      console.log(selectedSprintId, boardId, item.oldSprintId);
-      if (selectedSprintId && boardId) {
-        updateCardInfo(
-          item.cardId,
-          selectedSprintId,
-          boardId,
-          item.oldSprintId
-        );
-      } else {
-        console.error("selectedSprintId is undefined");
-      }
+      return {
+        droppedCard: handleDrop(item),
+      };
     },
   });
 
@@ -129,19 +149,14 @@ function Sprint({
         userId: user?._id,
         projectKey: projectKey,
         boardId: boardId,
-        newSprintId: selectedSprintId,
+        sprintId: selectedSprintId,
       };
 
       const { ok, data } = await apiHelper.addCard(cardData);
-
-      // if (response.status === 400) {
-      //   console.log("Please check your details");
-      //   return;
-      // }
       if (ok && data) {
+        setSprintCards((prevCards) => [...prevCards, data as CardType]);
       }
       setContent("");
-      // await loadSprints();
     } catch (error) {
       console.error("Error fetching project:", error);
     }
@@ -152,6 +167,31 @@ function Sprint({
   }
   function getStatusCount(status: CardStatus) {
     return sprintCards.filter((card) => card.status === status).length;
+  }
+
+  function updateStatusCard(id: string, status: number) {
+    setSprintCards((prevBacklogCards) =>
+      prevBacklogCards.map((card) =>
+        card._id === id ? { ...card, status } : card
+      )
+    );
+  }
+  async function updateSprintActive(
+    sprintId: string,
+    active: boolean,
+    boardId?: string
+  ) {
+    {
+      if (!boardId) return;
+      const response = await apiHelper.updateSprint(sprintId, active, boardId);
+      if (response.ok && response.data) {
+        setIsActiveSprint(true);
+        console.log("hereee");
+        // props.onUpdate(response.data);
+      } else {
+        console.error("Failed to update card:", response);
+      }
+    }
   }
 
   return (
@@ -192,23 +232,55 @@ function Sprint({
                 ({sprint.cardIds ? sprint.cardIds.length : 0} issue)
               </HeaderIssue>
             </HeaderTitleContent>
-
-            {getSprintButton ? (
+            <HeaderStatusWrapper>
+              <ToolTip
+                trigger={
+                  <HeaderStatus status={CardStatus.Backlog}>
+                    {getStatusCount(CardStatus.Backlog)}
+                  </HeaderStatus>
+                }
+                content={` Not started ${getStatusCount(
+                  CardStatus.Backlog
+                )} of ${sprint.cardIds.length} `}
+              ></ToolTip>
+              <ToolTip
+                trigger={
+                  <HeaderStatus status={CardStatus.InProgress}>
+                    {getStatusCount(CardStatus.InProgress)}
+                  </HeaderStatus>
+                }
+                content={` In progress ${getStatusCount(
+                  CardStatus.InProgress
+                )} of ${sprint.cardIds.length} `}
+              ></ToolTip>
+              <ToolTip
+                trigger={
+                  <HeaderStatus status={CardStatus.Done}>
+                    {getStatusCount(CardStatus.Done)}
+                  </HeaderStatus>
+                }
+                content={`Completed ${getStatusCount(CardStatus.Done)} of ${
+                  sprint.cardIds.length
+                } `}
+              ></ToolTip>
+            </HeaderStatusWrapper>
+            {activeToSprint(sprint._id) ? (
               <HeaderButtonWrapper>
-                <HeaderButton>Complete sprint</HeaderButton>
+                {isActiveSprint ? (
+                  <HeaderButton $isActive={true}>Complete sprint</HeaderButton>
+                ) : (
+                  <HeaderButton
+                    onClick={() =>
+                      updateSprintActive(sprintId, isActiveSprint, boardId)
+                    }
+                    $isActive={false}
+                  >
+                    Start sprint
+                  </HeaderButton>
+                )}
               </HeaderButtonWrapper>
             ) : (
-              <HeaderStatusWrapper>
-                <HeaderStatus status={CardStatus.Backlog}>
-                  {getStatusCount(CardStatus.Backlog)}
-                </HeaderStatus>
-                <HeaderStatus status={CardStatus.InProgress}>
-                  {getStatusCount(CardStatus.InProgress)}
-                </HeaderStatus>
-                <HeaderStatus status={CardStatus.Done}>
-                  {getStatusCount(CardStatus.InProgress)}
-                </HeaderStatus>
-              </HeaderStatusWrapper>
+              <HeaderButtonWrapper></HeaderButtonWrapper>
             )}
 
             <MoreIcon />
@@ -227,6 +299,8 @@ function Sprint({
                   sprintId={sprintId}
                   boardId={boardId as string}
                   updateCardsAfterDelete={deleteCard}
+                  onUpdateCardStatus={updateStatusCard}
+                  updateCardAfterDrag={deleteCard}
                 />
               ))}
             </BacklogCardList>

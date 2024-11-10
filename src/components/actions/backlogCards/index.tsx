@@ -39,6 +39,7 @@ import { useParams } from "react-router-dom";
 import BacklogCard from "../../tools/backlogCard";
 import { CheckboxWrapper } from "../../tools/backlogCard/styles";
 import CheckboxRadixUi from "../../tools/checkboxRadixUI";
+import { ToolTip } from "../../tools/toolstip";
 
 type URLParams = {
   projectKey: string;
@@ -131,7 +132,13 @@ function BacklogCards() {
   function deleteCard(id: string) {
     setBacklogCards(backlogCards.filter((card) => card._id !== id));
   }
-
+  function updateStatusCard(id: string, status: number) {
+    setBacklogCards((prevBacklogCards) =>
+      prevBacklogCards.map((card) =>
+        card._id === id ? { ...card, status } : card
+      )
+    );
+  }
   useEffect(() => {
     if (!boardId) {
       setBacklogCards([]);
@@ -168,15 +175,36 @@ function BacklogCards() {
               <HeaderIssue>({backlogCards.length} issue)</HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
-              <HeaderStatus status={CardStatus.Backlog}>
-                {getStatusCount(CardStatus.Backlog)}
-              </HeaderStatus>
-              <HeaderStatus status={CardStatus.InProgress}>
-                {getStatusCount(CardStatus.InProgress)}
-              </HeaderStatus>
-              <HeaderStatus status={CardStatus.Done}>
-                {getStatusCount(CardStatus.Done)}
-              </HeaderStatus>
+              <ToolTip
+                trigger={
+                  <HeaderStatus status={CardStatus.Backlog}>
+                    {getStatusCount(CardStatus.Backlog)}
+                  </HeaderStatus>
+                }
+                content={` Not started ${getStatusCount(
+                  CardStatus.Backlog
+                )} of ${backlogCards.length} `}
+              ></ToolTip>
+              <ToolTip
+                trigger={
+                  <HeaderStatus status={CardStatus.InProgress}>
+                    {getStatusCount(CardStatus.InProgress)}
+                  </HeaderStatus>
+                }
+                content={`In progress ${getStatusCount(
+                  CardStatus.InProgress
+                )} of ${backlogCards.length} `}
+              ></ToolTip>
+              <ToolTip
+                trigger={
+                  <HeaderStatus status={CardStatus.Done}>
+                    {getStatusCount(CardStatus.Done)}
+                  </HeaderStatus>
+                }
+                content={`Completed ${getStatusCount(CardStatus.Done)} of ${
+                  backlogCards.length
+                } `}
+              ></ToolTip>
             </HeaderStatusWrapper>
             <HeaderButtonWrapper>
               <Modal
@@ -196,7 +224,9 @@ function BacklogCards() {
             <BacklogCardList ref={drop}>
               {backlogCards.map((backlogCard) => (
                 <BacklogCard
+                  onUpdateCardStatus={updateStatusCard}
                   updateCardsAfterDelete={deleteCard}
+                  updateCardAfterDrag={deleteCard}
                   boardId={boardId as string}
                   id={backlogCard._id}
                   cardKey={backlogCard.cardKey}

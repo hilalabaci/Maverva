@@ -2,31 +2,47 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import CardList from "../../../components/actions/card/card-list";
 import { Container } from "./styles";
-import { BoardType, CardType } from "../../../types";
+import { CardType, SprintType } from "../../../types";
 
 type ActiveSprintsProps = {
-  selectedBoard?: BoardType;
+  activeSprint?: SprintType;
+  boardId?: string | undefined;
+  filteredCards: CardType[];
   onUpdate: (card: CardType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void;
-  filteredCards: CardType[];
   cards: CardType[];
   projectKey?: string;
 };
-
-function ActiveSprints({
-  selectedBoard,
+function ActiveSprint({
+  activeSprint,
+  boardId,
+  filteredCards,
   onUpdate,
   onDelete,
   addedCard,
-  filteredCards,
-  cards,
   projectKey,
 }: ActiveSprintsProps) {
   return (
     <Container>
-      {selectedBoard ? (
+      {activeSprint ? (
         <DndProvider backend={HTML5Backend}>
+          <CardList
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+            addedCard={addedCard}
+            title="BACKLOG"
+            numberOfFilteredCards={
+              filteredCards.filter((card) => card.status === 0).length
+            }
+            numberOfCards={
+              filteredCards.filter((card) => card.status === 0).length
+            }
+            projectKey={projectKey as string}
+            cards={filteredCards.filter((card) => card.status === 0)}
+            status={0}
+            boardId={boardId}
+          />
           <CardList
             onUpdate={onUpdate}
             onDelete={onDelete}
@@ -35,11 +51,13 @@ function ActiveSprints({
             numberOfFilteredCards={
               filteredCards.filter((card) => card.status === 1).length
             }
-            numberOfCards={cards.filter((card) => card.status === 1).length}
+            numberOfCards={
+              filteredCards.filter((card) => card.status === 1).length
+            }
             projectKey={projectKey as string}
             cards={filteredCards.filter((card) => card.status === 1)}
             status={1}
-            boardId={selectedBoard._id}
+            boardId={boardId}
           />
           <CardList
             onUpdate={onUpdate}
@@ -49,11 +67,13 @@ function ActiveSprints({
             numberOfFilteredCards={
               filteredCards.filter((card) => card.status === 2).length
             }
-            numberOfCards={cards.filter((card) => card.status === 2).length}
+            numberOfCards={
+              activeSprint.cardIds.filter((card) => card.status === 2).length
+            }
             projectKey={projectKey as string}
             cards={filteredCards.filter((card) => card.status === 2)}
             status={2}
-            boardId={selectedBoard._id}
+            boardId={boardId}
           />
           <CardList
             onUpdate={onUpdate}
@@ -61,17 +81,19 @@ function ActiveSprints({
             addedCard={addedCard}
             title="DONE"
             numberOfFilteredCards={
-              filteredCards.filter((card) => card.status === 3).length
+              activeSprint.cardIds.filter((card) => card.status === 3).length
             }
-            numberOfCards={cards.filter((card) => card.status === 3).length}
+            numberOfCards={
+              activeSprint.cardIds.filter((card) => card.status === 3).length
+            }
             projectKey={projectKey as string}
             cards={filteredCards.filter((card) => card.status === 3)}
             status={3}
-            boardId={selectedBoard._id}
+            boardId={boardId}
           />
         </DndProvider>
       ) : undefined}
     </Container>
   );
 }
-export default ActiveSprints;
+export default ActiveSprint;
