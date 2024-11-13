@@ -78,7 +78,7 @@ function TopMenu(props: TopMenuPropsType) {
   async function loadUsers() {
     const boardId = props.boardId;
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "users?boardId=" + boardId,
+      process.env.REACT_APP_API_URL + "board/users?boardId=" + boardId,
       {
         method: "GET",
         headers: {

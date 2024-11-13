@@ -4,7 +4,7 @@ type NumberOfCardsPropsType = {
   numberOfCards: number;
 };
 
-function numberOfCards(props: NumberOfCardsPropsType) {
+function NumberOfCards(props: NumberOfCardsPropsType) {
   return <Container>{props.numberOfCards}</Container>;
 }
-export default numberOfCards;
+export default NumberOfCards;

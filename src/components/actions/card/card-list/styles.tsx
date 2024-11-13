@@ -7,35 +7,20 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 export const Container = styled.div`
-  width: 250px;
-  padding: 10px 20px;
-  background-color: ${(props) => props.theme.projectColour};
-  border-radius: 5px;
-  margin-right: 40px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
   @media only screen and (max-width: 768px) {
     width: 200px;
     border-radius: 15px;
     padding: 15px;
   }
 `;
-export const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-export const Title = styled.h1`
-  font-style: normal;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 29px;
-  color: ${(props) => props.theme.fontColour};
-  display: inline-block;
-  @media only screen and (max-width: 768px) {
-    font-size: 15px;
-  }
-`;
+
 export const CardWrapper = styled.div`
   overflow: scroll;
-  max-height: 480px;
+  min-height: 100%;
   margin-top: 20px;
   display: flex;
   flex-direction: column;

@@ -9,7 +9,6 @@ import { Main, MainContainer } from "./styles";
 import Backlog from "../contents/backlog";
 import Scroll from "../../components/tools/scroll";
 import ActiveSprint from "../contents/active-sprint";
-import { useApplicationContext } from "../../contexts/ApplicationContext";
 
 type URLParams = {
   projectKey: string;
@@ -148,7 +147,7 @@ function DynamicContentLoader() {
                 )}
               </Main>
             }
-            scrollHeight="500px"
+            scrollHeight="450px"
           ></Scroll>
         </MainContainer>
       </MainContainerLayout>

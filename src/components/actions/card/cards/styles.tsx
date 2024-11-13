@@ -54,7 +54,8 @@ export const NoteWrapper = styled.div`
     "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
   font-size: 14px;
-  line-height: 24px;
+  max-height: 40px;
+  line-height: 21px;
   letter-spacing: 0.065em;
   color: ${(props) => props.theme.memberMenuFontColor};
   resize: none;

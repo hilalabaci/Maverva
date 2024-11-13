@@ -21,6 +21,13 @@ export type BoardType = {
   userId: UserType;
   projectKeys: ProjectType[];
 };
+export type ColumnType = {
+  _id: string;
+  title: string;
+  status: number;
+  boardId: BoardType[];
+  cardIds: CardType[];
+};
 export type SprintType = {
   _id: string;
   name: string;

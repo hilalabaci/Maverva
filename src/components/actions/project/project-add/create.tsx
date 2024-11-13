@@ -37,6 +37,7 @@ type CreateProjectResponse = {
   project: ProjectType;
 };
 
+const WS_URL = process.env.REACT_APP_WS_URL;
 function ProjectCreate(props: ProjectCreatePropsType) {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectKey, setProjectKey] = useState("");
@@ -45,13 +46,14 @@ function ProjectCreate(props: ProjectCreatePropsType) {
   const [boardTitle, setBoardTitle] = useState("");
 
   useEffect(() => {
-    const websocket = new WebSocket("ws://localhost:8080");
+    const websocket = new WebSocket(`${WS_URL}ws/project`);
     setWs(websocket);
     websocket.onopen = () => {
       console.log("WebSocket Connected");
     };
 
     websocket.onmessage = (event) => {
+      console.log(event);
       const data = JSON.parse(event.data);
       if (data.projectKey) {
         setProjectKey(data.projectKey);

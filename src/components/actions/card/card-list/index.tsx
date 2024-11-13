@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Card from "../cards/Card";
-import NumberOfCards from "../number-cards";
 import AddCard from "../add-a-card/AddCard";
 import { useDrop } from "react-dnd";
 import { CardType, DragItem } from "../../../../types";
@@ -8,8 +7,6 @@ import apiHelper from "../../../../api/apiHelper";
 import {
   CardWrapper,
   Container,
-  Title,
-  TitleWrapper,
   AddCardButtonWrapper,
   AddCardButton,
   IconAdd,
@@ -17,8 +14,6 @@ import {
 
 interface CardListProps {
   title: string;
-  numberOfCards: number;
-  numberOfFilteredCards: number;
   cards: CardType[];
   status: number;
   projectKey: string;
@@ -55,13 +50,6 @@ function CardList(props: CardListProps) {
 
   return (
     <Container ref={drop}>
-      <TitleWrapper>
-        <Title>{props.title}</Title>
-        <NumberOfCards
-          numberOfCards={props.numberOfCards}
-          numberOfFilteredCards={props.numberOfFilteredCards}
-        />
-      </TitleWrapper>
       <CardWrapper>
         {props.cards?.map((card, index) => (
           <Card

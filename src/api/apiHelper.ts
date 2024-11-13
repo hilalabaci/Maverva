@@ -1,4 +1,10 @@
-import { BoardType, CardType, ProjectType, SprintType } from "../types";
+import {
+  BoardType,
+  CardType,
+  ColumnType,
+  ProjectType,
+  SprintType,
+} from "../types";
 import {
   AddBoardRequest,
   AddBoardResponse,
@@ -32,6 +38,13 @@ class ApiHelper {
     return await this.baseCall("project/boards/add-user", {
       method: "POST",
       data: data,
+    });
+  }
+
+  async getColumns(boardId: string) {
+    return await this.baseCall<ColumnType[]>("column", {
+      method: "GET",
+      urlParams: new URLSearchParams({ boardId }),
     });
   }
   async addSprint(data: AddSprintRequest) {

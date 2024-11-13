@@ -1,8 +1,17 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import CardList from "../../../components/actions/card/card-list";
-import { Container } from "./styles";
-import { CardType, SprintType } from "../../../types";
+import { Container, TitleWrapper, Title, Wrapper } from "./styles";
+import { CardType, ColumnType, SprintType } from "../../../types";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import apiHelper from "../../../api/apiHelper";
+import NumberOfCards from "../../../components/actions/card/number-cards";
+import Scroll from "../../../components/tools/scroll";
+
+type URLParams = {
+  boardId?: string;
+};
 
 type ActiveSprintsProps = {
   activeSprint?: SprintType;
@@ -16,81 +25,69 @@ type ActiveSprintsProps = {
 };
 function ActiveSprint({
   activeSprint,
-  boardId,
   filteredCards,
   onUpdate,
   onDelete,
   addedCard,
   projectKey,
 }: ActiveSprintsProps) {
+  const { boardId } = useParams<URLParams>();
+  const [columns, setColumns] = useState<ColumnType[]>([]);
+
+  async function loadColumns() {
+    if (!boardId) {
+      console.log(`boardId not found ${boardId}`);
+      return;
+    }
+    try {
+      const { ok, data } = await apiHelper.getColumns(boardId);
+      if (ok && data) setColumns(data);
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
+  }
+  useEffect(() => {
+    if (boardId) {
+      loadColumns();
+    }
+  }, [boardId]);
+
   return (
     <Container>
       {activeSprint ? (
         <DndProvider backend={HTML5Backend}>
-          <CardList
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-            addedCard={addedCard}
-            title="BACKLOG"
-            numberOfFilteredCards={
-              filteredCards.filter((card) => card.status === 0).length
-            }
-            numberOfCards={
-              filteredCards.filter((card) => card.status === 0).length
-            }
-            projectKey={projectKey as string}
-            cards={filteredCards.filter((card) => card.status === 0)}
-            status={0}
-            boardId={boardId}
-          />
-          <CardList
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-            addedCard={addedCard}
-            title="TO DO"
-            numberOfFilteredCards={
-              filteredCards.filter((card) => card.status === 1).length
-            }
-            numberOfCards={
-              filteredCards.filter((card) => card.status === 1).length
-            }
-            projectKey={projectKey as string}
-            cards={filteredCards.filter((card) => card.status === 1)}
-            status={1}
-            boardId={boardId}
-          />
-          <CardList
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-            addedCard={addedCard}
-            title="IN PROGRESS"
-            numberOfFilteredCards={
-              filteredCards.filter((card) => card.status === 2).length
-            }
-            numberOfCards={
-              activeSprint.cardIds.filter((card) => card.status === 2).length
-            }
-            projectKey={projectKey as string}
-            cards={filteredCards.filter((card) => card.status === 2)}
-            status={2}
-            boardId={boardId}
-          />
-          <CardList
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-            addedCard={addedCard}
-            title="DONE"
-            numberOfFilteredCards={
-              activeSprint.cardIds.filter((card) => card.status === 3).length
-            }
-            numberOfCards={
-              activeSprint.cardIds.filter((card) => card.status === 3).length
-            }
-            projectKey={projectKey as string}
-            cards={filteredCards.filter((card) => card.status === 3)}
-            status={3}
-            boardId={boardId}
-          />
+          {columns.map((column) => (
+            <Wrapper>
+              <TitleWrapper>
+                <Title>{column.title}</Title>
+                <NumberOfCards
+                  numberOfCards={
+                    filteredCards.filter(
+                      (card) => card.status === column.status
+                    ).length
+                  }
+                  numberOfFilteredCards={
+                    filteredCards.filter(
+                      (card) => card.status === column.status
+                    ).length
+                  }
+                />
+              </TitleWrapper>
+              <CardList
+                key={column._id}
+                onUpdate={onUpdate}
+                onDelete={onDelete}
+                addedCard={addedCard}
+                title={column.title}
+                projectKey={projectKey as string}
+                cards={filteredCards.filter(
+                  (card) => card.status === column.status
+                )}
+                status={column.status}
+                boardId={boardId}
+              />
+            </Wrapper>
+          ))}
         </DndProvider>
       ) : undefined}
     </Container>
