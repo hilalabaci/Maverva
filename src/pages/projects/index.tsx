@@ -192,7 +192,9 @@ function Projects(props: ProjectsPropsType) {
                         $fontWeight="600"
                         projectId={project._id}
                       />
-                      <LinkforProjects to={`/projects/${project.projectKey}`}>
+                      <LinkforProjects
+                        to={`/projects/${project.projectKey}/boards/6730e1a942a48b0120b3f870`}
+                      >
                         {project.title}
                       </LinkforProjects>
                     </DataProjectsName>

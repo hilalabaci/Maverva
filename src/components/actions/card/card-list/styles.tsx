@@ -47,7 +47,6 @@ export const AddCardButton = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  opacity: 0.5;
   &:hover {
     opacity: 1;
     background-color: ${(props) => props.theme.cardBGHover};

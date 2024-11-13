@@ -19,7 +19,6 @@ export const TitleWrapper = styled.div`
   position: sticky;
   top: 0;
   background-color: ${(props) => props.theme.projectColour};
-  z-index: 1;
 `;
 export const Title = styled.h1`
   font-style: normal;
