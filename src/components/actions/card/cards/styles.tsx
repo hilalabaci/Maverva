@@ -69,7 +69,9 @@ export const NoteWrapper = styled.div`
     overflow: scroll;
   }
 `;
-export const ButtomWrapper = styled.div``;
+export const ButtomWrapper = styled.div`
+  display: flex;
+`;
 export const CardButtomWrapper = styled.div`
   display: flex;
   justify-content: space-between;

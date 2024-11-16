@@ -1,21 +1,22 @@
 import styled from "styled-components";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
-export const Container = styled.div`
+export const Container = styled.form`
   background-color: ${(props) => props.theme.cardBG};
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   border-radius: 2px;
-  padding: 10px;
-  border: ${(props) => props.theme.activeBorder};;
+  border-radius: 3px;
+  padding: 8px 4px;
+  border: ${(props) => props.theme.activeBorder};
   @media only screen and (max-width: 768px) {
     border-radius: 15px;
     padding: 10px;
     height: 70px;
   }
 `;
-export const Textarea = styled.textarea`
+export const Textarea = styled.input`
   background-color: ${(props) => props.theme.cardBG};
   outline: none;
   border: none;
@@ -23,12 +24,18 @@ export const Textarea = styled.textarea`
   opacity: 0.7;
   text-align: left;
   resize: none;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px 5px;
+  &::placeholder {
+    color: ${(props) => props.theme.fontColour};
+    font-size: 14px;
+  }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
 `;
-export const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.form`
   display: flex;
   justify-content: flex-end;
   align-items: center;

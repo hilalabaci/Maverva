@@ -9,6 +9,7 @@ import {
   AddBoardRequest,
   AddBoardResponse,
   AddCardRequest,
+  AddColumnRequest,
   AddSprintRequest,
   AddUserToBoardRequest,
   ApiCallOptions,
@@ -45,6 +46,12 @@ class ApiHelper {
     return await this.baseCall<ColumnType[]>("column", {
       method: "GET",
       urlParams: new URLSearchParams({ boardId }),
+    });
+  }
+  async addColumn(data: AddColumnRequest) {
+    return await this.baseCall("column", {
+      method: "POST",
+      data,
     });
   }
   async addSprint(data: AddSprintRequest) {

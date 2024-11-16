@@ -15,6 +15,7 @@ type AddCardPropsType = {
   onClose: () => void;
   addedCard: (card: CardType) => void;
   boardId?: string;
+  sprintId: string;
 };
 
 function AddCard(props: AddCardPropsType) {
@@ -32,6 +33,7 @@ function AddCard(props: AddCardPropsType) {
         projectKey: props.projectKey,
         status: props.status,
         boardId: props.boardId,
+        sprintId: props.sprintId,
       };
 
       const { ok, data } = await apiHelper.addCard(cardData);
@@ -45,22 +47,22 @@ function AddCard(props: AddCardPropsType) {
     }
   }
   return (
-    <Container>
-      <ButtonWrapper>
-        <CloseIcon onClick={props.onClose} />
-      </ButtonWrapper>
+    <Container
+      onSubmit={(e) => {
+        e.preventDefault();
+        submitNote();
+        setInterval(() => {
+          props.onClose();
+        }, 1000);
+      }}
+    >
       <Textarea
         name="addCardArea"
         value={content}
         onChange={(e) => handleChange(e.target.value)}
         id="w3review"
         placeholder="What needs to be done?"
-        rows={2}
-        cols={50}
       ></Textarea>
-      <ButtonWrapper>
-        <Button onClick={submitNote}>Create</Button>
-      </ButtonWrapper>
     </Container>
   );
 }

@@ -29,11 +29,12 @@ export const NextButton = styled.button`
   background-color: #0c66e4;
   outline: none;
   border: none;
-  border-radius: 2px;
+  border-radius: 3px;
   color: white;
   margin-right: 7px;
+  cursor: pointer;
   &:hover {
-     background-color: ${(props) => props.theme.submitButtonHover};
+    background-color: ${(props) => props.theme.submitButtonHover};
   }
 `;
 export const BackButton = styled.button`
@@ -54,9 +55,10 @@ export const CancelButton = styled.button`
   outline: none;
   font-size: 14px;
   padding: 9px;
-  border-radius: 2px;
+  border-radius: 3px;
   padding: 9px;
   margin: 0 20px 0 0;
+  cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.modalInputBg};
   }

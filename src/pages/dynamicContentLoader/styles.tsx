@@ -33,11 +33,7 @@ export const Menu = styled.div<MenuPropsType>`
   width: ${(props) => (props.$hidden ? "50px" : "")};
 `;
 export const Main = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  margin-right: 40px;
 `;
 export const MainContainer = styled.div`
   flex: 1;

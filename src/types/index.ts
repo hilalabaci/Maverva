@@ -83,5 +83,5 @@ export enum CardStatus {
   Backlog = 0,
   ToDo = 1,
   InProgress = 2,
-  Done = 3,
+  Done = 99,
 }

@@ -43,3 +43,7 @@ export type AddSprintRequest = {
   boardId: string | BoardType | undefined;
   userId: string | UserType | undefined;
 };
+export type AddColumnRequest = {
+  title: string;
+  boardId: string | BoardType | undefined;
+};

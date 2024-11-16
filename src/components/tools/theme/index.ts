@@ -58,7 +58,7 @@ export const lightTheme = {
   searchPlaceHolderFontColour: "#616f86",
   searchInputBgHover: "#f7f8f9",
   searchOutlineColour: "2px solid #3e8bf8",
-  activeBorder: "2px solid rgba(143,180,230,255)",
+  activeBorder: "2px solid #388bff",
   modalBg: "#fff",
   modalInputBg: "rgb(244, 245, 247)",
   borderforModal: "1px solid rgba(221,223,228,255)",

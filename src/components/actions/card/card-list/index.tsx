@@ -11,6 +11,7 @@ import {
   AddCardButton,
   IconAdd,
 } from "./styles";
+import useOutsideClick from "../../../../hooks/useOutsideClick";
 
 interface CardListProps {
   title: string;
@@ -18,6 +19,7 @@ interface CardListProps {
   status: number;
   projectKey: string;
   boardId?: string;
+  sprintId: string;
   onUpdate: (card: CardType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void;
@@ -25,6 +27,7 @@ interface CardListProps {
 
 function CardList(props: CardListProps) {
   const [showAdd, setShowAdd] = useState(false);
+  const ref = useOutsideClick<HTMLDivElement>(closeAddCard);
   function dynamicAddCard() {
     setShowAdd(true);
   }
@@ -66,7 +69,7 @@ function CardList(props: CardListProps) {
           />
         ))}
       </CardWrapper>
-      <AddCardButtonWrapper>
+      <AddCardButtonWrapper ref={ref}>
         {showAdd ? (
           <AddCard
             addedCard={props.addedCard}
@@ -74,6 +77,7 @@ function CardList(props: CardListProps) {
             onClose={closeAddCard}
             status={props.status}
             boardId={props.boardId}
+            sprintId={props.sprintId}
           />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">

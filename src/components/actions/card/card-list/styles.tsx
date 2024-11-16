@@ -6,40 +6,13 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 `;
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-
-  @media only screen and (max-width: 768px) {
-    width: 200px;
-    border-radius: 15px;
-    padding: 15px;
-  }
-`;
-
-export const CardWrapper = styled.div`
-  overflow: scroll;
-  min-height: 100%;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  -webkit-overflow-scrolling: touch;
-  @media only screen and (max-width: 768px) {
-    margin-top: 10px;
-  }
-`;
-export const AddCardButtonWrapper = styled.div`
-  margin-top: 15px;
-`;
 export const AddCardButton = styled.button`
   background-color: ${(props) => props.theme.projectColour};
-  width: 259px;
-  height: 45px;
+  width: 100%;
+  height: 35px;
   outline: none;
   border: none;
-  border-radius: 2px;
+  border-radius: 3px;
   font-size: 14px;
   font-weight: 500;
   color: ${(props) => props.theme.fontColour};
@@ -47,11 +20,11 @@ export const AddCardButton = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  opacity: 0;
   &:hover {
-    opacity: 1;
     background-color: ${(props) => props.theme.cardBGHover};
-    color: ${(props) => props.theme.memberMenuFontColor};
   }
+
   @media only screen and (max-width: 768px) {
     width: fit-content;
     height: fit-content;
@@ -66,3 +39,32 @@ export const IconAdd = styled(AddIcon)`
     font-size: 10px !important;
   }
 `;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  height: 100%;
+  min-width: 150px;
+  gap: 5px;
+  &:hover ${AddCardButton} {
+    opacity: 1;
+    color: ${(props) => props.theme.memberMenuFontColor};
+  }
+  @media only screen and (max-width: 768px) {
+    width: 200px;
+    border-radius: 15px;
+    padding: 15px;
+  }
+`;
+
+export const CardWrapper = styled.div`
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  -webkit-overflow-scrolling: touch;
+  @media only screen and (max-width: 768px) {
+    margin-top: 10px;
+  }
+`;
+export const AddCardButtonWrapper = styled.div``;
