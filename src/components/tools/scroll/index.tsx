@@ -1,4 +1,3 @@
-import * as ScrollArea from "@radix-ui/react-scroll-area";
 import { ReactNode } from "react";
 import {
   ScrollAreaCorner,
@@ -10,18 +9,19 @@ import {
 
 type ScrollProps = {
   children: ReactNode;
-  scrollHeight: string;
+  scrollHeight?: string;
+  scrollWidth?: string;
 };
 
-const Scroll = ({ children, scrollHeight }: ScrollProps) => {
+const Scroll = ({ children, scrollHeight, scrollWidth }: ScrollProps) => {
   return (
-    <ScrollAreaRoot scrollHeight={scrollHeight}>
+    <ScrollAreaRoot scrollHeight={scrollHeight} scrollWidth={scrollWidth}>
       <ScrollAreaViewport>{children}</ScrollAreaViewport>
-      {/* <ScrollAreaScrollbar orientation="horizontal">
-        <ScrollAreaThumb />
-      </ScrollAreaScrollbar> */}
+      <ScrollAreaScrollbar orientation="horizontal">
+        <ScrollAreaThumb orientation="horizontal" />
+      </ScrollAreaScrollbar>
       <ScrollAreaScrollbar orientation="vertical">
-        <ScrollAreaThumb />
+        <ScrollAreaThumb orientation="vertical" />
       </ScrollAreaScrollbar>
       <ScrollAreaCorner />
     </ScrollAreaRoot>

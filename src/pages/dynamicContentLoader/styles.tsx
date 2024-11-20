@@ -32,8 +32,14 @@ export const Menu = styled.div<MenuPropsType>`
   display: flex;
   width: ${(props) => (props.$hidden ? "50px" : "")};
 `;
-export const Main = styled.div`
+export const Main = styled.div``;
+export const ActiveSprintWrapper = styled.div`
+  margin-right: 100px;
+  margin-bottom: 100px;
+`;
+export const BacklogWrapper = styled.div`
   margin-right: 40px;
+
 `;
 export const MainContainer = styled.div`
   flex: 1;

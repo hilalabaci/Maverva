@@ -38,10 +38,9 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   color: #182a4e;
   text-transform: uppercase;
   font-weight: ${(props) => props.$fontWeight};
-
   @media only screen and (max-width: 768px) {
-    width: 25px;
-    height: 25px;
+    width: 5px;
+    height: 5px;
     font-size: 10px;
   }
 `;

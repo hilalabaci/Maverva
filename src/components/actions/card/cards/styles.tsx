@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
+//--ds-shadow-raised:  0px 1px 1px #091E4240, 0px 0px 1px #091E424F;
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -27,7 +28,13 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 5px 10px;
   border-radius: 3px;
-  box-shadow: var(--ds-shadow-raised, 0 1px 1px #172b4d33, 0 0 1px #172b4d33);
+  /* box-shadow: 0px 1px 1px #091e4240, 0px 0px 1px #091e424f, 0 1px 1px #172b4d00,
+    0 0 1px #172b4d33;
+  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
+    0 1px 1px #172b4d00, 0 0 1px #172b4d33; */
+  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
+    0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
+
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.cardBGHover};
@@ -45,6 +52,7 @@ export const Container = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 8px;
 `;
 export const NoteWrapper = styled.div`
   flex: 1;
@@ -78,7 +86,7 @@ export const CardButtomWrapper = styled.div`
   align-items: center;
 `;
 export const CardKeyWrapper = styled.div`
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
 `;
 

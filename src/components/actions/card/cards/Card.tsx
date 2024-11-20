@@ -173,7 +173,6 @@ function Card({
           content={`Assignee: ${userName}`}
         ></ToolTip>
       </CardButtomWrapper>
-      <ContentWrapper></ContentWrapper>
     </Container>
   );
 }

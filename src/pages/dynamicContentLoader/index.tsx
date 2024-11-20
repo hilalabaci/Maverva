@@ -5,7 +5,12 @@ import Layout from "../templates/layout";
 import { useLocation, useParams } from "react-router-dom";
 import MainContainerLayout from "../templates/mainContainerLayout";
 import apiHelper from "../../api/apiHelper";
-import { Main, MainContainer } from "./styles";
+import {
+  ActiveSprintWrapper,
+  BacklogWrapper,
+  Main,
+  MainContainer,
+} from "./styles";
 import Backlog from "../contents/backlog";
 import Scroll from "../../components/tools/scroll";
 import ActiveSprint from "../contents/active-sprint";
@@ -132,22 +137,27 @@ function DynamicContentLoader() {
             children={
               <Main>
                 {location.pathname.includes("/backlog") ? (
-                  <Backlog />
+                  <BacklogWrapper>
+                    <Backlog />
+                  </BacklogWrapper>
                 ) : (
-                  <ActiveSprint
-                    activeSprint={activeSprint}
-                    boardId={activeSprint?.boardId as string | undefined}
-                    onUpdate={updateCard}
-                    onDelete={deleteCard}
-                    addedCard={addedCard}
-                    filteredCards={filteredCards}
-                    cards={filteredCards}
-                    projectKey={projectKey}
-                  />
+                  <ActiveSprintWrapper>
+                    <ActiveSprint
+                      activeSprint={activeSprint}
+                      boardId={activeSprint?.boardId as string | undefined}
+                      onUpdate={updateCard}
+                      onDelete={deleteCard}
+                      addedCard={addedCard}
+                      filteredCards={filteredCards}
+                      cards={filteredCards}
+                      projectKey={projectKey}
+                    />
+                  </ActiveSprintWrapper>
                 )}
               </Main>
             }
-            scrollHeight="450px"
+            scrollHeight="67vh"
+            scrollWidth="76.9vw"
           ></Scroll>
         </MainContainer>
       </MainContainerLayout>

@@ -4,14 +4,16 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 9fr 1fr;
-  gap: 7px;
+  grid-template-columns: 10fr 1fr;
+  gap: 57px;
 `;
 
 export const ColumnContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 7px;
+
 `;
 export const Wrapper = styled.div`
   display: flex;

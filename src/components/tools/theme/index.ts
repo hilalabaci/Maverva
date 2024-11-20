@@ -47,7 +47,7 @@ export const darkTheme = {
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
   projectColour: "rgba(247,248,249,255)",
-  cardBG: "#fff",
+  cardBG: "#ffffff",
   cardBGHover: "#e9ebee",
   fontColour: "rgb(66, 82, 110)",
   borderLineColour: "rgba(24, 27, 30, 0.1)",
