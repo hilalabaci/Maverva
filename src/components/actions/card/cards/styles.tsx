@@ -45,7 +45,7 @@ export const Container = styled.div`
   }
   @media only screen and (max-width: 768px) {
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 3px;
     height: 60px;
   }
 `;
@@ -88,6 +88,9 @@ export const CardButtomWrapper = styled.div`
 export const CardKeyWrapper = styled.div`
   font-size: 12px;
   font-weight: 600;
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
+  }
 `;
 
 export const ContainerUser = styled.div`
