@@ -18,7 +18,7 @@ export const LoginContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
-    font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 export const BrandContainer = styled.div`
@@ -34,7 +34,8 @@ export const BrandTitle = styled.h1`
   margin-right: 50px;
   letter-spacing: 1px;
   @media only screen and (max-width: 768px) {
-    font-size: 30px;
+    font-size: 20px;
+    margin-right: 0;
   }
 `;
 export const BrandIcon = styled.img`
