@@ -39,6 +39,7 @@ type ActiveSprintsProps = {
   addedCard: (card: CardType) => void;
   cards: CardType[];
   projectKey?: string;
+  updatedCardsAfterDeleteColumn: (cards: CardType[]) => void;
 };
 function ActiveSprint({
   activeSprint,
@@ -47,6 +48,7 @@ function ActiveSprint({
   onDelete,
   addedCard,
   projectKey,
+  updatedCardsAfterDeleteColumn,
 }: ActiveSprintsProps) {
   const { boardId } = useParams<URLParams>();
   const [columns, setColumns] = useState<ColumnType[]>([]);
@@ -73,17 +75,21 @@ function ActiveSprint({
     }
   }
 
-  async function DeleteColumn(columnId: string) {
-    if (columnId) {
-      console.log(`columnId not found ${columnId}`);
-      return;
-    }
+  async function deleteColumn(columnId: string) {
     try {
+      if (!columnId) {
+        console.log(`columnId not found ${columnId}`);
+        return;
+      }
+      console.log(columnId);
       const { ok, data } = await apiHelper.deleteColumn(columnId);
+
+      setColumns(columns.filter((c) => c._id !== columnId));
+      updatedCardsAfterDeleteColumn(data as CardType[]);
     } catch (error) {}
   }
 
-  async function SubmitColumn() {
+  async function submitColumn() {
     if (!boardId) {
       console.log(`boardId not found ${boardId}`);
       return;
@@ -117,7 +123,6 @@ function ActiveSprint({
                 <Wrapper>
                   <TitleWrapper>
                     <TitleTotalCardWrapper>
-                      {" "}
                       <Title>{column.title}</Title>
                       <NumberOfCards
                         numberOfCards={
@@ -136,7 +141,9 @@ function ActiveSprint({
                       trigger={<EditIcon onClick={openModal} />}
                       items={[
                         {
-                          action: () => {},
+                          action: () => {
+                            deleteColumn(column._id);
+                          },
                           label: "Delete",
                         },
                       ]}
@@ -166,7 +173,7 @@ function ActiveSprint({
           <AddColumnWrapper
             onSubmit={(e) => {
               e.preventDefault();
-              SubmitColumn();
+              submitColumn();
               setInterval(() => {
                 setDisplayCreateColumn(false);
               }, 1000);

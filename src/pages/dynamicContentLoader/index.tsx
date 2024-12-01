@@ -1,6 +1,12 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import TopMenu from "../../components/actions/top-menu";
-import { ProjectType, CardType, BoardType, SprintType } from "../../types";
+import {
+  ProjectType,
+  CardType,
+  BoardType,
+  SprintType,
+  CardStatus,
+} from "../../types";
 import Layout from "../templates/layout";
 import { useLocation, useParams } from "react-router-dom";
 import MainContainerLayout from "../templates/mainContainerLayout";
@@ -104,6 +110,19 @@ function DynamicContentLoader() {
     if (!cards) return;
     setCards([...cards, card]);
   }
+  function updatedCardsAfterDeleteColumn(updateCards: CardType[]) {
+    if (!cards) return;
+    const updatedCards = updateCards.map((card) => ({
+      ...card,
+      status: CardStatus.Backlog,
+    }));
+
+    const updatedCardIds = updatedCards.map((card) => card._id);
+    const remainingCards = cards.filter(
+      (card) => !updatedCardIds.includes(card._id)
+    );
+    setCards([...updatedCards, ...remainingCards]);
+  }
 
   return (
     <Layout onProjectCrate={(project) => {}}>
@@ -151,6 +170,9 @@ function DynamicContentLoader() {
                       filteredCards={filteredCards}
                       cards={filteredCards}
                       projectKey={projectKey}
+                      updatedCardsAfterDeleteColumn={
+                        updatedCardsAfterDeleteColumn
+                      }
                     />
                   </ActiveSprintWrapper>
                 )}

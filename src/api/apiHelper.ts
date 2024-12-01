@@ -68,6 +68,12 @@ class ApiHelper {
       data,
     });
   }
+  async deleteColumn(columnId: string) {
+    return await this.baseCall("column", {
+      method: "DELETE",
+      urlParams: new URLSearchParams({ columnId }),
+    });
+  }
   async addSprint(data: AddSprintRequest) {
     return await this.baseCall("sprint", {
       method: "POST",
@@ -135,13 +141,6 @@ class ApiHelper {
     return await this.baseCall<CardType>("card", {
       method: "PUT",
       data: { cardId, status, newSprintId, oldSprintId, boardId },
-    });
-  }
-
-  async deleteColumn(columnId: string) {
-    return await this.baseCall("deleteColumn", {
-      method: "DELETE",
-      urlParams: new URLSearchParams({ columnId }),
     });
   }
 
