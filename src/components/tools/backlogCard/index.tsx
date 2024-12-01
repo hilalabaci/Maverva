@@ -175,19 +175,19 @@ function BacklogCard({
             subItems: [
               {
                 action: () => {
-                  updateCard(id, 1);
+                  updateCard(id, CardStatus.ToDo);
                 },
                 label: "To Do",
               },
               {
                 action: () => {
-                  updateCard(id, 2);
+                  updateCard(id, CardStatus.InProgress);
                 },
                 label: "In progress",
               },
               {
                 action: () => {
-                  updateCard(id, 3);
+                  updateCard(id, CardStatus.Done);
                 },
                 label: "Done",
               },

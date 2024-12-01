@@ -16,6 +16,7 @@ import {
 } from "./styles";
 import { useDrag } from "react-dnd";
 import {
+  CardStatus,
   CardType,
   DragDropCollect,
   DragItem,
@@ -119,19 +120,19 @@ function Card({
               subItems: [
                 {
                   action: () => {
-                    updateStatus(id, 1);
+                    updateStatus(id, CardStatus.ToDo);
                   },
                   label: "To Do",
                 },
                 {
                   action: () => {
-                    updateStatus(id, 2);
+                    updateStatus(id, CardStatus.InProgress);
                   },
                   label: "In progress",
                 },
                 {
                   action: () => {
-                    updateStatus(id, 3);
+                    updateStatus(id, CardStatus.Done);
                   },
                   label: "Done",
                 },

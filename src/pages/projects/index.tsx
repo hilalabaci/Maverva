@@ -104,7 +104,7 @@ function Projects(props: ProjectsPropsType) {
       project.title.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilteredProject(filtered);
-  }, [searchInput, projects]);
+  }, [searchInput, projects, addProject]);
 
   function openModal(project: ProjectType) {
     setShowModalforDeleteProject(true);

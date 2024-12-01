@@ -38,18 +38,17 @@ export const ContentWrapper = styled.div`
   justify-items: stretch;
 `;
 export const Content = styled.div`
-  justify-self: start;
-  align-self: center;
+  max-width: 570px;
   justify-items: stretch;
   font-size: 14px;
   display: flex;
+  align-items: center;
   color: ${(props) => props.theme.memberMenuFontColor};
   &:hover {
     text-decoration: underline;
   }
 `;
 export const ContentText = styled.div`
-  max-width: 600px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -60,8 +59,9 @@ export const IconEdit = styled(EditIcon)`
   justify-self: center;
   align-self: center;
   align-content: center;
-  padding-left: 10px;
+  padding: 5px 10px;
   font-size: 14px !important;
+  margin: 0 5px;
   opacity: 0;
   border-radius: 3px;
   background-color: ${(props) => props.theme.IconEditBg};

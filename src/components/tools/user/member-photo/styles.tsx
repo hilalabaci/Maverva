@@ -34,7 +34,6 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   border: ${(props) => props.$userBorder};
   //background: linear-gradient(135deg, #71b7e6, #9b59b6);
   background-color: #de835d;
-  position: relative;
   color: #182a4e;
   text-transform: uppercase;
   font-weight: ${(props) => props.$fontWeight};

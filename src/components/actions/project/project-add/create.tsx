@@ -24,6 +24,7 @@ import MemberPhoto from "../../../tools/user/member-photo";
 import { CancelButton } from "../../addPerson/styles";
 import { ProjectType } from "../../../../types";
 import { BackButton } from "../../board/optional/styles";
+import apiHelper from "../../../../api/apiHelper";
 type ProjectCreatePropsType = {
   onCreate: (project: ProjectType) => void;
   onClose: () => void;
@@ -36,61 +37,47 @@ type CreateProjectResponse = {
   message: string;
   project: ProjectType;
 };
+let debounceTimer: NodeJS.Timeout | undefined;
 
-const WS_URL = process.env.REACT_APP_WS_URL;
 function ProjectCreate(props: ProjectCreatePropsType) {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectKey, setProjectKey] = useState("");
-  const [ws, setWs] = useState<WebSocket | null>(null);
   const { user } = useUserContext();
   const [boardTitle, setBoardTitle] = useState("");
 
-  useEffect(() => {
-    const websocket = new WebSocket(`${WS_URL}ws/project`);
-    setWs(websocket);
-    websocket.onopen = () => {
-      console.log("WebSocket Connected");
-    };
+  async function createProjectKey(title: string) {
+    const response = await apiHelper.createProjectKey(title);
+    if (response.ok && response.data) {
+      setProjectKey(response.data);
+    } else {
+      console.error("Failed to creating project key:", response);
+    }
+  }
+  useEffect(() => {}, [projectTitle, projectKey]);
 
-    websocket.onmessage = (event) => {
-      console.log(event);
-      const data = JSON.parse(event.data);
-      if (data.projectKey) {
-        setProjectKey(data.projectKey);
-      }
-    };
-
-    return () => {
-      websocket.close();
-    };
-  }, []);
   function handleChange(value: string) {
     setProjectTitle(value);
-    ws?.send(JSON.stringify({ title: value }));
+    if (debounceTimer) clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      createProjectKey(value);
+    }, 300);
   }
   function handleChangeforBoard(value: string) {
     setBoardTitle(value);
-    // ws?.send(JSON.stringify({ title: value }));
   }
   async function onSubmit() {
-    const projectData = {
-      title: projectTitle,
-      leadUser: user,
-      projectKey: projectKey,
-      boardTitle: boardTitle,
-    };
-    const response = await fetch(process.env.REACT_APP_API_URL + "project", {
-      method: "POST",
-      body: JSON.stringify(projectData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      const data = (await response.json()) as CreateProjectResponse;
-      props.onCreate(data.project);
+    const response = await apiHelper.addProject(
+      projectTitle,
+      user,
+      projectKey,
+      boardTitle
+    );
+    console.log(projectTitle);
+    if (response.ok && response.data) {
+      props.onCreate(response.data.project);
       props.onClose();
+    } else {
+      console.error("Failed to creating project", response);
     }
   }
 

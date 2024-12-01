@@ -12,6 +12,10 @@ export const ScrollAreaRoot = styled(ScrollArea.Root)<ScrollAreaRootType>`
   overflow: hidden;
   box-shadow: 0 2px 10px var(--black-a4);
   --scrollbar-size: 10px;
+  @media only screen and (max-width: 1252px) {
+    height: "64vh";
+    width: "76.9vw";
+  }
 `;
 export const ScrollAreaViewport = styled(ScrollArea.Viewport)`
   width: 100%;

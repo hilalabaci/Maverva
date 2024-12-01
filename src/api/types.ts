@@ -1,9 +1,9 @@
-import { BoardType, UserType } from "../types";
+import { BoardType, ProjectType, UserType } from "../types";
 
 export type ApiCallOptions = {
   urlParams?: URLSearchParams;
   data?: object;
-  method: "GET" | "POST" | "PUT";
+  method: "GET" | "POST" | "PUT" | "DELETE";
 };
 
 export type ApiResponse<T> = {
@@ -12,10 +12,20 @@ export type ApiResponse<T> = {
   data?: T;
 };
 
+export type AddProjectRequest = {
+  title: string;
+  leadUser: string;
+  projectKey: string;
+  boardTitle?: string;
+};
+export type AddProjectResponse = {
+  message: string;
+  project: ProjectType;
+};
+
 export type AddBoardRequest = {
   title: string;
   userId: string;
-  projectKeys: string[];
 };
 
 export type AddBoardResponse = {

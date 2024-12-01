@@ -4,12 +4,14 @@ import {
   ColumnType,
   ProjectType,
   SprintType,
+  UserType,
 } from "../types";
 import {
   AddBoardRequest,
   AddBoardResponse,
   AddCardRequest,
   AddColumnRequest,
+  AddProjectResponse,
   AddSprintRequest,
   AddUserToBoardRequest,
   ApiCallOptions,
@@ -17,6 +19,18 @@ import {
 } from "./types";
 
 class ApiHelper {
+  async addProject(
+    title: string,
+    leadUser: UserType | undefined,
+    projectKey: string,
+    boardTitle: string
+  ) {
+    return await this.baseCall<AddProjectResponse>("project", {
+      method: "POST",
+      data: { title, leadUser, projectKey, boardTitle },
+    });
+  }
+
   async getSelectedProject(projectKey: string) {
     return await this.baseCall<ProjectType>(`projects/${projectKey}`, {
       method: "GET",
@@ -121,6 +135,20 @@ class ApiHelper {
     return await this.baseCall<CardType>("card", {
       method: "PUT",
       data: { cardId, status, newSprintId, oldSprintId, boardId },
+    });
+  }
+
+  async deleteColumn(columnId: string) {
+    return await this.baseCall("deleteColumn", {
+      method: "DELETE",
+      urlParams: new URLSearchParams({ columnId }),
+    });
+  }
+
+  async createProjectKey(title: string) {
+    return await this.baseCall<string>("createProjectKey", {
+      method: "GET",
+      urlParams: new URLSearchParams({ title }),
     });
   }
 

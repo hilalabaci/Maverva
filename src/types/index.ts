@@ -85,3 +85,4 @@ export enum CardStatus {
   InProgress = 2,
   Done = 99,
 }
+

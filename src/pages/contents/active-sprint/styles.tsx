@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
+import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 
 export const Container = styled.div`
   display: grid;
@@ -13,22 +14,46 @@ export const ColumnContainer = styled.div`
   grid-auto-flow: column;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 7px;
+`;
 
+export const EditIcon = styled(MoreHorizRoundedIcon)`
+  opacity: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px;
+  border-radius: 3px;
+  background-color: ${(props) => props.theme.IconEditBg};
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px !important;
+    opacity: 1;
+  }
 `;
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.projectColour};
+  &:hover ${EditIcon} {
+    opacity: 1;
+  }
 `;
 export const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: space-between;
   border-radius: 3px;
   max-height: max-content;
   position: sticky;
   top: 0;
   background-color: ${(props) => props.theme.projectColour};
+  margin-right: 10px;
+`;
+export const TitleTotalCardWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 `;
 export const Title = styled.h1`
   font-style: normal;

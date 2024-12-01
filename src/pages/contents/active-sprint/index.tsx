@@ -14,6 +14,8 @@ import {
   IconAdd,
   IconClose,
   CloseButton,
+  EditIcon,
+  TitleTotalCardWrapper,
 } from "./styles";
 import { CardType, ColumnType, SprintType } from "../../../types";
 import { useParams } from "react-router-dom";
@@ -22,7 +24,7 @@ import apiHelper from "../../../api/apiHelper";
 import NumberOfCards from "../../../components/actions/card/number-cards";
 import { ButtomWrapper } from "../../../components/actions/card/cards/styles";
 import { NextButton } from "../../../components/actions/board/optional/styles";
-import { CancelButton } from "../../../components/actions/addPerson/styles";
+import { DropdownMenu } from "../../../components/tools/dropdownMenu";
 
 type URLParams = {
   boardId?: string;
@@ -50,6 +52,10 @@ function ActiveSprint({
   const [columns, setColumns] = useState<ColumnType[]>([]);
   const [displayCreateColumn, setDisplayCreateColumn] = useState(false);
   const [title, setTitle] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  function openModal() {
+    setShowModal(true);
+  }
   function handleChange(value: string) {
     setTitle(value);
   }
@@ -65,6 +71,16 @@ function ActiveSprint({
     } catch (error) {
       console.error("Fetch error:", error);
     }
+  }
+
+  async function DeleteColumn(columnId: string) {
+    if (columnId) {
+      console.log(`columnId not found ${columnId}`);
+      return;
+    }
+    try {
+      const { ok, data } = await apiHelper.deleteColumn(columnId);
+    } catch (error) {}
   }
 
   async function SubmitColumn() {
@@ -100,18 +116,30 @@ function ActiveSprint({
               .map((column) => (
                 <Wrapper>
                   <TitleWrapper>
-                    <Title>{column.title}</Title>
-                    <NumberOfCards
-                      numberOfCards={
-                        filteredCards.filter(
-                          (card) => card.status === column.status
-                        ).length
-                      }
-                      numberOfFilteredCards={
-                        filteredCards.filter(
-                          (card) => card.status === column.status
-                        ).length
-                      }
+                    <TitleTotalCardWrapper>
+                      {" "}
+                      <Title>{column.title}</Title>
+                      <NumberOfCards
+                        numberOfCards={
+                          filteredCards.filter(
+                            (card) => card.status === column.status
+                          ).length
+                        }
+                        numberOfFilteredCards={
+                          filteredCards.filter(
+                            (card) => card.status === column.status
+                          ).length
+                        }
+                      />
+                    </TitleTotalCardWrapper>
+                    <DropdownMenu
+                      trigger={<EditIcon onClick={openModal} />}
+                      items={[
+                        {
+                          action: () => {},
+                          label: "Delete",
+                        },
+                      ]}
                     />
                   </TitleWrapper>
                   <CardList

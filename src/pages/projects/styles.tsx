@@ -15,6 +15,9 @@ export const Wrapper = styled.div`
   padding-inline: 40px;
   padding-top: 5px;
   gap: 10px;
+  @media only screen and (max-width: 768px) {
+    padding-inline: 0;
+  }
 `;
 export const HeaderAndCreateWrapper = styled.div``;
 export const HeaderWrapper = styled.div`
@@ -30,6 +33,9 @@ export const Header = styled.h1`
 export const SearchWrapper = styled.div``;
 export const DataContainer = styled.div`
   padding-top: 10px;
+  @media only screen and (max-width: 768px) {
+    padding-top: 0;
+  }
 `;
 export const Tables = styled.table`
   border-collapse: collapse;
@@ -48,12 +54,20 @@ export const Titles = styled.th`
 export const OrderIcon = styled(ArrowDownwardIcon)`
   width: 16px !important;
   height: 16px !important;
+  @media only screen and (max-width: 768px) {
+    width: 10px !important;
+    height: 10px !important;
+  }
 `;
 
 export const TableBody = styled.tbody``;
 export const IconWrapper = styled.th`
   padding-top: 12px;
   padding-bottom: 12px;
+  @media only screen and (max-width: 768px) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 `;
 export const DataWrapper = styled.tr`
   border-bottom: 3px solid #eeeff2;
