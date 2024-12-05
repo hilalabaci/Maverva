@@ -144,6 +144,13 @@ class ApiHelper {
     });
   }
 
+  async updateCardContent(cardId: string, newContent?: string) {
+    return await this.baseCall<CardType>("card/content", {
+      method: "PUT",
+      data: { cardId, newContent },
+    });
+  }
+
   async createProjectKey(title: string) {
     return await this.baseCall<string>("createProjectKey", {
       method: "GET",

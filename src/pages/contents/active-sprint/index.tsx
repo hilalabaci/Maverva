@@ -35,6 +35,7 @@ type ActiveSprintsProps = {
   boardId?: string | undefined;
   filteredCards: CardType[];
   onUpdate: (card: CardType) => void;
+  onUpdateContent: (card: CardType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void;
   cards: CardType[];
@@ -45,6 +46,7 @@ function ActiveSprint({
   activeSprint,
   filteredCards,
   onUpdate,
+  onUpdateContent,
   onDelete,
   addedCard,
   projectKey,
@@ -152,6 +154,7 @@ function ActiveSprint({
                   <CardList
                     key={column._id}
                     onUpdate={onUpdate}
+                    onUpdateContent={onUpdateContent}
                     onDelete={onDelete}
                     addedCard={addedCard}
                     title={column.title}

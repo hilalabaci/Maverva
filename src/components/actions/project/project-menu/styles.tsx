@@ -10,7 +10,7 @@ type CommonPropsType = {
 };
 export const Container = styled.div<CommonPropsType>`
   //display: ${(props) => (props.$hidden ? "none" : "flex")};
-  width: ${(props) => (props.$hidden ? "20px" : "300px")};
+  min-width: ${(props) => (props.$hidden ? "20px" : "240px")};
   height: 100vh;
   background-color: ${(props) => props.theme.BorderMenuBG};
   @media only screen and (max-width: 768px) {

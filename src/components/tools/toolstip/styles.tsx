@@ -1,9 +1,12 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 import styled from "styled-components";
-export const TooltipContent = styled(Tooltip.Content)`
+type TooltipContentType = {
+  fontSize?: string;
+};
+export const TooltipContent = styled(Tooltip.Content)<TooltipContentType>`
   border-radius: 3px;
   padding: 2px 4px;
-  font-size: 13px;
+  font-size: ${(props) => props.fontSize || "13px"};
   line-height: 1;
   color: ${(props) => props.theme.primary};
   background-color: ${(props) => props.theme.fontColour};
@@ -19,4 +22,7 @@ export const TooltipTrigger = styled(Tooltip.Trigger)`
   background-color: transparent;
   padding: 0;
   margin: 0;
+  height: fit-content;
+  text-align: left;
+
 `;

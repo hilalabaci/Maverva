@@ -21,6 +21,7 @@ interface CardListProps {
   boardId?: string;
   sprintId: string;
   onUpdate: (card: CardType) => void;
+  onUpdateContent: (card: CardType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: CardType) => void;
 }
@@ -50,6 +51,7 @@ function CardList(props: CardListProps) {
       updateStatus(item.id, props.status);
     },
   });
+  
 
   return (
     <Container ref={drop}>
@@ -57,6 +59,7 @@ function CardList(props: CardListProps) {
         {props.cards?.map((card, index) => (
           <Card
             onUpdate={props.onUpdate}
+            onUpdateContent={props.onUpdateContent}
             onDelete={props.onDelete}
             id={card._id}
             key={index}

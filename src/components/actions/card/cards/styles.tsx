@@ -1,17 +1,32 @@
 import styled, { createGlobalStyle } from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DoneIcon from "@mui/icons-material/Done";
 //--ds-shadow-raised:  0px 1px 1px #091E4240, 0px 0px 1px #091E424F;
 
 export const GlobalStyle = createGlobalStyle`
 
 `;
-export const EditIcon = styled(MoreHorizRoundedIcon)`
+
+type DisplayTextProps = {
+  displayEditText: boolean;
+};
+export const EditContentIcon = styled(ModeEditIcon)<DisplayTextProps>`
+  display: ${(props) => (props.displayEditText ? "none" : "inline")} !important;
   opacity: 0;
-  display: flex;
-  justify-content: flex-end;
-  padding: 4px;
-  border-radius: 3px;
-  background-color: ${(props) => props.theme.IconEditBg};
+  width: 0;
+  height: 0;
+  padding: 2px;
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+`;
+export const EditIcon = styled(MoreHorizRoundedIcon)<DisplayTextProps>`
+  display: ${(props) => (props.displayEditText ? "none" : "inline")} !important;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  padding: 1px !important;
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
@@ -21,13 +36,14 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<DisplayTextProps>`
   background-color: ${(props) => props.theme.cardBG};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5px 10px;
+  padding: 0.75rem;
   border-radius: 3px;
+  //max-width: 270px;
   /* box-shadow: 0px 1px 1px #091e4240, 0px 0px 1px #091e424f, 0 1px 1px #172b4d00,
     0 0 1px #172b4d33;
   box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
@@ -41,7 +57,21 @@ export const Container = styled.div`
     color: var(--ds-text, #172b4d);
   }
   &:hover ${EditIcon} {
+    display: ${(props) => (props.displayEditText ? "none" : "flex")} !important;
+    justify-content: flex-end;
+    padding: 1px !important;
+    border-radius: 3px !important;
+    background-color: ${(props) => props.theme.IconEditBg};
     opacity: 1;
+  }
+  &:hover ${EditContentIcon} {
+    display: ${(props) => (props.displayEditText ? "none" : "flex")} !important;
+    width: 17px !important;
+    height: 14px !important;
+    justify-content: flex-end;
+    border-radius: 3px;
+    opacity: 1;
+    padding: 2px;
   }
   @media only screen and (max-width: 768px) {
     padding: 15px;
@@ -49,33 +79,70 @@ export const Container = styled.div`
     height: 60px;
   }
 `;
-export const ContentWrapper = styled.div`
-  display: flex;
+export const ContentWrapper = styled.div<DisplayTextProps>`
+  display: ${(props) => (props.displayEditText ? "block" : "flex")} !important;
   justify-content: space-between;
-  margin-bottom: 8px;
+  padding-bottom: 8px;
+  gap: 5px;
 `;
 export const NoteWrapper = styled.div`
-  flex: 1;
   display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  @media only screen and (max-width: 768px) {
+    font-size: 10px;
+    overflow: scroll;
+  }
+`;
+export const Note = styled.div`
   font-style: normal;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  max-height: 40px;
-  line-height: 21px;
-  letter-spacing: 0.065em;
+  font-size: 13px;
+  line-height: 20px;
   color: ${(props) => props.theme.memberMenuFontColor};
   resize: none;
   outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: left;
-  cursor: pointer;
-  @media only screen and (max-width: 768px) {
-    font-size: 10px;
-    overflow: scroll;
-  }
+`;
+export const NoteEdit = styled.button`
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+`;
+export const EditWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+`;
+export const EditTextArea = styled.textarea`
+  resize: none;
+  outline: none;
+  border-radius: 3px;
+  border: ${(props) => props.theme.activeBorder};
+  width: 240px;
+  height: 50px;
+`;
+export const DoneButton = styled.button`
+cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  padding: 4px 5px;
+  background: white;
+  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
+    0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
+`;
+export const IconDone = styled(DoneIcon)`
+  font-size: 14px !important;
 `;
 export const ButtomWrapper = styled.div`
   display: flex;
@@ -86,7 +153,7 @@ export const CardButtomWrapper = styled.div`
   align-items: center;
 `;
 export const CardKeyWrapper = styled.div`
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   @media only screen and (max-width: 768px) {
     font-size: 10px;

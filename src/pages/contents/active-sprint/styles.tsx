@@ -6,14 +6,14 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 10fr 1fr;
-  gap: 57px;
+  gap: 10px;
 `;
 
 export const ColumnContainer = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 7px;
+  //grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
 `;
 
 export const EditIcon = styled(MoreHorizRoundedIcon)`
@@ -35,9 +35,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.projectColour};
-  &:hover ${EditIcon} {
-    opacity: 1;
-  }
+  min-width: 282px;
 `;
 export const TitleWrapper = styled.div`
   display: flex;
@@ -49,6 +47,9 @@ export const TitleWrapper = styled.div`
   top: 0;
   background-color: ${(props) => props.theme.projectColour};
   margin-right: 10px;
+  &:hover ${EditIcon} {
+    opacity: 1;
+  }
 `;
 export const TitleTotalCardWrapper = styled.div`
   display: flex;
@@ -104,7 +105,7 @@ export const IconWrapper = styled.button`
   }
 `;
 export const IconAdd = styled(AddIcon)`
-  font-size: 2rem !important;
+  font-size: 1.8 !important;
 `;
 export const ButtonWrapper = styled.div`
   gap: 5px;

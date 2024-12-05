@@ -76,7 +76,7 @@ export const TextareaForm = styled.textarea`
   justify-content: center;
   border-radius: 4px;
   font-size: 15px;
-  border: 1px solid ${(props) => props.theme.sideBarFontColour};
+  border: 1px solid ${(props) => props.theme.activeBorder};
   &:hover {
   }
   &:focus {

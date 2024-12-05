@@ -44,7 +44,6 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 5px;
   height: 100%;
-  min-width: 150px;
   gap: 5px;
   &:hover ${AddCardButton} {
     opacity: 1;

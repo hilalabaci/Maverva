@@ -92,6 +92,10 @@ function DynamicContentLoader() {
     setCards(newCards);
     /*    setCards([...cards.filter((card) => card._id !== id), card]); */
   }
+  function onUpdateContent(card: CardType) {
+    if (!cards) return;
+    loadActiveSprint();
+  }
 
   useEffect(() => {
     if (projectKey) {
@@ -165,6 +169,7 @@ function DynamicContentLoader() {
                       activeSprint={activeSprint}
                       boardId={activeSprint?.boardId as string | undefined}
                       onUpdate={updateCard}
+                      onUpdateContent={onUpdateContent}
                       onDelete={deleteCard}
                       addedCard={addedCard}
                       filteredCards={filteredCards}
@@ -179,7 +184,7 @@ function DynamicContentLoader() {
               </Main>
             }
             scrollHeight="64vh"
-            scrollWidth="74.9vw"
+            scrollWidth="79vw"
           ></Scroll>
         </MainContainer>
       </MainContainerLayout>

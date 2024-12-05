@@ -6,12 +6,14 @@ interface ToolTipProps {
   trigger: ReactNode;
   content: ReactNode;
   contentStyle?: { zIndex?: number };
+  fontSize?: string;
 }
 
 export const ToolTip: React.FC<ToolTipProps> = ({
   trigger,
   content,
   contentStyle,
+  fontSize,
 }) => {
   return (
     <Tooltip.Provider delayDuration={100}>
@@ -19,6 +21,7 @@ export const ToolTip: React.FC<ToolTipProps> = ({
         <TooltipTrigger>{trigger}</TooltipTrigger>
         <Tooltip.Portal>
           <TooltipContent
+            fontSize={fontSize}
             side="bottom"
             style={{ zIndex: contentStyle?.zIndex }}
             sideOffset={2}
