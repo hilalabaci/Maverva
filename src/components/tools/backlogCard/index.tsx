@@ -23,10 +23,16 @@ import {
   Status,
   MemberWrapper,
   MoreIcon,
+  NoteEdit,
+  EditWrapper,
+  EditTextArea,
+  DoneButton,
+  IconDone,
 } from "./styles";
 import { useState } from "react";
 import { DropdownMenu } from "../dropdownMenu";
 import apiHelper from "../../../api/apiHelper";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 
 type BacklogCardPropsType = {
   cardKey: string;
@@ -39,6 +45,7 @@ type BacklogCardPropsType = {
   updateCardsAfterDelete: (id: string) => void;
   onUpdateCardStatus: (id: string, status: number) => void;
   updateCardAfterDrag: (id: string) => void;
+  onUpdateContent: (card: CardType) => void;
 };
 
 function BacklogCard({
@@ -52,6 +59,7 @@ function BacklogCard({
   updateCardsAfterDelete,
   onUpdateCardStatus,
   updateCardAfterDrag,
+  onUpdateContent,
 }: BacklogCardPropsType) {
   const [{ isDragging }, drag] = useDrag<
     BacklogDragItems,
@@ -82,6 +90,9 @@ function BacklogCard({
     },
   });
   const [showModal, setShowModal] = useState(false);
+  const [editTextDisplay, setEditTextDisplay] = useState(false);
+  const [changeContent, setChangeContent] = useState(content);
+  const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
 
   function openModal() {
     setShowModal(true);
@@ -127,6 +138,16 @@ function BacklogCard({
     }
   }
 
+  async function updateCardContent(id: string, newContent: string) {
+    const response = await apiHelper.updateCardContent(id, newContent);
+    if (response.ok && response.data) {
+      onUpdateContent(response.data);
+      setEditTextDisplay(false);
+    } else {
+      console.error("Failed to update card:", response);
+    }
+  }
+
   return (
     <BacklogCardListItems role="button" ref={drag}>
       <CheckboxWrapper>
@@ -134,16 +155,35 @@ function BacklogCard({
       </CheckboxWrapper>
       <CardKey>{cardKey}</CardKey>
       <ContentWrapper>
-        <ToolTip
-          contentStyle={{ zIndex: 0 }}
-          trigger={
-            <Content>
-              <ContentText>{content}</ContentText>
-              <IconEdit />
-            </Content>
-          }
-          content={content}
-        ></ToolTip>
+        {editTextDisplay ? (
+          <EditWrapper ref={ref}>
+            <EditTextArea
+              value={changeContent}
+              onChange={(e) => setChangeContent(e.target.value)}
+            />
+            <DoneButton onClick={() => updateCardContent(id, changeContent)}>
+              <IconDone />
+            </DoneButton>
+          </EditWrapper>
+        ) : (
+          <ToolTip
+            contentStyle={{ zIndex: 0 }}
+            trigger={
+              <Content>
+                <ContentText>{content}</ContentText>
+                <ToolTip
+                  trigger={
+                    <NoteEdit onClick={() => setEditTextDisplay(true)}>
+                      <IconEdit />
+                    </NoteEdit>
+                  }
+                  content="Edit Summary"
+                ></ToolTip>
+              </Content>
+            }
+            content={content}
+          ></ToolTip>
+        )}
       </ContentWrapper>
       <Status status={status}>
         <SelectDemo

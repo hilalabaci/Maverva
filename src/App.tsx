@@ -15,7 +15,9 @@ import Projects from "./pages/projects";
 import { ProjectType } from "./types";
 import DynamicContentLoader from "./pages/dynamicContentLoader";
 import Backlog from "./pages/contents/backlog";
+import WelcomePage from "./pages/welcome-page";
 const router = createBrowserRouter([
+  { path: "/welcomePage", element: <WelcomePage /> },
   {
     path: "/",
     element: <PrivateRoute />,

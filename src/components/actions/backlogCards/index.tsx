@@ -139,6 +139,12 @@ function BacklogCards() {
       )
     );
   }
+  function onUpdateContent(card: CardType) {
+    if (!backlogCards) return;
+    loadBacklogCards();
+    setContent(card.content);
+  }
+
   useEffect(() => {
     if (!boardId) {
       setBacklogCards([]);
@@ -224,6 +230,7 @@ function BacklogCards() {
             <BacklogCardList ref={drop}>
               {backlogCards.map((backlogCard) => (
                 <BacklogCard
+                  onUpdateContent={onUpdateContent}
                   onUpdateCardStatus={updateStatusCard}
                   updateCardsAfterDelete={deleteCard}
                   updateCardAfterDrag={deleteCard}

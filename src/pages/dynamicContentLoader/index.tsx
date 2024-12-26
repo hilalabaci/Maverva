@@ -183,8 +183,8 @@ function DynamicContentLoader() {
                 )}
               </Main>
             }
-            scrollHeight="64vh"
-            scrollWidth="79vw"
+            scrollHeight="67vh"
+            scrollWidth="81vw"
           ></Scroll>
         </MainContainer>
       </MainContainerLayout>

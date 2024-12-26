@@ -2,6 +2,7 @@ import styled, { DefaultTheme } from "styled-components";
 import EditIcon from "@mui/icons-material/Edit";
 import { CardStatus } from "../../../types";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
+import DoneIcon from "@mui/icons-material/Done";
 
 export const BacklogCardListItems = styled.div`
   display: grid;
@@ -36,6 +37,7 @@ export const ContentWrapper = styled.div`
   justify-self: start;
   align-self: center;
   justify-items: stretch;
+  width: 100%;
 `;
 export const Content = styled.div`
   max-width: 570px;
@@ -53,6 +55,14 @@ export const ContentText = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 14px;
+`;
+
+export const NoteEdit = styled.button`
+  outline: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
 `;
 export const IconEdit = styled(EditIcon)`
   text-align: center;
@@ -138,4 +148,31 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
     font-size: 12px !important;
     opacity: 1;
   }
+`;
+export const EditWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  width: 100%;
+`;
+export const EditTextArea = styled.textarea`
+  resize: none;
+  outline: none;
+  border-radius: 3px;
+  border: ${(props) => props.theme.activeBorder};
+  width: 100%;
+`;
+export const DoneButton = styled.button`
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  padding: 4px 5px;
+  background: white;
+  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
+    0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
+`;
+export const IconDone = styled(DoneIcon)`
+  font-size: 14px !important;
 `;

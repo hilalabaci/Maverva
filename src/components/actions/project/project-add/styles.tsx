@@ -155,6 +155,7 @@ export const SubmitButton = styled.button<SubmitButtonStyledButton>`
   border: none;
   border-radius: 2px;
   transition: all 0.5s ease-out allow-discrete;
+  cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.submitButtonHover};
   }

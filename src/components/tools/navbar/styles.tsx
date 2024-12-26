@@ -40,8 +40,7 @@ export const Presentation = styled.div`
   gap: 10px;
 `;
 export const Projects = styled.a`
- text-decoration: none;
-
+  text-decoration: none;
 `;
 export const ProjectsButton = styled.button`
   display: flex;
@@ -67,6 +66,7 @@ export const ProjectsSpan = styled(KeyboardArrowDownIcon)`
 `;
 export const CreateWrapper = styled.div``;
 export const CreateButton = styled.button`
+  cursor: pointer;
   display: flex;
   align-items: center;
   border: none;
@@ -90,7 +90,6 @@ export const BrandContainer = styled.a`
   display: flex;
   align-items: center;
   text-align: center;
-  letter-spacing: 0.05em;
   font-style: normal;
   font-weight: 600;
   font-size: 18px;

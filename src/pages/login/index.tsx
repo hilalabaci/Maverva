@@ -111,7 +111,7 @@ function Login() {
       <GlobalStyle />
       <BrandContainer>
         <BrandIcon src="/icons/brand.png" alt="" />
-        <BrandTitle>PROCESS</BrandTitle>
+        <BrandTitle>Maverva</BrandTitle>
       </BrandContainer>
       <LoginContainer>
         <Form onSubmit={handleSubmit}>

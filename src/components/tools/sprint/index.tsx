@@ -193,6 +193,10 @@ function Sprint({
       }
     }
   }
+  function onUpdateContent(card: CardType) {
+    if (!sprintCards) return;
+    setContent(card.content);
+  }
 
   return (
     <Container key={sprintId} ref={drop}>
@@ -301,6 +305,7 @@ function Sprint({
                   updateCardsAfterDelete={deleteCard}
                   onUpdateCardStatus={updateStatusCard}
                   updateCardAfterDrag={deleteCard}
+                  onUpdateContent={onUpdateContent}
                 />
               ))}
             </BacklogCardList>

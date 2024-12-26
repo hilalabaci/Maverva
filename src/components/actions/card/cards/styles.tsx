@@ -11,21 +11,15 @@ export const GlobalStyle = createGlobalStyle`
 type DisplayTextProps = {
   displayEditText: boolean;
 };
-export const EditContentIcon = styled(ModeEditIcon)<DisplayTextProps>`
-  display: ${(props) => (props.displayEditText ? "none" : "inline")} !important;
+export const EditContentIcon = styled(ModeEditIcon)`
   opacity: 0;
-  width: 0;
-  height: 0;
   padding: 2px;
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
 `;
-export const EditIcon = styled(MoreHorizRoundedIcon)<DisplayTextProps>`
-  display: ${(props) => (props.displayEditText ? "none" : "inline")} !important;
+export const EditIcon = styled(MoreHorizRoundedIcon)`
   opacity: 0;
-  width: 0;
-  height: 0;
   padding: 1px !important;
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
@@ -36,7 +30,7 @@ export const EditIcon = styled(MoreHorizRoundedIcon)<DisplayTextProps>`
   }
 `;
 
-export const Container = styled.div<DisplayTextProps>`
+export const Container = styled.div`
   background-color: ${(props) => props.theme.cardBG};
   display: flex;
   flex-direction: column;
@@ -57,7 +51,6 @@ export const Container = styled.div<DisplayTextProps>`
     color: var(--ds-text, #172b4d);
   }
   &:hover ${EditIcon} {
-    display: ${(props) => (props.displayEditText ? "none" : "flex")} !important;
     justify-content: flex-end;
     padding: 1px !important;
     border-radius: 3px !important;
@@ -65,7 +58,6 @@ export const Container = styled.div<DisplayTextProps>`
     opacity: 1;
   }
   &:hover ${EditContentIcon} {
-    display: ${(props) => (props.displayEditText ? "none" : "flex")} !important;
     width: 17px !important;
     height: 14px !important;
     justify-content: flex-end;
@@ -79,8 +71,8 @@ export const Container = styled.div<DisplayTextProps>`
     height: 60px;
   }
 `;
-export const ContentWrapper = styled.div<DisplayTextProps>`
-  display: ${(props) => (props.displayEditText ? "block" : "flex")} !important;
+export const ContentWrapper = styled.div`
+  display: flex;
   justify-content: space-between;
   padding-bottom: 8px;
   gap: 5px;
@@ -102,7 +94,7 @@ export const Note = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 20px;
   color: ${(props) => props.theme.memberMenuFontColor};
   resize: none;
@@ -122,17 +114,18 @@ export const EditWrapper = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 3px;
+  width: 100%;
 `;
 export const EditTextArea = styled.textarea`
   resize: none;
   outline: none;
   border-radius: 3px;
   border: ${(props) => props.theme.activeBorder};
-  width: 240px;
-  height: 50px;
+  width: 100%;
+  font-size: 14px;
 `;
 export const DoneButton = styled.button`
-cursor: pointer;
+  cursor: pointer;
   outline: none;
   border: none;
   border-radius: 3px;

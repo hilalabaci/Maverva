@@ -146,7 +146,7 @@ function Register() {
       {
         <BrandContainer>
           <BrandIcon src="/icons/brand.png" alt="" />
-          <BrandTitle>PROCESS</BrandTitle>
+          <BrandTitle>Maverva</BrandTitle>
         </BrandContainer>
       }
       <RegisterContainer>

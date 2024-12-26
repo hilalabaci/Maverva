@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Label from "../card-label/index";
-import Modal from "../../../tools/modal";
-import EditCard from "../edit-card/index";
 import MemberPhoto from "../../../tools/user/member-photo";
 import {
   Container,
@@ -124,83 +122,80 @@ function Card({
   }
 
   return (
-    <Container ref={drag} displayEditText={editTextDisplay}>
+    <Container ref={drag}>
       <GlobalStyle />
-      <ContentWrapper displayEditText={editTextDisplay}>
+      <ContentWrapper>
         <NoteWrapper>
-          <ToolTip
-            contentStyle={{ zIndex: 0 }}
-            trigger={
-              editTextDisplay ? (
-                <EditWrapper ref={ref}>
-                  <EditTextArea
-                    value={changeContent}
-                    onChange={(e) => setChangeContent(e.target.value)}
-                  />
-                  <DoneButton
-                    onClick={() => updateCardContent(id, changeContent)}
-                  >
-                    <IconDone />
-                  </DoneButton>
-                </EditWrapper>
-              ) : (
-                <Note>{content}</Note>
-              )
-            }
-            content={content}
-          ></ToolTip>
-          <ToolTip
-            fontSize="10px"
-            trigger={
-              <NoteEdit onClick={() => setEditTextDisplay(true)}>
-                <EditContentIcon displayEditText={editTextDisplay} />
-              </NoteEdit>
-            }
-            content="Edit Summary"
-          ></ToolTip>
+          {editTextDisplay ? (
+            <EditWrapper ref={ref}>
+              <EditTextArea
+                value={changeContent}
+                onChange={(e) => setChangeContent(e.target.value)}
+              />
+              <DoneButton onClick={() => updateCardContent(id, changeContent)}>
+                <IconDone />
+              </DoneButton>
+            </EditWrapper>
+          ) : (
+            <ToolTip
+              contentStyle={{ zIndex: 0 }}
+              trigger={<Note>{content}</Note>}
+              content={content}
+            ></ToolTip>
+          )}
+          {!editTextDisplay && (
+            <ToolTip
+              fontSize="10px"
+              trigger={
+                <NoteEdit onClick={() => setEditTextDisplay(true)}>
+                  <EditContentIcon />
+                </NoteEdit>
+              }
+              content="Edit Summary"
+            ></ToolTip>
+          )}
         </NoteWrapper>
-
-        <DropdownMenu
-          trigger={
-            <EditIcon displayEditText={editTextDisplay} onClick={openModal} />
-          }
-          items={[
-            {
-              action: () => {},
-              label: "Move to",
-              subItems: [
-                {
-                  action: () => {
-                    updateStatus(id, CardStatus.ToDo);
+        {!editTextDisplay && (
+          <DropdownMenu
+            trigger={<EditIcon onClick={openModal} />}
+            items={[
+              {
+                action: () => {},
+                label: "Move to",
+                subItems: [
+                  {
+                    action: () => {
+                      updateStatus(id, CardStatus.ToDo);
+                    },
+                    label: "To Do",
                   },
-                  label: "To Do",
-                },
-                {
-                  action: () => {
-                    updateStatus(id, CardStatus.InProgress);
+                  {
+                    action: () => {
+                      updateStatus(id, CardStatus.InProgress);
+                    },
+                    label: "In progress",
                   },
-                  label: "In progress",
-                },
-                {
-                  action: () => {
-                    updateStatus(id, CardStatus.Done);
+                  {
+                    action: () => {
+                      updateStatus(id, CardStatus.Done);
+                    },
+                    label: "Done",
                   },
-                  label: "Done",
-                },
-              ],
-            },
-            {
-              action: () => {},
-              label: "Add Label",
-            },
-            {
-              action: () => {
-                deleteCard();
+                ],
               },
-              label: "Delete",
-            },
-          ]}
-        />
+              {
+                action: () => {},
+                label: "Add Label",
+              },
+              {
+                action: () => {
+                  deleteCard();
+                },
+                label: "Delete",
+              },
+            ]}
+          />
+        )}
       </ContentWrapper>
       <LabelWrapper>
         {labels.map((label, index) => {
