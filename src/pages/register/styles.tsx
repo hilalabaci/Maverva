@@ -16,6 +16,7 @@ export const MainContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
+  background-color: #181b1e;
   @media only screen and (max-width: 768px) {
     flex-direction: column;
   }
