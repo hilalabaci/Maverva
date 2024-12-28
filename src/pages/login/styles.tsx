@@ -5,6 +5,7 @@ export const GlobalStyle = createGlobalStyle`
 #root,
 #root > div {
   min-height: 100vh;
+  background-color: #181b1e;
 }
 body {
  
@@ -18,7 +19,7 @@ export const LoginContainer = styled.div`
   flex-direction: row;
   justify-content: space-around;
   color: rgba(255, 255, 255, 0.7);
-  background-color: #181b1e;
+
   font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;

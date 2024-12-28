@@ -138,7 +138,7 @@ function Register() {
       return;
     }
     setUser(jsonResponse);
-    navigate("/");
+    navigate("/projets");
   };
   return (
     <MainContainer>
