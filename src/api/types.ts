@@ -3,6 +3,7 @@ import { BoardType, ProjectType, UserType } from "../types";
 export type ApiCallOptions = {
   urlParams?: URLSearchParams;
   data?: object;
+  headers?: HeadersInit;
   method: "GET" | "POST" | "PUT" | "DELETE";
 };
 

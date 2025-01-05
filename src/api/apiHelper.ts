@@ -158,17 +158,29 @@ class ApiHelper {
     });
   }
 
+  async loginGoogle(token: string) {
+    return await this.baseCall<UserType>("login-google", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   private async baseCall<T>(
     url: string,
-    { urlParams, method, data }: ApiCallOptions
+    { urlParams, method, data, headers }: ApiCallOptions
   ): Promise<ApiResponse<T>> {
     let apiUrl = process.env.REACT_APP_API_URL + url;
     if (urlParams) apiUrl = apiUrl + "?" + urlParams.toString();
+    const requestHeaders = headers ?? {};
+
     const response = await fetch(apiUrl, {
       method: method,
       body: data ? JSON.stringify(data) : undefined,
       headers: {
         "Content-Type": "application/json",
+        ...requestHeaders,
       },
     });
 

@@ -16,6 +16,9 @@ import { ProjectType } from "./types";
 import DynamicContentLoader from "./pages/dynamicContentLoader";
 import Backlog from "./pages/contents/backlog";
 import WelcomePage from "./pages/welcome-page";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
   { path: "/welcomePage", element: <WelcomePage /> },
   {
@@ -84,13 +87,15 @@ function PrivateRoute() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <UserProvider>
-        <ApplicationProvider>
-          <RouterProvider router={router} />
-        </ApplicationProvider>
-      </UserProvider>
-    </ThemeProvider>
+    <GoogleOAuthProvider clientId={REACT_APP_GOOGLE_OAUTH_CLIENTID!}>
+      <ThemeProvider>
+        <UserProvider>
+          <ApplicationProvider>
+            <RouterProvider router={router} />
+          </ApplicationProvider>
+        </UserProvider>
+      </ThemeProvider>
+    </GoogleOAuthProvider>
   );
 }
 

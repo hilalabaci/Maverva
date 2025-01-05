@@ -17,6 +17,7 @@ import {
   ArrowforButton,
   IconforManaAccount,
 } from "./styles";
+import { googleLogout } from "@react-oauth/google";
 
 type MemberMenuProps = {
   onClose: () => void;
@@ -40,6 +41,7 @@ function MemberMenu(props: MemberMenuProps) {
   }
 
   function logOut() {
+    googleLogout();
     setUser(undefined);
   }
   return (

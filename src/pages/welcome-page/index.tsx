@@ -24,9 +24,27 @@ import {
   TabContentWrapper,
   MainContainer,
   FooterContainer,
+  GetStartGmailWrapper,
+  SectionEntery,
+  Footer,
+  BrandInfo,
+  LinkWrapper,
+  Brandlogo,
+  LinkItem,
+  IconLanguage,
+  IconSelect,
+  TitleDetail,
+  TabContent,
+  TabContentTitle,
+  TabParag,
 } from "./styles";
 import TypedDemo from "../../components/tools/Typed/typed";
 import RegisterForm from "../../components/tools/registerForm";
+import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
+import WelcomeIllus from "../../components/ DynamicSVG/WelcomeIllus";
+import WelcomeIllus2 from "../../components/ DynamicSVG/WelcomeIllus2";
+import { useState } from "react";
+import ShareTeamIllus from "../../components/ DynamicSVG/shareTeamIllus";
 
 function WelcomePage() {
   const Titles = [
@@ -43,46 +61,100 @@ function WelcomePage() {
     "Keep everything under control, from tasks and timelines to team members and feedback.",
     "Stay organized with an easy-to-use tool that adapts to your unique needs.",
   ];
+  const [displaySign, setDisplaySign] = useState(false);
 
   return (
     <Container>
       <NavbarContainer>
         <BrandWrapper>
           <BrandContainer>
-            <BrandLogo />
-            Maverva
+            <DynamicSVGBrand />
           </BrandContainer>
         </BrandWrapper>
         <NavbarSignWrapper>
           <ButtonForLogintonNavbar>Log in</ButtonForLogintonNavbar>
-          <ButtonForGetStartonNavbar>Get Started</ButtonForGetStartonNavbar>
+          <ButtonForGetStartonNavbar>Get it free</ButtonForGetStartonNavbar>
         </NavbarSignWrapper>
       </NavbarContainer>
       <MainContainer>
         <SectionWrapper>
           <StartTrial>
-            <StartTrialWrapper>
-              <GetStartWrapper>
-                <Title> Simplify project management, empower your team.</Title>
-                <TitleParag>
-                  <TypedDemo textforTyped={TitlesPara}></TypedDemo>
-                </TitleParag>
-                <ButtonForGetStart>Get Started</ButtonForGetStart>
-              </GetStartWrapper>
-              <Promotion>
-                <RegisterForm />
-              </Promotion>
-            </StartTrialWrapper>
+            <SectionEntery>
+              <StartTrialWrapper>
+                <SectionEntery>
+                  <Title>Simplify project management, empower your team.</Title>
+                  <GetStartWrapper $hidden={displaySign}>
+                    <TitleParag>
+                      <TypedDemo textforTyped={TitlesPara}></TypedDemo>
+                    </TitleParag>
+                    <ButtonForGetStart onClick={() => setDisplaySign(true)}>
+                      Get Started
+                    </ButtonForGetStart>
+                  </GetStartWrapper>
+                  <GetStartGmailWrapper $hidden={!displaySign}>
+                    <RegisterForm />
+                  </GetStartGmailWrapper>
+                </SectionEntery>
+                <Promotion>
+                  <WelcomeIllus2 />
+                </Promotion>
+              </StartTrialWrapper>
+            </SectionEntery>
           </StartTrial>
         </SectionWrapper>
         <SectionWrapper>
           <TabSection>
             <TabWrapper>
               <TabTitleWrapper>
-                <TabTitle>Find out what makes Maverva simple to use.</TabTitle>
+                <TabTitle>Find out what makes Maverva simple to use</TabTitle>
+                <TitleDetail>
+                  <strong>
+                    Stay organized with an easy-to-use tool that adapts to your
+                    unique needs
+                  </strong>
+                </TitleDetail>
               </TabTitleWrapper>
               <TabContentWrapper>
-                <ImgForWelcome src="/icons/process.png" />
+                <TabContent>
+                  <TabContentTitle>AI-powered productivity</TabContentTitle>
+                  <TabParag>
+                    Get work done faster with the only AI-powered assistant
+                    tailored to your role.
+                  </TabParag>
+                </TabContent>
+                <TabContent>
+                  <TabContentTitle>Redefine team collaboration</TabContentTitle>
+                  <TabParag>
+                    Track your tasks, measure progress, and successfully
+                    complete your projects
+                  </TabParag>
+                  <ShareTeamIllus />
+                </TabContent>
+                <TabContent>
+                  <TabContentTitle>
+                    Simplify project management, empower your team
+                  </TabContentTitle>
+                  <ImgForWelcome src="/icons/process.png" />
+                </TabContent>
+                {/* <TabContent>
+                  <TabContentTitle>
+                    Plan, collaborate, and take action to succeed
+                  </TabContentTitle>
+                  <TabParag>
+                    Track your tasks, measure progress, and successfully
+                    complete your projects
+                  </TabParag>
+                </TabContent>
+                <TabContent>
+                  <TabContentTitle>
+                    Manage all your projects in one place
+                  </TabContentTitle>
+                </TabContent>
+                <TabContent>
+                  <TabContentTitle>
+                    Simplify project management, empower your team
+                  </TabContentTitle>
+                </TabContent> */}
               </TabContentWrapper>
             </TabWrapper>
           </TabSection>
@@ -91,7 +163,23 @@ function WelcomePage() {
           <InfoSection></InfoSection>
         </SectionWrapper>
       </MainContainer>
-      <FooterContainer></FooterContainer>
+      <Footer>
+        <FooterContainer>
+          <BrandInfo>
+            <Brandlogo src="/logo/logo32.ico" />
+            Manage all your projects in one place
+          </BrandInfo>
+          <LinkWrapper>
+            <LinkItem> Copyright © 2025 Maverva</LinkItem>
+            <LinkItem>Privacy policy</LinkItem>
+            <LinkItem>Terms</LinkItem>
+            <LinkItem>
+              <IconLanguage /> English
+              <IconSelect />
+            </LinkItem>
+          </LinkWrapper>
+        </FooterContainer>
+      </Footer>
     </Container>
   );
 }
