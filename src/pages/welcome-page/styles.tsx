@@ -1,40 +1,8 @@
 import styled from "styled-components";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 export const Container = styled.div`
   height: 100vh;
-`;
-
-export const NavbarContainer = styled.header`
-  position: fixed;
-  width: calc(100% - 40px);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
-  background-color: #ffff;
-`;
-export const BrandWrapper = styled.div``;
-
-export const BrandContainer = styled.a`
-  color: ${(props) => props.theme.memberMenuFontColor};
-  display: flex;
-  align-items: center;
-  text-align: center;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 27px;
-  line-height: 39px;
-  gap: 5px;
-  padding-inline-start: 150px;
-  cursor: pointer;
-  /* identical to box height */
-  @media only screen and (max-width: 768px) {
-    font-size: 20px;
-  }
 `;
 export const BrandLogo = styled(DashboardRoundedIcon)`
   font-size: 26px !important;
@@ -45,48 +13,6 @@ export const BrandLogo = styled(DashboardRoundedIcon)`
     width: 20px;
     height: 20px;
     margin: 0px 10px;
-  }
-`;
-export const NavbarSignWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-`;
-export const ButtonForLogintonNavbar = styled.button`
-  border: none;
-  background-color: transparent;
-  color: ${(props) => props.theme.memberMenuFontColor};
-  font-weight: 500;
-  font-size: 16px;
-  padding: 10px 20px;
-  cursor: pointer;
-  outline: 1.5px solid #fca700;
-  border-radius: 5px;
-  transition: 750ms outline;
-  box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
-  &:hover {
-    outline: 2px solid #ff8b00;
-    transition: 150ms outline;
-  }
-`;
-export const ButtonForGetStartonNavbar = styled.button`
-  border: none;
-  outline: none;
-  color: ${(props) => props.theme.primary};
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 500;
-  color: #2f4156;
-  background: #fca700;
-  box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
-  cursor: pointer;
-  &:hover {
-    background: #ff8b00;
-  }
-  @media only screen and (max-width: 768px) {
-    font-size: 14px;
   }
 `;
 export const MainContainer = styled.main`
@@ -202,7 +128,7 @@ export const SectionEntery = styled.div`
 export const GetStartWrapper = styled.div<CommonPropsType>`
   display: flex;
   flex-direction: column;
-  padding-bottom: ${({ $hidden }) => ($hidden ? "0" : " 5rem")};
+  //padding-bottom: ${({ $hidden }) => ($hidden ? "0" : " 5rem")};
   opacity: ${({ $hidden }) => ($hidden ? "0" : "1")};
   width: ${({ $hidden }) => ($hidden ? "0" : "auto")};
   height: ${({ $hidden }) => ($hidden ? "0" : "auto")};
@@ -211,7 +137,7 @@ export const GetStartGmailWrapper = styled.div<CommonPropsType>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: ${({ $hidden }) => ($hidden ? "0" : " 5rem")};
+  //padding-bottom: ${({ $hidden }) => ($hidden ? "0" : " 5rem")};
   opacity: ${({ $hidden }) => ($hidden ? "0" : "1")};
   height: ${({ $hidden }) => ($hidden ? "0" : "auto")};
   width: ${({ $hidden }) => ($hidden ? "0" : "auto")};
@@ -229,6 +155,8 @@ export const Title = styled.h1`
   font-size: 3rem;
   font-weight: 500;
   margin-bottom: 0;
+  cursor: default;
+  margin: 0;
 `;
 export const TitleParag = styled.h3`
   color: #fff;
@@ -238,6 +166,7 @@ export const TitleParag = styled.h3`
   font-weight: 500;
   min-height: 80px;
   max-height: 100px;
+  cursor: default;
   @media only screen and (min-width: 768px) {
     font-size: 1.5rem;
   }
@@ -276,49 +205,22 @@ export const ImgForWelcome = styled.img`
 export const Footer = styled.footer`
   background: #ffffff;
 `;
-export const FooterContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-inline: 150px;
-  padding-block: 50px;
-`;
-export const BrandInfo = styled.div`
-  font-weight: 850;
-  color: #2f4156;
-  font-size: 14px;
-  display: flex;
-  gap: 7px;
-  justify-content: center;
-  align-items: center;
-`;
-export const Brandlogo = styled.img`
-  width: 18px;
-  height: 18px;
-`;
-export const LinkWrapper = styled.div`
-  font-size: 14px;
-  color: rgba(81, 75, 129);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-`;
-export const LinkItem = styled.a`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  font-size: 14px;
-  cursor: pointer;
-`;
 
-export const IconLanguage = styled(LanguageOutlinedIcon)`
-  width: 20px !important;
-  height: 20px !important;
+export const LoginText = styled.p`
+  font-size: 17px;
+  color: #f5efeb;
+  //padding: 20px 0;
+  font-weight: 400;
+  cursor: default;
 `;
-export const IconSelect = styled(KeyboardArrowDownOutlinedIcon)`
-  width: 20px !important;
-  height: 20px !important;
+export const LoginLink = styled.a`
+  color: #fca700;
+  font-size: 17px;
+  margin-left: 5px;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover {
+    color: #ff8b00;
+  }
 `;

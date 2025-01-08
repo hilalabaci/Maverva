@@ -1,11 +1,14 @@
 import { FormEvent, useState } from "react";
+import {
+  GoogleLogin,
+  useGoogleLogin,
+  useGoogleOneTapLogin,
+} from "@react-oauth/google";
 import Button from "../../components/tools/button";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
   BrandContainer,
-  BrandIcon,
-  BrandTitle,
   MessageError,
   Form,
   FormTitle,
@@ -13,9 +16,28 @@ import {
   LoginContainer,
   LoginInputs,
   MainContainer,
-  StyledLink,
+  NavbarContainer,
+  BrandWrapper,
+  LoginSection,
+  LineforGoogleWrapper,
+  FirstLine,
+  LastLine,
+  RememberWrapper,
+  CheckBoxText,
+  CreateAccountWrapper,
+  CreateAccountListItemLink,
+  Point,
 } from "./styles";
 import Input from "../../components/tools/input";
+import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
+import {
+  GoogleSignWrapper,
+  GoogleSignButton,
+  GoogleSignButtonText,
+} from "../../components/tools/registerForm/styles";
+import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
+import apiHelper from "../../api/apiHelper";
+import CheckboxRadixUi from "../../components/tools/checkboxRadixUI";
 
 interface FormError {
   email?: string;
@@ -33,6 +55,15 @@ function Login() {
   const { setUser } = useUserContext();
   const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log("tokenResponse", tokenResponse);
+      const user = await apiHelper.loginGoogle(tokenResponse.access_token);
+      setUser(user.data);
+      navigate("/home");
+    },
+    onError: (tokenResponse) => console.error(tokenResponse),
+  });
 
   const [login, setLogin] = useState<FormData>({
     fullName: "",
@@ -78,72 +109,64 @@ function Login() {
       });
       return;
     }
-    if (login.password === "") {
-      setError({
-        password: "Please enter your password",
-      });
-      return;
-    }
-
-    const { email, password } = login;
-    const registerData = { email, password };
-    const response = await fetch(process.env.REACT_APP_API_URL + "login", {
-      method: "POST",
-      body: JSON.stringify(registerData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const jsonResponse = await response.json();
-    if (response.status === 400) {
-      setShowErrowMessage(true);
-      setErrorMessage(
-        "Sorry, your e-mail or password was incorrect. Please double-check."
-      );
-      return;
-    }
-    setUser(jsonResponse);
-    navigate("/");
+    //setUser();
+    navigate("/verification");
   };
   return (
     <MainContainer>
       <GlobalStyle />
-      <BrandContainer>
-        <BrandIcon src="/icons/brand.png" alt="" />
-        <BrandTitle>Maverva</BrandTitle>
-      </BrandContainer>
+      <NavbarContainer>
+        <BrandWrapper>
+          <BrandContainer>
+            <DynamicSVGBrand />
+          </BrandContainer>
+        </BrandWrapper>
+      </NavbarContainer>
       <LoginContainer>
-        <Form onSubmit={handleSubmit}>
-          <LoginInputs>
-            <FormTitle>Sign in</FormTitle>
-            <Input
-              title="Email Address"
-              type="text"
-              placeholder="Enter your email address "
-              value={login.email}
-              onChange={handleChange}
-              name="email"
-              error={error.email}
-            />
-            <Input
-              title="Password"
-              type="password"
-              placeholder="Enter your password "
-              value={login.password}
-              onChange={handleChange}
-              name="password"
-              error={error.password}
-            />
-            {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
-            <Button value="SIGN IN" type="submit" />
-            <div>
-              <StyledLink to="/register">
-                Don't have an account, register here
-              </StyledLink>
-            </div>
-          </LoginInputs>
-        </Form>
+        <LoginSection>
+          <Form onSubmit={handleSubmit}>
+            <LoginInputs>
+              <FormTitle>Welcome back!</FormTitle>
+
+              <Input
+                title="Email Address"
+                type="email"
+                placeholder="Enter your email "
+                value={login.email}
+                onChange={handleChange}
+                name="email"
+                error={error.email}
+              />
+              {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
+              <RememberWrapper>
+                <CheckboxRadixUi />
+                <CheckBoxText>Remember me</CheckBoxText>
+              </RememberWrapper>
+              <Button value="Continue" type="submit" />
+              <LineforGoogleWrapper>
+                <FirstLine></FirstLine>Or continue with
+                <LastLine></LastLine>
+              </LineforGoogleWrapper>
+              <GoogleSignWrapper>
+                <GoogleSignButton onClick={() => loginGoogle()}>
+                  <DynamicSVGGoogle />
+                  <GoogleSignButtonText>
+                    Continue with Google
+                  </GoogleSignButtonText>
+                </GoogleSignButton>
+              </GoogleSignWrapper>
+              <CreateAccountWrapper>
+                <CreateAccountListItemLink>
+                  Can't log in?
+                </CreateAccountListItemLink>
+                <Point>.</Point>
+                <CreateAccountListItemLink>
+                  Create an account
+                </CreateAccountListItemLink>
+              </CreateAccountWrapper>
+            </LoginInputs>
+          </Form>
+        </LoginSection>
       </LoginContainer>
     </MainContainer>
   );

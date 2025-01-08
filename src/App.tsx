@@ -17,12 +17,14 @@ import DynamicContentLoader from "./pages/dynamicContentLoader";
 import Backlog from "./pages/contents/backlog";
 import WelcomePage from "./pages/welcome-page";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import SendVerificationEmail from "./pages/sendVerificationEmail";
 
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
-  { path: "/welcomePage", element: <WelcomePage /> },
+  { path: "/", element: <WelcomePage /> },
+  { path: "/verification", element: <SendVerificationEmail /> },
   {
-    path: "/",
+    path: "/projects",
     element: <PrivateRoute />,
     children: [
       {
@@ -36,39 +38,24 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/projects",
+        path: `:projectKey`,
         children: [
+          { index: true, element: <DynamicContentLoader /> },
           {
-            index: true,
-            element: (
-              <Projects
-                onProjectChange={function (project: ProjectType): void {
-                  throw new Error("Function not implemented.");
-                }}
-              />
-            ),
-          },
-          {
-            path: `:projectKey`,
+            path: `boards/:boardId`,
             children: [
               { index: true, element: <DynamicContentLoader /> },
-              {
-                path: `boards/:boardId`,
-                children: [
-                  { index: true, element: <DynamicContentLoader /> },
-                  { path: `backlog`, element: <DynamicContentLoader /> },
-                ],
-              },
+              { path: `backlog`, element: <DynamicContentLoader /> },
             ],
           },
         ],
       },
     ],
   },
-  {
-    path: "/register",
-    element: <Register />,
-  },
+  // {
+  //   path: "/register",
+  //   element: <Register />,
+  // },
   {
     path: "/login",
     element: <Login />,

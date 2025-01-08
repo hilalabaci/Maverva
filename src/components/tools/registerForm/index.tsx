@@ -16,6 +16,8 @@ import {
   GoogleSignButtonText,
   CheckEmail,
   EmailWrapper,
+  ErrorText,
+  IconError,
 } from "./styles";
 import DynamicSVGGoogle from "../../ DynamicSVG/DynamicSVG";
 import {
@@ -30,14 +32,16 @@ import { useState } from "react";
 
 function RegisterForm() {
   const { setUser } = useUserContext();
-  const [verifyEmail, setVerifyEemail] = useState(false);
+  const [googleVerifyEmail, setGoogleVerifyEmail] = useState(false);
+  const [verifyEmail, setVerifyEmail] = useState(false);
+  const [manuelRegisterEmail, setManuelRegisterEmail] = useState("");
   const navigate = useNavigate();
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log("tokenResponse", tokenResponse);
       const user = await apiHelper.loginGoogle(tokenResponse.access_token);
       setUser(user.data);
-      navigate("/projects");
+      navigate("/home");
     },
     onError: (tokenResponse) => console.error(tokenResponse),
   });
@@ -50,18 +54,59 @@ function RegisterForm() {
     },
     onError: () => console.error("error"),
   });
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    setManuelRegisterEmail(value);
+  }
+
+  function handleBlur() {
+    if (
+      !/^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
+        manuelRegisterEmail
+      )
+    ) {
+      setVerifyEmail(true);
+    } else {
+      setVerifyEmail(false);
+    }
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleBlur();
+    }
+  }
+
   return (
     <Container>
       <StyledRegisterForm>
-        <RegisterFormWrapper>
+        <RegisterFormWrapper
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           <EmailLabel>Work email</EmailLabel>
-          <EmailWrapper>
-            <AccoutCreatInput type="email" placeholder="you@company.com" />
-            <CheckEmail $verifyEmail={verifyEmail} />
+          <EmailWrapper $errorEmailDisplay={!verifyEmail}>
+            <AccoutCreatInput
+              type="email"
+              placeholder="you@company.com"
+              title="email"
+              value={manuelRegisterEmail}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
+              name="email"
+            />
+            <IconError $errorEmailDisplay={!verifyEmail} />
+            <CheckEmail $googleVerifyEmail={googleVerifyEmail} />
           </EmailWrapper>
-          <EmailHelpText>
+          <ErrorText $errorEmailDisplay={!verifyEmail}>
+            Please enter a valid email address.
+          </ErrorText>
+          <EmailHelpText $errorEmailDisplay={verifyEmail}>
             Find teammates, plus keep work and life separate by using your work
-            email.
+            email
           </EmailHelpText>
         </RegisterFormWrapper>
         <SubmitWrapper>

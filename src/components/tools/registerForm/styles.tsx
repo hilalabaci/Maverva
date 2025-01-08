@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
+import ErrorIcon from "@mui/icons-material/Error";
 
 export const Container = styled.div`
   display: flex;
@@ -22,9 +23,10 @@ export const EmailLabel = styled.label`
   color: #fff;
 `;
 type CommonPropsType = {
-  $verifyEmail?: boolean;
+  $googleVerifyEmail?: boolean;
+  $errorEmailDisplay?: boolean;
 };
-export const EmailWrapper = styled.div`
+export const EmailWrapper = styled.div<CommonPropsType>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,18 +41,28 @@ export const EmailWrapper = styled.div`
   font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
   border-color: #22a06b;
+
+  outline: ${({ $errorEmailDisplay }) =>
+    $errorEmailDisplay ? "0px" : "1px solid #de350b"};
+`;
+export const IconError = styled(ErrorIcon)<CommonPropsType>`
+  opacity: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "1")};
+  font-size: 23px !important;
+  color: rgb(222, 53, 11);
 `;
 export const AccoutCreatInput = styled.input`
   border: none;
   font-size: 1rem;
   outline: none;
   font-weight: 400;
+  flex: 1;
 `;
+
 export const CheckEmail = styled(
   CheckCircleOutlineOutlinedIcon
 )<CommonPropsType>`
   display: "inline-block";
-  opacity: ${(props) => (props.$verifyEmail ? "1" : "0")};
+  opacity: ${(props) => (props.$googleVerifyEmail ? "1" : "0")};
   flex-shrink: 0;
   line-height: 1;
   width: 24px !important;
@@ -58,7 +70,19 @@ export const CheckEmail = styled(
   padding-right: 10px !important;
   color: rgb(34, 160, 107);
 `;
-export const EmailHelpText = styled.div`
+export const ErrorText = styled.div<CommonPropsType>`
+  opacity: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "1")};
+  width: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "auto")};
+  height: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "auto")};
+  color: #de350b;
+  font-size: 0.85rem;
+  margin-block-start: 6px;
+  line-height: 1.5;
+`;
+export const EmailHelpText = styled.div<CommonPropsType>`
+  opacity: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "1")};
+  width: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "auto")};
+  height: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "auto")};
   font-size: 12px;
   margin-block-start: 6px;
   color: #ffffff;
@@ -135,9 +159,12 @@ export const GoogleSignButton = styled.button`
   width: 100%;
   box-sizing: border-box;
   width: 100%;
-  margin-top: 30px;
   &:hover {
     background-color: #f1f2f4;
   }
 `;
-export const GoogleSignButtonText = styled.span``;
+export const GoogleSignButtonText = styled.span`
+  font-weight: 500;
+  color: #2f4156;
+  font-size: 1rem;
+`;

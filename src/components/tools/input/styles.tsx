@@ -1,46 +1,32 @@
 import styled from "styled-components";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
+export const Container = styled.div``;
 
-export const Container = styled.div`
+export const InputContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  margin: 5px 0;
-`;
-export const TextWrapper = styled.span`
-  font-size: 18px;
-  text-align: start;
-  letter-spacing: 1px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  @media only screen and (max-width: 768px) {
-    font-size: 14px;
-  }
-`;
-export const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  background-color: whitesmoke;
-  &:hover {
-    border-color: #9b59b6;
-  }
-`;
-export const Inputs = styled.input`
-  height: 45px;
+  justify-content: space-between;
+  height: 2.5em;
+  padding-inline-start: 1.25rem;
+  border-radius: 2rem;
   outline: none;
-  border: none;
-  padding-left: 15px;
-  font-size: 18px;
-  border-radius: 2px;
-  background-color: whitesmoke;
-  border-bottom-width: 2px;
-  transition: all 0.3s ease;
-  letter-spacing: 1px;
-  flex: 1;
+  box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
+  font-size: 1rem;
+  font-weight: 400;
+  gap: 5px;
+  background-color: #ffffff;
+  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+`;
 
+export const Inputs = styled.input`
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  font-weight: 400;
+  flex: 1;
+  color: navy;
   @media only screen and (max-width: 768px) {
     font-size: 14px;
   }
@@ -52,4 +38,12 @@ export const Icon = styled(CheckCircleIcon)`
 `;
 export const WarningMessage = styled.p`
   color: #dc3545;
+  font-size: 0.79rem;
+  margin: 0;
+  padding: 5px 5px 0 0;
+  text-align: right;
+`;
+export const EmailIcon = styled(MailOutlinedIcon)`
+  color: #091e4240;
+  font-size: 20px !important;
 `;

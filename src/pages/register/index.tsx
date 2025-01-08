@@ -10,12 +10,7 @@ import {
   RegisterInputs,
   GlobalStyle,
 } from "./styles";
-import {
-  BrandContainer,
-  BrandIcon,
-  BrandTitle,
-  StyledLink,
-} from "../login/styles";
+import { BrandContainer, StyledLink } from "../login/styles";
 import Input from "../../components/tools/input";
 import { UserType } from "../../types";
 
@@ -143,12 +138,6 @@ function Register() {
   return (
     <MainContainer>
       <GlobalStyle />
-      {
-        <BrandContainer>
-          <BrandIcon src="/icons/brand.png" alt="" />
-          <BrandTitle>Maverva</BrandTitle>
-        </BrandContainer>
-      }
       <RegisterContainer>
         <Form action="" method="post" onSubmit={handleSubmit}>
           <RegisterInputs>

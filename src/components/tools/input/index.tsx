@@ -1,11 +1,11 @@
 import React from "react";
 import {
   Container,
-  TextWrapper,
   Inputs,
   WarningMessage,
-  InputWrapper,
   Icon,
+  EmailIcon,
+  InputContainer,
 } from "./styles";
 type InputPropsType = {
   title: string;
@@ -20,14 +20,15 @@ type InputPropsType = {
 function Input(props: InputPropsType) {
   return (
     <Container>
-      <TextWrapper>{props.title}</TextWrapper>
-      <InputWrapper
+      <InputContainer
         style={
           props.error !== undefined
-            ? { border: "2px solid #dc3545" }
+            ? { outline: "1px solid #dc3545" }
             : undefined
         }
       >
+        {props.type === "email" ? <EmailIcon /> : ""}
+
         <Inputs
           onChange={(e) => props.onChange(e.target.value, e.target.name)}
           value={props.value}
@@ -36,9 +37,8 @@ function Input(props: InputPropsType) {
           placeholder={props.placeholder}
         />
         {props.type === "password" && props.approved === true && <Icon />}
-      </InputWrapper>
-
-      {props.error && <WarningMessage>{props.error}</WarningMessage>}
+      </InputContainer>
+      <WarningMessage>{props.error}</WarningMessage>
     </Container>
   );
 }
