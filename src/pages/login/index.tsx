@@ -60,7 +60,7 @@ function Login() {
       console.log("tokenResponse", tokenResponse);
       const user = await apiHelper.loginGoogle(tokenResponse.access_token);
       setUser(user.data);
-      navigate("/home");
+      navigate("/projects");
     },
     onError: (tokenResponse) => console.error(tokenResponse),
   });
