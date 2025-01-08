@@ -138,7 +138,9 @@ export const LastLine = styled.div`
   margin-right: 1rem;
   flex-grow: 1;
 `;
-export const GoogleSignWrapper = styled.div``;
+export const GoogleSignWrapper = styled.div`
+margin-top: 25px;
+`;
 export const GoogleSignButton = styled.button`
   border-radius: 2rem;
   font-size: 1.1rem;
