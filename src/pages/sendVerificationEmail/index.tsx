@@ -29,7 +29,7 @@ function SendVerificationEmail({ loginEmail }: SendVerificationEmailPropsType) {
       <GlobalStyle />
       <NavbarContainer>
         <BrandWrapper>
-          <BrandContainer>
+          <BrandContainer href="/">
             <DynamicSVGBrand />
           </BrandContainer>
         </BrandWrapper>

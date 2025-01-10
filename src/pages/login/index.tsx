@@ -114,7 +114,7 @@ function Login() {
       <GlobalStyle />
       <NavbarContainer>
         <BrandWrapper>
-          <BrandContainer>
+          <BrandContainer href="/">
             <DynamicSVGBrand />
           </BrandContainer>
         </BrandWrapper>

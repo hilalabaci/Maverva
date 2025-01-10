@@ -12,7 +12,7 @@ function Navbar() {
   return (
     <NavbarContainer>
       <BrandWrapper>
-        <BrandContainer>
+        <BrandContainer href="/">
           <DynamicSVGBrand />
         </BrandContainer>
       </BrandWrapper>

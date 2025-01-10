@@ -39,13 +39,14 @@ export const LoginContainer = styled.div`
 export const LoginSection = styled.section`
   flex: 1;
 `;
-export const BrandContainer = styled.div`
+export const BrandContainer = styled.a`
   flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
 `;
 
 export const MainContainer = styled.div`
