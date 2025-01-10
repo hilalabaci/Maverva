@@ -31,6 +31,13 @@ class ApiHelper {
     });
   }
 
+  async loginVerificationEmail(email: string) {
+    return await this.baseCall("login-verification-email", {
+      method: "POST",
+      data: { email },
+    });
+  }
+
   async getSelectedProject(projectKey: string) {
     return await this.baseCall<ProjectType>(`projects/${projectKey}`, {
       method: "GET",

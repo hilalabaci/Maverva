@@ -2,7 +2,6 @@ export type UserType = {
   _id: string;
   fullName: string;
   email: string;
-  password: string;
   projects: ProjectType[];
 };
 
@@ -85,4 +84,3 @@ export enum CardStatus {
   InProgress = 2,
   Done = 99,
 }
-

@@ -38,16 +38,13 @@ import {
 import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
 import apiHelper from "../../api/apiHelper";
 import CheckboxRadixUi from "../../components/tools/checkboxRadixUI";
+import { UserType } from "../../types";
 
 interface FormError {
   email?: string;
-  password?: string;
 }
 interface FormData {
-  fullName: string;
   email: string;
-  password: string;
-  confirmPassword: string;
 }
 
 function Login() {
@@ -66,21 +63,14 @@ function Login() {
   });
 
   const [login, setLogin] = useState<FormData>({
-    fullName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
   });
   const [error, setError] = useState<FormError>({
     email: undefined,
-    password: undefined,
   });
   function handleChange(value: string, name: string) {
     setLogin((prevValue) => ({ ...prevValue, [name]: value }));
 
-    if (error.password) {
-      setError((prev) => ({ ...prev, password: undefined }));
-    }
     if (error.email) {
       setError((prev) => ({ ...prev, email: undefined }));
     }
@@ -91,7 +81,6 @@ function Login() {
 
     if (login.email === "") {
       setError({
-        password: undefined,
         email: "Please enter your email",
       });
       setErrorMessage("Please enter your email");
@@ -104,12 +93,20 @@ function Login() {
       ) === false
     ) {
       setError({
-        password: undefined,
-        email: "This is not vald email address.",
+        email: "This is not valid email address.",
       });
       return;
     }
-    //setUser();
+    try {
+      const { ok, data } = await apiHelper.loginVerificationEmail(login.email);
+      if (ok && data) {
+        setUser(data as UserType);
+      }
+    } catch (error) {
+      setError({
+        email: "opps! somethings wrong, try again",
+      });
+    }
     navigate("/verification");
   };
   return (

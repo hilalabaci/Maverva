@@ -10,7 +10,7 @@ import {
   RegisterInputs,
   GlobalStyle,
 } from "./styles";
-import { BrandContainer, StyledLink } from "../login/styles";
+import { StyledLink } from "../login/styles";
 import Input from "../../components/tools/input";
 import { UserType } from "../../types";
 
