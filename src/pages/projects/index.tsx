@@ -209,7 +209,7 @@ function Projects(props: ProjectsPropsType) {
                         $fontWeight="600"
                         user={project.leadUser}
                       />
-                      {project.leadUser.fullName}
+                      {/* DO: {project.leadUser.fullName} */}
                     </DataLeadName>
                     <IconWrapper />
                     <IconWrapper>

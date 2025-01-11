@@ -1,4 +1,6 @@
+import apiHelper from "../../api/apiHelper";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
+import { useUserContext } from "../../contexts/UserContext";
 import {
   BrandContainer,
   BrandWrapper,
@@ -19,11 +21,19 @@ import {
   ImgWrapper,
   Title,
 } from "./styles";
-type SendVerificationEmailPropsType = {
-  loginEmail: string;
-};
 
-function SendVerificationEmail({ loginEmail }: SendVerificationEmailPropsType) {
+function SendVerificationEmail() {
+  const { user } = useUserContext();
+  async function handleSendVerify() {
+    try {
+      if (!user) return;
+      const { ok, data } = await apiHelper.loginVerificationEmail(user.email);
+      if (ok && data) {
+      }
+    } catch (error) {
+      console.log("opps! somethings wrong, try again");
+    }
+  }
   return (
     <MainContainer>
       <GlobalStyle />
@@ -45,9 +55,9 @@ function SendVerificationEmail({ loginEmail }: SendVerificationEmailPropsType) {
               <ExplainTitle>
                 To complete setup and log in, click the verification link in the
                 email we’ve sent to
-                <EmailforLogin>hilalabaci55@gmail.com</EmailforLogin>
+                <EmailforLogin>{user?.email}</EmailforLogin>
               </ExplainTitle>
-              <ButtonWrapper>
+              <ButtonWrapper onClick={handleSendVerify}>
                 <ButtonText>Resend verification email</ButtonText>
               </ButtonWrapper>
             </ContainerSendEmail>

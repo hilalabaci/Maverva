@@ -1,195 +1,168 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useUserContext } from "../../contexts/UserContext";
+import { FormEvent, useState } from "react";
+import {
+  GoogleLogin,
+  useGoogleLogin,
+  useGoogleOneTapLogin,
+} from "@react-oauth/google";
 import Button from "../../components/tools/button";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../contexts/UserContext";
 import {
-  MainContainer,
-  RegisterContainer,
+  BrandContainer,
+  MessageError,
   Form,
-  RegisterTitle,
-  RegisterInputs,
+  FormTitle,
   GlobalStyle,
+  LoginContainer,
+  LoginInputs,
+  MainContainer,
+  NavbarContainer,
+  BrandWrapper,
+  LoginSection,
+  LineforGoogleWrapper,
+  FirstLine,
+  LastLine,
+  RememberWrapper,
+  CheckBoxText,
+  CreateAccountWrapper,
+  CreateAccountListItemLink,
+  Point,
 } from "./styles";
-import { StyledLink } from "../login/styles";
 import Input from "../../components/tools/input";
+import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
+import {
+  GoogleSignWrapper,
+  GoogleSignButton,
+  GoogleSignButtonText,
+} from "../../components/tools/registerForm/styles";
+import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
+import apiHelper from "../../api/apiHelper";
+import CheckboxRadixUi from "../../components/tools/checkboxRadixUI";
 import { UserType } from "../../types";
+
+interface FormError {
+  email?: string;
+}
+interface FormData {
+  email: string;
+}
 
 function Register() {
   const navigate = useNavigate();
   const { setUser } = useUserContext();
-  const [approvedPasword, setApprovedPassword] = useState(false);
+  const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const loginGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      console.log("tokenResponse", tokenResponse);
+      const user = await apiHelper.loginGoogle(tokenResponse.access_token);
+      setUser(user.data);
+      navigate("/projects");
+    },
+    onError: (tokenResponse) => console.error(tokenResponse),
+  });
 
-  interface RegisterState {
-    fullName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }
-
-  interface ErrorState {
-    fullName?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-  }
-
-  const [register, setRegister] = useState<RegisterState>({
-    fullName: "",
+  const [login, setLogin] = useState<FormData>({
     email: "",
-    password: "",
-    confirmPassword: "",
   });
-  const [error, setError] = useState<ErrorState>({
-    fullName: undefined,
+  const [error, setError] = useState<FormError>({
     email: undefined,
-    password: undefined,
-    confirmPassword: undefined,
   });
-
-  useEffect(() => {
-    setApprovedPassword(
-      register.fullName !== "" &&
-        /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
-          register.email
-        ) === true &&
-        error.email === undefined &&
-        register.confirmPassword !== "" &&
-        register.password.length >= 6 &&
-        register.password === register.confirmPassword
-    );
-  }, [
-    register.password,
-    register.confirmPassword,
-    register.email,
-    register.fullName,
-    error.email,
-  ]);
   function handleChange(value: string, name: string) {
-    setRegister((prevValue) => ({ ...prevValue, [name]: value }));
+    setLogin((prevValue) => ({ ...prevValue, [name]: value }));
 
-    if (error.password) {
-      setError((prev) => ({ ...prev, password: undefined }));
-    }
     if (error.email) {
       setError((prev) => ({ ...prev, email: undefined }));
-    }
-    if (error.fullName) {
-      setError((prev) => ({ ...prev, fullName: undefined }));
     }
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (register.fullName === "") {
+
+    if (login.email === "") {
       setError({
-        fullName: "Please enter your full name",
+        email: "Please enter your email",
       });
+      setErrorMessage("Please enter your email");
       return;
     }
-    if (register.email === "") {
-      setError({
-        email: "E-mail is required",
-      });
-      return;
-    }
+
     if (
       /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
-        register.email
+        login.email
       ) === false
     ) {
       setError({
-        password: undefined,
-        email: "This is not vald email address.",
+        email: "This is not valid email address.",
       });
       return;
     }
-
-    if (register.password.length < 6) {
+    try {
+      const { ok, data } = await apiHelper.loginVerificationEmail(login.email);
+      if (ok && data) {
+        setUser(data as UserType);
+      }
+    } catch (error) {
       setError({
-        password: "Password must be at least 6 characters long.",
+        email: "opps! somethings wrong, try again",
       });
-      return;
     }
-    if (register.password !== register.confirmPassword) {
-      setError({
-        confirmPassword:
-          "The passwords you entered do not match. Please check and try again.",
-      });
-      return;
-    }
-    const { fullName, email, password } = register;
-    const registerData = { fullName, email, password };
-    const response = await fetch(process.env.REACT_APP_API_URL + "register", {
-      method: "POST",
-      body: JSON.stringify(registerData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const jsonResponse = (await response.json()) as UserType;
-    if (response.status === 400) {
-      setError(jsonResponse);
-      return;
-    }
-    setUser(jsonResponse);
-    navigate("/projects");
+    navigate("/verification");
   };
   return (
     <MainContainer>
       <GlobalStyle />
-      <RegisterContainer>
-        <Form action="" method="post" onSubmit={handleSubmit}>
-          <RegisterInputs>
-            <RegisterTitle>Registration</RegisterTitle>
-            <Input
-              title="Full Name"
-              type="text"
-              placeholder="Enter your fullname "
-              value={register.fullName}
-              onChange={handleChange}
-              name="fullName"
-              error={error.fullName}
-            />
-            <Input
-              title="Email Address"
-              type="text"
-              placeholder="Enter your email address "
-              value={register.email}
-              onChange={handleChange}
-              name="email"
-              error={error.email}
-            />
-            <Input
-              title="Password"
-              type="password"
-              placeholder="Enter your password "
-              value={register.password}
-              onChange={handleChange}
-              name="password"
-              error={error.password}
-              approved={approvedPasword}
-            />
-            <Input
-              title="Confirm Password"
-              type="password"
-              placeholder="Confirm your password"
-              value={register.confirmPassword}
-              onChange={handleChange}
-              name="confirmPassword"
-              error={error.confirmPassword}
-              approved={approvedPasword}
-            />
-            <Button value="JOIN NOW" type="submit" />
+      <NavbarContainer>
+        <BrandWrapper>
+          <BrandContainer href="/">
+            <DynamicSVGBrand />
+          </BrandContainer>
+        </BrandWrapper>
+      </NavbarContainer>
+      <LoginContainer>
+        <LoginSection>
+          <Form onSubmit={handleSubmit}>
+            <LoginInputs>
+              <FormTitle>Sign up to continue</FormTitle>
 
-            <div>
-              <StyledLink to="/login">
-                Have already an account Login here
-              </StyledLink>
-            </div>
-          </RegisterInputs>
-        </Form>
-      </RegisterContainer>
+              <Input
+                title="Email Address"
+                type="email"
+                placeholder="Enter your email "
+                value={login.email}
+                onChange={handleChange}
+                name="email"
+                error={error.email}
+              />
+              {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
+              <RememberWrapper>
+                <CheckBoxText>
+                  By signing up, I accept the Maverva Cloud Terms of Service and
+                  acknowledge the Privacy Policy.
+                </CheckBoxText>
+              </RememberWrapper>
+              <Button value="Sign up" type="submit" />
+              <LineforGoogleWrapper>
+                <FirstLine></FirstLine>Or continue with
+                <LastLine></LastLine>
+              </LineforGoogleWrapper>
+              <GoogleSignWrapper>
+                <GoogleSignButton onClick={() => loginGoogle()}>
+                  <DynamicSVGGoogle />
+                  <GoogleSignButtonText>
+                    Continue with Google
+                  </GoogleSignButtonText>
+                </GoogleSignButton>
+              </GoogleSignWrapper>
+              <CreateAccountWrapper>
+                <CreateAccountListItemLink href="/login">
+                  Already have an Atlassian account? Log in
+                </CreateAccountListItemLink>
+              </CreateAccountWrapper>
+            </LoginInputs>
+          </Form>
+        </LoginSection>
+      </LoginContainer>
     </MainContainer>
   );
 }

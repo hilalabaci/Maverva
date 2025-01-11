@@ -22,6 +22,14 @@ import SendVerificationEmail from "./pages/sendVerificationEmail";
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
   { path: "/", element: <WelcomePage /> },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
   { path: "/verification", element: <SendVerificationEmail /> },
   {
     path: "/projects",
@@ -51,14 +59,6 @@ const router = createBrowserRouter([
         ],
       },
     ],
-  },
-  // {
-  //   path: "/register",
-  //   element: <Register />,
-  // },
-  {
-    path: "/login",
-    element: <Login />,
   },
 ]);
 

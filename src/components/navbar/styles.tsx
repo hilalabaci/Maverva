@@ -53,7 +53,7 @@ export const ButtonForLogintonNavbar = styled.a`
     transition: 150ms outline;
   }
 `;
-export const ButtonForGetStartonNavbar = styled.button`
+export const ButtonForGetStartonNavbar = styled.a`
   border: none;
   outline: none;
   color: ${(props) => props.theme.primary};
@@ -63,6 +63,7 @@ export const ButtonForGetStartonNavbar = styled.button`
   font-weight: 500;
   color: #2f4156;
   background: #fca700;
+  text-decoration: none;
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   cursor: pointer;
   &:hover {

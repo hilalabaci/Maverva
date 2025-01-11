@@ -123,7 +123,7 @@ function Login() {
         <LoginSection>
           <Form onSubmit={handleSubmit}>
             <LoginInputs>
-              <FormTitle>Welcome back!</FormTitle>
+              <FormTitle>Log in to continue</FormTitle>
 
               <Input
                 title="Email Address"
@@ -157,7 +157,7 @@ function Login() {
                   Can't log in?
                 </CreateAccountListItemLink>
                 <Point>.</Point>
-                <CreateAccountListItemLink>
+                <CreateAccountListItemLink href="/register">
                   Create an account
                 </CreateAccountListItemLink>
               </CreateAccountWrapper>

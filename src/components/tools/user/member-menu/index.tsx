@@ -18,12 +18,14 @@ import {
   IconforManaAccount,
 } from "./styles";
 import { googleLogout } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 
 type MemberMenuProps = {
   onClose: () => void;
 };
 
 function MemberMenu(props: MemberMenuProps) {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const { user, setUser } = useUserContext();
   const ref = useOutsideClick<HTMLDivElement>(props.onClose);
@@ -43,6 +45,7 @@ function MemberMenu(props: MemberMenuProps) {
   function logOut() {
     googleLogout();
     setUser(undefined);
+    navigate("/");
   }
   return (
     <Container ref={ref}>

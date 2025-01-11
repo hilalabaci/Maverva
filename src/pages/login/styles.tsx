@@ -81,10 +81,11 @@ export const LoginInputs = styled.div`
   }
 `;
 export const FormTitle = styled.h2`
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
   color: #2f4156;
   text-align: center;
+  padding-bottom: 15px;
   margin: 0;
   @media only screen and (max-width: 768px) {
     font-size: 20px;
@@ -184,6 +185,7 @@ export const Point = styled.p`
 export const CreateAccountListItemLink = styled.a`
   color: #0c66e4;
   font-size: 0.9rem;
+  text-decoration: none;
   cursor: pointer;
   &:hover {
     text-decoration: underline;
