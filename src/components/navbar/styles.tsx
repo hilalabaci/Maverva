@@ -9,6 +9,8 @@ export const NavbarContainer = styled.header`
   justify-content: space-between;
   padding: 15px 20px;
   background-color: #ffff;
+  @media only screen and (max-width: 600px) {
+  }
 `;
 export const BrandWrapper = styled.div``;
 
@@ -26,7 +28,7 @@ export const BrandContainer = styled.a`
   cursor: pointer;
   /* identical to box height */
   @media only screen and (max-width: 768px) {
-    font-size: 20px;
+    padding: 0;
   }
 `;
 export const NavbarSignWrapper = styled.div`
@@ -34,6 +36,9 @@ export const NavbarSignWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 export const ButtonForLogintonNavbar = styled.a`
   border: none;

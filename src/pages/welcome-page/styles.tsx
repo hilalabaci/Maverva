@@ -46,16 +46,27 @@ export const StartTrial = styled.section`
         #fafbfc
       );
   } */
+  @media only screen and (max-width: 600px) {
+    padding-top: 0;
+    height: 85vh;
+  }
 `;
 export const StartTrialWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-width: 75pc;
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 export const TabSection = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 40px;
+  @media only screen and (max-width: 600px) {
+    margin: 35px 0;
+    margin-inline: 24px;
+  }
 `;
 export const TabWrapper = styled.div`
   //background: white !important;
@@ -65,6 +76,9 @@ export const TabWrapper = styled.div`
   flex-direction: column;
   @media (min-width: 64rem) {
     width: 954pt;
+  }
+  @media only screen and (max-width: 600px) {
+    height: min-content;
   }
 `;
 export const TabTitleWrapper = styled.div`
@@ -78,6 +92,11 @@ export const TabContentWrapper = styled.div`
   justify-content: start;
   box-sizing: border-box;
   line-height: 1.5;
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 `;
 export const TabContent = styled.div`
   background: linear-gradient(352deg, #c8d9e6 6.96%, #567c8d 107.25%);
@@ -106,6 +125,10 @@ export const TabTitle = styled.h2`
   line-height: 1.243902439;
   color: #2f4156;
   font-weight: 900;
+  @media only screen and (max-width: 600px) {
+    padding: 0;
+    font-size: 24px;
+  }
 `;
 export const TitleDetail = styled.p`
   font-size: 19px;
@@ -115,6 +138,9 @@ export const InfoSection = styled.div`
   //background: linear-gradient(225deg, #deebff 0%, #ffffff 100%);
   background: #c8d9e6;
   height: 100vh;
+  @media only screen and (max-width: 600px) {
+    height: min-content;
+  }
 `;
 type CommonPropsType = {
   $hidden?: boolean;
@@ -123,6 +149,7 @@ export const SectionEntery = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-inline: 24px;
 `;
 
 export const GetStartWrapper = styled.div<CommonPropsType>`
@@ -148,6 +175,9 @@ export const Promotion = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 export const Title = styled.h1`
   color: #fff;
@@ -157,6 +187,10 @@ export const Title = styled.h1`
   margin-bottom: 0;
   cursor: default;
   margin: 0;
+  @media only screen and (max-width: 600px) {
+    font-size: 32px;
+    line-height: 2rem;
+  }
 `;
 export const TitleParag = styled.h3`
   color: #fff;
@@ -201,6 +235,9 @@ export const ButtonForGetStart = styled.button`
 `;
 export const ImgForWelcome = styled.img`
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  @media only screen and (max-width: 600px) {
+    width: 200px;
+  }
 `;
 export const Footer = styled.footer`
   background: #ffffff;
