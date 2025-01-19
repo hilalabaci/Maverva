@@ -48,6 +48,18 @@ export const Brandlogo = styled.img`
   width: 18px;
   height: 18px;
 `;
+export const CopyRigtWrapper = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #505258;
+  cursor: pointer;
+  @media only screen and (max-width: 600px) {
+    font-weight: 500;
+  }
+`;
 export const LinkItem = styled.a`
   display: flex;
   justify-content: center;

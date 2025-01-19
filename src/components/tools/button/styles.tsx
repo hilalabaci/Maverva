@@ -15,6 +15,5 @@ export const ButtonInput = styled.button`
   }
   @media only screen and (max-width: 768px) {
     font-size: 14px;
-    margin-top: 47px;
   }
 `;

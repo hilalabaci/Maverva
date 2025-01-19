@@ -150,10 +150,7 @@ export const SectionEntery = styled.div`
   gap: 20px;
   margin-inline: 24px;
   @media only screen and (max-width: 768px) {
-    
-  
-}
-
+  }
 `;
 
 export const GetStartWrapper = styled.div<CommonPropsType>`
@@ -174,9 +171,7 @@ export const GetStartGmailWrapper = styled.div<CommonPropsType>`
   width: ${({ $hidden }) => ($hidden ? "0" : "auto")};
   transition: 750ms opacity;
   @media only screen and (max-width: 768px) {
-  
   }
-  
 `;
 export const Promotion = styled.div`
   display: flex;

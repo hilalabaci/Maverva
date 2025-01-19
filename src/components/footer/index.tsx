@@ -7,6 +7,7 @@ import {
   IconSelect,
   LinkItem,
   LinkWrapper,
+  CopyRigtWrapper,
 } from "./styles";
 
 function Footer() {
@@ -17,7 +18,7 @@ function Footer() {
         Manage all your projects in one place
       </BrandInfo>
       <LinkWrapper>
-        <LinkItem>{WelcomeTexts.footer.copyright}</LinkItem>
+        <CopyRigtWrapper>{WelcomeTexts.footer.copyright}</CopyRigtWrapper>
         <LinkItem>{WelcomeTexts.footer.privacyPolicy}</LinkItem>
         <LinkItem>{WelcomeTexts.footer.terms}</LinkItem>
         <LinkItem>
