@@ -124,7 +124,6 @@ function Login() {
           <Form onSubmit={handleSubmit}>
             <LoginInputs>
               <FormTitle>Log in to continue</FormTitle>
-
               <Input
                 title="Email Address"
                 type="email"

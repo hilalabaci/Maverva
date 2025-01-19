@@ -139,7 +139,7 @@ export const LastLine = styled.div`
   flex-grow: 1;
 `;
 export const GoogleSignWrapper = styled.div`
-margin-top: 25px;
+  margin-top: 25px;
 `;
 export const GoogleSignButton = styled.button`
   border-radius: 2rem;
@@ -169,4 +169,7 @@ export const GoogleSignButtonText = styled.span`
   font-weight: 500;
   color: #2f4156;
   font-size: 1rem;
+  @media only screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
