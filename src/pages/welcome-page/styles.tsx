@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
+import CircleIcon from "@mui/icons-material/Circle";
 
 export const Container = styled.div`
   height: 100vh;
@@ -15,11 +16,10 @@ export const BrandLogo = styled(DashboardRoundedIcon)`
     margin: 0px 10px;
   }
 `;
-export const MainContainer = styled.main`
-  background-color: #f5efeb;
-`;
+export const MainContainer = styled.main``;
 export const SectionWrapper = styled.article`
   box-sizing: border-box;
+  height: fit-content;
 `;
 export const StartTrial = styled.section`
   display: flex;
@@ -48,6 +48,7 @@ export const StartTrial = styled.section`
   } */
   @media only screen and (max-width: 600px) {
     padding-top: 0;
+    height: 85vh;
   }
 `;
 export const StartTrialWrapper = styled.div`
@@ -62,19 +63,21 @@ export const TabSection = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 40px;
+  background: white;
+
   @media only screen and (max-width: 600px) {
     margin: 35px 0;
     margin-inline: 24px;
   }
 `;
 export const TabWrapper = styled.div`
-  //background: white !important;
-  background-color: #f5efeb;
-  height: 100vh;
+  height: fit-content;
   display: flex;
   flex-direction: column;
+  background: white;
+  padding: 50px 0;
   @media (min-width: 64rem) {
-    width: 954pt;
+    max-width: 75pc;
   }
   @media only screen and (max-width: 600px) {
     height: min-content;
@@ -91,6 +94,7 @@ export const TabContentWrapper = styled.div`
   justify-content: start;
   box-sizing: border-box;
   line-height: 1.5;
+  margin-inline: 24px;
   @media only screen and (max-width: 600px) {
     display: flex;
     flex-direction: column;
@@ -98,32 +102,75 @@ export const TabContentWrapper = styled.div`
   }
 `;
 export const TabContent = styled.div`
-  background: linear-gradient(352deg, #c8d9e6 6.96%, #567c8d 107.25%);
-  background: linear-gradient(352deg, #5037e7 6.96%, #eb00ff 107.25%);
-  background: linear-gradient(352deg, #6731ec 1.65%, #44cfff 118.4%);
-  background: linear-gradient(168deg, #d613ee -55.05%, #ff674e 64.52%);
+  background: ${(props) => props.theme.tabContentBGColour};
+  border-radius: 12px;
+  padding: 25px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+export const TabContent1 = styled.div`
+  background: ${(props) => props.theme.tabContentBGColour1};
   border-radius: 12px;
   padding: 25px;
   display: flex;
   flex-direction: column;
+`;
+export const TabContent2 = styled.div`
+  background: ${(props) => props.theme.tabContentBGColour2};
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+`;
+export const TabContent3 = styled.div`
+  background: ${(props) => props.theme.tabContentBGColour3};
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+`;
+export const TabContent4 = styled.div`
+  background: ${(props) => props.theme.tabContentBGColour4};
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+`;
+export const TabContent5 = styled.div`
+  background: ${(props) => props.theme.tabContentBGColour5};
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  grid-column: span 3;
+`;
+export const LineIcon = styled(CircleIcon)`
+  width: 12px !important;
 `;
 export const TabContentTitle = styled.h4`
   color: #fff;
   font-size: 20px;
   font-weight: 800;
 `;
-export const TabParag = styled.p`
+export const TabParag = styled.div`
   color: #fff;
   text-align: start;
   font-size: 16px;
   font-weight: 500;
 `;
+export const WrapperParag = styled.div`
+  display: flex;
+  gap: 5px;
+`;
 
 export const TabTitle = styled.h2`
-  font-size: 2.5625rem;
+  font-size: 40px;
   line-height: 1.243902439;
   color: #2f4156;
   font-weight: 900;
+  cursor: default;
   @media only screen and (max-width: 600px) {
     padding: 0;
     font-size: 24px;
@@ -132,15 +179,81 @@ export const TabTitle = styled.h2`
 export const TitleDetail = styled.p`
   font-size: 19px;
   color: #2f4156;
+  cursor: default;
 `;
 export const InfoSection = styled.div`
-  //background: linear-gradient(225deg, #deebff 0%, #ffffff 100%);
-  background: #c8d9e6;
+  background: linear-gradient(352deg, #c8d9e6 6.96%, #ffffff 107.25%);
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
   @media only screen and (max-width: 600px) {
     height: min-content;
   }
 `;
+export const CollapseParent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  max-width: 75pc;
+  padding: 70px 0 50px 0;
+`;
+export const CollapseNavigation = styled.div`
+  margin-inline: 24px;
+`;
+export const CollapseItem = styled.div``;
+type displayProps = {
+  $display?: boolean;
+};
+export const CollapseTitle = styled.h3<displayProps>`
+  cursor: pointer;
+  font-size: 34px;
+  font-weight: 900;
+  background: rgb(127 118 174 / 60%);
+  background: ${(props) =>
+    props.$display
+      ? "linear-gradient(269deg,#fa12e3 1.83%,#7612fa 53.68%,#12d0fa 106.48%)"
+      : "rgb(127 118 174 / 60%)"};
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 1s ease;
+  &:hover {
+    background: linear-gradient(
+      269deg,
+      #fa12e3 1.83%,
+      #7612fa 53.68%,
+      #12d0fa 106.48%
+    );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+`;
+
+export const CollapseText = styled.div<displayProps>`
+  display: ${(props) => (props.$display ? "flex" : "none")};
+  opacity: ${(props) => (props.$display ? "1" : "0")};
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: all 1s ease;
+  cursor: default;
+`;
+export const CollapseContentElement = styled.div<displayProps>`
+  display: ${(props) => (props.$display ? "flex" : "none")};
+  padding: 15px;
+  border-radius: 14px;
+  background: linear-gradient(
+    247deg,
+    #567c8d 17.39%,
+    #2f4156 64.22%,
+    #c8d9e6 97.73%
+  );
+  box-shadow: 0 3px 20px 0 rgba(67, 46, 134, 0.1);
+`;
+
 type CommonPropsType = {
   $hidden?: boolean;
 };
@@ -238,6 +351,7 @@ export const ButtonForGetStart = styled.button`
 `;
 export const ImgForWelcome = styled.img`
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  max-width: 700px;
   @media only screen and (max-width: 600px) {
     width: 200px;
   }

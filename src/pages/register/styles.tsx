@@ -21,6 +21,8 @@ export const NavbarContainer = styled.header`
   padding: 15px 20px;
   background-color: #ffff;
   @media only screen and (max-width: 768px) {
+    justify-content: center;
+    margin-top: 50px;
   }
 `;
 
@@ -82,11 +84,16 @@ export const LoginInputs = styled.div`
   background: #ffffff;
   gap: 20px;
   @media only screen and (max-width: 768px) {
-    width: 85%;
+    width: 86%;
     height: 100vh;
     padding: 160px 30px 0 30px;
     border-radius: 0;
     justify-content: flex-start;
+  }
+  @media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
+    width: 93%;
+  }
+  @media all and (device-width: 1024px) and (device-height: 768px) and (orientation: landscape) {
   }
 `;
 export const FormTitle = styled.h2`
@@ -124,7 +131,18 @@ export const CheckBoxText = styled.span`
   color: #172b4d;
   font-size: 0.9rem;
   opacity: 0.7;
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
+export const CheckBoxTextLink = styled.a`
+  color: #0052cc;
+  font-size: 0.9rem;
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+`;
+
 export const LineforGoogleWrapper = styled.div`
   font-size: 13px;
   line-height: 0.25px;
@@ -183,6 +201,9 @@ export const CreateAccountWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  @media only screen and (max-width: 768px) {
+    padding: 11px 0;
+  }
 `;
 
 export const Point = styled.p`

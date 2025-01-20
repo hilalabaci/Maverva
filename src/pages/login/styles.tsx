@@ -21,6 +21,8 @@ export const NavbarContainer = styled.header`
   padding: 15px 20px;
   background-color: #ffff;
   @media only screen and (max-width: 768px) {
+    justify-content: center;
+    margin-top: 50px;
   }
 `;
 
@@ -86,12 +88,11 @@ export const LoginInputs = styled.div`
   background: #ffffff;
   gap: 20px;
   @media only screen and (max-width: 768px) {
-    width: 85%;
+    width: 86%;
     height: 100vh;
     padding: 160px 30px 0 30px;
     border-radius: 0;
     justify-content: flex-start;
-
   }
 `;
 export const FormTitle = styled.h2`
@@ -124,11 +125,15 @@ export const RememberWrapper = styled.div`
   display: flex;
   gap: 10px;
   padding-left: 15px;
+  @media only screen and (max-width: 768px) {
+    padding: 5px 0 5px 15px;
+  }
 `;
 export const CheckBoxText = styled.span`
   color: #172b4d;
-  font-size: 0.9rem;
+  font-size: 14px;
   opacity: 0.7;
+  font-weight: 500;
 `;
 export const LineforGoogleWrapper = styled.div`
   font-size: 13px;

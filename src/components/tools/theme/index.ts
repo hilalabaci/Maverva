@@ -43,6 +43,12 @@ export const darkTheme = {
   statusColourGrey: "#091e420f",
   statusColourBlue: "#1d7afc",
   statusColourGreen: "#22a06b",
+  tabContentBGColour: "linear-gradient(352deg, #c8d9e6 6.96%, #567c8d 107.25%)",
+  tabContentBGColour2:
+    "linear-gradient(352deg, #5037e7 6.96%, #eb00ff 107.25%)",
+  tabContentBGColour3: "linear-gradient(352deg, #6731ec 1.65%, #44cfff 118.4%",
+  tabContentBGColour4:
+    "linear-gradient(168deg, #d613ee -55.05%, #ff674e 64.52%)",
 };
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
@@ -90,4 +96,15 @@ export const lightTheme = {
   statusColourGrey: "#091e420f",
   statusColourBlue: "#1d7afc",
   statusColourGreen: "#22a06b",
+  tabContentBGColour:
+    "linear-gradient(rgb(18, 194, 233), rgb(196, 113, 237), rgb(246, 79, 89))",
+  tabContentBGColour1:
+    "linear-gradient(352deg, #5037e7 6.96%, #eb00ff 107.25%)",
+  tabContentBGColour2:
+    "linear-gradient(352deg, #44cfff 6.96%, #6731ec 107.25%)",
+  tabContentBGColour3:
+    "linear-gradient(rgb(254, 172, 94), rgb(199, 121, 208), rgb(75, 192, 200))",
+  tabContentBGColour4:
+    "linear-gradient(168deg, #d613ee -55.05%, #ff674e 64.52%)",
+  tabContentBGColour5: "linear-gradient(rgb(69, 104, 220), rgb(176, 106, 179))",
 };

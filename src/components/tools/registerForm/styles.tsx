@@ -109,6 +109,9 @@ export const SubmitButton = styled.button`
 `;
 export const SubmitButtonText = styled.span`
   min-width: 100%;
+  @media only screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 export const LineforGoogleWrapper = styled.div`
   font-size: 0.875rem;
@@ -121,6 +124,9 @@ export const LineforGoogleWrapper = styled.div`
   align-items: center;
   justify-content: center;
   color: #ffffff;
+  @media only screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 export const FirstLine = styled.div`
   border-style: solid;
@@ -140,6 +146,8 @@ export const LastLine = styled.div`
 `;
 export const GoogleSignWrapper = styled.div`
   margin-top: 25px;
+  @media only screen and (max-width: 768px) {
+  }
 `;
 export const GoogleSignButton = styled.button`
   border-radius: 2rem;
@@ -166,7 +174,7 @@ export const GoogleSignButton = styled.button`
   }
 `;
 export const GoogleSignButtonText = styled.span`
-  font-weight: 500;
+  font-weight: 600;
   color: #2f4156;
   font-size: 1rem;
   @media only screen and (max-width: 768px) {

@@ -27,6 +27,7 @@ import {
   CreateAccountWrapper,
   CreateAccountListItemLink,
   Point,
+  CheckBoxTextLink,
 } from "./styles";
 import Input from "../../components/tools/input";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
@@ -137,8 +138,10 @@ function Register() {
               {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
               <RememberWrapper>
                 <CheckBoxText>
-                  By signing up, I accept the Maverva Cloud Terms of Service and
-                  acknowledge the Privacy Policy.
+                  By signing up, I accept the Maverva
+                  <CheckBoxTextLink> Cloud Terms of Service </CheckBoxTextLink>
+                  and acknowledge the
+                  <CheckBoxTextLink> Privacy Policy.</CheckBoxTextLink>
                 </CheckBoxText>
               </RememberWrapper>
               <Button value="Sign up" type="submit" />
