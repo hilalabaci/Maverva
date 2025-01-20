@@ -20,10 +20,15 @@ export const NavbarContainer = styled.header`
   justify-content: space-between;
   padding: 15px 20px;
   background-color: #ffff;
+  @media only screen and (max-width: 768px) {
+  }
 `;
 
 export const BrandWrapper = styled.div`
   margin-left: 150px;
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+  }
 `;
 
 export const LoginContainer = styled.div`
@@ -77,7 +82,11 @@ export const LoginInputs = styled.div`
   background: #ffffff;
   gap: 20px;
   @media only screen and (max-width: 768px) {
-    width: max-content;
+    width: 85%;
+    height: 100vh;
+    padding: 160px 30px 0 30px;
+    border-radius: 0;
+    justify-content: flex-start;
   }
 `;
 export const FormTitle = styled.h2`
