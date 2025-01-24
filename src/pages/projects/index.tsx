@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Layout from "../templates/layout";
-import Modal from "../../components/tools/modal";
+import Modal from "../../components/common/modal";
 import {
   CreateButton,
   CreateWrapper,
-} from "../../components/tools/navbar/styles";
+} from "../../components/layout/navbar/navbar-project/styles";
 import {
   Container,
   Header,
@@ -31,15 +31,15 @@ import {
   FilledIconFav,
   FavIconTable,
 } from "./styles";
-import Search from "../../components/tools/search";
+import Search from "../../components/common/search";
 import { useUserContext } from "../../contexts/UserContext";
 import { ProjectType } from "../../types";
-import MemberPhoto from "../../components/tools/user/member-photo";
-import { DropdownMenu } from "../../components/tools/dropdownMenu/index";
+import MemberPhoto from "../../components/features/user/member-photo";
+import { DropdownMenu } from "../../components/common/dropdownMenu/index";
 import CloseProjectMenu from "../../components/actions/project/close-project-menu";
 import ProjectCreate from "../../components/actions/project/project-add/create";
-import ProjectAvatar from "../../components/tools/user/project-avatar";
-import Toggle from "../../components/tools/toggle";
+import ProjectAvatar from "../../components/features/user/project-avatar";
+import Toggle from "../../components/common/toggle";
 
 type ProjectsPropsType = {
   onProjectChange: (project: ProjectType) => void;

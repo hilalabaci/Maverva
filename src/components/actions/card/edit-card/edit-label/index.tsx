@@ -9,7 +9,7 @@ import {
   CheckboxWrapper,
   Label,
 } from "./styles";
-import Checkbox from "../../../../tools/checkbox";
+import Checkbox from "../../../../common/checkbox";
 import { CardType, LabelType } from "../../../../../types";
 type EditLabelProps = {
   onUpdate: (card: CardType) => void;

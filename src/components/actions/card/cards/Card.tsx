@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Label from "../card-label/index";
-import MemberPhoto from "../../../tools/user/member-photo";
+import MemberPhoto from "../../../features/user/member-photo";
 import {
   Container,
   NoteWrapper,
@@ -28,8 +28,8 @@ import {
   LabelType,
   UserType,
 } from "../../../../types";
-import { ToolTip } from "../../../tools/toolstip";
-import { DropdownMenu } from "../../../tools/dropdownMenu";
+import { ToolTip } from "../../../common/toolstip";
+import { DropdownMenu } from "../../../common/dropdownMenu";
 import apiHelper from "../../../../api/apiHelper";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
 

@@ -15,12 +15,12 @@ import {
   PathList,
   Pathitem,
 } from "./styles";
-import MemberPhoto from "../../tools/user/member-photo";
-import Modal from "../../tools/modal";
+import MemberPhoto from "../../features/user/member-photo";
+import Modal from "../../common/modal";
 import AddPerson from "../addPerson";
 import { BoardType, ProjectType, UserType } from "../../../types";
-import Search from "../../tools/search";
-import { ToolTip } from "../../tools/toolstip";
+import Search from "../../common/search";
+import { ToolTip } from "../../common/toolstip";
 import { useLocation } from "react-router-dom";
 type TopMenuPropsType = {
   topMenuTitle: string;

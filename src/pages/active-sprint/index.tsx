@@ -24,7 +24,7 @@ import apiHelper from "../../api/apiHelper";
 import NumberOfCards from "../../components/actions/card/number-cards";
 import { ButtomWrapper } from "../../components/actions/card/cards/styles";
 import { NextButton } from "../../components/actions/board/optional/styles";
-import { DropdownMenu } from "../../components/tools/dropdownMenu";
+import { DropdownMenu } from "../../components/common/dropdownMenu";
 
 type URLParams = {
   boardId?: string;

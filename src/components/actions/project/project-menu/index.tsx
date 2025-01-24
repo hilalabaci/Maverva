@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CollapsibleDemo from "../../../tools/collapsible";
+import CollapsibleDemo from "../../../common/collapsible";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import {
@@ -33,10 +33,10 @@ import {
 import { useUserContext } from "../../../../contexts/UserContext";
 import { useApplicationContext } from "../../../../contexts/ApplicationContext";
 import apiHelper from "../../../../api/apiHelper";
-import Scroll from "../../../tools/scroll";
+import Scroll from "../../../common/scroll";
 import OptionalBoardCreate from "../../board/optional/create";
-import Modal from "../../../tools/modal";
-import ProjectAvatar from "../../../tools/user/project-avatar";
+import Modal from "../../../common/modal";
+import ProjectAvatar from "../../../features/user/project-avatar";
 import { useLocation, useParams } from "react-router-dom";
 
 type ProjectMenuPropsType = {

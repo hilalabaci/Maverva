@@ -22,12 +22,12 @@ import {
   InputforProjectDropDown,
   SubmitButton,
 } from "./styles";
-import MemberPhoto from "../../../tools/user/member-photo";
+import MemberPhoto from "../../../features/user/member-photo";
 import { BoardType, ProjectType } from "../../../../types";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { BackButton, CancelButton } from "../optional/styles";
-import { DropdownSelectMenu } from "../../../tools/select";
+import { DropdownSelectMenu } from "../../../common/select";
 import { useApplicationContext } from "../../../../contexts/ApplicationContext";
 import apiHelper from "../../../../api/apiHelper";
 import { useParams } from "react-router-dom";

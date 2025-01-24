@@ -20,7 +20,7 @@ import {
   Options,
   SubmitButton,
 } from "./styles";
-import MemberPhoto from "../../../tools/user/member-photo";
+import MemberPhoto from "../../../features/user/member-photo";
 import { CancelButton } from "../../addPerson/styles";
 import { ProjectType } from "../../../../types";
 import { BackButton } from "../../board/optional/styles";

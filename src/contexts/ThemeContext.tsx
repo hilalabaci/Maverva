@@ -10,7 +10,7 @@ import {
   ThemeProvider as SCThemeProvider,
   useTheme as SCuseTheme,
 } from "styled-components";
-import { darkTheme, lightTheme } from "../components/tools/theme";
+import { darkTheme, lightTheme } from "../theme";
 
 type ThemeProviderProps = PropsWithChildren;
 type ThemeContextType = {

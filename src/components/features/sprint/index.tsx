@@ -1,5 +1,5 @@
-import CheckboxRadixUi from "../checkboxRadixUI";
-import CollapsibleDemo from "../collapsible";
+import CheckboxRadixUi from "../../common/checkboxRadixUI";
+import CollapsibleDemo from "../../common/collapsible";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import {
@@ -27,7 +27,7 @@ import {
 } from "./styles";
 import { useState } from "react";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import BacklogCard from "../backlogCard";
+
 import {
   BacklogDragItems,
   CardStatus,
@@ -38,7 +38,8 @@ import { useDrop } from "react-dnd";
 import apiHelper from "../../../api/apiHelper";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
-import { ToolTip } from "../toolstip";
+import { ToolTip } from "../../common/toolstip";
+import BacklogCard from "../backlogCard";
 
 type SprintPropsType = {
   sprint: SprintType;

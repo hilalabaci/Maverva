@@ -1,4 +1,4 @@
-import DynamicSVGBrand from "../ DynamicSVG/LogoSVG";
+import DynamicSVGBrand from "../../../ DynamicSVG/LogoSVG";
 import {
   BrandContainer,
   BrandWrapper,

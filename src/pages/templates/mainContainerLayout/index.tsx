@@ -5,7 +5,7 @@ import {
   Wrapper,
 } from "../../dynamicContentLoader/styles";
 import ProjectMenu from "../../../components/actions/project/project-menu";
-import SideBar from "../../../components/tools/sideBar";
+import SideBar from "../../../components/common/sideBar";
 import {
   PathInfo,
   Pathitem,

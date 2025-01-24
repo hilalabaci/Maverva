@@ -24,8 +24,8 @@ import {
   MoreIcon,
 } from "./styles";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import CollapsibleDemo from "../../tools/collapsible";
-import Modal from "../../tools/modal";
+import CollapsibleDemo from "../../common/collapsible";
+import Modal from "../../common/modal";
 import FormDemo from "../sprints/edit-sprint";
 import {
   CardStatus,
@@ -36,10 +36,11 @@ import {
 import { useUserContext } from "../../../contexts/UserContext";
 import apiHelper from "../../../api/apiHelper";
 import { useParams } from "react-router-dom";
-import BacklogCard from "../../tools/backlogCard";
-import { CheckboxWrapper } from "../../tools/backlogCard/styles";
-import CheckboxRadixUi from "../../tools/checkboxRadixUI";
-import { ToolTip } from "../../tools/toolstip";
+
+import { CheckboxWrapper } from "../../features/backlogCard/styles";
+import CheckboxRadixUi from "../../common/checkboxRadixUI";
+import { ToolTip } from "../../common/toolstip";
+import BacklogCard from "../../features/backlogCard";
 
 type URLParams = {
   projectKey: string;

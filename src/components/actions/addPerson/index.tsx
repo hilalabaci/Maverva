@@ -18,9 +18,9 @@ import {
   InputWrapperwithIcon,
   TitleforProject,
 } from "./styles";
-import Modal from "../../tools/modal";
+import Modal from "../../common/modal";
 import AddedPerson from "../addedPerson";
-import { DropdownSelectMenu } from "../../tools/select";
+import { DropdownSelectMenu } from "../../common/select";
 import { BoardType } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";

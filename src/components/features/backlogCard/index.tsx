@@ -8,10 +8,9 @@ import {
   UserType,
 } from "../../../types";
 import { getStatusLabel } from "../../../utils/label";
-import CheckboxRadixUi from "../checkboxRadixUI";
-import SelectDemo from "../selectDemo";
-import { ToolTip } from "../toolstip";
-import MemberPhoto from "../user/member-photo";
+import CheckboxRadixUi from "../../common/checkboxRadixUI";
+import SelectDemo from "../../common/selectDemo";
+
 import {
   BacklogCardListItems,
   CheckboxWrapper,
@@ -30,9 +29,11 @@ import {
   IconDone,
 } from "./styles";
 import { useState } from "react";
-import { DropdownMenu } from "../dropdownMenu";
+import { DropdownMenu } from "../../common/dropdownMenu";
 import apiHelper from "../../../api/apiHelper";
 import useOutsideClick from "../../../hooks/useOutsideClick";
+import { ToolTip } from "../../common/toolstip";
+import MemberPhoto from "../user/member-photo";
 
 type BacklogCardPropsType = {
   cardKey: string;

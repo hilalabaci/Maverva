@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CardType, SprintType } from "../../../types";
 import { useParams } from "react-router-dom";
 import apiHelper from "../../../api/apiHelper";
-import Sprint from "../../tools/sprint";
+import Sprint from "../../features/sprint";
 
 type URLParams = {
   boardId?: string;

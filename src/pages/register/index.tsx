@@ -4,7 +4,7 @@ import {
   useGoogleLogin,
   useGoogleOneTapLogin,
 } from "@react-oauth/google";
-import Button from "../../components/tools/button";
+import Button from "../../components/common/button";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
@@ -29,16 +29,16 @@ import {
   Point,
   CheckBoxTextLink,
 } from "./styles";
-import Input from "../../components/tools/input";
+import Input from "../../components/common/input";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import {
   GoogleSignWrapper,
   GoogleSignButton,
   GoogleSignButtonText,
-} from "../../components/tools/registerForm/styles";
+} from "../../components/forms/registerForm/styles";
 import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
 import apiHelper from "../../api/apiHelper";
-import CheckboxRadixUi from "../../components/tools/checkboxRadixUI";
+import CheckboxRadixUi from "../../components/common/checkboxRadixUI";
 import { UserType } from "../../types";
 
 interface FormError {

@@ -38,13 +38,13 @@ import {
   CollapseText,
   CollapseContentElement,
 } from "./styles";
-import TypedDemo from "../../components/tools/Typed/typed";
-import RegisterForm from "../../components/tools/registerForm";
+import TypedDemo from "../../components/common/Typed/typed";
+import RegisterForm from "../../components/forms/registerForm";
 import WelcomeIllus2 from "../../components/ DynamicSVG/WelcomeIllus2";
 import { useState } from "react";
 import ShareTeamIllus from "../../components/ DynamicSVG/shareTeamIllus";
 import { WelcomeTexts } from "../../constants/welcomeTexts";
-import Navbar from "../../components/navbar";
+import Navbar from "../../components/layout/navbar/navbar-welcomePage";
 import Footer from "../../components/layout/footer";
 import { CollapseTexts, imageSources } from "./text";
 

@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import Navbar from "../../../components/tools/navbar";
+import Navbar from "../../../components/layout/navbar/navbar-project";
 import { Container, GlobalStyle, NavbarWrapper } from "../../dynamicContentLoader/styles";
 import { ProjectType } from "../../../types";
 
