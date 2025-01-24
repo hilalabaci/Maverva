@@ -45,7 +45,7 @@ import { useState } from "react";
 import ShareTeamIllus from "../../components/ DynamicSVG/shareTeamIllus";
 import { WelcomeTexts } from "../../constants/welcomeTexts";
 import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/layout/footer";
 import { CollapseTexts, imageSources } from "./text";
 
 function WelcomePage() {

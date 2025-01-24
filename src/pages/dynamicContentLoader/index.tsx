@@ -17,9 +17,9 @@ import {
   Main,
   MainContainer,
 } from "./styles";
-import Backlog from "../contents/backlog";
+import Backlog from "../backlog";
 import Scroll from "../../components/tools/scroll";
-import ActiveSprint from "../contents/active-sprint";
+import ActiveSprint from "../active-sprint";
 
 type URLParams = {
   projectKey: string;

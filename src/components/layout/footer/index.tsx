@@ -1,4 +1,4 @@
-import { WelcomeTexts } from "../../constants/welcomeTexts";
+import { WelcomeTexts } from "../../../constants/welcomeTexts";
 import {
   BrandInfo,
   Brandlogo,
