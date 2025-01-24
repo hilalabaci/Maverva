@@ -8,7 +8,7 @@ import {
   UserType,
 } from "../../../types";
 import { getStatusLabel } from "../../../utils/label";
-import CheckboxRadixUi from "../../common/checkboxRadixUI";
+import CheckboxRadixUi from "../../forms/checkboxRadixUI";
 import SelectDemo from "../../common/selectDemo";
 
 import {

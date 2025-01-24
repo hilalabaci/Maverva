@@ -38,7 +38,7 @@ import apiHelper from "../../../api/apiHelper";
 import { useParams } from "react-router-dom";
 
 import { CheckboxWrapper } from "../backlogCard/styles";
-import CheckboxRadixUi from "../../common/checkboxRadixUI";
+import CheckboxRadixUi from "../../forms/checkboxRadixUI";
 import { ToolTip } from "../../common/toolstip";
 import BacklogCard from "../backlogCard";
 

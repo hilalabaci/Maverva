@@ -1,4 +1,4 @@
-import CheckboxRadixUi from "../../common/checkboxRadixUI";
+import CheckboxRadixUi from "../../forms/checkboxRadixUI";
 import CollapsibleDemo from "../../common/collapsible";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";

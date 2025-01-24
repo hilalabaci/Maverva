@@ -3,7 +3,6 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import AddIcon from "@mui/icons-material/Add";
 import { CardStatus } from "../../../types";
 
-
 type FormProps = { $isSelected: boolean };
 export const Container = styled.div`
   display: flex;

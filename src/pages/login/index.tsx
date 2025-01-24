@@ -37,7 +37,7 @@ import {
 } from "../../components/forms/registerForm/styles";
 import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
 import apiHelper from "../../api/apiHelper";
-import CheckboxRadixUi from "../../components/common/checkboxRadixUI";
+import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
 import { UserType } from "../../types";
 
 interface FormError {
