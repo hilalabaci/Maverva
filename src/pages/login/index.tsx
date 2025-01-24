@@ -1,9 +1,5 @@
 import { FormEvent, useState } from "react";
-import {
-  GoogleLogin,
-  useGoogleLogin,
-  useGoogleOneTapLogin,
-} from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import Button from "../../components/common/button";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";

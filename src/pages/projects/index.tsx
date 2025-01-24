@@ -34,12 +34,13 @@ import {
 import Search from "../../components/common/search";
 import { useUserContext } from "../../contexts/UserContext";
 import { ProjectType } from "../../types";
-import MemberPhoto from "../../components/features/user/member-photo";
+
 import { DropdownMenu } from "../../components/common/dropdownMenu/index";
-import CloseProjectMenu from "../../components/features/project/close-project-menu";
-import ProjectCreate from "../../components/features/project/project-add/create";
-import ProjectAvatar from "../../components/features/user/project-avatar";
+import CloseProjectMenu from "../../features/project/close-project-menu";
+import ProjectCreate from "../../features/project/project-add/create";
+import ProjectAvatar from "../../features/user/project-avatar";
 import Toggle from "../../components/common/toggle";
+import MemberPhoto from "../../features/user/member-photo";
 
 type ProjectsPropsType = {
   onProjectChange: (project: ProjectType) => void;

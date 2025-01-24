@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MemberButton from "../../../features/user/member-button";
 import {
   BrandContainer,
   BrandLogo,
@@ -23,10 +22,11 @@ import {
   MemberButtonWrapper,
 } from "./styles";
 import Modal from "../../../common/modal";
-import Notification from "../../../features/notification";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { ProjectType, NotificationType } from "../../../../types";
-import OptionalBoardCreate from "../../../features/board/optional/create";
+import OptionalBoardCreate from "../../../../features/board/optional/create";
+import Notification from "../../../../features/notification";
+import MemberButton from "../../../../features/user/member-button";
 type NavbarPropsType = {
   onCreate: (project: ProjectType) => void;
 };
