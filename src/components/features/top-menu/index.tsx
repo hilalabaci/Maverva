@@ -17,7 +17,7 @@ import {
 } from "./styles";
 import MemberPhoto from "../../features/user/member-photo";
 import Modal from "../../common/modal";
-import AddPerson from "../addPerson";
+import AddPerson from "../../features/addPerson";
 import { BoardType, ProjectType, UserType } from "../../../types";
 import Search from "../../common/search";
 import { ToolTip } from "../../common/toolstip";

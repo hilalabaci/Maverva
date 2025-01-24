@@ -1,6 +1,6 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import CardList from "../../components/actions/card/card-list";
+import CardList from "../../components/features/card/card-list";
 import {
   ColumnContainer,
   TitleWrapper,
@@ -21,9 +21,9 @@ import { CardType, ColumnType, SprintType } from "../../types";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiHelper from "../../api/apiHelper";
-import NumberOfCards from "../../components/actions/card/number-cards";
-import { ButtomWrapper } from "../../components/actions/card/cards/styles";
-import { NextButton } from "../../components/actions/board/optional/styles";
+import NumberOfCards from "../../components/features/card/number-cards";
+import { ButtomWrapper } from "../../components/features/card/cards/styles";
+import { NextButton } from "../../components/features/board/optional/styles";
 import { DropdownMenu } from "../../components/common/dropdownMenu";
 
 type URLParams = {

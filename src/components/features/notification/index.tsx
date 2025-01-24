@@ -1,4 +1,7 @@
-import { ButtonStylesforIconPerson, IconPerson } from "../top-menu/styles";
+import {
+  ButtonStylesforIconPerson,
+  IconPerson,
+} from "../../features/top-menu/styles";
 import { formatDistanceToNow } from "date-fns";
 import {
   Container,

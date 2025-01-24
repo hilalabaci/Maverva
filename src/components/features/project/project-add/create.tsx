@@ -21,7 +21,7 @@ import {
   SubmitButton,
 } from "./styles";
 import MemberPhoto from "../../../features/user/member-photo";
-import { CancelButton } from "../../addPerson/styles";
+import { CancelButton } from "../../../features/addPerson/styles";
 import { ProjectType } from "../../../../types";
 import { BackButton } from "../../board/optional/styles";
 import apiHelper from "../../../../api/apiHelper";

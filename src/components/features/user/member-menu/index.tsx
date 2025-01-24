@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useUserContext } from "../../../../contexts/UserContext";
 import useOutsideClick from "../../../../hooks/useOutsideClick";
-import ChangeThemeModal from "../../../actions/changeThemeModal";
+import ChangeThemeModal from "../../changeThemeModal";
 import Modal from "../../../common/modal";
 import MemberPhoto from "../member-photo";
 import {

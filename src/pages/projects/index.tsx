@@ -36,8 +36,8 @@ import { useUserContext } from "../../contexts/UserContext";
 import { ProjectType } from "../../types";
 import MemberPhoto from "../../components/features/user/member-photo";
 import { DropdownMenu } from "../../components/common/dropdownMenu/index";
-import CloseProjectMenu from "../../components/actions/project/close-project-menu";
-import ProjectCreate from "../../components/actions/project/project-add/create";
+import CloseProjectMenu from "../../components/features/project/close-project-menu";
+import ProjectCreate from "../../components/features/project/project-add/create";
 import ProjectAvatar from "../../components/features/user/project-avatar";
 import Toggle from "../../components/common/toggle";
 

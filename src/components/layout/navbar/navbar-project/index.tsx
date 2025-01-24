@@ -23,10 +23,10 @@ import {
   MemberButtonWrapper,
 } from "./styles";
 import Modal from "../../../common/modal";
-import Notification from "../../../actions/notification";
+import Notification from "../../../features/notification";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { ProjectType, NotificationType } from "../../../../types";
-import OptionalBoardCreate from "../../../actions/board/optional/create";
+import OptionalBoardCreate from "../../../features/board/optional/create";
 type NavbarPropsType = {
   onCreate: (project: ProjectType) => void;
 };

@@ -4,14 +4,14 @@ import {
   ProjectMenuAndSideBar,
   Wrapper,
 } from "../../dynamicContentLoader/styles";
-import ProjectMenu from "../../../components/actions/project/project-menu";
+import ProjectMenu from "../../../components/features/project/project-menu";
 import SideBar from "../../../components/common/sideBar";
 import {
   PathInfo,
   Pathitem,
   PathLink,
   PathList,
-} from "../../../components/actions/top-menu/styles";
+} from "../../../components/features/top-menu/styles";
 import { Container, MainContainer, Breadcrumbs } from "./styles";
 import { useParams } from "react-router-dom";
 import { BoardType } from "../../../types";
