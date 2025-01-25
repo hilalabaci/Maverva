@@ -1,5 +1,4 @@
 import "./App.css";
-import Home from "./pages/dynamicContentLoader";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import {
@@ -14,10 +13,10 @@ import { ApplicationProvider } from "./contexts/ApplicationContext";
 import Projects from "./pages/projects";
 import { ProjectType } from "./types";
 import DynamicContentLoader from "./pages/dynamicContentLoader";
-import Backlog from "./pages/contents/backlog";
 import WelcomePage from "./pages/welcome-page";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import SendVerificationEmail from "./pages/sendVerificationEmail";
+import { GlobalStyle } from "./styles/GlobalStyle";
 
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
@@ -75,6 +74,7 @@ function PrivateRoute() {
 function App() {
   return (
     <GoogleOAuthProvider clientId={REACT_APP_GOOGLE_OAUTH_CLIENTID!}>
+      <GlobalStyle />
       <ThemeProvider>
         <UserProvider>
           <ApplicationProvider>

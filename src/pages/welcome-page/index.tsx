@@ -95,12 +95,6 @@ function WelcomePage() {
           <InfoSection>
             <TabTitleWrapper>
               <TabTitle>Find out what makes Maverva simple to use</TabTitle>
-              <TitleDetail>
-                <strong>
-                  Stay organized with an easy-to-use tool that adapts to your
-                  unique needs
-                </strong>
-              </TitleDetail>
             </TabTitleWrapper>
             <CollapseParent>
               <CollapseNavigation>

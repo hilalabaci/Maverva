@@ -166,10 +166,10 @@ export const WrapperParag = styled.div`
 `;
 
 export const TabTitle = styled.h2`
-  font-size: 40px;
+  font-size: 2.25rem;
   line-height: 1.243902439;
-  color: #2f4156;
-  font-weight: 900;
+  font-weight: 500;
+  color: ${(props) => props.theme.fontColour2};
   cursor: default;
   @media only screen and (max-width: 600px) {
     padding: 0;
@@ -204,14 +204,16 @@ export const CollapseParent = styled.div`
 export const CollapseNavigation = styled.div`
   margin-inline: 24px;
 `;
-export const CollapseItem = styled.div``;
+export const CollapseItem = styled.div`
+  padding: 10px 0;
+`;
 type displayProps = {
   $display?: boolean;
 };
 export const CollapseTitle = styled.h3<displayProps>`
   cursor: pointer;
   font-size: 34px;
-  font-weight: 900;
+  font-weight: 800;
   background: rgb(127 118 174 / 60%);
   background: ${(props) =>
     props.$display
@@ -220,6 +222,7 @@ export const CollapseTitle = styled.h3<displayProps>`
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 1s ease;
+  font-family: "Glory";
   &:hover {
     background: linear-gradient(
       269deg,
@@ -240,6 +243,8 @@ export const CollapseText = styled.div<displayProps>`
   line-height: 1.5;
   transition: all 1s ease;
   cursor: default;
+  padding: 10px 0;
+  color: ${(props) => props.theme.fontColour2};
 `;
 export const CollapseContentElement = styled.div<displayProps>`
   display: ${(props) => (props.$display ? "flex" : "none")};
