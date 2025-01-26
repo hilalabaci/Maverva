@@ -7,7 +7,21 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 export const DropDownContainer = styled(DropdownMenuPrimitive.Root)`
   z-index: 1;
 `;
+export const DropdownMenuPrimitiveTrigger = styled(
+  DropdownMenuPrimitive.Trigger
+)`
+  border-radius: 3px;
+  color: rgb(66, 82, 110);
+  outline: none;
+  box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
+  font-size: 1rem;
+  font-weight: 400;
+  border: none;
+  padding: 9.5px 5px;
+  display:flex;
 
+  gap:30px;
+`;
 export const DropdownContent = styled(
   DropdownMenuPrimitive.Content
 )<DropdownContentProps>`
@@ -26,6 +40,7 @@ export const DropdownContent = styled(
     0 4px 8px -2px rgba(9, 30, 66, 0.25),
     0 0 1px rgba(9, 30, 66, 0.31)
   );
+
   z-index: 1;
   ${({ $triggerWidth }) =>
     $triggerWidth &&
@@ -34,7 +49,7 @@ export const DropdownContent = styled(
     `};
 `;
 export const DropDownItemContainer = styled.div`
-  padding: 5px 10px;
+  padding: 15px 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

@@ -24,7 +24,7 @@ import {
   CreateAccountListItemLink,
   Point,
 } from "./styles";
-import Input from "../../components/common/input";
+import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import {
   GoogleSignWrapper,

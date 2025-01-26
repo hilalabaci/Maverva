@@ -9,6 +9,7 @@ import {
   IconForUnselect,
   TitleforDropDownMenu,
   DropDownItemContainer,
+  DropdownMenuPrimitiveTrigger,
 } from "./styles";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
@@ -28,9 +29,9 @@ export const DropdownSelectMenu: React.FC<DropdownSelectMenuProps> = ({
 }) => {
   return (
     <DropDownContainer>
-      <DropdownMenuPrimitive.Trigger asChild>
+      <DropdownMenuPrimitiveTrigger asChild>
         {trigger}
-      </DropdownMenuPrimitive.Trigger>
+      </DropdownMenuPrimitiveTrigger>
 
       <DropdownContent $triggerWidth={triggerWidth}>
         {title && <TitleforDropDownMenu>{title}</TitleforDropDownMenu>}

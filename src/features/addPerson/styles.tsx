@@ -7,59 +7,36 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vh;
-  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  width: 100%;
+  color: ${(props) => props.theme.fontColour2};
+  background-color: ${(props) => props.theme.modalBg};
+  border-radius: 5px;
+  font-weight: 600;
 `;
 export const GenerelWrapper = styled.div`
-  width: 354px;
-  background-color: ${(props) => props.theme.modalBg};
-  color: ${(props) => props.theme.fontColour};
-  font-weight: 600;
-  font-family: Inter;
-  border-radius: 2px;
-  padding: 10px;
+  width: 400px;
 `;
 export const FielsetWrapper = styled.fieldset`
   border: none;
+  max-width: 354px;
+  margin: 0px auto;
 `;
 export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin: 10px 0 24px 0;
 `;
 export const TitleWrapper = styled.legend``;
-export const Title = styled.h1`
+export const Title = styled.h3`
   font-size: 20px;
+  margin-top: 24px;
 `;
 export const MailWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 6px;
 `;
-export const LabelTitle = styled.label`
-  font-size: 12px;
-  font-weight: 600;
-  &::after {
-    content: "*";
-    margin-left: 3px;
-    position: relative;
-    top: -2px;
-    color: red;
-  }
-`;
-export const MailInput = styled.input`
-  background-color: ${(props) => props.theme.modalInputBg};
-  padding: 7px 5px;
-  border: 1px solid ;
-  border-radius: 3px;
-  color: ${(props) => props.theme.fontColour};
-  :focus-visible {
-    border: ${(props) => props.theme.activeBorder};
-    outline: none;
-  }
-`;
-
 export const RoleWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -151,6 +128,7 @@ export const InputWrapperwithIcon = styled.div`
 export const TitleforProject = styled.label`
   font-size: 12px;
   font-weight: 600;
+  color: ${(props) => props.theme.fontColourSoft};
   &::after {
     content: "*";
     margin-left: 3px;

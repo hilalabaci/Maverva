@@ -104,6 +104,7 @@ export const SearchAndAssignMemberContainer = styled.div`
 `;
 export const AssignMemberContainer = styled.div`
   display: flex;
+  width: 100%;
 `;
 export const HostMemberContainer = styled.div``;
 export const ButtonStylesforIconPerson = styled.button`

@@ -5,8 +5,6 @@ import {
   GenerelWrapper,
   FielsetWrapper,
   FormWrapper,
-  LabelTitle,
-  MailInput,
   MailWrapper,
   Title,
   TitleWrapper,
@@ -17,6 +15,9 @@ import {
   InputforProjectDropDown,
   InputWrapperwithIcon,
   TitleforProject,
+  WarningMessage,
+  RoleWrapper,
+  RoleCheckbox,
 } from "./styles";
 import AddedPerson from "../addedPerson";
 import { useApplicationContext } from "../../contexts/ApplicationContext";
@@ -25,6 +26,8 @@ import { useUserContext } from "../../contexts/UserContext";
 import apiHelper from "../../api/apiHelper";
 import { DropdownSelectMenu } from "../../components/common/select";
 import Modal from "../../components/common/modal";
+import InputRectangle from "../../components/common/input/rectangle";
+import { LabelTitle } from "../../components/common/input/rectangle/styles";
 type AddPersonPropsType = {
   projectTitle: string;
   closeModal: () => void;
@@ -37,6 +40,7 @@ function AddPerson(props: AddPersonPropsType) {
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
   const { boards, setBoards } = useApplicationContext();
   const [selectedBoards, setSelectedBoards] = useState<BoardType[]>([]);
+  const [selectedRole, setSelectedRole] = useState("");
   const { user } = useUserContext();
   function openModal() {
     setShowModal(true);
@@ -62,10 +66,11 @@ function AddPerson(props: AddPersonPropsType) {
     loadBoards();
   }, []);
 
-  function handleChange(value: string) {
-    setEmailforAddPerson(value);
+  function handleInputChange(value: string, name: string): void {
+    if (name === "email") {
+      setEmailforAddPerson(value);
+    }
   }
-
   async function addUserToBoard() {
     const projectId = props.projectId;
     const boardIds = selectedBoards.map((board) => board._id);
@@ -92,13 +97,14 @@ function AddPerson(props: AddPersonPropsType) {
             }}
           >
             <MailWrapper>
-              <LabelTitle htmlFor="email">Names or emails</LabelTitle>
-              <MailInput
-                onChange={(e) => handleChange(e.target.value)}
+              <InputRectangle
+                title="email"
+                //onChange={(e) => handleInputChange(e.target.value, "email")}
+                onChange={(value: string) => handleInputChange(value, "email")}
                 value={emailforAddPerson}
-                name="email"
                 placeholder="e.g., Maria, maria@company.com"
-              ></MailInput>
+                labelValue="Names or emails"
+              />
             </MailWrapper>
             <AddProjectWrapper>
               <TitleforProject>Project</TitleforProject>
@@ -141,11 +147,43 @@ function AddPerson(props: AddPersonPropsType) {
                 })}
               />
             </AddProjectWrapper>
-            {/*<WarningMessage>user not found</WarningMessage>*/}
-            {/* <RoleWrapper>
-              <LabelTitle for="role">Role</LabelTitle>
-              <RoleCheckbox></RoleCheckbox>
-            </RoleWrapper> */}
+            <RoleWrapper>
+              <TitleforProject>Role</TitleforProject>
+              <DropdownSelectMenu
+                triggerWidth={true}
+                title="Boards"
+                trigger={
+                  <InputWrapperwithIcon>
+                    <InputforProjectDropDown
+                      type="text"
+                      value={selectedRole}
+                      maxLength={64}
+                    />
+                    <IconDown />
+                  </InputWrapperwithIcon>
+                }
+                items={[
+                  {
+                    label: "Admin",
+                    action: () => {
+                      setSelectedRole("Admin");
+                    },
+                  },
+                  {
+                    label: "Editor",
+                    action: () => {
+                      setSelectedRole("Editor");
+                    },
+                  },
+                  {
+                    label: "Viewer",
+                    action: () => {
+                      setSelectedRole("Viewer");
+                    },
+                  },
+                ]}
+              />
+            </RoleWrapper>
             <ButtonWrapper>
               <CancelButton onClick={props.closeModal}>Cancel</CancelButton>
               <Modal
