@@ -2,10 +2,10 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import TopMenu from "../../features/top-menu";
 import {
   ProjectType,
-  CardType,
+  IssueType,
   BoardType,
   SprintType,
-  CardStatus,
+  IssueStatus,
 } from "../../types";
 import Layout from "../templates/layout";
 import { useLocation, useParams } from "react-router-dom";
@@ -29,8 +29,8 @@ function DynamicContentLoader() {
   const location = useLocation();
   const { projectKey, boardId } = useParams<URLParams>();
   const [activeSprint, setActiveSprint] = useState<SprintType>();
-  const [cards, setCards] = useState<CardType[]>();
-  const [filteredCards, setFilteredCards] = useState<CardType[]>([]);
+  const [cards, setCards] = useState<IssueType[]>();
+  const [filteredCards, setFilteredCards] = useState<IssueType[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedProject, setSelectedProject] = useState<ProjectType>();
   const [hideMenu, setHideMenu] = useState(false);
@@ -65,7 +65,7 @@ function DynamicContentLoader() {
 
       if (ok && data) {
         setActiveSprint(data);
-        setCards(data.cardIds);
+        setCards(data.IssueIds);
       } else {
         console.error("Failed to fetch board. Status:");
       }
@@ -76,23 +76,23 @@ function DynamicContentLoader() {
 
   useEffect(() => {
     loadActiveSprint();
-    console.log(activeSprint?.boardId);
-    console.log(activeSprint?.boardName);
+    console.log(activeSprint?.BoardId);
+    console.log(activeSprint?.Board);
   }, [loadActiveSprint]);
 
   function deleteCard(id: string) {
-    setCards(cards?.filter((card) => card._id !== id));
+    setCards(cards?.filter((card) => card.Id !== id));
   }
 
-  function updateCard(card: CardType) {
+  function updateCard(card: IssueType) {
     if (!cards) return;
-    const index = cards.findIndex((b) => b._id === card._id);
+    const index = cards.findIndex((b) => b.Id === card.Id);
     const newCards = [...cards];
     newCards[index] = card;
     setCards(newCards);
-    /*    setCards([...cards.filter((card) => card._id !== id), card]); */
+    /*    setCards([...cards.filter((card) => card.id !== id), card]); */
   }
-  function onUpdateContent(card: CardType) {
+  function onUpdateContent(card: IssueType) {
     if (!cards) return;
     loadActiveSprint();
   }
@@ -106,24 +106,24 @@ function DynamicContentLoader() {
   useEffect(() => {
     if (!cards) return;
     setFilteredCards(
-      cards.filter((card) => card.content.includes(searchInput))
+      cards.filter((card) => card.Summary.includes(searchInput))
     );
   }, [searchInput, cards]);
 
-  function addedCard(card: CardType) {
+  function addedCard(card: IssueType) {
     if (!cards) return;
     setCards([...cards, card]);
   }
-  function updatedCardsAfterDeleteColumn(updateCards: CardType[]) {
+  function updatedCardsAfterDeleteColumn(updateCards: IssueType[]) {
     if (!cards) return;
     const updatedCards = updateCards.map((card) => ({
       ...card,
-      status: CardStatus.Backlog,
+      status: IssueStatus.Backlog,
     }));
 
-    const updatedCardIds = updatedCards.map((card) => card._id);
+    const updatedCardIds = updatedCards.map((card) => card.Id);
     const remainingCards = cards.filter(
-      (card) => !updatedCardIds.includes(card._id)
+      (card) => !updatedCardIds.includes(card.Id)
     );
     setCards([...updatedCards, ...remainingCards]);
   }
@@ -132,9 +132,9 @@ function DynamicContentLoader() {
     <Layout onProjectCrate={(project) => {}}>
       <MainContainerLayout
         projectKey={projectKey as string}
-        projectId={selectedProject?._id as string}
-        projectTitle={selectedProject?.title as string}
-        selectedBoardTitle={activeSprint?.boardId?.title as string}
+        projectId={selectedProject?.Id as string}
+        projectTitle={selectedProject?.Name as string}
+        selectedBoardTitle={activeSprint?.BoardId?.Name as string}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         hideMenu={hideMenu}
@@ -146,12 +146,12 @@ function DynamicContentLoader() {
           {selectedProject && (
             <TopMenu
               selectedBoardId={boardId as string}
-              selectedBoardTitle={activeSprint?.boardId?.title as string}
+              selectedBoardTitle={activeSprint?.BoardId?.Name as string}
               projectKey={projectKey as string}
               onProjectUpdate={() => {}}
-              projectId={selectedProject?._id as string}
-              topMenuTitle={selectedProject?.title as string}
-              user={selectedProject?.userId}
+              projectId={selectedProject?.Id as string}
+              topMenuTitle={selectedProject?.Name as string}
+              user={selectedProject?.LeadUser} //check here!!
               setSearchInput={setSearchInput}
               boardId={boardId as BoardType | undefined}
             />
@@ -167,7 +167,7 @@ function DynamicContentLoader() {
                   <ActiveSprintWrapper>
                     <ActiveSprint
                       activeSprint={activeSprint}
-                      boardId={activeSprint?.boardId as string | undefined}
+                      boardId={activeSprint?.BoardId as string | undefined}
                       onUpdate={updateCard}
                       onUpdateContent={onUpdateContent}
                       onDelete={deleteCard}

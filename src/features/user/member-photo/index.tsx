@@ -32,7 +32,7 @@ function MemberPhoto(props: MemberPhotoProps) {
         $fontWeight={props.$fontWeight}
       >
         <MemberAvatar
-          src={`https://api.dicebear.com/9.x/avataaars/svg?scale=100&radius=50&randomizeIds=true&seed=${user?._id}`}
+          src={`https://api.dicebear.com/9.x/avataaars/svg?scale=100&radius=50&randomizeIds=true&seed=${user?.Id}`}
         />
       </Memberphoto>
     </Container>

@@ -6,7 +6,7 @@ import {
   Container,
   Textarea,
 } from "./styles";
-import { CardType } from "../../../types";
+import { IssueType } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import apiHelper from "../../../api/apiHelper";
 
@@ -14,7 +14,7 @@ type AddCardPropsType = {
   projectKey: string;
   status: number;
   onClose: () => void;
-  addedCard: (card: CardType) => void;
+  addedCard: (card: IssueType) => void;
   boardId?: string;
   sprintId: string;
 };
@@ -22,7 +22,7 @@ type AddCardPropsType = {
 function AddCard(props: AddCardPropsType) {
   const [content, setContent] = useState("");
   const { user } = useUserContext();
-  const userId = user?._id;
+  const userId = user?.Id;
   function handleChange(value: string) {
     setContent(value);
   }
@@ -41,7 +41,7 @@ function AddCard(props: AddCardPropsType) {
       if (ok && data) {
       }
       setContent("");
-      props.addedCard(data as CardType);
+      props.addedCard(data as IssueType);
       props.onClose();
     } catch (error) {
       console.error("Error fetching project:", error);

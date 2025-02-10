@@ -29,8 +29,8 @@ import { useParams } from "react-router-dom";
 import BacklogCard from "../backlogCard";
 import {
   BacklogDragItems,
-  CardStatus,
-  CardType,
+  IssueStatus,
+  IssueType,
   SprintType,
 } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
@@ -47,7 +47,7 @@ type SprintPropsType = {
   sprintStartDate: Date;
   sprintEndDate: Date;
   sprintIsActive: boolean;
-  onUpdate: (data?: CardType) => void;
+  onUpdate: (data?: IssueType) => void;
   activeToSprint: (id: string) => boolean;
 };
 
@@ -75,7 +75,7 @@ function Sprint({
   const [selectedSprintId, setSelectedSprintId] = useState<string | undefined>(
     sprintId
   );
-  const [sprintCards, setSprintCards] = useState<CardType[]>(sprint.cardIds);
+  const [sprintCards, setSprintCards] = useState<IssueType[]>(sprint.IssueIds);
   const [isActiveSprint, setIsActiveSprint] = useState(sprintIsActive);
 
   async function updateCardInfo(
@@ -110,7 +110,7 @@ function Sprint({
       if (updatedCard) {
         setSprintCards((prevCards) => {
           const updatedCards = prevCards.filter(
-            (card) => card._id !== updatedCard._id
+            (card) => card.Id !== updatedCard.Id
           );
           updatedCards.push(updatedCard);
           return updatedCards;
@@ -146,7 +146,7 @@ function Sprint({
       const cardData = {
         content: content,
         status: 0,
-        userId: user?._id,
+        userId: user?.Id,
         projectKey: projectKey,
         boardId: boardId,
         sprintId: selectedSprintId,
@@ -154,7 +154,7 @@ function Sprint({
 
       const { ok, data } = await apiHelper.addCard(cardData);
       if (ok && data) {
-        setSprintCards((prevCards) => [...prevCards, data as CardType]);
+        setSprintCards((prevCards) => [...prevCards, data as IssueType]);
       }
       setContent("");
     } catch (error) {
@@ -163,16 +163,16 @@ function Sprint({
   }
 
   function deleteCard(id: string) {
-    setSprintCards(sprintCards.filter((card) => card._id !== id));
+    setSprintCards(sprintCards.filter((card) => card.Id !== id));
   }
-  function getStatusCount(status: CardStatus) {
-    return sprintCards.filter((card) => card.status === status).length;
+  function getStatusCount(status: IssueStatus) {
+    return sprintCards.filter((card) => card.Status === status).length;
   }
 
   function updateStatusCard(id: string, status: number) {
     setSprintCards((prevBacklogCards) =>
       prevBacklogCards.map((card) =>
-        card._id === id ? { ...card, status } : card
+        card.Id === id ? { ...card, status } : card
       )
     );
   }
@@ -193,9 +193,9 @@ function Sprint({
       }
     }
   }
-  function onUpdateContent(card: CardType) {
+  function onUpdateContent(card: IssueType) {
     if (!sprintCards) return;
-    setContent(card.content);
+    setContent(card.Summary);
   }
 
   return (
@@ -233,42 +233,42 @@ function Sprint({
                   : "Date not available"}
               </Duration>
               <HeaderIssue>
-                ({sprint.cardIds ? sprint.cardIds.length : 0} issue)
+                ({sprint.IssueIds ? sprint.IssueIds.length : 0} issue)
               </HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={CardStatus.Backlog}>
-                    {getStatusCount(CardStatus.Backlog)}
+                  <HeaderStatus status={IssueStatus.Backlog}>
+                    {getStatusCount(IssueStatus.Backlog)}
                   </HeaderStatus>
                 }
                 content={` Not started ${getStatusCount(
-                  CardStatus.Backlog
-                )} of ${sprint.cardIds.length} `}
+                  IssueStatus.Backlog
+                )} of ${sprint.IssueIds.length} `}
               ></ToolTip>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={CardStatus.InProgress}>
-                    {getStatusCount(CardStatus.InProgress)}
+                  <HeaderStatus status={IssueStatus.InProgress}>
+                    {getStatusCount(IssueStatus.InProgress)}
                   </HeaderStatus>
                 }
                 content={` In progress ${getStatusCount(
-                  CardStatus.InProgress
-                )} of ${sprint.cardIds.length} `}
+                  IssueStatus.InProgress
+                )} of ${sprint.IssueIds.length} `}
               ></ToolTip>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={CardStatus.Done}>
-                    {getStatusCount(CardStatus.Done)}
+                  <HeaderStatus status={IssueStatus.Done}>
+                    {getStatusCount(IssueStatus.Done)}
                   </HeaderStatus>
                 }
-                content={`Completed ${getStatusCount(CardStatus.Done)} of ${
-                  sprint.cardIds.length
+                content={`Completed ${getStatusCount(IssueStatus.Done)} of ${
+                  sprint.IssueIds.length
                 } `}
               ></ToolTip>
             </HeaderStatusWrapper>
-            {activeToSprint(sprint._id) ? (
+            {activeToSprint(sprint.Id) ? (
               <HeaderButtonWrapper>
                 {isActiveSprint ? (
                   <HeaderButton $isActive={true}>Complete sprint</HeaderButton>
@@ -295,11 +295,11 @@ function Sprint({
             <BacklogCardList>
               {sprintCards.map((card) => (
                 <BacklogCard
-                  id={card._id}
-                  cardKey={card.cardKey}
-                  content={card.content}
-                  status={card.status}
-                  user={card.userId}
+                  id={card.Id}
+                  cardKey={card.Key}
+                  content={card.Summary}
+                  status={card.Status}
+                  user={card.UserId}
                   sprintId={sprintId}
                   boardId={boardId as string}
                   updateCardsAfterDelete={deleteCard}

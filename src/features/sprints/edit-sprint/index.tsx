@@ -42,7 +42,7 @@ const FormDemo = (props: FormDemoType) => {
         startDate: startDate,
         endDate: endDate,
         boardId: boardId,
-        userId: user?._id,
+        userId: user?.Id,
       };
 
       const { ok, data } = await apiHelper.addSprint(sprintData);

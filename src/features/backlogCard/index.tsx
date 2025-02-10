@@ -20,8 +20,8 @@ import { useState } from "react";
 import MemberPhoto from "../user/member-photo";
 import {
   BacklogDragItems,
-  CardStatus,
-  CardType,
+  IssueStatus,
+  IssueType,
   DragDropCollect,
   UserType,
 } from "../../types";
@@ -44,7 +44,7 @@ type BacklogCardPropsType = {
   updateCardsAfterDelete: (id: string) => void;
   onUpdateCardStatus: (id: string, status: number) => void;
   updateCardAfterDrag: (id: string) => void;
-  onUpdateContent: (card: CardType) => void;
+  onUpdateContent: (card: IssueType) => void;
 };
 
 function BacklogCard({
@@ -76,7 +76,7 @@ function BacklogCard({
       }
 
       const dropResult = monitor.getDropResult<{
-        droppedCard: Promise<CardType | undefined>;
+        droppedCard: Promise<IssueType | undefined>;
       }>();
 
       if (!dropResult?.droppedCard) return;
@@ -84,7 +84,7 @@ function BacklogCard({
       dropResult.droppedCard.then((card) => {
         console.log("result is here", card);
         if (!card) return;
-        updateCardAfterDrag(card._id);
+        updateCardAfterDrag(card.Id);
       });
     },
   });
@@ -100,24 +100,24 @@ function BacklogCard({
     setShowModal(false);
   }
   const statusOptions = [
-    { label: getStatusLabel(CardStatus.Backlog), value: CardStatus.Backlog },
-    { label: getStatusLabel(CardStatus.ToDo), value: CardStatus.ToDo },
+    { label: getStatusLabel(IssueStatus.Backlog), value: IssueStatus.Backlog },
+    { label: getStatusLabel(IssueStatus.ToDo), value: IssueStatus.ToDo },
     {
-      label: getStatusLabel(CardStatus.InProgress),
-      value: CardStatus.InProgress,
+      label: getStatusLabel(IssueStatus.InProgress),
+      value: IssueStatus.InProgress,
     },
-    { label: getStatusLabel(CardStatus.Done), value: CardStatus.Done },
+    { label: getStatusLabel(IssueStatus.Done), value: IssueStatus.Done },
   ];
 
   async function updateCard(id: string, status: number) {
     const response = await apiHelper.updateCard(id, status);
     if (response.ok && response.data) {
-      onUpdateCardStatus(response.data._id, response.data.status);
+      onUpdateCardStatus(response.data.Id, response.data.Status);
     } else {
       console.error("Failed to update card:", response);
     }
   }
-  const handleStatusChange = async (status: CardStatus) => {
+  const handleStatusChange = async (status: IssueStatus) => {
     await updateCard(id, status);
   };
 
@@ -187,7 +187,7 @@ function BacklogCard({
       <Status status={status}>
         <SelectDemo
           items={statusOptions}
-          onSelect={(val) => handleStatusChange(val as CardStatus)}
+          onSelect={(val) => handleStatusChange(val as IssueStatus)}
           selectedValue={status}
         />
       </Status>
@@ -202,7 +202,7 @@ function BacklogCard({
               $userBorderadius="50px"
             />
           }
-          content={user.fullName}
+          content={user.FullName}
         ></ToolTip>
       </MemberWrapper>
       <DropdownMenu
@@ -214,19 +214,19 @@ function BacklogCard({
             subItems: [
               {
                 action: () => {
-                  updateCard(id, CardStatus.ToDo);
+                  updateCard(id, IssueStatus.ToDo);
                 },
                 label: "To Do",
               },
               {
                 action: () => {
-                  updateCard(id, CardStatus.InProgress);
+                  updateCard(id, IssueStatus.InProgress);
                 },
                 label: "In progress",
               },
               {
                 action: () => {
-                  updateCard(id, CardStatus.Done);
+                  updateCard(id, IssueStatus.Done);
                 },
                 label: "Done",
               },

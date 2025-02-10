@@ -17,7 +17,7 @@ import {
   EditIcon,
   TitleTotalCardWrapper,
 } from "./styles";
-import { CardType, ColumnType, SprintType } from "../../types";
+import { IssueType, ColumnType, SprintType } from "../../types";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiHelper from "../../api/apiHelper";
@@ -33,14 +33,14 @@ type URLParams = {
 type ActiveSprintsProps = {
   activeSprint?: SprintType;
   boardId?: string | undefined;
-  filteredCards: CardType[];
-  onUpdate: (card: CardType) => void;
-  onUpdateContent: (card: CardType) => void;
+  filteredCards: IssueType[];
+  onUpdate: (card: IssueType) => void;
+  onUpdateContent: (card: IssueType) => void;
   onDelete: (id: string) => void;
-  addedCard: (card: CardType) => void;
-  cards: CardType[];
+  addedCard: (card: IssueType) => void;
+  cards: IssueType[];
   projectKey?: string;
-  updatedCardsAfterDeleteColumn: (cards: CardType[]) => void;
+  updatedCardsAfterDeleteColumn: (cards: IssueType[]) => void;
 };
 function ActiveSprint({
   activeSprint,
@@ -86,8 +86,8 @@ function ActiveSprint({
       console.log(columnId);
       const { ok, data } = await apiHelper.deleteColumn(columnId);
 
-      setColumns(columns.filter((c) => c._id !== columnId));
-      updatedCardsAfterDeleteColumn(data as CardType[]);
+      setColumns(columns.filter((c) => c.Id !== columnId));
+      updatedCardsAfterDeleteColumn(data as IssueType[]);
     } catch (error) {}
   }
 
@@ -120,21 +120,21 @@ function ActiveSprint({
         {activeSprint ? (
           <DndProvider backend={HTML5Backend}>
             {columns
-              .sort((a, b) => a.status - b.status)
+              .sort((a, b) => a.Status - b.Status)
               .map((column) => (
                 <Wrapper>
                   <TitleWrapper>
                     <TitleTotalCardWrapper>
-                      <Title>{column.title}</Title>
+                      <Title>{column.Name}</Title>
                       <NumberOfCards
                         numberOfCards={
                           filteredCards.filter(
-                            (card) => card.status === column.status
+                            (card) => card.Status === column.Status
                           ).length
                         }
                         numberOfFilteredCards={
                           filteredCards.filter(
-                            (card) => card.status === column.status
+                            (card) => card.Status === column.Status
                           ).length
                         }
                       />
@@ -144,7 +144,7 @@ function ActiveSprint({
                       items={[
                         {
                           action: () => {
-                            deleteColumn(column._id);
+                            deleteColumn(column.Id);
                           },
                           label: "Delete",
                         },
@@ -152,19 +152,19 @@ function ActiveSprint({
                     />
                   </TitleWrapper>
                   <CardList
-                    key={column._id}
+                    key={column.Id}
                     onUpdate={onUpdate}
                     onUpdateContent={onUpdateContent}
                     onDelete={onDelete}
                     addedCard={addedCard}
-                    title={column.title}
+                    title={column.Name}
                     projectKey={projectKey as string}
                     cards={filteredCards.filter(
-                      (card) => card.status === column.status
+                      (card) => card.Status === column.Status
                     )}
-                    status={column.status}
+                    status={column.Status}
                     boardId={boardId}
-                    sprintId={activeSprint._id}
+                    sprintId={activeSprint.Id}
                   />
                 </Wrapper>
               ))}

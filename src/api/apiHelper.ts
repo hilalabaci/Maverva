@@ -1,6 +1,6 @@
 import {
   BoardType,
-  CardType,
+  IssueType,
   ColumnType,
   ProjectType,
   SprintType,
@@ -102,7 +102,7 @@ class ApiHelper {
   }
 
   async getSprintCard(projectKey: string, boardId: string) {
-    return await this.baseCall<CardType[]>(
+    return await this.baseCall<IssueType[]>(
       `projects/${projectKey}/boards/${boardId}`,
       {
         method: "GET",
@@ -125,13 +125,13 @@ class ApiHelper {
     });
   }
   async getCards(boardId: string) {
-    return await this.baseCall<CardType[]>("card", {
+    return await this.baseCall<IssueType[]>("card", {
       method: "GET",
       urlParams: new URLSearchParams({ boardId }),
     });
   }
   async getBacklogCards(projectKey: string, boardId: string) {
-    return await this.baseCall<CardType[]>(
+    return await this.baseCall<IssueType[]>(
       `projects/${projectKey}/boards/${boardId}/backlog`,
       {
         method: "GET",
@@ -145,14 +145,14 @@ class ApiHelper {
     oldSprintId?: string,
     boardId?: string
   ) {
-    return await this.baseCall<CardType>("card", {
+    return await this.baseCall<IssueType>("card", {
       method: "PUT",
       data: { cardId, status, newSprintId, oldSprintId, boardId },
     });
   }
 
   async updateCardContent(cardId: string, newContent?: string) {
-    return await this.baseCall<CardType>("card/content", {
+    return await this.baseCall<IssueType>("card/content", {
       method: "PUT",
       data: { cardId, newContent },
     });

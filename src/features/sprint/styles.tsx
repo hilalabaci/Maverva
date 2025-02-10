@@ -2,7 +2,7 @@ import styled from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import { CardStatus } from "../../types";
+import { IssueStatus } from "../../types";
 
 type FormProps = { $isSelected: boolean };
 export const Container = styled.div`
@@ -54,11 +54,11 @@ type StatusProps = {
 export const HeaderStatus = styled.span<StatusProps>`
   background-color: ${({ status, theme }) => {
     switch (status) {
-      case CardStatus.Backlog || CardStatus.ToDo:
+      case IssueStatus.Backlog || IssueStatus.ToDo:
         return theme.statusColourGrey; // red for status 1
-      case CardStatus.InProgress:
+      case IssueStatus.InProgress:
         return theme.statusColourBlue; // yellow for status 2
-      case CardStatus.Done:
+      case IssueStatus.Done:
         return theme.statusColourGreen;
       default: // default green color
     }

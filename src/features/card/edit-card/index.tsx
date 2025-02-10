@@ -11,11 +11,11 @@ import {
   IconDelete,
 } from "./styles";
 import EditLabel from "./edit-label";
-import { CardType, LabelType } from "../../../../types";
-import { DropdownMenu } from "../../../common/dropdownMenu";
+import { IssueType, LabelType } from "../../../types";
+import { DropdownMenu } from "../../../components/common/dropdownMenu";
 
 type EditCardProps = {
-  onUpdate: (card: CardType) => void;
+  onUpdate: (card: IssueType) => void;
   id: string;
   onDelete: (cardId: string) => void;
   labels: LabelType[];

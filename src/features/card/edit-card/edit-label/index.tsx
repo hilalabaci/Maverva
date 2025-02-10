@@ -11,9 +11,9 @@ import {
 } from "./styles";
 
 import Checkbox from "../../../../components/forms/checkbox";
-import { CardType, LabelType } from "../../../../types";
+import { IssueType, LabelType } from "../../../../types";
 type EditLabelProps = {
-  onUpdate: (card: CardType) => void;
+  onUpdate: (card: IssueType) => void;
   cardId: string;
   onClose: () => void;
   labels: LabelType[];
@@ -41,7 +41,7 @@ function EditLabel(props: EditLabelProps) {
       return;
     }
     if (response.ok) {
-      const jsonResponse = (await response.json()) as CardType;
+      const jsonResponse = (await response.json()) as IssueType;
       props.onUpdate(jsonResponse);
     }
   }

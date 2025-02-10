@@ -57,7 +57,7 @@ function AddPerson(props: AddPersonPropsType) {
   }
   async function loadBoards() {
     if (!user) return;
-    const { ok, data } = await apiHelper.getBoards(props.projectKey, user._id);
+    const { ok, data } = await apiHelper.getBoards(props.projectKey, user.Id);
     if (ok && data) {
       setBoards(data);
     }
@@ -73,7 +73,7 @@ function AddPerson(props: AddPersonPropsType) {
   }
   async function addUserToBoard() {
     const projectId = props.projectId;
-    const boardIds = selectedBoards.map((board) => board._id);
+    const boardIds = selectedBoards.map((board) => board.Id);
     const projectData = {
       projectId: projectId,
       boardIds: boardIds,
@@ -116,7 +116,7 @@ function AddPerson(props: AddPersonPropsType) {
                     <InputforProjectDropDown
                       type="text"
                       value={selectedBoards
-                        .map((p) => ({ title: p.title, key: props.projectKey }))
+                        .map((p) => ({ title: p.Name, key: props.projectKey }))
                         .reduce(
                           (acc, project) =>
                             acc + `${project.title}(${project.key}) `,
@@ -129,17 +129,15 @@ function AddPerson(props: AddPersonPropsType) {
                 }
                 items={boards.map((board) => {
                   return {
-                    label: board.title + " (" + props.projectKey + ")",
-                    isSelected: !!selectedBoards.find(
-                      (p) => p._id === board._id
-                    ),
+                    label: board.Name + " (" + props.projectKey + ")",
+                    isSelected: !!selectedBoards.find((p) => p.Id === board.Id),
                     action: () => {
                       const selected = selectedBoards.find(
-                        (p) => p._id === board._id
+                        (p) => p.Id === board.Id
                       );
                       if (selected)
                         setSelectedBoards(
-                          selectedBoards.filter((p) => p._id !== selected._id)
+                          selectedBoards.filter((p) => p.Id !== selected.Id)
                         );
                       else setSelectedBoards([...selectedBoards, board]);
                     },

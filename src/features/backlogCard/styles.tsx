@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import DoneIcon from "@mui/icons-material/Done";
-import { CardStatus } from "../../types";
+import { IssueStatus } from "../../types";
 
 export const BacklogCardListItems = styled.div`
   display: grid;
@@ -94,16 +94,16 @@ type StatusPropsType = {
 
 const handleColorType = (status: number, theme: DefaultTheme) => {
   switch (status) {
-    case CardStatus.Backlog:
+    case IssueStatus.Backlog:
       return {
         backgroundColor: theme.IconEditBg,
         color: theme.fontColourDark,
       };
-    case CardStatus.ToDo:
+    case IssueStatus.ToDo:
       return { backgroundColor: "#f5a142", color: "#000" };
-    case CardStatus.InProgress:
+    case IssueStatus.InProgress:
       return { backgroundColor: "#e9f2ff", color: "#275fa0" };
-    case CardStatus.Done:
+    case IssueStatus.Done:
       return { backgroundColor: "#dcfff1", color: "#206e4e" };
     default:
       return { backgroundColor: "#fff", color: "#000" };

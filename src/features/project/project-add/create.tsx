@@ -133,7 +133,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
                       $userBorderadius="50px"
                       $userBorder={props.userProject}
                     />
-                    {user?.fullName}
+                    {user?.FullName}
                   </InputforProjectLead>
                 </ProjectLeadInputWrapper>
               </ProjectLeadWrapper>

@@ -1,17 +1,17 @@
-import { CardStatus } from "../../types";
+import { IssueStatus } from "../../types";
 
-export const getStatusLabel = (value: CardStatus) => {
+export const getStatusLabel = (value: IssueStatus) => {
   switch (value) {
-    case CardStatus.Backlog:
+    case IssueStatus.Backlog:
       return "Backlog";
 
-    case CardStatus.ToDo:
+    case IssueStatus.ToDo:
       return "To Do";
 
-    case CardStatus.InProgress:
+    case IssueStatus.InProgress:
       return "In Progress";
 
-    case CardStatus.Done:
+    case IssueStatus.Done:
       return "Done";
 
     default:

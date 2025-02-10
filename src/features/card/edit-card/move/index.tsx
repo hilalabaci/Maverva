@@ -1,3 +1,4 @@
+import { IssueType } from "../../../../types";
 import {
   Container,
   Title,
@@ -6,10 +7,9 @@ import {
   IconInProgress,
   IconDone,
 } from "./styles";
-import { CardType } from "../../../../../types";
 
 type MoveProps = {
-  onUpdate: (card: CardType) => void;
+  onUpdate: (card: IssueType) => void;
   cardId: string;
 };
 function Move(props: MoveProps) {
@@ -24,7 +24,7 @@ function Move(props: MoveProps) {
       },
     });
     if (response.ok) {
-      const data = (await response.json()) as CardType;
+      const data = (await response.json()) as IssueType;
       props.onUpdate(data);
     }
   }

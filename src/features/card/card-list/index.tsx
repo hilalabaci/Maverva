@@ -9,20 +9,20 @@ import {
   AddCardButton,
   IconAdd,
 } from "./styles";
-import { CardType, DragItem } from "../../../types";
+import { IssueType, DragItem } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import apiHelper from "../../../api/apiHelper";
 interface CardListProps {
   title: string;
-  cards: CardType[];
+  cards: IssueType[];
   status: number;
   projectKey: string;
   boardId?: string;
   sprintId: string;
-  onUpdate: (card: CardType) => void;
-  onUpdateContent: (card: CardType) => void;
+  onUpdate: (card: IssueType) => void;
+  onUpdateContent: (card: IssueType) => void;
   onDelete: (id: string) => void;
-  addedCard: (card: CardType) => void;
+  addedCard: (card: IssueType) => void;
 }
 
 function CardList(props: CardListProps) {
@@ -59,14 +59,14 @@ function CardList(props: CardListProps) {
             onUpdate={props.onUpdate}
             onUpdateContent={props.onUpdateContent}
             onDelete={props.onDelete}
-            id={card._id}
+            id={card.Id}
             key={index}
-            content={card.content}
-            labels={card.labels}
-            userId={card.userId}
-            userName={card.userId.fullName}
-            cardKey={card.cardKey}
-            status={card.status}
+            content={card.Summary}
+            labels={card.Labels}
+            userId={card.UserId}
+            userName={card.UserId.FullName}
+            cardKey={card.Key}
+            status={card.Status}
           />
         ))}
       </CardWrapper>

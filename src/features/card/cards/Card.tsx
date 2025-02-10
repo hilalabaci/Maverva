@@ -21,8 +21,8 @@ import {
 } from "./styles";
 import { useDrag } from "react-dnd";
 import {
-  CardStatus,
-  CardType,
+  IssueStatus,
+  IssueType,
   DragDropCollect,
   DragItem,
   LabelType,
@@ -40,8 +40,8 @@ type CardProps = {
   userName: string;
   cardKey: string;
   status: number;
-  onUpdate: (card: CardType) => void;
-  onUpdateContent: (card: CardType) => void;
+  onUpdate: (card: IssueType) => void;
+  onUpdateContent: (card: IssueType) => void;
   onDelete: (id: string) => void;
 };
 function Card({
@@ -164,19 +164,19 @@ function Card({
                 subItems: [
                   {
                     action: () => {
-                      updateStatus(id, CardStatus.ToDo);
+                      updateStatus(id, IssueStatus.ToDo);
                     },
                     label: "To Do",
                   },
                   {
                     action: () => {
-                      updateStatus(id, CardStatus.InProgress);
+                      updateStatus(id, IssueStatus.InProgress);
                     },
                     label: "In progress",
                   },
                   {
                     action: () => {
-                      updateStatus(id, CardStatus.Done);
+                      updateStatus(id, IssueStatus.Done);
                     },
                     label: "Done",
                   },

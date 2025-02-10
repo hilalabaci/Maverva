@@ -140,7 +140,7 @@ function TopMenu(props: TopMenuPropsType) {
                 contentStyle={{ zIndex: users.length - index }}
                 trigger={
                   <MemberPhoto
-                    key={user._id}
+                    key={user.Id}
                     $userPhotoWidth="40px"
                     $userPhotoHeight="40px"
                     $userPhotoFontSize="12px"
@@ -151,7 +151,7 @@ function TopMenu(props: TopMenuPropsType) {
                     user={user}
                   />
                 }
-                content={user.fullName}
+                content={user.FullName}
               ></ToolTip>
             ))}
           </ButtonStylesforIconPerson>

@@ -75,7 +75,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
 
   async function loadBoards() {
     if (!user) return;
-    const { ok, data } = await apiHelper.getBoards(props.projectKey, user._id);
+    const { ok, data } = await apiHelper.getBoards(props.projectKey, user.Id);
     if (ok && data) {
       setBoards(data);
     }
@@ -141,18 +141,18 @@ function ProjectMenu(props: ProjectMenuPropsType) {
 
                         {boards.map((board, index) => (
                           <GetBoardsListItem
-                            to={`/projects/${props.projectKey}/boards/${board._id}`}
-                            key={board._id}
-                            isSelected={selectedBoard === board._id}
+                            to={`/projects/${props.projectKey}/boards/${board.Id}`}
+                            key={board.Id}
+                            isSelected={selectedBoard === board.Id}
                             onClick={() => {
-                              setSelectedBoard(board._id);
+                              setSelectedBoard(board.Id);
                               setShowBoards(false);
                             }}
                           >
                             <SideBarElementIcon>
                               <IconCalendarViewWeek strokeWidth="10px" />
                             </SideBarElementIcon>
-                            {board.title}
+                            {board.Name}
                           </GetBoardsListItem>
                         ))}
                       </GetBoardsList>

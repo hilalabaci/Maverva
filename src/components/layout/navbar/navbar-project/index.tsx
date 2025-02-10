@@ -66,7 +66,7 @@ function Navbar(props: NavbarPropsType) {
   }
   const loadNotificatios = useCallback(async () => {
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "notification?userId=" + user?._id,
+      process.env.REACT_APP_API_URL + "notification?userId=" + user?.Id,
       {
         method: "GET",
         headers: {
@@ -81,7 +81,7 @@ function Navbar(props: NavbarPropsType) {
   }, [user]);
 
   useEffect(() => {
-    if (user?._id) {
+    if (user?.Id) {
       loadNotificatios();
     }
   }, [user, loadNotificatios]);
@@ -89,7 +89,7 @@ function Navbar(props: NavbarPropsType) {
   async function markNotificationsRead() {
     const unReadNotificationIds = notifications
       .filter((n) => !n.isRead)
-      .map((n) => n._id);
+      .map((n) => n.Id);
     if (unReadNotificationIds.length <= 0) return;
     const body = { notificationIds: unReadNotificationIds };
     const response = await fetch(
@@ -181,7 +181,7 @@ function Navbar(props: NavbarPropsType) {
             <Title>Notification</Title>
             <NotificationWrapper>
               {notifications.map((n) => {
-                return <Notification key={n._id} notification={n} />;
+                return <Notification key={n.Id} notification={n} />;
               })}
             </NotificationWrapper>
           </NotificationContainer>

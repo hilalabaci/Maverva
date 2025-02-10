@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sprint from "../../features/sprint";
 import apiHelper from "../../api/apiHelper";
-import { CardType, SprintType } from "../../types";
+import { IssueType, SprintType } from "../../types";
 
 type URLParams = {
   boardId?: string;
@@ -32,11 +32,11 @@ function Sprints() {
     }
   }, [boardId]);
 
-  function onUpdateCard(card: CardType | undefined) {
+  function onUpdateCard(card: IssueType | undefined) {
     loadSprints();
   }
   function ActiontoSprint(id: string) {
-    if (sprints[0]._id === id) {
+    if (sprints[0].Id === id) {
       setActiveToSprint(true);
       return true;
     }
@@ -48,12 +48,12 @@ function Sprints() {
         <Sprint
           onUpdate={onUpdateCard}
           sprint={sprint}
-          sprintId={sprint._id}
-          sprintName={sprint.name}
-          sprintStartDate={sprint.startDate}
-          sprintEndDate={sprint.endDate}
+          sprintId={sprint.Id}
+          sprintName={sprint.Name}
+          sprintStartDate={sprint.StartDate}
+          sprintEndDate={sprint.EndDate}
           activeToSprint={ActiontoSprint}
-          sprintIsActive={sprint.active}
+          sprintIsActive={sprint.IsActive}
         />
       ))}
     </>

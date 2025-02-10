@@ -48,7 +48,7 @@ function BoardCreate(props: BoardCreatePropsType) {
   const [boardTitle, setBoardTitle] = useState("");
   const { projects, setProjects, setBoards } = useApplicationContext();
   const { user } = useUserContext();
-  const userId = user?._id;
+  const userId = user?.Id;
   const [selectedProjects, setSelectedProjects] = useState<ProjectType[]>([]);
 
   function handleChange(value: string) {
@@ -56,7 +56,7 @@ function BoardCreate(props: BoardCreatePropsType) {
   }
   async function onSubmit() {
     if (!userId) return;
-    const projectKeys = selectedProjects.map((project) => project.projectKey);
+    const projectKeys = selectedProjects.map((project) => project.Key);
     const boardData = {
       title: boardTitle,
       userId: userId,
@@ -75,7 +75,7 @@ function BoardCreate(props: BoardCreatePropsType) {
   }
   async function loadProjects() {
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "project?userId=" + user?._id,
+      process.env.REACT_APP_API_URL + "project?userId=" + user?.Id,
       {
         method: "GET",
         headers: {
@@ -126,7 +126,7 @@ function BoardCreate(props: BoardCreatePropsType) {
                       <InputforProjectDropDown
                         type="text"
                         value={selectedProjects
-                          .map((p) => ({ title: p.title, key: p.projectKey }))
+                          .map((p) => ({ title: p.Name, key: p.Key }))
                           .reduce(
                             (acc, project) =>
                               acc + `${project.title}(${project.key}) `,
@@ -139,19 +139,17 @@ function BoardCreate(props: BoardCreatePropsType) {
                   }
                   items={projects.map((project) => {
                     return {
-                      label: project.title + " (" + project.projectKey + ")",
+                      label: project.Name + " (" + project.Key + ")",
                       isSelected: !!selectedProjects.find(
-                        (p) => p._id === project._id
+                        (p) => p.Id === project.Id
                       ),
                       action: () => {
                         const selected = selectedProjects.find(
-                          (p) => p._id === project._id
+                          (p) => p.Id === project.Id
                         );
                         if (selected)
                           setSelectedProjects(
-                            selectedProjects.filter(
-                              (p) => p._id !== selected._id
-                            )
+                            selectedProjects.filter((p) => p.Id !== selected.Id)
                           );
                         else
                           setSelectedProjects([...selectedProjects, project]);
@@ -174,7 +172,7 @@ function BoardCreate(props: BoardCreatePropsType) {
                       $userBorderadius="50px"
                       $userBorder={props.userProject}
                     />
-                    {user?.fullName}
+                    {user?.FullName}
                   </InputforProjectLead>
                 </ProjectLeadInputWrapper>
               </ProjectLeadWrapper>

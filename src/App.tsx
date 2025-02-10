@@ -66,7 +66,7 @@ function PrivateRoute() {
 
   if (isLoading) return <>Loading...</>;
 
-  if (!user || !user._id) return <Navigate to="/login" />;
+  if (!user || !user.Id) return <Navigate to="/login" />;
 
   return <Outlet />;
 }

@@ -61,7 +61,7 @@ function Projects(props: ProjectsPropsType) {
 
   async function loadProjects() {
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "project?userId=" + user?._id,
+      process.env.REACT_APP_API_URL + "project?userId=" + user?.Id,
       {
         method: "GET",
         headers: {
@@ -76,7 +76,7 @@ function Projects(props: ProjectsPropsType) {
   }
 
   function onDelete(id: string) {
-    setProjects(projects.filter((project) => project._id !== id));
+    setProjects(projects.filter((project) => project.Id !== id));
   }
 
   async function deleteItem(id: string) {
@@ -102,7 +102,7 @@ function Projects(props: ProjectsPropsType) {
 
   useEffect(() => {
     const filtered = projects.filter((project) =>
-      project.title.toLowerCase().includes(searchInput.toLowerCase())
+      project.Name.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilteredProject(filtered);
   }, [searchInput, projects, addProject]);
@@ -143,7 +143,7 @@ function Projects(props: ProjectsPropsType) {
                     isOptional={false}
                     onCreate={addProject}
                     onClose={() => setShowModalforCreateButton(false)}
-                    projectKey={selectedProject?.projectKey}
+                    projectKey={selectedProject?.Key}
                     BackButton={function (): void {
                       throw new Error("Function not implemented.");
                     }}
@@ -191,15 +191,15 @@ function Projects(props: ProjectsPropsType) {
                         $userBorderadius="50px"
                         //$userBorder={props.$userBorder}
                         $fontWeight="600"
-                        projectId={project._id}
+                        projectId={project.Id}
                       />
                       <LinkforProjects
-                        to={`/projects/${project.projectKey}/boards/6730e1a942a48b0120b3f870`}
+                        to={`/projects/${project.Key}/boards/6730e1a942a48b0120b3f870`}
                       >
-                        {project.title}
+                        {project.Name}
                       </LinkforProjects>
                     </DataProjectsName>
-                    <DataKey>{project.projectKey}</DataKey>
+                    <DataKey>{project.Key}</DataKey>
                     <DataLeadName>
                       <MemberPhoto
                         $userPhotoWidth="30px"
@@ -208,7 +208,7 @@ function Projects(props: ProjectsPropsType) {
                         $userBorderadius="50px"
                         //$userBorder={props.$userBorder}
                         $fontWeight="600"
-                        user={project.leadUser}
+                        user={project.LeadUser}
                       />
                       {/* DO: {project.leadUser.fullName} */}
                     </DataLeadName>
@@ -246,11 +246,11 @@ function Projects(props: ProjectsPropsType) {
             >
               <CloseProjectMenu
                 onDelete={() => {
-                  deleteItem(selectedProject._id);
+                  deleteItem(selectedProject.Id);
                   closeModal();
                 }}
                 onClose={closeModal}
-                projectName={selectedProject.title}
+                projectName={selectedProject.Name}
               />
             </Modal>
           )}

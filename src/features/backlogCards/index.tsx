@@ -27,7 +27,7 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
 
 import FormDemo from "../../features/sprints/edit-sprint";
-import { CardStatus, CardType, DragDropCollect, DragItem } from "../../types";
+import { IssueStatus, IssueType, DragDropCollect, DragItem } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import apiHelper from "../../api/apiHelper";
 import { useParams } from "react-router-dom";
@@ -52,7 +52,7 @@ function BacklogCards() {
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
   const [isHeaderSelected, setIsHeaderSelected] = useState(false);
-  const [backlogCards, setBacklogCards] = useState<CardType[]>([]);
+  const [backlogCards, setBacklogCards] = useState<IssueType[]>([]);
 
   const [, drop] = useDrop<DragItem>({
     accept: "BACKLOG_CARD",
@@ -99,7 +99,7 @@ function BacklogCards() {
       const cardData = {
         content: content,
         status: 0,
-        userId: user?._id,
+        userId: user?.Id,
         projectKey: projectKey,
         boardId: boardId,
       };
@@ -128,19 +128,19 @@ function BacklogCards() {
     }
   }
   function deleteCard(id: string) {
-    setBacklogCards(backlogCards.filter((card) => card._id !== id));
+    setBacklogCards(backlogCards.filter((card) => card.Id !== id));
   }
   function updateStatusCard(id: string, status: number) {
     setBacklogCards((prevBacklogCards) =>
       prevBacklogCards.map((card) =>
-        card._id === id ? { ...card, status } : card
+        card.Id === id ? { ...card, status } : card
       )
     );
   }
-  function onUpdateContent(card: CardType) {
+  function onUpdateContent(card: IssueType) {
     if (!backlogCards) return;
     loadBacklogCards();
-    setContent(card.content);
+    setContent(card.Summary);
   }
 
   useEffect(() => {
@@ -151,8 +151,8 @@ function BacklogCards() {
     loadBacklogCards();
   }, [boardId, projectKey]);
 
-  function getStatusCount(status: CardStatus) {
-    return backlogCards.filter((card) => card.status === status).length;
+  function getStatusCount(status: IssueStatus) {
+    return backlogCards.filter((card) => card.Status === status).length;
   }
   return (
     <Container>
@@ -181,31 +181,31 @@ function BacklogCards() {
             <HeaderStatusWrapper>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={CardStatus.Backlog}>
-                    {getStatusCount(CardStatus.Backlog)}
+                  <HeaderStatus status={IssueStatus.Backlog}>
+                    {getStatusCount(IssueStatus.Backlog)}
                   </HeaderStatus>
                 }
                 content={` Not started ${getStatusCount(
-                  CardStatus.Backlog
+                  IssueStatus.Backlog
                 )} of ${backlogCards.length} `}
               ></ToolTip>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={CardStatus.InProgress}>
-                    {getStatusCount(CardStatus.InProgress)}
+                  <HeaderStatus status={IssueStatus.InProgress}>
+                    {getStatusCount(IssueStatus.InProgress)}
                   </HeaderStatus>
                 }
                 content={`In progress ${getStatusCount(
-                  CardStatus.InProgress
+                  IssueStatus.InProgress
                 )} of ${backlogCards.length} `}
               ></ToolTip>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={CardStatus.Done}>
-                    {getStatusCount(CardStatus.Done)}
+                  <HeaderStatus status={IssueStatus.Done}>
+                    {getStatusCount(IssueStatus.Done)}
                   </HeaderStatus>
                 }
-                content={`Completed ${getStatusCount(CardStatus.Done)} of ${
+                content={`Completed ${getStatusCount(IssueStatus.Done)} of ${
                   backlogCards.length
                 } `}
               ></ToolTip>
@@ -233,11 +233,11 @@ function BacklogCards() {
                   updateCardsAfterDelete={deleteCard}
                   updateCardAfterDrag={deleteCard}
                   boardId={boardId as string}
-                  id={backlogCard._id}
-                  cardKey={backlogCard.cardKey}
-                  content={backlogCard.content}
-                  status={backlogCard.status}
-                  user={backlogCard.userId}
+                  id={backlogCard.Id}
+                  cardKey={backlogCard.Key}
+                  content={backlogCard.Summary}
+                  status={backlogCard.Status}
+                  user={backlogCard.UserId}
                 />
               ))}
             </BacklogCardList>
