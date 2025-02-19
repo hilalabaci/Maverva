@@ -41,6 +41,7 @@ import ProjectCreate from "../../features/project/project-add/create";
 import ProjectAvatar from "../../features/user/project-avatar";
 import Toggle from "../../components/common/toggle";
 import MemberPhoto from "../../features/user/member-photo";
+import { HoverCardDemo } from "../../components/common/hoverCard";
 
 type ProjectsPropsType = {
   onProjectChange: (project: ProjectType) => void;
@@ -58,7 +59,6 @@ function Projects(props: ProjectsPropsType) {
     useState(false);
   const [showModalforDeleteProject, setShowModalforDeleteProject] =
     useState(false);
-
   async function loadProjects() {
     const response = await fetch(
       process.env.REACT_APP_API_URL + "project?userId=" + user?.Id,
@@ -79,9 +79,14 @@ function Projects(props: ProjectsPropsType) {
     setProjects(projects.filter((project) => project.Id !== id));
   }
 
-  async function deleteItem(id: string) {
+  async function deleteItem(projectId: string, userId: string) {
+    console.log(`projectId: ${projectId}, userId: ${userId}`);
     const response = await fetch(
-      process.env.REACT_APP_API_URL + "project?id=" + id,
+      process.env.REACT_APP_API_URL +
+        "project?projectId=" +
+        projectId +
+        "&userId=" +
+        userId,
       {
         method: "DELETE",
         headers: {
@@ -90,7 +95,7 @@ function Projects(props: ProjectsPropsType) {
       }
     );
     if (response.ok) {
-      onDelete(id);
+      onDelete(projectId);
     }
   }
 
@@ -105,7 +110,22 @@ function Projects(props: ProjectsPropsType) {
       project.Name.toLowerCase().includes(searchInput.toLowerCase())
     );
     setFilteredProject(filtered);
-  }, [searchInput, projects, addProject]);
+  }, [searchInput, projects]);
+
+  // Handle project addition
+  function addProject(project: ProjectType) {
+    setProjects((prevProjects) => [...prevProjects, project]);
+  }
+
+  // useEffect(() => {
+  //   const filtered = projects.filter((project) =>
+  //     project.Name.toLowerCase().includes(searchInput.toLowerCase())
+  //   );
+  //   setFilteredProject(filtered);
+  // }, [searchInput, projects, addProject]);
+  // function addProject(project: ProjectType) {
+  //   setProjects([...projects, project]);
+  // }
 
   function openModal(project: ProjectType) {
     setShowModalforDeleteProject(true);
@@ -115,10 +135,8 @@ function Projects(props: ProjectsPropsType) {
     setShowModalforDeleteProject(false);
     setSelectedProject(undefined);
   }
-  function addProject(project: ProjectType) {
-    setProjects([...projects, project]);
-  }
 
+  if (!user) return;
   return (
     <Layout onProjectCrate={addProject}>
       <Container>
@@ -201,16 +219,23 @@ function Projects(props: ProjectsPropsType) {
                     </DataProjectsName>
                     <DataKey>{project.Key}</DataKey>
                     <DataLeadName>
-                      <MemberPhoto
-                        $userPhotoWidth="30px"
-                        $userPhotoHeight="30px"
-                        $userPhotoFontSize="10px"
-                        $userBorderadius="50px"
-                        //$userBorder={props.$userBorder}
-                        $fontWeight="600"
-                        user={project.LeadUser}
+                      <HoverCardDemo
+                        src={project.LeadUser.profilePicture}
+                        fullName={project.LeadUser.FullName}
+                        email={project.LeadUser.Email}
+                        trigger={
+                          <MemberPhoto
+                            $userPhotoWidth="30px"
+                            $userPhotoHeight="30px"
+                            $userPhotoFontSize="10px"
+                            $userBorderadius="50px"
+                            //$userBorder={props.$userBorder}
+                            $fontWeight="600"
+                            user={project.LeadUser}
+                          />
+                        }
                       />
-                      {/* DO: {project.leadUser.fullName} */}
+                      {project.LeadUser.FullName}
                     </DataLeadName>
                     <IconWrapper />
                     <IconWrapper>
@@ -246,7 +271,7 @@ function Projects(props: ProjectsPropsType) {
             >
               <CloseProjectMenu
                 onDelete={() => {
-                  deleteItem(selectedProject.Id);
+                  deleteItem(selectedProject.Id, user.Id);
                   closeModal();
                 }}
                 onClose={closeModal}

@@ -16,7 +16,12 @@ interface MemberPhotoProps {
 
 function MemberPhoto(props: MemberPhotoProps) {
   const { user: contextUser } = useUserContext();
+  console.log(props.user);
   const user = props.user ?? contextUser;
+  const profilePhotoUrl =
+    user?.profilePicture ||
+    `https://api.dicebear.com/9.x/avataaars/svg?scale=100&radius=50&randomizeIds=true&seed=${user?.Id}`;
+
   return (
     <Container
       style={{ zIndex: props.style?.zIndex }}
@@ -32,7 +37,10 @@ function MemberPhoto(props: MemberPhotoProps) {
         $fontWeight={props.$fontWeight}
       >
         <MemberAvatar
-          src={`https://api.dicebear.com/9.x/avataaars/svg?scale=100&radius=50&randomizeIds=true&seed=${user?.Id}`}
+          src={profilePhotoUrl}
+          $userPhotoWidth={props.$userPhotoWidth}
+          $userPhotoHeight={props.$userPhotoHeight}
+          $userBorderadius={props.$userBorderadius}
         />
       </Memberphoto>
     </Container>

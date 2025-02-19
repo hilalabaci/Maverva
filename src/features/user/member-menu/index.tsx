@@ -34,8 +34,8 @@ function MemberMenu(props: MemberMenuProps) {
   if (!user) {
     return null;
   }
-  const userFullName = user.fullName;
-  const userEmail = user.email;
+  const userFullName = user.FullName;
+  const userEmail = user.Email;
 
   function openModal() {
     setShowModal(true);

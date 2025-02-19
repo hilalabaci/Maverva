@@ -28,7 +28,7 @@ import OptionalBoardCreate from "../../../../features/board/optional/create";
 import Notification from "../../../../features/notification";
 import MemberButton from "../../../../features/user/member-button";
 type NavbarPropsType = {
-  onCreate: (project: ProjectType) => void;
+  handleProjectCreate: (project: ProjectType) => void;
 };
 
 function Navbar(props: NavbarPropsType) {
@@ -142,7 +142,7 @@ function Navbar(props: NavbarPropsType) {
               onChange={setShowModalforCreateButton}
             >
               <OptionalBoardCreate
-                // onCreate={props.onCreate}
+                handleProjectCreate={props.handleProjectCreate}
                 onClose={closeModalforCreateButton}
               />
             </Modal>

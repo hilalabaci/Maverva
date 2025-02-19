@@ -17,13 +17,14 @@ import {
   CancelButton,
 } from "./styles";
 import BoardCreate from "../board-add";
-import { BoardType, ProjectType } from "../../../../types";
 import ProjectCreate from "../../project/project-add/create";
+import { ProjectType } from "../../../types";
 
 type Option = "addBoardwithProject" | "addBoard";
 
 type OptionalBoardCreateTypeProps = {
   onClose: () => void;
+  handleProjectCreate: (project: ProjectType) => void;
 };
 
 function OptionalBoardCreate(props: OptionalBoardCreateTypeProps) {
@@ -90,7 +91,7 @@ function OptionalBoardCreate(props: OptionalBoardCreateTypeProps) {
         <ProjectCreate
           BackButton={handleBack}
           isOptional={true}
-          onCreate={() => console.log("project created")}
+          onCreate={props.handleProjectCreate}
           onClose={props.onClose}
         />
       )}

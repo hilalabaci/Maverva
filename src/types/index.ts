@@ -2,6 +2,7 @@ export type UserType = {
   Id: string;
   Email: string;
   FullName: string;
+  profilePicture: string;
 };
 
 export type ProjectType = {

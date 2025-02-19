@@ -74,7 +74,8 @@ function ProjectCreate(props: ProjectCreatePropsType) {
       projectKey,
       boardTitle
     );
-    console.log(projectTitle);
+
+    console.log(`for creating user: ${user}`);
     if (response.ok && response.data) {
       props.onCreate(response.data.project);
       props.onClose();

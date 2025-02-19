@@ -1,6 +1,10 @@
 import { PropsWithChildren } from "react";
 import Navbar from "../../../components/layout/navbar/navbar-project";
-import { Container, GlobalStyle, NavbarWrapper } from "../../dynamicContentLoader/styles";
+import {
+  Container,
+  GlobalStyle,
+  NavbarWrapper,
+} from "../../dynamicContentLoader/styles";
 import { ProjectType } from "../../../types";
 
 type LayoutPropsType = PropsWithChildren<{
@@ -11,7 +15,7 @@ const Layout = ({ children, onProjectCrate }: LayoutPropsType) => {
     <Container>
       <GlobalStyle />
       <NavbarWrapper>
-        <Navbar onCreate={onProjectCrate} />
+        <Navbar handleProjectCreate={onProjectCrate} />
       </NavbarWrapper>
       {children}
     </Container>

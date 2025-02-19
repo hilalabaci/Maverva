@@ -41,4 +41,8 @@ export const Memberphoto = styled.div<MemberphotoProps>`
     display: none;
   }
 `;
-export const MemberAvatar = styled.img``;
+export const MemberAvatar = styled.img<MemberphotoProps>`
+  width: ${(props) => props.$userPhotoWidth};
+  height: ${(props) => props.$userPhotoHeight};
+  border-radius: ${(props) => props.$userBorderadius};
+`;
