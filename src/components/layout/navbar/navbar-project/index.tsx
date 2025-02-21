@@ -7,7 +7,7 @@ import {
   NavbarContainer,
   Presentation,
   Projects,
-  ProjectsButton,
+  ProjectsLink,
   ProjectsSpan,
   GlobalStyle,
   NavbarLeftSideWrapper,
@@ -27,6 +27,7 @@ import { ProjectType, NotificationType } from "../../../../types";
 import OptionalBoardCreate from "../../../../features/board/optional/create";
 import Notification from "../../../../features/notification";
 import MemberButton from "../../../../features/user/member-button";
+import DynamicSVGBrand from "../../../ DynamicSVG/LogoSVG";
 type NavbarPropsType = {
   handleProjectCreate: (project: ProjectType) => void;
 };
@@ -120,15 +121,14 @@ function Navbar(props: NavbarPropsType) {
       <NavbarContainer>
         <GlobalStyle />
         <BrandContainer>
-          <BrandLogo />
-          Process
+          <DynamicSVGBrand width="120" height="30" />
         </BrandContainer>
         <Presentation>
           <Projects onClick={handleProjectsClick} href="/projects">
-            <ProjectsButton>
+            <ProjectsLink>
               Projects
               <ProjectsSpan />
-            </ProjectsButton>
+            </ProjectsLink>
           </Projects>
           <CreateWrapper>
             <Modal

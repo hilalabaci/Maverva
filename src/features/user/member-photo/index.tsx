@@ -16,10 +16,9 @@ interface MemberPhotoProps {
 
 function MemberPhoto(props: MemberPhotoProps) {
   const { user: contextUser } = useUserContext();
-  console.log(props.user);
   const user = props.user ?? contextUser;
   const profilePhotoUrl =
-    user?.profilePicture ||
+    user?.ProfilePicture ||
     `https://api.dicebear.com/9.x/avataaars/svg?scale=100&radius=50&randomizeIds=true&seed=${user?.Id}`;
 
   return (

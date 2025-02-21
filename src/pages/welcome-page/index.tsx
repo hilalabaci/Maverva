@@ -65,7 +65,9 @@ function WelcomePage() {
             <SectionEntery>
               <StartTrialWrapper>
                 <SectionEntery>
-                  <Title>Simplify project management, empower your team</Title>
+                  <Title>
+                    Simplify project management, empower your team with Maverva
+                  </Title>
                   <GetStartWrapper $hidden={displaySign}>
                     <TitleParag>
                       <TypedDemo
@@ -121,7 +123,7 @@ function WelcomePage() {
             </CollapseParent>
           </InfoSection>
         </SectionWrapper>
-        <SectionWrapper>
+        {/* <SectionWrapper>
           <TabSection>
             <TabWrapper>
               <TabContentWrapper>
@@ -191,7 +193,7 @@ function WelcomePage() {
               </TabContentWrapper>
             </TabWrapper>
           </TabSection>
-        </SectionWrapper>
+        </SectionWrapper> */}
       </MainContainer>
       <Footer />
     </Container>

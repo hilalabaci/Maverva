@@ -27,11 +27,10 @@ function SendVerificationEmail() {
   async function handleSendVerify() {
     try {
       if (!user) return;
-      const { ok, data } = await apiHelper.loginVerificationEmail(user.email);
+      const { ok, data } = await apiHelper.loginVerificationEmail(user.Email);
       if (ok && data) {
       }
     } catch (error) {
-      console.log("opps! somethings wrong, try again");
     }
   }
   return (
@@ -40,7 +39,7 @@ function SendVerificationEmail() {
       <NavbarContainer>
         <BrandWrapper>
           <BrandContainer href="/">
-            <DynamicSVGBrand />
+            <DynamicSVGBrand width="150" height="40" />
           </BrandContainer>
         </BrandWrapper>
       </NavbarContainer>
@@ -55,7 +54,7 @@ function SendVerificationEmail() {
               <ExplainTitle>
                 To complete setup and log in, click the verification link in the
                 email we’ve sent to
-                <EmailforLogin>{user?.email}</EmailforLogin>
+                <EmailforLogin>{user?.Email}</EmailforLogin>
               </ExplainTitle>
               <ButtonWrapper onClick={handleSendVerify}>
                 <ButtonText>Resend verification email</ButtonText>

@@ -16,17 +16,6 @@ export const Container = styled.div`
   }
 `;
 export const PathInfo = styled.nav`
-  font-family: var(
-    --ds-font-body,
-    normal 400 14px / 20px ui-sans-serif,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Ubuntu,
-    system-ui,
-    "Helvetica Neue",
-    sans-serif
-  );
   color: #44546f;
   font-size: 14px;
 `;
@@ -115,7 +104,6 @@ export const ButtonStylesforIconPerson = styled.button`
   padding: 0;
   background: none;
   border-radius: 50px;
-  font-family: Inter;
   border: 2px solid ${(props) => props.theme.primary};
   &:hover {
     z-index: 1;
@@ -128,7 +116,6 @@ export const ButtonStylesforPersonAdd = styled.button`
   align-items: center;
   margin-left: 10px;
   border-radius: 50px;
-  font-family: Inter;
   width: 40px;
   height: 40px;
   background-color: #a1bdd914;

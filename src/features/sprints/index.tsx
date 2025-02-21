@@ -16,7 +16,6 @@ function Sprints() {
 
   async function loadSprints() {
     if (!boardId) {
-      console.log(`boardId not found ${boardId}`);
       return;
     }
     try {

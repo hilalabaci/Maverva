@@ -34,7 +34,6 @@ import {
 import Search from "../../components/common/search";
 import { useUserContext } from "../../contexts/UserContext";
 import { ProjectType } from "../../types";
-
 import { DropdownMenu } from "../../components/common/dropdownMenu/index";
 import CloseProjectMenu from "../../features/project/close-project-menu";
 import ProjectCreate from "../../features/project/project-add/create";
@@ -59,6 +58,7 @@ function Projects(props: ProjectsPropsType) {
     useState(false);
   const [showModalforDeleteProject, setShowModalforDeleteProject] =
     useState(false);
+
   async function loadProjects() {
     const response = await fetch(
       process.env.REACT_APP_API_URL + "project?userId=" + user?.Id,
@@ -80,7 +80,6 @@ function Projects(props: ProjectsPropsType) {
   }
 
   async function deleteItem(projectId: string, userId: string) {
-    console.log(`projectId: ${projectId}, userId: ${userId}`);
     const response = await fetch(
       process.env.REACT_APP_API_URL +
         "project?projectId=" +
@@ -212,7 +211,7 @@ function Projects(props: ProjectsPropsType) {
                         projectId={project.Id}
                       />
                       <LinkforProjects
-                        to={`/projects/${project.Key}/boards/6730e1a942a48b0120b3f870`}
+                        to={`/projects/${project.Key}/boards/122`}
                       >
                         {project.Name}
                       </LinkforProjects>
@@ -220,7 +219,7 @@ function Projects(props: ProjectsPropsType) {
                     <DataKey>{project.Key}</DataKey>
                     <DataLeadName>
                       <HoverCardDemo
-                        src={project.LeadUser.profilePicture}
+                        src={project.LeadUser.ProfilePicture}
                         fullName={project.LeadUser.FullName}
                         email={project.LeadUser.Email}
                         trigger={

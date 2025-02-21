@@ -189,8 +189,6 @@ export const LinkforCancelButton = styled.a``;
 export const Description = styled.div`
   font-size: 12px;
   margin: 4px 0 0 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 `;
 export interface SubmitButtonStyledButton {
   $isFilled?: boolean;

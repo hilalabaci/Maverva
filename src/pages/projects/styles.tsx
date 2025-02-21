@@ -28,7 +28,6 @@ export const HeaderWrapper = styled.div`
 `;
 export const Header = styled.h1`
   font-size: 24px;
-  font-weight: 500;
 `;
 export const SearchWrapper = styled.div``;
 export const DataContainer = styled.div`

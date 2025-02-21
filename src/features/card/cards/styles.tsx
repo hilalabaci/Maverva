@@ -91,8 +91,6 @@ export const NoteWrapper = styled.div`
 `;
 export const Note = styled.div`
   font-style: normal;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;

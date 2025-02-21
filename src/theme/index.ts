@@ -74,7 +74,7 @@ export const lightTheme = {
   borderforModal: "1px solid rgba(221,223,228,255)",
   borderforNotificationContainer: "1px solid #dfe1e6",
   NewProjectModalFontColour: "rgb(23, 43, 77)",
-  navbarFontColour: "#495a73",
+  navbarFontColour: "#44546F",
   navbarButtonBG: "#0C66E4",
   navbarButtonBGHover: "#0055CC",
   memberMenuFontColor: "#172b4d;",

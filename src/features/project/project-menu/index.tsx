@@ -39,6 +39,7 @@ import apiHelper from "../../../api/apiHelper";
 import CollapsibleDemo from "../../../components/common/collapsible";
 import Scroll from "../../../components/common/scroll";
 import Modal from "../../../components/common/modal";
+import { ProjectType } from "../../../types";
 
 type ProjectMenuPropsType = {
   ProjectTitle: string;
@@ -171,6 +172,11 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                       <OptionalBoardCreate
                         // onCreate={props.onCreate}
                         onClose={closeModalforCreateButton}
+                        handleProjectCreate={function (
+                          project: ProjectType
+                        ): void {
+                          throw new Error("Function not implemented.");
+                        }}
                       />
                     </Modal>
                   </GetBoardsContainer>

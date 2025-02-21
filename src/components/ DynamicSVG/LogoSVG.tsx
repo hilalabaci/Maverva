@@ -1,13 +1,19 @@
-const DynamicSVGBrand = () => {
-  //  const [color, setColor] = React.useState("blue");
+import { useState } from "react";
+
+type DynamicSVGBrandProps = {
+  height: string;
+  width: string;
+};
+
+const DynamicSVGBrand = ({ height, width }: DynamicSVGBrandProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       ////xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="150"
+      width={width}
       zoomAndPan="magnify"
       viewBox="0 0 112.5 30.000001"
-      height="40"
+      height={height}
       preserveAspectRatio="xMidYMid meet"
       version="1.0"
     >

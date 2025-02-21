@@ -46,6 +46,7 @@ function DynamicContentLoader() {
         if (!data) {
         }
         setSelectedProject(data);
+        console.log(`data: ${data}`)
       }
     } catch (error) {
       console.error("Error fetching project:", error);
@@ -76,8 +77,6 @@ function DynamicContentLoader() {
 
   useEffect(() => {
     loadActiveSprint();
-    console.log(activeSprint?.BoardId);
-    console.log(activeSprint?.Board);
   }, [loadActiveSprint]);
 
   function deleteCard(id: string) {

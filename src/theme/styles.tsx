@@ -7,15 +7,12 @@
 //   flex-direction: column;
 //   align-items: center;
 //   width: 100vh;
-//   font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-//   "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 // `;
 // export const GenerelWrapper = styled.div`
 //   width: 354px;
 //   background-color: ${(props) => props.theme.modalBg};
 //   color: ${(props) => props.theme.fontColour};
 //   font-weight: 600;
-//   font-family: Inter;
 //   border-radius: 2px;
 //   padding: 10px;
 // `;
@@ -39,8 +36,6 @@
 // export const LabelTitle = styled.label`
 //   font-size: 12px;
 //   color: rgba(136, 151, 165, 255);
-//   font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-//   "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 // `;
 // export const MailInput = styled.input`
 //   background-color: ${(props) => props.theme.modalInputBg};

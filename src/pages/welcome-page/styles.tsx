@@ -166,9 +166,9 @@ export const WrapperParag = styled.div`
 `;
 
 export const TabTitle = styled.h2`
-  font-size: 2.25rem;
+  font-size: 2.47rem;
   line-height: 1.243902439;
-  font-weight: 500;
+  font-weight: 600;
   color: ${(props) => props.theme.fontColour2};
   cursor: default;
   @media only screen and (max-width: 600px) {
@@ -222,7 +222,7 @@ export const CollapseTitle = styled.h3<displayProps>`
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 1s ease;
-  font-family: "Glory";
+  margin: 0;
   &:hover {
     background: linear-gradient(
       269deg,
@@ -304,10 +304,10 @@ export const Title = styled.h1`
   color: #fff;
   line-height: 3.5rem;
   font-size: 3rem;
-  font-weight: 500;
   margin-bottom: 0;
   cursor: default;
   margin: 0;
+  text-shadow: 0.5px 0.5px #2f4156;
   @media only screen and (max-width: 600px) {
     font-size: 32px;
     line-height: 2rem;

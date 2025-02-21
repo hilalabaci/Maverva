@@ -38,8 +38,6 @@ export const EmailWrapper = styled.div<CommonPropsType>`
   font-size: 1rem;
   font-weight: 400;
   background-color: #ffffff;
-  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
   border-color: #22a06b;
 
   outline: ${({ $errorEmailDisplay }) =>

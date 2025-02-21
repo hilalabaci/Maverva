@@ -13,7 +13,7 @@ function Navbar() {
     <NavbarContainer>
       <BrandWrapper>
         <BrandContainer href="/">
-          <DynamicSVGBrand />
+          <DynamicSVGBrand width="150" height="40" />
         </BrandContainer>
       </BrandWrapper>
       <NavbarSignWrapper>

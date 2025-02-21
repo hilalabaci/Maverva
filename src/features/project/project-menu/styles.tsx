@@ -255,8 +255,6 @@ export const SideBarElementWrapper = styled.span<{ isSelected: boolean }>`
   display: flex;
   gap: 15px;
   font-size: 14px;
-  font-family: sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu,
-    system-ui, "Helvetica Neue", sans-serif;
   font-weight: 400;
   padding: 8px 8px 8px 14px;
   align-items: center;

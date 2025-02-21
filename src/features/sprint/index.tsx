@@ -186,7 +186,6 @@ function Sprint({
       const response = await apiHelper.updateSprint(sprintId, active, boardId);
       if (response.ok && response.data) {
         setIsActiveSprint(true);
-        console.log("hereee");
         // props.onUpdate(response.data);
       } else {
         console.error("Failed to update card:", response);

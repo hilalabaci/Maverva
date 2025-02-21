@@ -11,8 +11,6 @@ export const Container = styled.div`
   border-radius: 3px;
   background-color: ${(props) => props.theme.modalBg};
   color: ${(props) => props.theme.memberMenuFontColor};
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   padding: 12px;
   box-shadow: var(
     --ds-shadow-overlay,

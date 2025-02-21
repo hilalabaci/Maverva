@@ -24,7 +24,6 @@ export const HeaderContainer = styled.header`
   padding: 10px;
   justify-content: space-between;
   color: ${(props) => props.theme.navbarFontColour};
-  font-family: inherit;
 `;
 export const NavbarContainer = styled.nav`
   display: flex;
@@ -42,7 +41,7 @@ export const Presentation = styled.div`
 export const Projects = styled.a`
   text-decoration: none;
 `;
-export const ProjectsButton = styled.button`
+export const ProjectsLink = styled.a`
   display: flex;
   align-items: center;
   border: none;
@@ -50,9 +49,9 @@ export const ProjectsButton = styled.button`
   color: ${(props) => props.theme.navbarFontColour};
   background-color: ${(props) => props.theme.primary};
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   border-radius: 3px;
-  padding: 7px;
+  padding: 9px 5px;
   &:hover {
     background-color: ${(props) => props.theme.navbarHoverButton};
   }

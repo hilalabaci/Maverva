@@ -16,8 +16,6 @@ export const InputContainer = styled.div`
   font-weight: 400;
   gap: 5px;
   background-color: #ffffff;
-  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
 `;
 
 export const Inputs = styled.input`

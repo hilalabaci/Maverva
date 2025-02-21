@@ -38,9 +38,6 @@ export const LoginContainer = styled.div`
   flex: 1;
   display: flex;
   color: rgba(255, 255, 255, 0.7);
-  font-family: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-
   background: linear-gradient(135deg, #567c8d, #2f4156);
 `;
 export const LoginSection = styled.section`
@@ -59,7 +56,6 @@ export const BrandContainer = styled.a`
 export const MainContainer = styled.div`
   flex: 1;
   display: flex;
-  font-family: Inter;
   @media only screen and (max-width: 768px) {
     flex-direction: column;
   }
@@ -186,8 +182,6 @@ export const EmailWrapper = styled.div`
   font-size: 1rem;
   font-weight: 400;
   background-color: #ffffff;
-  font-family: "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
 `;
 export const AccoutCreatInput = styled.input`
   border: none;

@@ -37,7 +37,6 @@ function EditLabel(props: EditLabelProps) {
     });
 
     if (response.status === 400) {
-      console.log("Please check your details");
       return;
     }
     if (response.ok) {

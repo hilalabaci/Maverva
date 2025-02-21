@@ -83,7 +83,6 @@ function ActiveSprint({
         console.log(`columnId not found ${columnId}`);
         return;
       }
-      console.log(columnId);
       const { ok, data } = await apiHelper.deleteColumn(columnId);
 
       setColumns(columns.filter((c) => c.Id !== columnId));
@@ -93,7 +92,6 @@ function ActiveSprint({
 
   async function submitColumn() {
     if (!boardId) {
-      console.log(`boardId not found ${boardId}`);
       return;
     }
     try {
