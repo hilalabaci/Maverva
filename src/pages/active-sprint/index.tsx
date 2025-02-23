@@ -1,6 +1,6 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import CardList from "../../features/card/card-list";
+import IssueList from "../../features/card/card-list";
 import {
   ColumnContainer,
   TitleWrapper,
@@ -22,7 +22,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import apiHelper from "../../api/apiHelper";
 import NumberOfCards from "../../features/card/number-cards";
-import { ButtomWrapper } from "../../features/card/cards/styles";
+import { ButtomWrapper } from "../../features/card/issues/styles";
 import { NextButton } from "../../features/board/optional/styles";
 import { DropdownMenu } from "../../components/common/dropdownMenu";
 
@@ -38,7 +38,7 @@ type ActiveSprintsProps = {
   onUpdateContent: (card: IssueType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: IssueType) => void;
-  cards: IssueType[];
+  issues: IssueType[];
   projectKey?: string;
   updatedCardsAfterDeleteColumn: (cards: IssueType[]) => void;
 };
@@ -65,10 +65,7 @@ function ActiveSprint({
   }
 
   async function loadColumns() {
-    if (!boardId) {
-      console.log(`boardId not found ${boardId}`);
-      return;
-    }
+    if (!boardId) return;
     try {
       const { ok, data } = await apiHelper.getColumns(boardId);
       if (ok && data) setColumns(data);
@@ -79,10 +76,7 @@ function ActiveSprint({
 
   async function deleteColumn(columnId: string) {
     try {
-      if (!columnId) {
-        console.log(`columnId not found ${columnId}`);
-        return;
-      }
+      if (!columnId) return;
       const { ok, data } = await apiHelper.deleteColumn(columnId);
 
       setColumns(columns.filter((c) => c.Id !== columnId));
@@ -111,6 +105,9 @@ function ActiveSprint({
       loadColumns();
     }
   }, [boardId]);
+  useEffect(() => {
+    console.log(`activeSprintfromActive:`, activeSprint);
+  }, []);
 
   return (
     <Container>
@@ -149,7 +146,7 @@ function ActiveSprint({
                       ]}
                     />
                   </TitleWrapper>
-                  <CardList
+                  <IssueList
                     key={column.Id}
                     onUpdate={onUpdate}
                     onUpdateContent={onUpdateContent}
@@ -157,7 +154,7 @@ function ActiveSprint({
                     addedCard={addedCard}
                     title={column.Name}
                     projectKey={projectKey as string}
-                    cards={filteredCards.filter(
+                    issues={filteredCards.filter(
                       (card) => card.Status === column.Status
                     )}
                     status={column.Status}

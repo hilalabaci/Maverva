@@ -168,9 +168,9 @@ function AddPerson(props: AddPersonPropsType) {
                     },
                   },
                   {
-                    label: "Editor",
+                    label: "Member",
                     action: () => {
-                      setSelectedRole("Editor");
+                      setSelectedRole("Member");
                     },
                   },
                   {

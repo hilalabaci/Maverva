@@ -7,6 +7,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 10fr 1fr;
   gap: 10px;
+  height: 100vh;
 `;
 
 export const ColumnContainer = styled.div`
@@ -36,6 +37,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   background-color: ${(props) => props.theme.projectColour};
   min-width: 282px;
+  height: 100%;
 `;
 export const TitleWrapper = styled.div`
   display: flex;

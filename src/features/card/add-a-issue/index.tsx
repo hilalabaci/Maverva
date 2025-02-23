@@ -10,16 +10,16 @@ import { IssueType } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import apiHelper from "../../../api/apiHelper";
 
-type AddCardPropsType = {
+type AddIssuePropsType = {
   projectKey: string;
   status: number;
   onClose: () => void;
   addedCard: (card: IssueType) => void;
   boardId?: string;
-  sprintId: string;
+  sprintId?: string;
 };
 
-function AddCard(props: AddCardPropsType) {
+function AddIssue(props: AddIssuePropsType) {
   const [content, setContent] = useState("");
   const { user } = useUserContext();
   const userId = user?.Id;
@@ -28,7 +28,7 @@ function AddCard(props: AddCardPropsType) {
   }
   async function submitNote() {
     try {
-      const cardData = {
+      const issueData = {
         userId: userId,
         content: content,
         projectKey: props.projectKey,
@@ -37,8 +37,9 @@ function AddCard(props: AddCardPropsType) {
         sprintId: props.sprintId,
       };
 
-      const { ok, data } = await apiHelper.addCard(cardData);
+      const { ok, data } = await apiHelper.addIssue(issueData);
       if (ok && data) {
+        console.log(`added issue:`, data);
       }
       setContent("");
       props.addedCard(data as IssueType);
@@ -67,4 +68,4 @@ function AddCard(props: AddCardPropsType) {
     </Container>
   );
 }
-export default AddCard;
+export default AddIssue;

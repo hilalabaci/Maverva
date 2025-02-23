@@ -113,7 +113,6 @@ export const DisplayCreateWrapper = styled.div`
   }
 `;
 export const CreateButtonWrapper = styled.button`
-  justify-content: stretch;
   display: flex;
   padding: 9px 0 9px 5px;
   border-radius: 3px;
@@ -122,6 +121,7 @@ export const CreateButtonWrapper = styled.button`
   background-color: transparent;
   width: 100%;
   font-size: 14px;
+  gap: 5px;
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.backlogBgHover};
@@ -129,7 +129,10 @@ export const CreateButtonWrapper = styled.button`
 `;
 export const CreateIssueButton = styled.span`
   color: ${(props) => props.theme.memberMenuFontColor};
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 `;
 export const IconAdd = styled(AddIcon)`
   font-size: 19px !important;

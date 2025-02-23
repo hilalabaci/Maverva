@@ -56,14 +56,19 @@ export const Container = styled.div`
   }
 `;
 
-export const CardWrapper = styled.div`
+export const IssueWrapper = styled.div`
   overflow: scroll;
   display: flex;
   flex-direction: column;
   gap: 4px;
   -webkit-overflow-scrolling: touch;
+  background-color: rgb(247 248 249);
+  border: none;
+  outline: none;
   @media only screen and (max-width: 768px) {
     margin-top: 10px;
   }
 `;
-export const AddCardButtonWrapper = styled.div``;
+export const AddCardButtonWrapper = styled.div`
+  padding: 10px 0;
+`;

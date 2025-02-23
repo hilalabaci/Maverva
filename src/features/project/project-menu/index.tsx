@@ -94,11 +94,10 @@ function ProjectMenu(props: ProjectMenuPropsType) {
         <UserInfo $hidden={props.hideMenu}>
           <ProjectAvatar
             $hidden={props.hideMenu}
-            $userPhotoWidth="25px"
-            $userPhotoHeight="25px"
-            $userPhotoFontSize="10px"
+            $userPhotoWidth="30px"
+            $userPhotoHeight="30px"
+            $userPhotoFontSize="1px"
             $userBorderadius="3px"
-            //$userBorder={props.$userBorder}
             $fontWeight="600"
             projectId={props.projectId}
           />
@@ -182,30 +181,29 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                   </GetBoardsContainer>
                 </CollapsibleDemo>
               </BoardWrapper>
-              {selectedBoard && (
-                <SideBarListWrapper>
-                  <SideBarElement
-                    to={`/projects/${props.projectKey}/boards/${selectedBoard}/backlog`}
-                  >
-                    <SideBarElementWrapper isSelected={isBacklog}>
-                      <SideBarElementIcon>
-                        <IconListBullet strokeWidth={40} />
-                      </SideBarElementIcon>
-                      Backlog
-                    </SideBarElementWrapper>
-                  </SideBarElement>
-                  <SideBarElement
-                    to={`/projects/${props.projectKey}/boards/${selectedBoard}`}
-                  >
-                    <SideBarElementWrapper isSelected={isActiveSprint}>
-                      <SideBarElementIcon>
-                        <IconCalendarViewWeek strokeWidth="10px" />
-                      </SideBarElementIcon>
-                      Active sprints
-                    </SideBarElementWrapper>
-                  </SideBarElement>
-                </SideBarListWrapper>
-              )}
+
+              <SideBarListWrapper>
+                <SideBarElement
+                  to={`/projects/${props.projectKey}/boards/${boardId}/backlog`}
+                >
+                  <SideBarElementWrapper isSelected={isBacklog}>
+                    <SideBarElementIcon>
+                      <IconListBullet strokeWidth={40} />
+                    </SideBarElementIcon>
+                    Backlog
+                  </SideBarElementWrapper>
+                </SideBarElement>
+                <SideBarElement
+                  to={`/projects/${props.projectKey}/boards/${boardId}`}
+                >
+                  <SideBarElementWrapper isSelected={isActiveSprint}>
+                    <SideBarElementIcon>
+                      <IconCalendarViewWeek strokeWidth="10px" />
+                    </SideBarElementIcon>
+                    Active sprints
+                  </SideBarElementWrapper>
+                </SideBarElement>
+              </SideBarListWrapper>
             </SideBarWrapper>
           </SideBarItem>
         </AddProjectWrapper>

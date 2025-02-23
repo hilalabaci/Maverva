@@ -19,7 +19,7 @@ function MemberPhoto(props: MemberPhotoProps) {
   const user = props.user ?? contextUser;
   const profilePhotoUrl =
     user?.ProfilePicture ||
-    `https://api.dicebear.com/9.x/avataaars/svg?scale=100&radius=50&randomizeIds=true&seed=${user?.Id}`;
+    `https://api.dicebear.com/9.x/initials/svg?backgroundColor=b6e3f4,c0aede,d1d4f9&scale=100&radius=50&randomizeIds=true&seed=${user?.FullName}`;
 
   return (
     <Container
@@ -36,6 +36,7 @@ function MemberPhoto(props: MemberPhotoProps) {
         $fontWeight={props.$fontWeight}
       >
         <MemberAvatar
+          alt="member photo"
           src={profilePhotoUrl}
           $userPhotoWidth={props.$userPhotoWidth}
           $userPhotoHeight={props.$userPhotoHeight}

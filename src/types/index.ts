@@ -11,6 +11,7 @@ export type ProjectType = {
   Users: UserType[];
   Key: string;
   LeadUser: UserType;
+  Boards: BoardType[];
 };
 export type BoardType = {
   Id: string;
@@ -34,7 +35,7 @@ export type SprintType = {
   BoardId?: BoardType;
   Board: string;
   UserId?: UserType;
-  IssueIds: IssueType[];
+  Issues: IssueType[];
   IsActive: boolean;
 };
 export type IssueType = {
@@ -43,6 +44,7 @@ export type IssueType = {
   Status: number;
   UserId: UserType;
   Key: string;
+  createdBy: UserType;
   CreatedAt?: Date;
   InBacklog?: Boolean;
   Labels: LabelType[];

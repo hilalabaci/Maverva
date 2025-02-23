@@ -76,21 +76,19 @@ function BacklogCards() {
 
   async function loadBacklogCards() {
     try {
-      if (!projectKey) {
-        console.log(`projectKey not found ${projectKey}`);
-        return;
-      } else if (!boardId) {
-        console.log(`boardId not found ${boardId}`);
-        return;
-      }
+      if (!projectKey) return;
+      if (!boardId) return;
+      console.log(`testing loadBacklog cards`, projectKey, boardId);
       const { ok, data } = await apiHelper.getBacklogCards(projectKey, boardId);
       if (ok && data) {
         setBacklogCards(data);
       } else {
         console.error("Failed to fetch board. Status:");
+        setBacklogCards([]);
       }
     } catch (error) {
       console.error("Error fetching board:", error);
+      setBacklogCards([]);
     }
   }
 
@@ -152,7 +150,7 @@ function BacklogCards() {
   }, [boardId, projectKey]);
 
   function getStatusCount(status: IssueStatus) {
-    return backlogCards.filter((card) => card.Status === status).length;
+    return backlogCards?.filter((card) => card.Status === status).length || 0;
   }
   return (
     <Container>
@@ -176,7 +174,7 @@ function BacklogCards() {
                 }
               />
               <HeaderTitle>Backlog</HeaderTitle>
-              <HeaderIssue>({backlogCards.length} issue)</HeaderIssue>
+              <HeaderIssue>({backlogCards?.length || 0} issues)</HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
               <ToolTip

@@ -42,11 +42,7 @@ import Toggle from "../../components/common/toggle";
 import MemberPhoto from "../../features/user/member-photo";
 import { HoverCardDemo } from "../../components/common/hoverCard";
 
-type ProjectsPropsType = {
-  onProjectChange: (project: ProjectType) => void;
-};
-
-function Projects(props: ProjectsPropsType) {
+function Projects() {
   const { user } = useUserContext();
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [selectedProject, setSelectedProject] = useState<
@@ -128,12 +124,15 @@ function Projects(props: ProjectsPropsType) {
 
   function openModal(project: ProjectType) {
     setShowModalforDeleteProject(true);
-    setSelectedProject(project);
   }
   function closeModal() {
     setShowModalforDeleteProject(false);
-    setSelectedProject(undefined);
   }
+  useEffect(() => {
+    if (projects.length > 0 && !selectedProject) {
+      setSelectedProject(projects[0]);
+    }
+  }, [projects]);
 
   if (!user) return;
   return (
@@ -211,7 +210,8 @@ function Projects(props: ProjectsPropsType) {
                         projectId={project.Id}
                       />
                       <LinkforProjects
-                        to={`/projects/${project.Key}/boards/122`}
+                        to={`/projects/${project.Key}/boards/${selectedProject?.Boards[0].Id}`}
+                        onClick={() => setSelectedProject(project)}
                       >
                         {project.Name}
                       </LinkforProjects>

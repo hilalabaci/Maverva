@@ -9,7 +9,7 @@ import {
 import {
   AddBoardRequest,
   AddBoardResponse,
-  AddCardRequest,
+  AddIssueRequest,
   AddColumnRequest,
   AddProjectResponse,
   AddSprintRequest,
@@ -37,10 +37,17 @@ class ApiHelper {
       data: { email },
     });
   }
+  async getProjects(userId: string) {
+    return await this.baseCall<ProjectType[]>("project", {
+      method: "GET",
+      urlParams: new URLSearchParams({ userId }),
+    });
+  }
 
-  async getSelectedProject(projectKey: string) {
+  async getSelectedProject(projectKey: string, userId: string) {
     return await this.baseCall<ProjectType>(`projects/${projectKey}`, {
       method: "GET",
+      urlParams: new URLSearchParams({ userId }),
     });
   }
 
@@ -118,13 +125,13 @@ class ApiHelper {
     );
   }
 
-  async addCard(data: AddCardRequest) {
+  async addIssue(data: AddIssueRequest) {
     return await this.baseCall("card", {
       method: "POST",
       data: data,
     });
   }
-  async getCards(boardId: string) {
+  async getIssues(boardId: string) {
     return await this.baseCall<IssueType[]>("card", {
       method: "GET",
       urlParams: new URLSearchParams({ boardId }),

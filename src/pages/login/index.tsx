@@ -50,9 +50,7 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const loginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log("tokenResponse", tokenResponse);
       const user = await apiHelper.loginGoogle(tokenResponse.access_token);
-      console.log("user", user);
       setUser(user.data);
       navigate("/projects");
     },

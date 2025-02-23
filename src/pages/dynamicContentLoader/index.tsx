@@ -20,6 +20,7 @@ import {
 import Backlog from "../backlog";
 import Scroll from "../../components/common/scroll";
 import ActiveSprint from "../active-sprint";
+import { useUserContext } from "../../contexts/UserContext";
 
 type URLParams = {
   projectKey: string;
@@ -28,25 +29,28 @@ type URLParams = {
 function DynamicContentLoader() {
   const location = useLocation();
   const { projectKey, boardId } = useParams<URLParams>();
+  const { user } = useUserContext();
   const [activeSprint, setActiveSprint] = useState<SprintType>();
-  const [cards, setCards] = useState<IssueType[]>();
-  const [filteredCards, setFilteredCards] = useState<IssueType[]>([]);
+  const [issues, setIssues] = useState<IssueType[]>();
+  const [filteredIssues, setFilteredIssues] = useState<IssueType[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [selectedProject, setSelectedProject] = useState<ProjectType>();
   const [hideMenu, setHideMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [defaultBoard, setDefaultBoard] = useState<BoardType>();
 
   async function loadSelectedProject() {
     try {
-      if (!projectKey) {
-        return;
-      }
-      const { ok, data } = await apiHelper.getSelectedProject(projectKey);
+      if (!projectKey) return;
+      if (!user) return;
+      const { ok, data } = await apiHelper.getSelectedProject(
+        projectKey,
+        user?.Id
+      );
       if (ok && data) {
-        if (!data) {
-        }
+        if (!data) return;
         setSelectedProject(data);
-        console.log(`data: ${data}`)
+        setDefaultBoard(data.Boards.length > 0 ? data.Boards[0] : undefined);
       }
     } catch (error) {
       console.error("Error fetching project:", error);
@@ -55,44 +59,42 @@ function DynamicContentLoader() {
 
   const loadActiveSprint = useCallback(async () => {
     try {
-      if (!projectKey) {
-        console.log(`projectKey not found ${projectKey}`);
-        return;
-      } else if (!boardId) {
-        console.log(`boardId not found ${boardId}`);
-        return;
-      }
-      const { ok, data } = await apiHelper.getActiveSprint(projectKey, boardId);
+      if (!projectKey) return;
+      if (!defaultBoard) return;
 
+      const { ok, data } = await apiHelper.getActiveSprint(
+        projectKey,
+        defaultBoard.Id
+      );
       if (ok && data) {
         setActiveSprint(data);
-        setCards(data.IssueIds);
+        setIssues(data.Issues);
       } else {
         console.error("Failed to fetch board. Status:");
       }
     } catch (error) {
       console.error("Error fetching board:", error);
     }
-  }, [projectKey, boardId]);
+  }, [projectKey, defaultBoard]);
 
   useEffect(() => {
     loadActiveSprint();
   }, [loadActiveSprint]);
 
   function deleteCard(id: string) {
-    setCards(cards?.filter((card) => card.Id !== id));
+    setIssues(issues?.filter((issue) => issue.Id !== id));
   }
 
   function updateCard(card: IssueType) {
-    if (!cards) return;
-    const index = cards.findIndex((b) => b.Id === card.Id);
-    const newCards = [...cards];
+    if (!issues) return;
+    const index = issues.findIndex((b) => b.Id === card.Id);
+    const newCards = [...issues];
     newCards[index] = card;
-    setCards(newCards);
+    setIssues(newCards);
     /*    setCards([...cards.filter((card) => card.id !== id), card]); */
   }
   function onUpdateContent(card: IssueType) {
-    if (!cards) return;
+    if (!issues) return;
     loadActiveSprint();
   }
 
@@ -103,28 +105,28 @@ function DynamicContentLoader() {
   }, [projectKey]);
 
   useEffect(() => {
-    if (!cards) return;
-    setFilteredCards(
-      cards.filter((card) => card.Summary.includes(searchInput))
+    if (!issues) return;
+    setFilteredIssues(
+      issues.filter((issue) => issue.Summary.includes(searchInput))
     );
-  }, [searchInput, cards]);
+  }, [searchInput, issues]);
 
   function addedCard(card: IssueType) {
-    if (!cards) return;
-    setCards([...cards, card]);
+    if (!issues) return;
+    setIssues([...issues, card]);
   }
   function updatedCardsAfterDeleteColumn(updateCards: IssueType[]) {
-    if (!cards) return;
+    if (!issues) return;
     const updatedCards = updateCards.map((card) => ({
       ...card,
       status: IssueStatus.Backlog,
     }));
 
     const updatedCardIds = updatedCards.map((card) => card.Id);
-    const remainingCards = cards.filter(
-      (card) => !updatedCardIds.includes(card.Id)
+    const remainingCards = issues.filter(
+      (issue) => !updatedCardIds.includes(issue.Id)
     );
-    setCards([...updatedCards, ...remainingCards]);
+    setIssues([...updatedCards, ...remainingCards]);
   }
 
   return (
@@ -133,7 +135,7 @@ function DynamicContentLoader() {
         projectKey={projectKey as string}
         projectId={selectedProject?.Id as string}
         projectTitle={selectedProject?.Name as string}
-        selectedBoardTitle={activeSprint?.BoardId?.Name as string}
+        selectedBoardTitle={defaultBoard?.Name as string}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         hideMenu={hideMenu}
@@ -144,15 +146,15 @@ function DynamicContentLoader() {
         <MainContainer>
           {selectedProject && (
             <TopMenu
-              selectedBoardId={boardId as string}
-              selectedBoardTitle={activeSprint?.BoardId?.Name as string}
+              selectedBoardId={defaultBoard?.Id as string}
+              selectedBoardTitle={defaultBoard?.Name as string}
               projectKey={projectKey as string}
               onProjectUpdate={() => {}}
               projectId={selectedProject?.Id as string}
               topMenuTitle={selectedProject?.Name as string}
               user={selectedProject?.LeadUser} //check here!!
               setSearchInput={setSearchInput}
-              boardId={boardId as BoardType | undefined}
+              boardId={defaultBoard?.Id as BoardType | undefined}
             />
           )}
           <Scroll
@@ -171,8 +173,8 @@ function DynamicContentLoader() {
                       onUpdateContent={onUpdateContent}
                       onDelete={deleteCard}
                       addedCard={addedCard}
-                      filteredCards={filteredCards}
-                      cards={filteredCards}
+                      filteredCards={filteredIssues}
+                      issues={filteredIssues}
                       projectKey={projectKey}
                       updatedCardsAfterDeleteColumn={
                         updatedCardsAfterDeleteColumn

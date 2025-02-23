@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Card from "../cards/Card";
-import AddCard from "../add-a-card/AddCard";
+import Issue from "../issues";
+import AddIssue from "../add-a-issue";
 import { useDrop } from "react-dnd";
 import {
-  CardWrapper,
+  IssueWrapper,
   Container,
   AddCardButtonWrapper,
   AddCardButton,
@@ -12,20 +12,20 @@ import {
 import { IssueType, DragItem } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import apiHelper from "../../../api/apiHelper";
-interface CardListProps {
+interface IssueListProps {
   title: string;
-  cards: IssueType[];
+  issues: IssueType[];
   status: number;
   projectKey: string;
   boardId?: string;
-  sprintId: string;
+  sprintId?: string;
   onUpdate: (card: IssueType) => void;
   onUpdateContent: (card: IssueType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: IssueType) => void;
 }
 
-function CardList(props: CardListProps) {
+function IssueList(props: IssueListProps) {
   const [showAdd, setShowAdd] = useState(false);
   const ref = useOutsideClick<HTMLDivElement>(closeAddCard);
   function dynamicAddCard() {
@@ -53,26 +53,30 @@ function CardList(props: CardListProps) {
 
   return (
     <Container ref={drop}>
-      <CardWrapper>
-        {props.cards?.map((card, index) => (
-          <Card
-            onUpdate={props.onUpdate}
-            onUpdateContent={props.onUpdateContent}
-            onDelete={props.onDelete}
-            id={card.Id}
-            key={index}
-            content={card.Summary}
-            labels={card.Labels}
-            userId={card.UserId}
-            userName={card.UserId.FullName}
-            cardKey={card.Key}
-            status={card.Status}
-          />
-        ))}
-      </CardWrapper>
+      {props.issues.length > 0 ? (
+        <IssueWrapper>
+          {props.issues.map((issue, index) => (
+            <Issue
+              onUpdate={props.onUpdate}
+              onUpdateContent={props.onUpdateContent}
+              onDelete={props.onDelete}
+              id={issue.Id}
+              key={index}
+              content={issue.Summary}
+              labels={issue.Labels}
+              userId={issue.createdBy}
+              userName={issue.createdBy?.FullName}
+              cardKey={issue.Key}
+              status={issue.Status}
+            />
+          ))}
+        </IssueWrapper>
+      ) : (
+        <div></div>
+      )}
       <AddCardButtonWrapper ref={ref}>
         {showAdd ? (
-          <AddCard
+          <AddIssue
             addedCard={props.addedCard}
             projectKey={props.projectKey}
             onClose={closeAddCard}
@@ -89,4 +93,4 @@ function CardList(props: CardListProps) {
     </Container>
   );
 }
-export default CardList;
+export default IssueList;

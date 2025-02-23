@@ -38,7 +38,7 @@ export type AddUserToBoardRequest = {
   boardIds: string[];
   email: string;
 };
-export type AddCardRequest = {
+export type AddIssueRequest = {
   userId?: string;
   content?: string;
   projectKey?: string;

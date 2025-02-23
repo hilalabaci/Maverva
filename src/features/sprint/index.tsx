@@ -75,7 +75,9 @@ function Sprint({
   const [selectedSprintId, setSelectedSprintId] = useState<string | undefined>(
     sprintId
   );
-  const [sprintCards, setSprintCards] = useState<IssueType[]>(sprint.IssueIds);
+  const [sprintCards, setSprintCards] = useState<IssueType[]>(
+    sprint.IssueIds ?? []
+  );
   const [isActiveSprint, setIsActiveSprint] = useState(sprintIsActive);
 
   async function updateCardInfo(
@@ -159,6 +161,7 @@ function Sprint({
       setContent("");
     } catch (error) {
       console.error("Error fetching project:", error);
+      setSprintCards([]);
     }
   }
 
@@ -166,6 +169,7 @@ function Sprint({
     setSprintCards(sprintCards.filter((card) => card.Id !== id));
   }
   function getStatusCount(status: IssueStatus) {
+    if (!sprintCards) return 0;
     return sprintCards.filter((card) => card.Status === status).length;
   }
 
@@ -231,9 +235,7 @@ function Sprint({
                     ).toLocaleDateString()}`
                   : "Date not available"}
               </Duration>
-              <HeaderIssue>
-                ({sprint.IssueIds ? sprint.IssueIds.length : 0} issue)
-              </HeaderIssue>
+              <HeaderIssue>({sprint.IssueIds?.length ?? 0} issue)</HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
               <ToolTip
@@ -244,7 +246,7 @@ function Sprint({
                 }
                 content={` Not started ${getStatusCount(
                   IssueStatus.Backlog
-                )} of ${sprint.IssueIds.length} `}
+                )} of ${sprint.IssueIds?.length ?? 0} `}
               ></ToolTip>
               <ToolTip
                 trigger={
@@ -254,7 +256,7 @@ function Sprint({
                 }
                 content={` In progress ${getStatusCount(
                   IssueStatus.InProgress
-                )} of ${sprint.IssueIds.length} `}
+                )} of ${sprint.IssueIds?.length ?? 0} `}
               ></ToolTip>
               <ToolTip
                 trigger={
@@ -263,7 +265,7 @@ function Sprint({
                   </HeaderStatus>
                 }
                 content={`Completed ${getStatusCount(IssueStatus.Done)} of ${
-                  sprint.IssueIds.length
+                  sprint.IssueIds?.length ?? 0
                 } `}
               ></ToolTip>
             </HeaderStatusWrapper>

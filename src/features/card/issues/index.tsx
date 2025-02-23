@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Label from "../card-label/index";
-import MemberPhoto from "../../../features/user/member-photo";
+import MemberPhoto from "../../user/member-photo";
 import {
   Container,
   NoteWrapper,
@@ -32,7 +32,7 @@ import useOutsideClick from "../../../hooks/useOutsideClick";
 import apiHelper from "../../../api/apiHelper";
 import { ToolTip } from "../../../components/common/toolstip";
 import { DropdownMenu } from "../../../components/common/dropdownMenu";
-type CardProps = {
+type IssueProps = {
   id: string;
   labels: LabelType[];
   content: string;
@@ -44,7 +44,7 @@ type CardProps = {
   onUpdateContent: (card: IssueType) => void;
   onDelete: (id: string) => void;
 };
-function Card({
+function Issue({
   id,
   labels,
   content,
@@ -54,7 +54,7 @@ function Card({
   onUpdate,
   onUpdateContent,
   onDelete,
-}: CardProps) {
+}: IssueProps) {
   const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "CARD",
     item: { id: id },
@@ -197,10 +197,11 @@ function Card({
         )}
       </ContentWrapper>
       <LabelWrapper>
-        {labels.map((label, index) => {
+        {(labels || []).map((label, index) => {
           return <Label key={index} colour={label.colour} />;
         })}
       </LabelWrapper>
+
       <CardButtomWrapper>
         <CardKeyWrapper>{cardKey}</CardKeyWrapper>
         <ToolTip
@@ -222,4 +223,4 @@ function Card({
     </Container>
   );
 }
-export default Card;
+export default Issue;

@@ -74,18 +74,11 @@ function BoardCreate(props: BoardCreatePropsType) {
     }
   }
   async function loadProjects() {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "project?userId=" + user?.Id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    if (userId) {
+      const { ok, data } = await apiHelper.getProjects(userId);
+      if (ok && data) {
+        setProjects(data);
       }
-    );
-    if (response.ok) {
-      const data = (await response.json()) as ProjectType[];
-      setProjects(data);
     }
   }
   useEffect(() => {

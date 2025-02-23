@@ -36,13 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <Projects
-            onProjectChange={function (project: ProjectType): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
-        ),
+        element: <Projects />,
       },
       {
         path: `:projectKey`,
