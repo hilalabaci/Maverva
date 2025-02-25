@@ -38,7 +38,7 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   text-transform: uppercase;
   font-weight: ${(props) => props.$fontWeight};
   @media only screen and (max-width: 768px) {
-    display: none;
+
   }
 `;
 export const MemberAvatar = styled.img<MemberphotoProps>`
