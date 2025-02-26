@@ -61,9 +61,7 @@ export const ProjectTitle = styled.h1`
   justify-content: center;
   overflow: hidden;
   max-width: 600px;
-  &:hover {
-    background-color: ${(props) => props.theme.projectBG};
-  }
+  margin-top: 0;
   @media only screen and (max-width: 768px) {
     font-size: 11px;
     margin: 10px;

@@ -17,7 +17,7 @@ interface DropdownSelectMenuProps {
   triggerWidth?: boolean;
   title?: string;
   trigger: ReactNode;
-  items: Array<{ label: string; action: () => void; isSelected?: boolean }>;
+  items: Array<{ label: string; action: () => void; selected?: boolean }>;
   $hidden?: boolean;
 }
 
@@ -37,15 +37,14 @@ export const DropdownSelectMenu: React.FC<DropdownSelectMenuProps> = ({
         {title && <TitleforDropDownMenu>{title}</TitleforDropDownMenu>}
         <DropDownItemContainer>
           {items.map((item, index) => (
-            <DropDownItemWrapper>
+            <DropDownItemWrapper key={index}>
               <DropDownItem
-                key={index}
-                $isSelected={item.isSelected}
+                $selected={item.selected}
                 className="dropdown-item"
                 onSelect={item.action}
               >
                 {item.label}
-                {item.isSelected ? <IconForSelect /> : <IconForUnselect />}
+                {item.selected ? <IconForSelect /> : <IconForUnselect />}
               </DropDownItem>
             </DropDownItemWrapper>
           ))}

@@ -2,9 +2,6 @@ import { IssueStatus } from "../../types";
 
 export const getStatusLabel = (value: IssueStatus) => {
   switch (value) {
-    case IssueStatus.Backlog:
-      return "Backlog";
-
     case IssueStatus.ToDo:
       return "To Do";
 

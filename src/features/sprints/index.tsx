@@ -35,16 +35,22 @@ function Sprints() {
     loadSprints();
   }
   function ActiontoSprint(id: string) {
-    if (sprints[0].Id === id) {
-      setActiveToSprint(true);
-      return true;
-    }
-    return false;
+    return sprints.length > 0 && sprints[0].Id === id;
   }
+
+  useEffect(() => {
+    if (sprints.length > 0) {
+      setActiveToSprint(
+        sprints[0].Id === sprints.find((sprint) => sprint.Id)?.Id
+      );
+    }
+  }, [sprints]);
+
   return (
     <>
       {sprints.map((sprint) => (
         <Sprint
+          key={sprint.Id}
           onUpdate={onUpdateCard}
           sprint={sprint}
           sprintId={sprint.Id}

@@ -117,7 +117,7 @@ function ActiveSprint({
             {columns
               .sort((a, b) => a.Status - b.Status)
               .map((column) => (
-                <Wrapper>
+                <Wrapper key={column.Id}>
                   <TitleWrapper>
                     <TitleTotalCardWrapper>
                       <Title>{column.Name}</Title>

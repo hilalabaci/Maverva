@@ -89,16 +89,11 @@ export const IconEdit = styled(EditIcon)`
   }
 `;
 type StatusPropsType = {
-  status: number;
+  $status: number;
 };
 
 const handleColorType = (status: number, theme: DefaultTheme) => {
   switch (status) {
-    case IssueStatus.Backlog:
-      return {
-        backgroundColor: theme.IconEditBg,
-        color: theme.fontColourDark,
-      };
     case IssueStatus.ToDo:
       return { backgroundColor: "#f5a142", color: "#000" };
     case IssueStatus.InProgress:
@@ -112,9 +107,9 @@ const handleColorType = (status: number, theme: DefaultTheme) => {
 export const Status = styled.div<StatusPropsType>`
   justify-self: start;
   align-self: center;
-  background-color: ${({ status, theme }) =>
-    handleColorType(status, theme).backgroundColor};
-  color: ${({ status, theme }) => handleColorType(status, theme).color};
+  background-color: ${({ $status, theme }) =>
+    handleColorType($status, theme).backgroundColor};
+  color: ${({ $status, theme }) => handleColorType($status, theme).color};
   text-transform: uppercase;
   border-radius: 3px;
   font-size: 12px;

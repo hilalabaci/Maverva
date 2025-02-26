@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Link } from "react-router-dom";
 interface ModalsToggleProps {
   $isNotificationModalOpen?: boolean; // Mark as optional
   $isMemberButtonOpen?: boolean;
@@ -38,10 +39,8 @@ export const Presentation = styled.div`
   align-items: center;
   gap: 10px;
 `;
-export const Projects = styled.a`
-  text-decoration: none;
-`;
-export const ProjectsLink = styled.a`
+
+export const ProjectsLink = styled(Link)`
   display: flex;
   align-items: center;
   border: none;
@@ -52,6 +51,7 @@ export const ProjectsLink = styled.a`
   font-size: 14px;
   border-radius: 3px;
   padding: 9px 5px;
+  text-decoration: none;
   &:hover {
     background-color: ${(props) => props.theme.navbarHoverButton};
   }

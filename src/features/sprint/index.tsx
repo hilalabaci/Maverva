@@ -23,7 +23,7 @@ import {
   MoreIcon,
   TextCreate,
 } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 import BacklogCard from "../backlogCard";
@@ -76,7 +76,7 @@ function Sprint({
     sprintId
   );
   const [sprintCards, setSprintCards] = useState<IssueType[]>(
-    sprint.IssueIds ?? []
+    sprint.Issues ?? []
   );
   const [isActiveSprint, setIsActiveSprint] = useState(sprintIsActive);
 
@@ -147,16 +147,17 @@ function Sprint({
     try {
       const cardData = {
         content: content,
-        status: 0,
+        status: 1,
         userId: user?.Id,
         projectKey: projectKey,
         boardId: boardId,
         sprintId: selectedSprintId,
       };
 
-      const { ok, data } = await apiHelper.addCard(cardData);
+      const { ok, data } = await apiHelper.addIssue(cardData);
       if (ok && data) {
         setSprintCards((prevCards) => [...prevCards, data as IssueType]);
+        
       }
       setContent("");
     } catch (error) {
@@ -176,10 +177,11 @@ function Sprint({
   function updateStatusCard(id: string, status: number) {
     setSprintCards((prevBacklogCards) =>
       prevBacklogCards.map((card) =>
-        card.Id === id ? { ...card, status } : card
+        card.Id === id ? { ...card, Status: status } : card
       )
     );
   }
+
   async function updateSprintActive(
     sprintId: string,
     active: boolean,
@@ -212,7 +214,7 @@ function Sprint({
 
             <HeaderTitleContent
               ref={refBacklogSelected}
-              $isSelected={isHeaderSelected}
+              $selected={isHeaderSelected}
               onClick={() => {
                 setIsHeaderSelected(true);
               }}
@@ -235,18 +237,18 @@ function Sprint({
                     ).toLocaleDateString()}`
                   : "Date not available"}
               </Duration>
-              <HeaderIssue>({sprint.IssueIds?.length ?? 0} issue)</HeaderIssue>
+              <HeaderIssue>({sprint.Issues?.length ?? 0} issue)</HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={IssueStatus.Backlog}>
-                    {getStatusCount(IssueStatus.Backlog)}
+                  <HeaderStatus status={IssueStatus.ToDo}>
+                    {getStatusCount(IssueStatus.ToDo)}
                   </HeaderStatus>
                 }
-                content={` Not started ${getStatusCount(
-                  IssueStatus.Backlog
-                )} of ${sprint.IssueIds?.length ?? 0} `}
+                content={` Not started ${getStatusCount(IssueStatus.ToDo)} of ${
+                  sprint.Issues?.length ?? 0
+                } `}
               ></ToolTip>
               <ToolTip
                 trigger={
@@ -256,7 +258,7 @@ function Sprint({
                 }
                 content={` In progress ${getStatusCount(
                   IssueStatus.InProgress
-                )} of ${sprint.IssueIds?.length ?? 0} `}
+                )} of ${sprint.Issues?.length ?? 0} `}
               ></ToolTip>
               <ToolTip
                 trigger={
@@ -265,7 +267,7 @@ function Sprint({
                   </HeaderStatus>
                 }
                 content={`Completed ${getStatusCount(IssueStatus.Done)} of ${
-                  sprint.IssueIds?.length ?? 0
+                  sprint.Issues?.length ?? 0
                 } `}
               ></ToolTip>
             </HeaderStatusWrapper>
@@ -296,11 +298,12 @@ function Sprint({
             <BacklogCardList>
               {sprintCards.map((card) => (
                 <BacklogCard
+                  key={card.Id}
                   id={card.Id}
                   cardKey={card.Key}
                   content={card.Summary}
                   status={card.Status}
-                  user={card.UserId}
+                  user={card.User}
                   sprintId={sprintId}
                   boardId={boardId as string}
                   updateCardsAfterDelete={deleteCard}
@@ -318,7 +321,7 @@ function Sprint({
                     e.preventDefault();
                     submitNote();
                   }}
-                  $isSelected={true}
+                  $selected={true}
                 >
                   <TextCreate
                     value={content}
@@ -334,7 +337,7 @@ function Sprint({
                   }}
                 >
                   <IconAdd />
-                  <CreateIssueButton>Create Issue</CreateIssueButton>
+                  <CreateIssueButton>Create issue</CreateIssueButton>
                 </CreateButtonWrapper>
               )}
             </DisplayCreateWrapper>

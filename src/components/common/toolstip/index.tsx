@@ -1,5 +1,5 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { ReactNode } from "react";
+import { forwardRef, ReactNode } from "react";
 import { TooltipContent, TooltipTrigger } from "./styles";
 
 interface ToolTipProps {
@@ -9,18 +9,17 @@ interface ToolTipProps {
   fontSize?: string;
 }
 
-export const ToolTip: React.FC<ToolTipProps> = ({
-  trigger,
-  content,
-  contentStyle,
-  fontSize,
-}) => {
+export const ToolTip: React.FC<ToolTipProps> = forwardRef<
+  HTMLDivElement,
+  ToolTipProps
+>(({ trigger, content, contentStyle, fontSize }, ref) => {
   return (
     <Tooltip.Provider delayDuration={100}>
       <Tooltip.Root>
         <TooltipTrigger>{trigger}</TooltipTrigger>
         <Tooltip.Portal>
           <TooltipContent
+            ref={ref}
             fontSize={fontSize}
             side="bottom"
             style={{ zIndex: contentStyle?.zIndex }}
@@ -32,4 +31,4 @@ export const ToolTip: React.FC<ToolTipProps> = ({
       </Tooltip.Root>
     </Tooltip.Provider>
   );
-};
+});

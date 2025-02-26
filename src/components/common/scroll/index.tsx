@@ -9,13 +9,13 @@ import {
 
 type ScrollProps = {
   children: ReactNode;
-  scrollHeight?: string;
-  scrollWidth?: string;
+  scrollheight?: string;
+  scrollwidth?: string;
 };
 
-const Scroll = ({ children, scrollHeight, scrollWidth }: ScrollProps) => {
+const Scroll = ({ children, scrollheight, scrollwidth }: ScrollProps) => {
   return (
-    <ScrollAreaRoot scrollHeight={scrollHeight} scrollWidth={scrollWidth}>
+    <ScrollAreaRoot scrollheight={scrollheight} scrollwidth={scrollwidth}>
       <ScrollAreaViewport>{children}</ScrollAreaViewport>
       <ScrollAreaScrollbar orientation="horizontal">
         <ScrollAreaThumb orientation="horizontal" />

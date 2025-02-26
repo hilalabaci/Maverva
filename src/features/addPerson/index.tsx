@@ -130,7 +130,7 @@ function AddPerson(props: AddPersonPropsType) {
                 items={boards.map((board) => {
                   return {
                     label: board.Name + " (" + props.projectKey + ")",
-                    isSelected: !!selectedBoards.find((p) => p.Id === board.Id),
+                    selected: !!selectedBoards.find((p) => p.Id === board.Id),
                     action: () => {
                       const selected = selectedBoards.find(
                         (p) => p.Id === board.Id

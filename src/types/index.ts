@@ -42,7 +42,7 @@ export type IssueType = {
   Id: string;
   Summary: string;
   Status: number;
-  UserId: UserType;
+  User: UserType; 
   Key: string;
   createdBy: UserType;
   CreatedAt?: Date;
@@ -79,7 +79,6 @@ export type NotificationType = {
 };
 
 export enum IssueStatus {
-  Backlog = 0,
   ToDo = 1,
   InProgress = 2,
   Done = 99,

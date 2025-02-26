@@ -213,7 +213,7 @@ export const GetBoardsList = styled.div`
 export const GetBoardsListItemLink = styled(Link)`
   text-decoration: none;
 `;
-export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
+export const GetBoardsListItem = styled(Link)<{ selected: boolean }>`
   padding: 8px 16px;
   display: flex;
   font: var(
@@ -232,10 +232,10 @@ export const GetBoardsListItem = styled(Link)<{ isSelected: boolean }>`
   text-decoration: none;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${({ isSelected, theme }) =>
-    isSelected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
-  background: ${({ isSelected }) =>
-    isSelected
+  color: ${({ selected, theme }) =>
+    selected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
+  background: ${({ selected }) =>
+    selected
       ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
       : "none"};
   &:hover {
@@ -250,7 +250,7 @@ export const SideBarElement = styled(Link)`
   text-decoration: none;
   padding: 1px 3px;
 `;
-export const SideBarElementWrapper = styled.span<{ isSelected: boolean }>`
+export const SideBarElementWrapper = styled.span<{ selected: boolean }>`
   color: ${(props) => props.theme.sideBarFontColour};
   display: flex;
   gap: 15px;
@@ -258,12 +258,12 @@ export const SideBarElementWrapper = styled.span<{ isSelected: boolean }>`
   font-weight: 400;
   padding: 8px 8px 8px 14px;
   align-items: center;
-  background: ${({ isSelected }) =>
-    isSelected
+  background: ${({ selected }) =>
+    selected
       ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
       : "none"};
-  color: ${({ isSelected, theme }) =>
-    isSelected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
+  color: ${({ selected, theme }) =>
+    selected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
   border-radius: 5px;
   &:hover {
     cursor: pointer;

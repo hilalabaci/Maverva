@@ -133,7 +133,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                   }
                 >
                   <GetBoardsContainer>
-                    <Scroll scrollHeight="180px">
+                    <Scroll scrollheight="180px">
                       <GetBoardsList>
                         <TitleGetBoards>
                           Boards in {props.selectedProjectsTitle}
@@ -143,7 +143,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                           <GetBoardsListItem
                             to={`/projects/${props.projectKey}/boards/${board.Id}`}
                             key={board.Id}
-                            isSelected={selectedBoard === board.Id}
+                            selected={selectedBoard === board.Id}
                             onClick={() => {
                               setSelectedBoard(board.Id);
                               setShowBoards(false);
@@ -186,7 +186,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                 <SideBarElement
                   to={`/projects/${props.projectKey}/boards/${boardId}/backlog`}
                 >
-                  <SideBarElementWrapper isSelected={isBacklog}>
+                  <SideBarElementWrapper selected={isBacklog}>
                     <SideBarElementIcon>
                       <IconListBullet strokeWidth={40} />
                     </SideBarElementIcon>
@@ -196,7 +196,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                 <SideBarElement
                   to={`/projects/${props.projectKey}/boards/${boardId}`}
                 >
-                  <SideBarElementWrapper isSelected={isActiveSprint}>
+                  <SideBarElementWrapper selected={isActiveSprint}>
                     <SideBarElementIcon>
                       <IconCalendarViewWeek strokeWidth="10px" />
                     </SideBarElementIcon>

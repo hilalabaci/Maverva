@@ -25,15 +25,12 @@ import {
 } from "./styles";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
-
 import FormDemo from "../../features/sprints/edit-sprint";
 import { IssueStatus, IssueType, DragDropCollect, DragItem } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import apiHelper from "../../api/apiHelper";
 import { useParams } from "react-router-dom";
-
 import { CheckboxWrapper } from "../backlogCard/styles";
-
 import { ToolTip } from "../../components/common/toolstip";
 import BacklogCard from "../backlogCard";
 import Modal from "../../components/common/modal";
@@ -78,7 +75,6 @@ function BacklogCards() {
     try {
       if (!projectKey) return;
       if (!boardId) return;
-      console.log(`testing loadBacklog cards`, projectKey, boardId);
       const { ok, data } = await apiHelper.getBacklogCards(projectKey, boardId);
       if (ok && data) {
         setBacklogCards(data);
@@ -96,13 +92,13 @@ function BacklogCards() {
     try {
       const cardData = {
         content: content,
-        status: 0,
+        status: 1,
         userId: user?.Id,
         projectKey: projectKey,
         boardId: boardId,
       };
 
-      const { ok } = await apiHelper.addCard(cardData);
+      const { ok } = await apiHelper.addIssue(cardData);
       if (ok) {
         setContent("");
         await loadBacklogCards();
@@ -131,7 +127,7 @@ function BacklogCards() {
   function updateStatusCard(id: string, status: number) {
     setBacklogCards((prevBacklogCards) =>
       prevBacklogCards.map((card) =>
-        card.Id === id ? { ...card, status } : card
+        card.Id === id ? { ...card, Status: status } : card
       )
     );
   }
@@ -152,6 +148,7 @@ function BacklogCards() {
   function getStatusCount(status: IssueStatus) {
     return backlogCards?.filter((card) => card.Status === status).length || 0;
   }
+
   return (
     <Container>
       <CollapsibleDemo
@@ -162,7 +159,7 @@ function BacklogCards() {
             </CheckboxWrapper>
             <HeaderTitleContent
               ref={refBacklogSelected}
-              $isSelected={isHeaderSelected} // Pass selected state for border
+              $selected={isHeaderSelected} // Pass selected state for border
               onClick={() => setIsHeaderSelected(true)}
             >
               <ArrowIcon
@@ -179,13 +176,13 @@ function BacklogCards() {
             <HeaderStatusWrapper>
               <ToolTip
                 trigger={
-                  <HeaderStatus status={IssueStatus.Backlog}>
-                    {getStatusCount(IssueStatus.Backlog)}
+                  <HeaderStatus status={IssueStatus.ToDo}>
+                    {getStatusCount(IssueStatus.ToDo)}
                   </HeaderStatus>
                 }
-                content={` Not started ${getStatusCount(
-                  IssueStatus.Backlog
-                )} of ${backlogCards.length} `}
+                content={` Not started ${getStatusCount(IssueStatus.ToDo)} of ${
+                  backlogCards.length
+                } `}
               ></ToolTip>
               <ToolTip
                 trigger={
@@ -226,6 +223,7 @@ function BacklogCards() {
             <BacklogCardList ref={drop}>
               {backlogCards.map((backlogCard) => (
                 <BacklogCard
+                  key={backlogCard.Id}
                   onUpdateContent={onUpdateContent}
                   onUpdateCardStatus={updateStatusCard}
                   updateCardsAfterDelete={deleteCard}
@@ -235,7 +233,7 @@ function BacklogCards() {
                   cardKey={backlogCard.Key}
                   content={backlogCard.Summary}
                   status={backlogCard.Status}
-                  user={backlogCard.UserId}
+                  user={backlogCard.User}
                 />
               ))}
             </BacklogCardList>
@@ -246,7 +244,7 @@ function BacklogCards() {
                     e.preventDefault();
                     submitNote();
                   }}
-                  $isSelected={true}
+                  $selected={true}
                   ref={refDisplayCreate}
                 >
                   <TextCreate
@@ -263,7 +261,7 @@ function BacklogCards() {
                   tabIndex={0}
                 >
                   <IconAdd />
-                  <CreateIssueButton>Create Issue</CreateIssueButton>
+                  <CreateIssueButton>Create issue</CreateIssueButton>
                 </CreateButtonWrapper>
               )}
             </DisplayCreateWrapper>

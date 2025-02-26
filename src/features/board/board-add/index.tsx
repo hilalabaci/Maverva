@@ -133,7 +133,7 @@ function BoardCreate(props: BoardCreatePropsType) {
                   items={projects.map((project) => {
                     return {
                       label: project.Name + " (" + project.Key + ")",
-                      isSelected: !!selectedProjects.find(
+                      selected: !!selectedProjects.find(
                         (p) => p.Id === project.Id
                       ),
                       action: () => {

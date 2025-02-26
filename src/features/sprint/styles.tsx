@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import { IssueStatus } from "../../types";
 
-type FormProps = { $isSelected: boolean };
+type FormProps = { $selected: boolean };
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,12 +16,12 @@ export const HeaderDropBlog = styled.div`
   display: grid;
   grid-template-columns: 1fr 9fr 1fr 2fr 1fr;
 `;
-type BacklogHeaderProps = { $isSelected: boolean };
+type BacklogHeaderProps = { $selected: boolean };
 export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
   display: flex;
   align-items: center;
-  outline: ${({ $isSelected, theme }) =>
-    $isSelected ? `${theme.activeBorder}` : `none`};
+  outline: ${({ $selected, theme }) =>
+    $selected ? `${theme.activeBorder}` : `none`};
   padding: 4px 0;
   cursor: pointer;
 `;
@@ -54,7 +54,7 @@ type StatusProps = {
 export const HeaderStatus = styled.span<StatusProps>`
   background-color: ${({ status, theme }) => {
     switch (status) {
-      case IssueStatus.Backlog || IssueStatus.ToDo:
+      case IssueStatus.ToDo || IssueStatus.ToDo:
         return theme.statusColourGrey; // red for status 1
       case IssueStatus.InProgress:
         return theme.statusColourBlue; // yellow for status 2
@@ -276,8 +276,8 @@ export const IconAdd = styled(AddIcon)`
 export const Form = styled.form<FormProps>`
   flex: 1;
   padding: 9px 0 9px 5px;
-  border: ${({ $isSelected, theme }) =>
-    $isSelected ? `${theme.activeBorder}` : `none`};
+  border: ${({ $selected, theme }) =>
+    $selected ? `${theme.activeBorder}` : `none`};
 `;
 
 export const TextCreate = styled.input`

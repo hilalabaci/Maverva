@@ -6,7 +6,6 @@ import {
   HeaderContainer,
   NavbarContainer,
   Presentation,
-  Projects,
   ProjectsLink,
   ProjectsSpan,
   GlobalStyle,
@@ -112,8 +111,8 @@ function Navbar(props: NavbarPropsType) {
 
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
   function handleProjectsClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault(); // Tarayıcının varsayılan sayfa yenilemesini engeller
-    navigate("/projects"); // Yönlendirme işlemi
+    e.preventDefault();
+    navigate("/projects");
   }
 
   return (
@@ -124,12 +123,10 @@ function Navbar(props: NavbarPropsType) {
           <DynamicSVGBrand width="120" height="30" />
         </BrandContainer>
         <Presentation>
-          <Projects onClick={handleProjectsClick} href="/projects">
-            <ProjectsLink>
-              Projects
-              <ProjectsSpan />
-            </ProjectsLink>
-          </Projects>
+          <ProjectsLink to="/projects" onClick={handleProjectsClick}>
+            Projects
+            <ProjectsSpan />
+          </ProjectsLink>
           <CreateWrapper>
             <Modal
               onClose={closeModalforCreateButton}

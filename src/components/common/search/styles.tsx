@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 
-export const SearchContainer = styled.button<{ isClicked: boolean }>`
+export const SearchContainer = styled.div<{ $isclicked: boolean }>`
   height: 35px;
   width: 185px;
   display: flex;
@@ -10,7 +10,7 @@ export const SearchContainer = styled.button<{ isClicked: boolean }>`
   outline: none;
   border: ${(props) => props.theme.searchBorder};
   outline: ${(props) =>
-    props.isClicked ? props.theme.searchOutlineColour : "none"};
+    props.$isclicked ? props.theme.searchOutlineColour : "none"};
   background-color: ${(props) => props.theme.searchInputBg};
   transition: border-width 0.3s ease-in-out, background-color 0.3s ease-in-out;
   box-sizing: border-box;

@@ -3,5 +3,5 @@ export type DropdownContentProps = {
 };
 
 export interface DropDownItemProps {
-  $isSelected?: boolean;
+  $selected?: boolean;
 }

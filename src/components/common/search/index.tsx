@@ -11,17 +11,17 @@ type SearchPropsType = {
   placeHolderForSearchButton: string;
 };
 function Search(props: SearchPropsType) {
-  const [isClicked, setIsClicked] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [isclicked, setisclicked] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const handleButtonClick = () => {
-    setIsClicked(true);
+    setisclicked(true);
   };
   const handleClickOutside = (event: MouseEvent) => {
     if (
-      buttonRef.current &&
-      !buttonRef.current.contains(event.target as Node)
+      containerRef.current &&
+      !containerRef.current.contains(event.target as Node)
     ) {
-      setIsClicked(false);
+      setisclicked(false);
     }
   };
 
@@ -34,9 +34,9 @@ function Search(props: SearchPropsType) {
   return (
     <SearchContainer
       tabIndex={1}
-      isClicked={isClicked}
+      $isclicked={isclicked}
       onClick={handleButtonClick}
-      ref={buttonRef}
+      ref={containerRef}
     >
       <InputWrapper>
         <IconWrapper>

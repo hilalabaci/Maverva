@@ -75,7 +75,7 @@ export const DropDownItem = styled(
   font-weight: 400;
   outline: none;
   padding: 0 10px;
-  //background-color: ${(props) => (props.$isSelected ? "green" : "red")};
+  //background-color: ${(props) => (props.$selected ? "green" : "red")};
   //border-bottom: 1px solid #f3f3f3;
 `;
 export const TitleforDropDownMenu = styled.h2`

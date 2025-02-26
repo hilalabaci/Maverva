@@ -2,13 +2,13 @@ import * as ScrollArea from "@radix-ui/react-scroll-area";
 import styled from "styled-components";
 
 type ScrollAreaRootType = {
-  scrollHeight?: string;
-  scrollWidth?: string;
+  scrollheight?: string;
+  scrollwidth?: string;
 };
 
 export const ScrollAreaRoot = styled(ScrollArea.Root)<ScrollAreaRootType>`
-  height: ${(props) => props.scrollHeight || "100%"};
-  width: ${(props) => props.scrollWidth || "100%"};
+  height: ${(props) => props.scrollheight || "100%"};
+  width: ${(props) => props.scrollwidth || "100%"};
   overflow: hidden;
   box-shadow: 0 2px 10px var(--black-a4);
   --scrollbar-size: 10px;

@@ -16,7 +16,7 @@ import {
   DoneButton,
   IconDone,
 } from "./styles";
-import { useState } from "react";
+import React, { useState } from "react";
 import MemberPhoto from "../user/member-photo";
 import {
   BacklogDragItems,
@@ -47,7 +47,7 @@ type BacklogCardPropsType = {
   onUpdateContent: (card: IssueType) => void;
 };
 
-function BacklogCard({
+const BacklogCard = ({
   cardKey,
   content,
   status,
@@ -59,7 +59,7 @@ function BacklogCard({
   onUpdateCardStatus,
   updateCardAfterDrag,
   onUpdateContent,
-}: BacklogCardPropsType) {
+}: BacklogCardPropsType) => {
   const [{ isDragging }, drag] = useDrag<
     BacklogDragItems,
     unknown,
@@ -82,7 +82,6 @@ function BacklogCard({
       if (!dropResult?.droppedCard) return;
 
       dropResult.droppedCard.then((card) => {
-        console.log("result is here", card);
         if (!card) return;
         updateCardAfterDrag(card.Id);
       });
@@ -92,6 +91,7 @@ function BacklogCard({
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
   const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
+  const safeUser = user || { FullName: "Unknown User" };
 
   function openModal() {
     setShowModal(true);
@@ -100,7 +100,6 @@ function BacklogCard({
     setShowModal(false);
   }
   const statusOptions = [
-    { label: getStatusLabel(IssueStatus.Backlog), value: IssueStatus.Backlog },
     { label: getStatusLabel(IssueStatus.ToDo), value: IssueStatus.ToDo },
     {
       label: getStatusLabel(IssueStatus.InProgress),
@@ -117,9 +116,6 @@ function BacklogCard({
       console.error("Failed to update card:", response);
     }
   }
-  const handleStatusChange = async (status: IssueStatus) => {
-    await updateCard(id, status);
-  };
 
   async function deleteCard() {
     const cardId = id;
@@ -146,6 +142,9 @@ function BacklogCard({
       console.error("Failed to update card:", response);
     }
   }
+  const handleStatusChange = async (status: IssueStatus) => {
+    await updateCard(id, status);
+  };
 
   return (
     <BacklogCardListItems role="button" ref={drag}>
@@ -184,7 +183,7 @@ function BacklogCard({
           ></ToolTip>
         )}
       </ContentWrapper>
-      <Status status={status}>
+      <Status $status={status}>
         <SelectDemo
           items={statusOptions}
           onSelect={(val) => handleStatusChange(val as IssueStatus)}
@@ -195,17 +194,18 @@ function BacklogCard({
         <ToolTip
           trigger={
             <MemberPhoto
-              user={user}
+              user={safeUser}
               $userPhotoWidth="25px"
               $userPhotoHeight="25px"
               $userPhotoFontSize="7px"
               $userBorderadius="50px"
             />
           }
-          content={user.FullName}
+          content={safeUser.FullName}
         ></ToolTip>
       </MemberWrapper>
       <DropdownMenu
+        key={id}
         trigger={<MoreIcon onClick={openModal} />}
         items={[
           {
@@ -246,5 +246,6 @@ function BacklogCard({
       />
     </BacklogCardListItems>
   );
-}
+};
+
 export default BacklogCard;

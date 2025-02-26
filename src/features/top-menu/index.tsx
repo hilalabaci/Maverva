@@ -31,7 +31,7 @@ type TopMenuPropsType = {
   onProjectUpdate: (project: ProjectType) => void;
   user?: UserType;
   setSearchInput: (value: string) => void;
-  selectedBoardTitle: string;
+  activeSprintName: string;
   selectedBoardId: string;
   boardId?: BoardType;
 };
@@ -39,7 +39,6 @@ type TopMenuPropsType = {
 function TopMenu(props: TopMenuPropsType) {
   const location = useLocation();
   const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
-  const [editProjectTitle, setEditProjectTitle] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState<UserType[]>([]);
 
@@ -48,13 +47,6 @@ function TopMenu(props: TopMenuPropsType) {
   }
   function closeModal() {
     setShowModal(false);
-  }
-  function openEditProjectTitle() {
-    setEditProjectTitle(true);
-  }
-  function closeEditProjectTitle() {
-    setEditProjectTitle(false);
-    updateTitle();
   }
 
   useEffect(() => {
@@ -112,23 +104,14 @@ function TopMenu(props: TopMenuPropsType) {
   };
 
   return (
-    <Container onBlur={closeEditProjectTitle}>
+    <Container>
       <TitleWrapper>
         <Title>
-          {editProjectTitle ? (
-            <EditProjectTitle
-              value={props.selectedBoardTitle}
-              onChange={(e) => {
-                setProjectTitle(e.target.value);
-              }}
-            />
-          ) : (
-            <ProjectTitle onClick={openEditProjectTitle}>
-              {location.pathname.includes("/backlog")
-                ? "Backlog"
-                : props.selectedBoardTitle}
-            </ProjectTitle>
-          )}
+          <ProjectTitle>
+            {location.pathname.includes("/backlog")
+              ? "Backlog"
+              : props.activeSprintName}
+          </ProjectTitle>
         </Title>
       </TitleWrapper>
       <SearchAndAssignMemberContainer>
@@ -137,6 +120,7 @@ function TopMenu(props: TopMenuPropsType) {
           <ButtonStylesforIconPerson>
             {users.map((user, index) => (
               <ToolTip
+                key={user.Id}
                 contentStyle={{ zIndex: users.length - index }}
                 trigger={
                   <MemberPhoto

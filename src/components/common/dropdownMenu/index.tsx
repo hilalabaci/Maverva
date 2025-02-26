@@ -1,5 +1,5 @@
 // DropdownMenu.tsx
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import {
   DropdownContent,
   DropDownItem,
@@ -37,9 +37,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       </DropdownMenuPrimitive.Trigger>
 
       <DropdownContent $triggerWidth={triggerWidth}>
-        {items?.map((item, index) =>
+        {items?.map((item) =>
           item.subItems?.length ? (
-            <>
+            <React.Fragment key={item.label}>
               <DropdownMenuSub>
                 <DropdownMenuPrimitiveSubTrigger>
                   {item.label}
@@ -60,13 +60,13 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
                   </DropdownMenuPrimitiveSubContent>
                 </DropdownMenuPrimitivePortal>
               </DropdownMenuSub>
-            </>
+            </React.Fragment>
           ) : (
-            <>
-              <DropDownItem key={index} onSelect={item.action}>
+            <React.Fragment key={item.label}>
+              <DropDownItem key={item.label} onSelect={item.action}>
                 {item.label}
               </DropDownItem>
-            </>
+            </React.Fragment>
           )
         )}
       </DropdownContent>

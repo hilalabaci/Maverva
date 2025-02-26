@@ -119,7 +119,7 @@ function DynamicContentLoader() {
     if (!issues) return;
     const updatedCards = updateCards.map((card) => ({
       ...card,
-      status: IssueStatus.Backlog,
+      status: IssueStatus.ToDo,
     }));
 
     const updatedCardIds = updatedCards.map((card) => card.Id);
@@ -147,7 +147,7 @@ function DynamicContentLoader() {
           {selectedProject && (
             <TopMenu
               selectedBoardId={defaultBoard?.Id as string}
-              selectedBoardTitle={defaultBoard?.Name as string}
+              activeSprintName={activeSprint?.Name as string}
               projectKey={projectKey as string}
               onProjectUpdate={() => {}}
               projectId={selectedProject?.Id as string}
@@ -184,8 +184,8 @@ function DynamicContentLoader() {
                 )}
               </Main>
             }
-            scrollHeight="67vh"
-            scrollWidth="81vw"
+            scrollheight="67vh"
+            scrollwidth="81vw"
           ></Scroll>
         </MainContainer>
       </MainContainerLayout>
