@@ -55,6 +55,8 @@ function BacklogCards() {
     accept: "BACKLOG_CARD",
     drop: (item) => {
       console.log("dropped,sprint to backlog", item);
+      updateCard(item.cardId, 1, item.oldSprintId, item.boardId);
+      loadBacklogCards();
     },
   });
 
@@ -114,7 +116,12 @@ function BacklogCards() {
     sprintId?: string,
     boardId?: string
   ) {
-    const response = await apiHelper.updateCard(id, status, sprintId, boardId);
+    const response = await apiHelper.updateCardSprintToBacklog(
+      id,
+      status,
+      sprintId,
+      boardId
+    );
     if (response.ok && response.data) {
       // props.onUpdate(response.data);
     } else {

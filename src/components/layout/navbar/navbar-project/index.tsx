@@ -27,6 +27,7 @@ import OptionalBoardCreate from "../../../../features/board/optional/create";
 import Notification from "../../../../features/notification";
 import MemberButton from "../../../../features/user/member-button";
 import DynamicSVGBrand from "../../../ DynamicSVG/LogoSVG";
+import apiHelper from "../../../../api/apiHelper";
 type NavbarPropsType = {
   handleProjectCreate: (project: ProjectType) => void;
 };
@@ -64,27 +65,24 @@ function Navbar(props: NavbarPropsType) {
       markNotificationsRead();
     }
   }
-  const loadNotificatios = useCallback(async () => {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "notification?userId=" + user?.Id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  const loadNotifications = useCallback(async () => {
+    if (!user?.Id) return;
+
+    try {
+      const response = await apiHelper.getNotifications(user.Id);
+      if (response.ok && response.data) {
+        setNotifications(response.data);
       }
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setNotifications(data);
+    } catch (error) {
+      console.error("Error loading notifications:", error);
     }
   }, [user]);
 
   useEffect(() => {
     if (user?.Id) {
-      loadNotificatios();
+      loadNotifications();
     }
-  }, [user, loadNotificatios]);
+  }, [user, loadNotifications]);
 
   async function markNotificationsRead() {
     const unReadNotificationIds = notifications

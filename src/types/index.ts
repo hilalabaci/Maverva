@@ -59,7 +59,11 @@ export type LabelType = {
 };
 
 export type DragItem = {
-  id: string;
+  cardId: string;
+  oldSprintId:string;
+  boardId:string;
+
+
 };
 export type BacklogDragItems = {
   oldSprintId?: string;
@@ -82,4 +86,4 @@ export enum IssueStatus {
   ToDo = 1,
   InProgress = 2,
   Done = 99,
-}
+} 

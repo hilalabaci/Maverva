@@ -191,8 +191,8 @@ function Projects() {
                 </TableTitleWrapper>
               </TableHead>
               <TableBody>
-                {filteredProject.map((project, index) => (
-                  <DataWrapper>
+                {filteredProject.map((project) => (
+                  <DataWrapper key={project.Id}>
                     <IconWrapper>
                       <Toggle
                         activeIcon={<FilledIconFav />}

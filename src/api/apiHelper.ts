@@ -5,6 +5,7 @@ import {
   ProjectType,
   SprintType,
   UserType,
+  NotificationType,
 } from "../types";
 import {
   AddBoardRequest,
@@ -157,6 +158,17 @@ class ApiHelper {
       data: { cardId, status, newSprintId, oldSprintId, boardId },
     });
   }
+  async updateCardSprintToBacklog(
+    cardId: string,
+    status?: number,
+    oldSprintId?: string,
+    boardId?: string
+  ) {
+    return await this.baseCall<IssueType>("card", {
+      method: "PUT",
+      data: { cardId, status, oldSprintId, boardId },
+    });
+  }
 
   async updateCardContent(cardId: string, newContent?: string) {
     return await this.baseCall<IssueType>("card/content", {
@@ -178,6 +190,12 @@ class ApiHelper {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    });
+  }
+  async getNotifications(userId: string) {
+    return await this.baseCall<NotificationType[]>("notification", {
+      method: "GET",
+      urlParams: new URLSearchParams({ userId }),
     });
   }
 
