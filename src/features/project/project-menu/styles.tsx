@@ -10,7 +10,7 @@ type CommonPropsType = {
 };
 export const Container = styled.div<CommonPropsType>`
   //display: ${(props) => (props.$hidden ? "none" : "flex")};
-  min-width: ${(props) => (props.$hidden ? "20px" : "300px")};
+  min-width: ${(props) => (props.$hidden ? "20px" : "240px")};
   height: 100vh;
   background-color: ${(props) => props.theme.BorderMenuBG};
   @media only screen and (max-width: 768px) {
@@ -31,7 +31,7 @@ export const Wrapper = styled.nav`
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  padding: 20px;
+  padding: 5px;
 `;
 export const AddProjectWrapper = styled.div<CommonPropsType>`
   font-style: normal;
@@ -51,6 +51,7 @@ export const AddProjectWrapper = styled.div<CommonPropsType>`
 export const SideBarItem = styled.div`
   display: flex;
   gap: 7px;
+  margin: 0 8px;
   flex-direction: column;
 `;
 export const SideBarWrapper = styled.div`
@@ -72,6 +73,9 @@ export const UserInfo = styled.div<CommonPropsType>`
   width: 100%;
   gap: 10px;
   flex-direction: row;
+  margin-left: 8px;
+  padding: 8px;
+  padding-block-start: 24px;
   border-bottom: ${(props) =>
     props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"};
   //padding: ${(props) => (props.$hidden ? "0" : "0")};
@@ -81,10 +85,10 @@ export const UserInfo = styled.div<CommonPropsType>`
 export const Title = styled.div`
   text-transform: uppercase;
   font-size: 12px;
+  margin: 0 8px 0 8px;
 `;
 
 export const ProjectTitle = styled.span<CommonPropsType>`
-  text-transform: uppercase;
   color: ${(props) => props.theme.fontColour};
   font-size: 14px;
   font-weight: bold;
@@ -168,8 +172,8 @@ export const GetBoardsContainer = styled.div`
   );
   background-color: white;
   box-sizing: border-box;
-  max-width: 200px;
-  min-width: 250px;
+  max-width: 220px;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;

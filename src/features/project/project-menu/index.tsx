@@ -133,7 +133,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                   }
                 >
                   <GetBoardsContainer>
-                    <Scroll scrollheight="180px">
+                    <Scroll scrollheight="min-content">
                       <GetBoardsList>
                         <TitleGetBoards>
                           Boards in {props.selectedProjectsTitle}
