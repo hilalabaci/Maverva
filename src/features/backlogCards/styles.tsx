@@ -187,3 +187,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
     opacity: 1;
   }
 `;
+export const CheckboxWrapper = styled.div`
+  justify-self: center;
+  align-self: center;
+`;

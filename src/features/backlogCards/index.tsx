@@ -22,6 +22,7 @@ import {
   HeaderStatusWrapper,
   HeaderStatus,
   MoreIcon,
+  CheckboxWrapper,
 } from "./styles";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
@@ -30,7 +31,6 @@ import { IssueStatus, IssueType, DragDropCollect, DragItem } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import apiHelper from "../../api/apiHelper";
 import { useParams } from "react-router-dom";
-import { CheckboxWrapper } from "../backlogCard/styles";
 import { ToolTip } from "../../components/common/toolstip";
 import BacklogCard from "../backlogCard";
 import Modal from "../../components/common/modal";

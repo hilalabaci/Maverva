@@ -53,7 +53,6 @@ const MemberPhoto = forwardRef<HTMLDivElement, MemberPhotoProps>(
   }
 );
 
-
 MemberPhoto.displayName = "MemberPhoto";
 
 export default MemberPhoto;

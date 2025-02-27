@@ -18,7 +18,7 @@ export const BacklogCardListItems = styled.div`
 export const CheckboxWrapper = styled.div`
   justify-self: center;
   align-self: center;
-  opacity: 1;
+  opacity: 0;
   ${BacklogCardListItems}:hover & {
     opacity: 1;
   }
