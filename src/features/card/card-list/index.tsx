@@ -11,7 +11,7 @@ import {
 } from "./styles";
 import { IssueType, DragItem } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import apiHelper from "../../../api/apiHelper";
+import { updateIssue } from "../../../api/issueApi";
 interface IssueListProps {
   title: string;
   issues: IssueType[];
@@ -36,7 +36,7 @@ function IssueList(props: IssueListProps) {
   }
 
   async function updateStatus(id: string, status: number) {
-    const response = await apiHelper.updateCard(id, status);
+    const response = await updateIssue(id, status);
     if (response.ok && response.data) {
       props.onUpdate(response.data);
     } else {
@@ -47,7 +47,7 @@ function IssueList(props: IssueListProps) {
   const [, drop] = useDrop<DragItem>({
     accept: "CARD",
     drop: (item) => {
-      updateStatus(item.id, props.status);
+      updateStatus(item.IssueId, props.status);
     },
   });
 

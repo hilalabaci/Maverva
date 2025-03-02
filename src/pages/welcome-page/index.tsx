@@ -116,8 +116,11 @@ function WelcomePage() {
                 ))}
               </CollapseNavigation>
               {CollapseTexts.map((collapseText, index) => (
-                <CollapseContentElement $display={activeCollapse === index}>
-                  <ImgForWelcome key={index} src={imageSources[index]} />
+                <CollapseContentElement
+                  key={index}
+                  $display={activeCollapse === index}
+                >
+                  <ImgForWelcome src={imageSources[index]} />
                 </CollapseContentElement>
               ))}
             </CollapseParent>

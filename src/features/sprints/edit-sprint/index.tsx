@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
-import apiHelper from "../../../api/apiHelper";
+import { addSprint } from "../../../api/sprintApi";
 
 type FormDemoType = {
   onClose: () => void;
@@ -45,7 +45,7 @@ const FormDemo = (props: FormDemoType) => {
         userId: user?.Id,
       };
 
-      const { ok, data } = await apiHelper.addSprint(sprintData);
+      const { ok, data } = await addSprint(sprintData);
       if (ok && data) {
       }
       setSprintName("");

@@ -4,13 +4,20 @@ import { ToggleRoot } from "./styles";
 type ToggleProps = {
   icon: ReactNode;
   activeIcon: ReactNode;
+  isActive?: boolean;
+  onToggle?: (newState: boolean) => void;
 };
 
-const Toggle = ({ icon, activeIcon }: ToggleProps) => {
+const Toggle = ({ icon, activeIcon, isActive, onToggle }: ToggleProps) => {
   const [active, setActive] = useState<boolean>(false);
+  const handleToggle = () => {
+    const newState = !active;
+    setActive(newState);
+    onToggle?.(newState);
+  };
   return (
-    <ToggleRoot pressed={active} onPressedChange={setActive}>
-      {active ? activeIcon : icon}
+    <ToggleRoot pressed={active} onPressedChange={handleToggle}>
+      {isActive ? activeIcon : icon}
     </ToggleRoot>
   );
 };

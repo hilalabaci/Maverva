@@ -1,4 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import AddedPerson from "../addedPerson";
+import { useApplicationContext } from "../../contexts/ApplicationContext";
+import { BoardType } from "../../types";
+import { useUserContext } from "../../contexts/UserContext";
+import { DropdownSelectMenu } from "../../components/common/select";
+import Modal from "../../components/common/modal";
+import InputRectangle from "../../components/common/input/rectangle";
 import {
   ButtonWrapper,
   Container,
@@ -15,19 +22,9 @@ import {
   InputforProjectDropDown,
   InputWrapperwithIcon,
   TitleforProject,
-  WarningMessage,
   RoleWrapper,
-  RoleCheckbox,
 } from "./styles";
-import AddedPerson from "../addedPerson";
-import { useApplicationContext } from "../../contexts/ApplicationContext";
-import { BoardType } from "../../types";
-import { useUserContext } from "../../contexts/UserContext";
-import apiHelper from "../../api/apiHelper";
-import { DropdownSelectMenu } from "../../components/common/select";
-import Modal from "../../components/common/modal";
-import InputRectangle from "../../components/common/input/rectangle";
-import { LabelTitle } from "../../components/common/input/rectangle/styles";
+import { addUsertoBoard, getBoards } from "../../api/boardApi";
 type AddPersonPropsType = {
   projectTitle: string;
   closeModal: () => void;
@@ -57,7 +54,7 @@ function AddPerson(props: AddPersonPropsType) {
   }
   async function loadBoards() {
     if (!user) return;
-    const { ok, data } = await apiHelper.getBoards(props.projectKey, user.Id);
+    const { ok, data } = await getBoards(props.projectKey, user.Id);
     if (ok && data) {
       setBoards(data);
     }
@@ -79,7 +76,7 @@ function AddPerson(props: AddPersonPropsType) {
       boardIds: boardIds,
       email: emailforAddPerson,
     };
-    const { ok, data } = await apiHelper.addUsertoBoard(projectData);
+    const { ok, data } = await addUsertoBoard(projectData);
     if (ok && data) return ok;
   }
   return (

@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import CollapsibleDemo from "../../components/common/collapsible";
+import FormDemo from "../../features/sprints/edit-sprint";
+import { IssueStatus, IssueType, DragItem } from "../../types";
+import { useUserContext } from "../../contexts/UserContext";
+import { useParams } from "react-router-dom";
+import { ToolTip } from "../../components/common/toolstip";
+import BacklogCard from "../backlogCard";
+import Modal from "../../components/common/modal";
+import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
 import {
   Accordion,
   BacklogCardList,
@@ -24,17 +34,8 @@ import {
   MoreIcon,
   CheckboxWrapper,
 } from "./styles";
-import useOutsideClick from "../../hooks/useOutsideClick";
-import CollapsibleDemo from "../../components/common/collapsible";
-import FormDemo from "../../features/sprints/edit-sprint";
-import { IssueStatus, IssueType, DragDropCollect, DragItem } from "../../types";
-import { useUserContext } from "../../contexts/UserContext";
-import apiHelper from "../../api/apiHelper";
-import { useParams } from "react-router-dom";
-import { ToolTip } from "../../components/common/toolstip";
-import BacklogCard from "../backlogCard";
-import Modal from "../../components/common/modal";
-import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
+import { getBacklogCards } from "../../api/backlogApi";
+import { addIssue, updateIssueSprintToBacklog } from "../../api/issueApi";
 
 type URLParams = {
   projectKey: string;
@@ -55,7 +56,7 @@ function BacklogCards() {
     accept: "BACKLOG_CARD",
     drop: (item) => {
       console.log("dropped,sprint to backlog", item);
-      updateCard(item.cardId, 1, item.oldSprintId, item.boardId);
+      updateCard(item.IssueId, 1, item.oldSprintId, item.boardId);
       loadBacklogCards();
     },
   });
@@ -77,7 +78,7 @@ function BacklogCards() {
     try {
       if (!projectKey) return;
       if (!boardId) return;
-      const { ok, data } = await apiHelper.getBacklogCards(projectKey, boardId);
+      const { ok, data } = await getBacklogCards(projectKey, boardId);
       if (ok && data) {
         setBacklogCards(data);
       } else {
@@ -100,7 +101,7 @@ function BacklogCards() {
         boardId: boardId,
       };
 
-      const { ok } = await apiHelper.addIssue(cardData);
+      const { ok } = await addIssue(cardData);
       if (ok) {
         setContent("");
         await loadBacklogCards();
@@ -116,7 +117,7 @@ function BacklogCards() {
     sprintId?: string,
     boardId?: string
   ) {
-    const response = await apiHelper.updateCardSprintToBacklog(
+    const response = await updateIssueSprintToBacklog(
       id,
       status,
       sprintId,

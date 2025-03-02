@@ -23,7 +23,7 @@ import {
   MoreIcon,
   TextCreate,
 } from "./styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 import BacklogCard from "../backlogCard";
@@ -34,11 +34,12 @@ import {
   SprintType,
 } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
-import apiHelper from "../../api/apiHelper";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
 import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
 import { ToolTip } from "../../components/common/toolstip";
+import { addIssue, updateIssue } from "../../api/issueApi";
+import { updateSprint } from "../../api/sprintApi";
 
 type SprintPropsType = {
   sprint: SprintType;
@@ -86,7 +87,7 @@ function Sprint({
     boardId: string,
     oldSprintId?: string
   ) {
-    const response = await apiHelper.updateCard(
+    const response = await updateIssue(
       id,
       undefined,
       newSprintId,
@@ -154,10 +155,9 @@ function Sprint({
         sprintId: selectedSprintId,
       };
 
-      const { ok, data } = await apiHelper.addIssue(cardData);
+      const { ok, data } = await addIssue(cardData);
       if (ok && data) {
         setSprintCards((prevCards) => [...prevCards, data as IssueType]);
-        
       }
       setContent("");
     } catch (error) {
@@ -189,7 +189,7 @@ function Sprint({
   ) {
     {
       if (!boardId) return;
-      const response = await apiHelper.updateSprint(sprintId, active, boardId);
+      const response = await updateSprint(sprintId, active, boardId);
       if (response.ok && response.data) {
         setIsActiveSprint(true);
         // props.onUpdate(response.data);

@@ -41,6 +41,11 @@ import ProjectAvatar from "../../features/user/project-avatar";
 import Toggle from "../../components/common/toggle";
 import MemberPhoto from "../../features/user/member-photo";
 import { HoverCardDemo } from "../../components/common/hoverCard";
+import {
+  deleteProject as deleteProjectApi,
+  getProjects,
+  updateProjectToFavourite,
+} from "../../api/projectApi";
 
 function Projects() {
   const { user } = useUserContext();
@@ -55,19 +60,16 @@ function Projects() {
   const [showModalforDeleteProject, setShowModalforDeleteProject] =
     useState(false);
 
-  async function loadProjects() {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "project?userId=" + user?.Id,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  async function loadProjects(userId: string) {
+    try {
+      const response = await getProjects(userId);
+      if (response && response.data) {
+        setProjects(response.data);
+      } else {
+        throw new Error("Failed to load projects");
       }
-    );
-    if (response.ok) {
-      const data = (await response.json()) as ProjectType[];
-      setProjects(data);
+    } catch (error) {
+      console.error("Failed to load projects:", error);
     }
   }
 
@@ -75,28 +77,22 @@ function Projects() {
     setProjects(projects.filter((project) => project.Id !== id));
   }
 
-  async function deleteItem(projectId: string, userId: string) {
-    const response = await fetch(
-      process.env.REACT_APP_API_URL +
-        "project?projectId=" +
-        projectId +
-        "&userId=" +
-        userId,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  async function deleteProject(projectId: string, userId: string) {
+    try {
+      const response = await deleteProjectApi(projectId, userId);
+      if (response) {
+        onDelete(projectId);
+      } else {
+        throw new Error("Failed to delete project");
       }
-    );
-    if (response.ok) {
-      onDelete(projectId);
+    } catch (error) {
+      console.error("Failed to delete project:", error);
     }
   }
 
   useEffect(() => {
     if (!user) return;
-    loadProjects();
+    loadProjects(user?.Id);
     // eslint-disable-next-line
   }, [user]);
 
@@ -112,15 +108,28 @@ function Projects() {
     setProjects((prevProjects) => [...prevProjects, project]);
   }
 
-  // useEffect(() => {
-  //   const filtered = projects.filter((project) =>
-  //     project.Name.toLowerCase().includes(searchInput.toLowerCase())
-  //   );
-  //   setFilteredProject(filtered);
-  // }, [searchInput, projects, addProject]);
-  // function addProject(project: ProjectType) {
-  //   setProjects([...projects, project]);
-  // }
+  async function handleToggleFavourite(
+    projectId: string,
+    isFavourite: boolean
+  ) {
+    if (!user) return;
+    try {
+      const updatedProject = await updateProjectToFavourite(
+        projectId,
+        user.Id,
+        isFavourite
+      );
+      if (updatedProject) {
+        setProjects((prevProjects) =>
+          prevProjects.map((p) =>
+            p.Id === projectId ? { ...p, IsFavourite: isFavourite } : p
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Failed to update favourite status:", error);
+    }
+  }
 
   function openModal(project: ProjectType) {
     setShowModalforDeleteProject(true);
@@ -195,8 +204,12 @@ function Projects() {
                   <DataWrapper key={project.Id}>
                     <IconWrapper>
                       <Toggle
+                        isActive={project.IsFavourite}
                         activeIcon={<FilledIconFav />}
                         icon={<IconFav />}
+                        onToggle={(newState) => {
+                          handleToggleFavourite(project.Id, newState);
+                        }}
                       />
                     </IconWrapper>
                     <DataProjectsName>
@@ -270,7 +283,7 @@ function Projects() {
             >
               <CloseProjectMenu
                 onDelete={() => {
-                  deleteItem(selectedProject.Id, user.Id);
+                  deleteProject(selectedProject.Id, user.Id);
                   closeModal();
                 }}
                 onClose={closeModal}

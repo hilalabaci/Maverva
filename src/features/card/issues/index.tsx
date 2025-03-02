@@ -1,6 +1,18 @@
 import { useState } from "react";
 import Label from "../card-label/index";
 import MemberPhoto from "../../user/member-photo";
+import { useDrag } from "react-dnd";
+import {
+  IssueStatus,
+  IssueType,
+  DragDropCollect,
+  DragItem,
+  LabelType,
+  UserType,
+} from "../../../types";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import { ToolTip } from "../../../components/common/toolstip";
+import { DropdownMenu } from "../../../components/common/dropdownMenu";
 import {
   Container,
   NoteWrapper,
@@ -19,19 +31,11 @@ import {
   IconDone,
   DoneButton,
 } from "./styles";
-import { useDrag } from "react-dnd";
 import {
-  IssueStatus,
-  IssueType,
-  DragDropCollect,
-  DragItem,
-  LabelType,
-  UserType,
-} from "../../../types";
-import useOutsideClick from "../../../hooks/useOutsideClick";
-import apiHelper from "../../../api/apiHelper";
-import { ToolTip } from "../../../components/common/toolstip";
-import { DropdownMenu } from "../../../components/common/dropdownMenu";
+  deleteIssue,
+  updateIssue,
+  updateIssueContent,
+} from "../../../api/issueApi";
 type IssueProps = {
   id: string;
   labels: LabelType[];
@@ -57,7 +61,7 @@ function Issue({
 }: IssueProps) {
   const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "CARD",
-    item: { id: id },
+    item: { IssueId: id },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -86,24 +90,21 @@ function Issue({
   function onCloseEdit() {
     setShowLabel(false);
   }
-  async function deleteCard() {
-    const cardId = id;
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "card?id=" + cardId,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  async function handleDeleteIssue(issueId: string) {
+    try {
+      const response = await deleteIssue(issueId);
+      if (response.ok) {
+        onDelete(issueId);
+      } else {
+        console.error("Failed to delete card:", response.status);
       }
-    );
-    if (response.ok) {
-      onDelete(cardId);
+    } catch (error) {
+      console.error("Error deleting card:", error);
     }
   }
 
   async function updateStatus(id: string, status: number) {
-    const response = await apiHelper.updateCard(id, status);
+    const response = await updateIssue(id, status);
     if (response.ok && response.data) {
       onUpdate(response.data);
     } else {
@@ -111,7 +112,7 @@ function Issue({
     }
   }
   async function updateCardContent(id: string, newContent: string) {
-    const response = await apiHelper.updateCardContent(id, newContent);
+    const response = await updateIssueContent(id, newContent);
     if (response.ok && response.data) {
       onUpdateContent(response.data);
       setEditTextDisplay(false);
@@ -188,7 +189,7 @@ function Issue({
               },
               {
                 action: () => {
-                  deleteCard();
+                  handleDeleteIssue(id);
                 },
                 label: "Delete",
               },

@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
-
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
+import OptionalBoardCreate from "../../board/optional/create";
+import ProjectAvatar from "../../../features/user/project-avatar";
+import { useLocation, useParams } from "react-router-dom";
+import { useUserContext } from "../../../contexts/UserContext";
+import { useApplicationContext } from "../../../contexts/ApplicationContext";
+import CollapsibleDemo from "../../../components/common/collapsible";
+import Scroll from "../../../components/common/scroll";
+import Modal from "../../../components/common/modal";
+import { ProjectType } from "../../../types";
 import {
   Container,
   Wrapper,
@@ -30,16 +38,7 @@ import {
   CreateBoardinBoards,
   IconPlus,
 } from "./styles";
-import OptionalBoardCreate from "../../board/optional/create";
-import ProjectAvatar from "../../../features/user/project-avatar";
-import { useLocation, useParams } from "react-router-dom";
-import { useUserContext } from "../../../contexts/UserContext";
-import { useApplicationContext } from "../../../contexts/ApplicationContext";
-import apiHelper from "../../../api/apiHelper";
-import CollapsibleDemo from "../../../components/common/collapsible";
-import Scroll from "../../../components/common/scroll";
-import Modal from "../../../components/common/modal";
-import { ProjectType } from "../../../types";
+import { getBoards } from "../../../api/boardApi";
 
 type ProjectMenuPropsType = {
   ProjectTitle: string;
@@ -56,7 +55,7 @@ type URLParams = {
 };
 function ProjectMenu(props: ProjectMenuPropsType) {
   const location = useLocation();
-  const { projectKey, boardId } = useParams<URLParams>();
+  const { boardId } = useParams<URLParams>();
   const { user } = useUserContext();
   const { boards, setBoards } = useApplicationContext();
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
@@ -76,7 +75,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
 
   async function loadBoards() {
     if (!user) return;
-    const { ok, data } = await apiHelper.getBoards(props.projectKey, user.Id);
+    const { ok, data } = await getBoards(props.projectKey, user.Id);
     if (ok && data) {
       setBoards(data);
     }

@@ -1,4 +1,4 @@
-import apiHelper from "../../api/apiHelper";
+import { loginVerificationEmail } from "../../api/authApi";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import { useUserContext } from "../../contexts/UserContext";
 import {
@@ -27,11 +27,10 @@ function SendVerificationEmail() {
   async function handleSendVerify() {
     try {
       if (!user) return;
-      const { ok, data } = await apiHelper.loginVerificationEmail(user.Email);
+      const { ok, data } = await loginVerificationEmail(user.Email);
       if (ok && data) {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
   return (
     <MainContainer>

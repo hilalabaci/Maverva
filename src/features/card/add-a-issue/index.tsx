@@ -1,14 +1,8 @@
-import React, { useState } from "react";
-import {
-  CloseIcon,
-  Button,
-  ButtonWrapper,
-  Container,
-  Textarea,
-} from "./styles";
+import { useState } from "react";
 import { IssueType } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
-import apiHelper from "../../../api/apiHelper";
+import { Container, Textarea } from "./styles";
+import { addIssue } from "../../../api/issueApi";
 
 type AddIssuePropsType = {
   projectKey: string;
@@ -37,7 +31,7 @@ function AddIssue(props: AddIssuePropsType) {
         sprintId: props.sprintId,
       };
 
-      const { ok, data } = await apiHelper.addIssue(issueData);
+      const { ok, data } = await addIssue(issueData);
       if (ok && data) {
         console.log(`added issue:`, data);
       }

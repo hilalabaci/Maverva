@@ -1,8 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../../common/modal";
+import { useUserContext } from "../../../../contexts/UserContext";
+import { ProjectType, NotificationType } from "../../../../types";
+import OptionalBoardCreate from "../../../../features/board/optional/create";
+import Notification from "../../../../features/notification";
+import MemberButton from "../../../../features/user/member-button";
+import DynamicSVGBrand from "../../../ DynamicSVG/LogoSVG";
 import {
   BrandContainer,
-  BrandLogo,
   HeaderContainer,
   NavbarContainer,
   Presentation,
@@ -20,14 +26,7 @@ import {
   CreateButton,
   MemberButtonWrapper,
 } from "./styles";
-import Modal from "../../../common/modal";
-import { useUserContext } from "../../../../contexts/UserContext";
-import { ProjectType, NotificationType } from "../../../../types";
-import OptionalBoardCreate from "../../../../features/board/optional/create";
-import Notification from "../../../../features/notification";
-import MemberButton from "../../../../features/user/member-button";
-import DynamicSVGBrand from "../../../ DynamicSVG/LogoSVG";
-import apiHelper from "../../../../api/apiHelper";
+import { getNotifications } from "../../../../api/notificationApi";
 type NavbarPropsType = {
   handleProjectCreate: (project: ProjectType) => void;
 };
@@ -69,7 +68,7 @@ function Navbar(props: NavbarPropsType) {
     if (!user?.Id) return;
 
     try {
-      const response = await apiHelper.getNotifications(user.Id);
+      const response = await getNotifications(user.Id);
       if (response.ok && response.data) {
         setNotifications(response.data);
       }

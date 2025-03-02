@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-
+import MemberPhoto from "../../../features/user/member-photo";
+import { CancelButton } from "../../../features/addPerson/styles";
+import { BackButton } from "../../board/optional/styles";
+import { ProjectType } from "../../../types";
+import { useUserContext } from "../../../contexts/UserContext";
 import {
   Container,
   GeneralWrapper,
@@ -20,12 +24,7 @@ import {
   Options,
   SubmitButton,
 } from "./styles";
-import MemberPhoto from "../../../features/user/member-photo";
-import { CancelButton } from "../../../features/addPerson/styles";
-import { BackButton } from "../../board/optional/styles";
-import { ProjectType } from "../../../types";
-import { useUserContext } from "../../../contexts/UserContext";
-import apiHelper from "../../../api/apiHelper";
+import { addProject,createProjectKey as createProjectKeyApi } from "../../../api/projectApi";
 
 type ProjectCreatePropsType = {
   onCreate: (project: ProjectType) => void;
@@ -48,7 +47,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
   const [boardTitle, setBoardTitle] = useState("");
 
   async function createProjectKey(title: string) {
-    const response = await apiHelper.createProjectKey(title);
+    const response = await createProjectKeyApi(title);
     if (response.ok && response.data) {
       setProjectKey(response.data);
     } else {
@@ -68,7 +67,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
     setBoardTitle(value);
   }
   async function onSubmit() {
-    const response = await apiHelper.addProject(
+    const response = await addProject(
       projectTitle,
       user,
       projectKey,

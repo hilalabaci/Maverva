@@ -1,3 +1,8 @@
+import DynamicSVGGoogle from "../../ DynamicSVG/DynamicSVG";
+import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { useUserContext } from "../../../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   Container,
   EmailLabel,
@@ -19,16 +24,7 @@ import {
   ErrorText,
   IconError,
 } from "./styles";
-import DynamicSVGGoogle from "../../ DynamicSVG/DynamicSVG";
-import {
-  GoogleLogin,
-  useGoogleLogin,
-  useGoogleOneTapLogin,
-} from "@react-oauth/google";
-import apiHelper from "../../../api/apiHelper";
-import { useUserContext } from "../../../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { loginGoogle } from "../../../api/authApi";
 
 function RegisterForm() {
   const { setUser } = useUserContext();
@@ -39,7 +35,7 @@ function RegisterForm() {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       console.log("tokenResponse", tokenResponse);
-      const user = await apiHelper.loginGoogle(tokenResponse.access_token);
+      const user = await loginGoogle(tokenResponse.access_token);
       setUser(user.data);
       navigate("/projects");
     },
@@ -48,7 +44,7 @@ function RegisterForm() {
 
   useGoogleOneTapLogin({
     onSuccess: async (tokenResponse) => {
-      const user = await apiHelper.loginGoogle(tokenResponse.credential!);
+      const user = await loginGoogle(tokenResponse.credential!);
       setUser(user.data);
       navigate("/projects");
     },

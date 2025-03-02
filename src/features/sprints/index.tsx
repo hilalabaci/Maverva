@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-
 import { useParams } from "react-router-dom";
 import Sprint from "../../features/sprint";
-import apiHelper from "../../api/apiHelper";
 import { IssueType, SprintType } from "../../types";
+import { getSprints } from "../../api/sprintApi";
 
 type URLParams = {
   boardId?: string;
@@ -19,7 +18,7 @@ function Sprints() {
       return;
     }
     try {
-      const { ok, data } = await apiHelper.getSprints(boardId);
+      const { ok, data } = await getSprints(boardId);
       if (ok && data) setSprints(data);
     } catch (error) {
       console.error("Fetch error:", error);

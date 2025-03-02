@@ -20,11 +20,15 @@ import {
 import { IssueType, ColumnType, SprintType } from "../../types";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import apiHelper from "../../api/apiHelper";
 import NumberOfCards from "../../features/card/number-cards";
 import { ButtomWrapper } from "../../features/card/issues/styles";
 import { NextButton } from "../../features/board/optional/styles";
 import { DropdownMenu } from "../../components/common/dropdownMenu";
+import {
+  getColumns,
+  deleteColumn as deleteColumnApi,
+  addColumn,
+} from "../../api/columnApi";
 
 type URLParams = {
   boardId?: string;
@@ -67,7 +71,7 @@ function ActiveSprint({
   async function loadColumns() {
     if (!boardId) return;
     try {
-      const { ok, data } = await apiHelper.getColumns(boardId);
+      const { ok, data } = await getColumns(boardId);
       if (ok && data) setColumns(data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -77,7 +81,7 @@ function ActiveSprint({
   async function deleteColumn(columnId: string) {
     try {
       if (!columnId) return;
-      const { ok, data } = await apiHelper.deleteColumn(columnId);
+      const { ok, data } = await deleteColumnApi(columnId);
 
       setColumns(columns.filter((c) => c.Id !== columnId));
       updatedCardsAfterDeleteColumn(data as IssueType[]);
@@ -93,7 +97,7 @@ function ActiveSprint({
         title: title,
         boardId: boardId,
       };
-      const { ok, data } = await apiHelper.addColumn(columnData);
+      const { ok, data } = await addColumn(columnData);
       if (ok && data) {
         await loadColumns();
         setTitle("");

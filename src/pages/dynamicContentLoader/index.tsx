@@ -10,7 +10,6 @@ import {
 import Layout from "../templates/layout";
 import { useLocation, useParams } from "react-router-dom";
 import MainContainerLayout from "../templates/mainContainerLayout";
-import apiHelper from "../../api/apiHelper";
 import {
   ActiveSprintWrapper,
   BacklogWrapper,
@@ -21,6 +20,8 @@ import Backlog from "../backlog";
 import Scroll from "../../components/common/scroll";
 import ActiveSprint from "../active-sprint";
 import { useUserContext } from "../../contexts/UserContext";
+import { getSelectedProject } from "../../api/projectApi";
+import { getActiveSprint } from "../../api/sprintApi";
 
 type URLParams = {
   projectKey: string;
@@ -43,10 +44,7 @@ function DynamicContentLoader() {
     try {
       if (!projectKey) return;
       if (!user) return;
-      const { ok, data } = await apiHelper.getSelectedProject(
-        projectKey,
-        user?.Id
-      );
+      const { ok, data } = await getSelectedProject(projectKey, user?.Id);
       if (ok && data) {
         if (!data) return;
         setSelectedProject(data);
@@ -62,10 +60,7 @@ function DynamicContentLoader() {
       if (!projectKey) return;
       if (!defaultBoard) return;
 
-      const { ok, data } = await apiHelper.getActiveSprint(
-        projectKey,
-        defaultBoard.Id
-      );
+      const { ok, data } = await getActiveSprint(projectKey, defaultBoard.Id);
       if (ok && data) {
         setActiveSprint(data);
         setIssues(data.Issues);

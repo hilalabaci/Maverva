@@ -12,6 +12,7 @@ export type ProjectType = {
   Key: string;
   LeadUser: UserType;
   Boards: BoardType[];
+  IsFavourite: boolean;
 };
 export type BoardType = {
   Id: string;
@@ -42,7 +43,7 @@ export type IssueType = {
   Id: string;
   Summary: string;
   Status: number;
-  User: UserType; 
+  User: UserType;
   Key: string;
   createdBy: UserType;
   CreatedAt?: Date;
@@ -59,11 +60,9 @@ export type LabelType = {
 };
 
 export type DragItem = {
-  cardId: string;
-  oldSprintId:string;
-  boardId:string;
-
-
+  IssueId: string;
+  oldSprintId?: string;
+  boardId?: string;
 };
 export type BacklogDragItems = {
   oldSprintId?: string;
@@ -86,4 +85,4 @@ export enum IssueStatus {
   ToDo = 1,
   InProgress = 2,
   Done = 99,
-} 
+}

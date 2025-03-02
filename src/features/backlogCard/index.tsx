@@ -1,4 +1,19 @@
 import { useDrag } from "react-dnd";
+import { useState } from "react";
+import MemberPhoto from "../user/member-photo";
+import {
+  BacklogDragItems,
+  IssueStatus,
+  IssueType,
+  DragDropCollect,
+  UserType,
+} from "../../types";
+import useOutsideClick from "../../hooks/useOutsideClick";
+import { getStatusLabel } from "../../utils/label";
+import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
+import { ToolTip } from "../../components/common/toolstip";
+import SelectDemo from "../../components/common/selectDemo";
+import { DropdownMenu } from "../../components/common/dropdownMenu";
 import {
   BacklogCardListItems,
   CheckboxWrapper,
@@ -16,22 +31,7 @@ import {
   DoneButton,
   IconDone,
 } from "./styles";
-import React, { useState } from "react";
-import MemberPhoto from "../user/member-photo";
-import {
-  BacklogDragItems,
-  IssueStatus,
-  IssueType,
-  DragDropCollect,
-  UserType,
-} from "../../types";
-import useOutsideClick from "../../hooks/useOutsideClick";
-import { getStatusLabel } from "../../utils/label";
-import apiHelper from "../../api/apiHelper";
-import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
-import { ToolTip } from "../../components/common/toolstip";
-import SelectDemo from "../../components/common/selectDemo";
-import { DropdownMenu } from "../../components/common/dropdownMenu";
+import { updateIssue, updateIssueContent } from "../../api/issueApi";
 
 type BacklogCardPropsType = {
   cardKey: string;
@@ -109,7 +109,7 @@ const BacklogCard = ({
   ];
 
   async function updateCard(id: string, status: number) {
-    const response = await apiHelper.updateCard(id, status);
+    const response = await updateIssue(id, status);
     if (response.ok && response.data) {
       onUpdateCardStatus(response.data.Id, response.data.Status);
     } else {
@@ -134,7 +134,7 @@ const BacklogCard = ({
   }
 
   async function updateCardContent(id: string, newContent: string) {
-    const response = await apiHelper.updateCardContent(id, newContent);
+    const response = await updateIssueContent(id, newContent);
     if (response.ok && response.data) {
       onUpdateContent(response.data);
       setEditTextDisplay(false);

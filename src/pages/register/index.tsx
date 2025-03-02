@@ -1,9 +1,5 @@
 import { FormEvent, useState } from "react";
-import {
-  GoogleLogin,
-  useGoogleLogin,
-  useGoogleOneTapLogin,
-} from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import Button from "../../components/common/button";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
@@ -26,7 +22,6 @@ import {
   CheckBoxText,
   CreateAccountWrapper,
   CreateAccountListItemLink,
-  Point,
   CheckBoxTextLink,
 } from "./styles";
 import Input from "../../components/common/input/round";
@@ -37,9 +32,11 @@ import {
   GoogleSignButtonText,
 } from "../../components/forms/registerForm/styles";
 import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
-import apiHelper from "../../api/apiHelper";
-import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
 import { UserType } from "../../types";
+import {
+  loginVerificationEmail,
+  loginGoogle as loginGoogleApi,
+} from "../../api/authApi";
 
 interface FormError {
   email?: string;
@@ -55,7 +52,7 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const loginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      const user = await apiHelper.loginGoogle(tokenResponse.access_token);
+      const user = await loginGoogleApi(tokenResponse.access_token);
       setUser(user.data);
       navigate("/projects");
     },
@@ -98,7 +95,7 @@ function Register() {
       return;
     }
     try {
-      const { ok, data } = await apiHelper.loginVerificationEmail(login.email);
+      const { ok, data } = await loginVerificationEmail(login.email);
       if (ok && data) {
         setUser(data as UserType);
       }

@@ -1,3 +1,11 @@
+import MemberPhoto from "../../../features/user/member-photo";
+import { useEffect, useState } from "react";
+import { BackButton, CancelButton } from "../optional/styles";
+import { useParams } from "react-router-dom";
+import { BoardType, ProjectType } from "../../../types";
+import { useApplicationContext } from "../../../contexts/ApplicationContext";
+import { useUserContext } from "../../../contexts/UserContext";
+import { DropdownSelectMenu } from "../../../components/common/select";
 import {
   Container,
   GeneralWrapper,
@@ -22,15 +30,8 @@ import {
   InputforProjectDropDown,
   SubmitButton,
 } from "./styles";
-import MemberPhoto from "../../../features/user/member-photo";
-import { useEffect, useState } from "react";
-import { BackButton, CancelButton } from "../optional/styles";
-import { useParams } from "react-router-dom";
-import { BoardType, ProjectType } from "../../../types";
-import { useApplicationContext } from "../../../contexts/ApplicationContext";
-import { useUserContext } from "../../../contexts/UserContext";
-import apiHelper from "../../../api/apiHelper";
-import { DropdownSelectMenu } from "../../../components/common/select";
+import { addBoard, getBoards } from "../../../api/boardApi";
+import { getProjects } from "../../../api/projectApi";
 type BoardCreatePropsType = {
   onCreate: (project: BoardType) => void;
   BackButton: () => void;
@@ -63,19 +64,19 @@ function BoardCreate(props: BoardCreatePropsType) {
       projectKeys: projectKeys,
     };
 
-    const { ok, data } = await apiHelper.addBoard(boardData);
+    const { ok, data } = await addBoard(boardData);
     if (ok && data) {
       props.onCreate(data.newProject);
 
       if (projectKey) {
-        const { ok, data } = await apiHelper.getBoards(projectKey, userId);
+        const { ok, data } = await getBoards(projectKey, userId);
         if (ok && data) setBoards(data);
       }
     }
   }
   async function loadProjects() {
     if (userId) {
-      const { ok, data } = await apiHelper.getProjects(userId);
+      const { ok, data } = await getProjects(userId);
       if (ok && data) {
         setProjects(data);
       }
