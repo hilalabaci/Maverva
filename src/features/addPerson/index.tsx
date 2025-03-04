@@ -35,7 +35,7 @@ type AddPersonPropsType = {
 function AddPerson(props: AddPersonPropsType) {
   const [showModal, setShowModal] = useState(false);
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
-  const { boards, setBoards } = useApplicationContext();
+  const [boards, setBoards] = useState<BoardType[]>([]);
   const [selectedBoards, setSelectedBoards] = useState<BoardType[]>([]);
   const [selectedRole, setSelectedRole] = useState("");
   const { user } = useUserContext();
@@ -75,9 +75,12 @@ function AddPerson(props: AddPersonPropsType) {
       projectId: projectId,
       boardIds: boardIds,
       email: emailforAddPerson,
+      role: selectedRole,
+      userId: user?.Id as string,
     };
     const { ok, data } = await addUsertoBoard(projectData);
     if (ok && data) return ok;
+    props.closeModal();
   }
   return (
     <Container>

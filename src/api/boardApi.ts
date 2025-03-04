@@ -24,3 +24,9 @@ export const addUsertoBoard = async (data: AddUserToBoardRequest) => {
     data: data,
   });
 };
+export const getUserstoBoard = async (boardId: string, userId: string) => {
+  return await apiCall("project/board/users", {
+    method: "GET",
+    urlParams: new URLSearchParams({ boardId, userId }),
+  });
+};

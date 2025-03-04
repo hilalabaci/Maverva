@@ -47,7 +47,7 @@ type URLParams = {
 function BoardCreate(props: BoardCreatePropsType) {
   const { projectKey } = useParams<URLParams>();
   const [boardTitle, setBoardTitle] = useState("");
-  const { projects, setProjects, setBoards } = useApplicationContext();
+  const { projects, setProjects, setSelectedProject } = useApplicationContext();
   const { user } = useUserContext();
   const userId = user?.Id;
   const [selectedProjects, setSelectedProjects] = useState<ProjectType[]>([]);
@@ -70,7 +70,10 @@ function BoardCreate(props: BoardCreatePropsType) {
 
       if (projectKey) {
         const { ok, data } = await getBoards(projectKey, userId);
-        if (ok && data) setBoards(data);
+        if (ok && data)
+          setSelectedProject((prev) =>
+            prev ? { ...prev, Boards: data } : prev
+          );
       }
     }
   }

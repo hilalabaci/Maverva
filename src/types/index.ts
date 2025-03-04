@@ -16,9 +16,11 @@ export type ProjectType = {
 };
 export type BoardType = {
   Id: string;
+  Key: string;
   Name: string;
   Users: UserType[];
   ProjectKey: ProjectType;
+  ActiveSprint: SprintType;
 };
 export type ColumnType = {
   Id: string;

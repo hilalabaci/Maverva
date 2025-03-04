@@ -46,13 +46,13 @@ import {
   getProjects,
   updateProjectToFavourite,
 } from "../../api/projectApi";
+import { useApplicationContext } from "../../contexts/ApplicationContext";
 
 function Projects() {
   const { user } = useUserContext();
   const [projects, setProjects] = useState<ProjectType[]>([]);
-  const [selectedProject, setSelectedProject] = useState<
-    ProjectType | undefined
-  >();
+  const { selectedProject, setSelectedProject, setSelectedBoard } =
+    useApplicationContext();
   const [filteredProject, setFilteredProject] = useState<ProjectType[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [showModalforCreateButton, setShowModalforCreateButton] =
@@ -133,6 +133,7 @@ function Projects() {
 
   function openModal(project: ProjectType) {
     setShowModalforDeleteProject(true);
+    setSelectedProject(project);
   }
   function closeModal() {
     setShowModalforDeleteProject(false);
@@ -140,6 +141,7 @@ function Projects() {
   useEffect(() => {
     if (projects.length > 0 && !selectedProject) {
       setSelectedProject(projects[0]);
+      setSelectedBoard(projects[0].Boards[0]);
     }
   }, [projects]);
 
@@ -191,7 +193,8 @@ function Projects() {
                     <FavIconTable />
                   </IconWrapper>
                   <Titles>
-                    Name <OrderIcon />
+                    Name
+                    {/*  <OrderIcon /> */}
                   </Titles>
                   <Titles>Key</Titles>
                   <Titles>Lead</Titles>
@@ -223,8 +226,11 @@ function Projects() {
                         projectId={project.Id}
                       />
                       <LinkforProjects
-                        to={`/projects/${project.Key}/boards/${selectedProject?.Boards[0].Id}`}
-                        onClick={() => setSelectedProject(project)}
+                        to={`/projects/${project.Key}/boards/${project.Boards[0].Id}`}
+                        onClick={() => {
+                          setSelectedProject(project);
+                          setSelectedBoard(project.Boards[0]);
+                        }}
                       >
                         {project.Name}
                       </LinkforProjects>

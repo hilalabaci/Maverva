@@ -10,10 +10,6 @@ import {
   TitleWrapper,
   Title,
   SearchAndAssignMemberContainer,
-  PathInfo,
-  PathLink,
-  PathList,
-  Pathitem,
 } from "./styles";
 import MemberPhoto from "../../features/user/member-photo";
 
@@ -24,6 +20,8 @@ import { ToolTip } from "../../components/common/toolstip";
 import { useLocation } from "react-router-dom";
 import Modal from "../../components/common/modal";
 import { BoardType, ProjectType, UserType } from "../../types";
+import { getUserstoBoard } from "../../api/boardApi";
+import { useUserContext } from "../../contexts/UserContext";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -33,13 +31,14 @@ type TopMenuPropsType = {
   setSearchInput: (value: string) => void;
   activeSprintName: string;
   selectedBoardId: string;
-  boardId?: BoardType;
+  boardId?: string;
 };
 
 function TopMenu(props: TopMenuPropsType) {
   const location = useLocation();
   const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
   const [showModal, setShowModal] = useState(false);
+  const { user } = useUserContext();
   const [users, setUsers] = useState<UserType[]>([]);
 
   function openModal() {
@@ -69,35 +68,25 @@ function TopMenu(props: TopMenuPropsType) {
       props.onProjectUpdate(data);
     }
   }
-  async function loadUsers() {
-    const boardId = props.boardId;
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "board/users?boardId=" + boardId,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  async function loadUsers(boardId: string, userId: string) {
+    try {
+      const response = await getUserstoBoard(boardId, userId);
+      if (response.ok) {
+        console.log("response", response.data);
+        const data = response.data as { users: UserType[] };
+        setUsers(data.users);
+        console.log(users);
       }
-    );
-    if (response.ok) {
-      const data = (await response.json()) as UserType[];
-      setUsers(data);
+    } catch (error) {
+      console.error("error", error);
     }
   }
-  useEffect(
-    () => {
-      loadUsers();
-    },
-    [
-      /**DO:board ekledikten sonra kartlari guncelle**/
-    ]
-  );
+
   useEffect(() => {
-    if (props.boardId) {
-      loadUsers();
+    if (props.boardId && user?.Id) {
+      loadUsers(props.boardId, user?.Id);
     }
-  }, [props.boardId]); // boardId değiştiğinde loadUsers çağırılır
+  }, [props.boardId, user]); // boardId değiştiğinde loadUsers çağırılır
 
   const onSearch = (value: string) => {
     props.setSearchInput(value);

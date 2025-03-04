@@ -37,6 +37,7 @@ export type AddUserToBoardRequest = {
   projectId: string;
   boardIds: string[];
   email: string;
+  userId: string;
 };
 export type AddIssueRequest = {
   userId?: string;
@@ -55,6 +56,7 @@ export type AddSprintRequest = {
   userId: string | UserType | undefined;
 };
 export type AddColumnRequest = {
+  userId: string;
   title: string;
   boardId: string | BoardType | undefined;
 };

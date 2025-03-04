@@ -9,7 +9,7 @@ import { useApplicationContext } from "../../../contexts/ApplicationContext";
 import CollapsibleDemo from "../../../components/common/collapsible";
 import Scroll from "../../../components/common/scroll";
 import Modal from "../../../components/common/modal";
-import { ProjectType } from "../../../types";
+import { BoardType, ProjectType } from "../../../types";
 import {
   Container,
   Wrapper,
@@ -57,10 +57,9 @@ function ProjectMenu(props: ProjectMenuPropsType) {
   const location = useLocation();
   const { boardId } = useParams<URLParams>();
   const { user } = useUserContext();
-  const { boards, setBoards } = useApplicationContext();
-  const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
+  const [boards, setBoards] = useState<BoardType[]>([]);
+  const { selectedBoard, setSelectedBoard } = useApplicationContext();
   const [showBoards, setShowBoards] = useState(false);
-
   const isBacklog = location.pathname.includes("/backlog");
   const isActiveSprint = !isBacklog;
   const [showModalforCreateButton, setShowModalforCreateButton] =
@@ -138,13 +137,13 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                           Boards in {props.selectedProjectsTitle}
                         </TitleGetBoards>
 
-                        {boards.map((board, index) => (
+                        {boards.map((board) => (
                           <GetBoardsListItem
                             to={`/projects/${props.projectKey}/boards/${board.Id}`}
                             key={board.Id}
-                            selected={selectedBoard === board.Id}
+                            selected={selectedBoard?.Id === board.Id}
                             onClick={() => {
-                              setSelectedBoard(board.Id);
+                              setSelectedBoard(board);
                               setShowBoards(false);
                             }}
                           >

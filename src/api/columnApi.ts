@@ -14,9 +14,10 @@ export const addColumn = async (data: AddColumnRequest) => {
     data,
   });
 };
-export const deleteColumn = async (columnId: string) => {
+export const deleteColumn = async (columnId: string, userId: string) => {
   return await apiCall("column", {
     method: "DELETE",
     urlParams: new URLSearchParams({ columnId }),
+    data: { userId },
   });
 };

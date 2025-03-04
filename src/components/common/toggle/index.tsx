@@ -20,6 +20,6 @@ const Toggle = ({ icon, activeIcon, isActive, onToggle }: ToggleProps) => {
       {isActive ? activeIcon : icon}
     </ToggleRoot>
   );
-};
+}; 
 
 export default Toggle;
