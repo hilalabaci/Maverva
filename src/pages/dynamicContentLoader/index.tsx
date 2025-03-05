@@ -104,6 +104,7 @@ function DynamicContentLoader() {
     setFilteredIssues(
       issues.filter((issue) => issue.Summary.includes(searchInput))
     );
+    console.log(issues);
   }, [searchInput, issues]);
 
   function addedCard(card: IssueType) {
@@ -149,7 +150,7 @@ function DynamicContentLoader() {
               topMenuTitle={selectedProject?.Name as string}
               user={selectedProject?.LeadUser} //check here!!
               setSearchInput={setSearchInput}
-              boardId={defaultBoard?.Id as BoardType | undefined}
+              boardId={defaultBoard?.Id as string}
             />
           )}
           <Scroll

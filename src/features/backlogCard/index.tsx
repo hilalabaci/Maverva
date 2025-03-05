@@ -31,13 +31,14 @@ import {
   DoneButton,
   IconDone,
 } from "./styles";
-import { updateIssue, updateIssueContent } from "../../api/issueApi";
+import { deleteIssue, updateIssue, updateIssueContent } from "../../api/issueApi";
+import { useUserContext } from "../../contexts/UserContext";
 
 type BacklogCardPropsType = {
   cardKey: string;
   content: string;
   status: number;
-  user: UserType;
+  reporterUser: UserType;
   id: string;
   sprintId?: string;
   boardId: string;
@@ -51,7 +52,7 @@ const BacklogCard = ({
   cardKey,
   content,
   status,
-  user,
+  reporterUser,
   id,
   sprintId,
   boardId,
@@ -87,11 +88,12 @@ const BacklogCard = ({
       });
     },
   });
+   const { user } = useUserContext();
   const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
+
   const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
-  const safeUser = user || { FullName: "Unknown User" };
 
   function openModal() {
     setShowModal(true);
@@ -119,15 +121,7 @@ const BacklogCard = ({
 
   async function deleteCard() {
     const cardId = id;
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "card?id=" + cardId,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await deleteIssue(cardId, user?.Id as string);
     if (response.ok) {
       updateCardsAfterDelete(id);
     }
@@ -194,14 +188,14 @@ const BacklogCard = ({
         <ToolTip
           trigger={
             <MemberPhoto
-              user={safeUser}
+              user={reporterUser}
               $userPhotoWidth="25px"
               $userPhotoHeight="25px"
               $userPhotoFontSize="7px"
               $userBorderadius="50px"
             />
           }
-          content={safeUser.FullName}
+          content={reporterUser?.FullName}
         ></ToolTip>
       </MemberWrapper>
       <DropdownMenu

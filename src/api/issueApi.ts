@@ -55,9 +55,10 @@ export const updateIssueContent = async (
     data: { cardId, newContent },
   });
 };
-export const deleteIssue = async (issueId: string) => {
+export const deleteIssue = async (issueId: string,userId:string) => {
   return await apiCall("issue", {
     method: "DELETE",
     urlParams: new URLSearchParams({ id: issueId }),
+    data: {userId}
   });
 };

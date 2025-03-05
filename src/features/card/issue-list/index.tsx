@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Issue from "../issues";
+import Issue from "../issue";
 import AddIssue from "../add-a-issue";
 import { useDrop } from "react-dnd";
 import {
@@ -64,7 +64,7 @@ function IssueList(props: IssueListProps) {
               key={index}
               content={issue.Summary}
               labels={issue.Labels}
-              userId={issue.createdBy}
+              reporterUser={issue.ReporterUser}
               userName={issue.createdBy?.FullName}
               cardKey={issue.Key}
               status={issue.Status}

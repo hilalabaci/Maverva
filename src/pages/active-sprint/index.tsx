@@ -1,6 +1,6 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import IssueList from "../../features/card/card-list";
+import IssueList from "../../features/card/issue-list";
 import {
   ColumnContainer,
   TitleWrapper,
@@ -21,7 +21,7 @@ import { IssueType, ColumnType, SprintType } from "../../types";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NumberOfCards from "../../features/card/number-cards";
-import { ButtomWrapper } from "../../features/card/issues/styles";
+import { ButtomWrapper } from "../../features/card/issue/styles";
 import { NextButton } from "../../features/board/optional/styles";
 import { DropdownMenu } from "../../components/common/dropdownMenu";
 import {
@@ -29,6 +29,7 @@ import {
   deleteColumn as deleteColumnApi,
   addColumn,
 } from "../../api/columnApi";
+import { useUserContext } from "../../contexts/UserContext";
 
 type URLParams = {
   boardId?: string;
@@ -56,6 +57,7 @@ function ActiveSprint({
   projectKey,
   updatedCardsAfterDeleteColumn,
 }: ActiveSprintsProps) {
+  const { user } = useUserContext();
   const { boardId } = useParams<URLParams>();
   const [columns, setColumns] = useState<ColumnType[]>([]);
   const [displayCreateColumn, setDisplayCreateColumn] = useState(false);
@@ -81,10 +83,11 @@ function ActiveSprint({
   async function deleteColumn(columnId: string) {
     try {
       if (!columnId) return;
-      const { ok, data } = await deleteColumnApi(columnId);
-
-      setColumns(columns.filter((c) => c.Id !== columnId));
-      updatedCardsAfterDeleteColumn(data as IssueType[]);
+      const { ok, data } = await deleteColumnApi(columnId, user?.Id as string);
+      if (!ok || !data) {
+        setColumns(columns.filter((c) => c.Id !== columnId));
+        updatedCardsAfterDeleteColumn(data as IssueType[]);
+      }
     } catch (error) {}
   }
 
@@ -96,6 +99,7 @@ function ActiveSprint({
       const columnData = {
         title: title,
         boardId: boardId,
+        userId: user?.Id as string,
       };
       const { ok, data } = await addColumn(columnData);
       if (ok && data) {

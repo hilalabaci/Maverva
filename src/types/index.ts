@@ -45,7 +45,8 @@ export type IssueType = {
   Id: string;
   Summary: string;
   Status: number;
-  User: UserType;
+  ReporterUser: UserType;
+  AssigneeUser?: UserType;
   Key: string;
   createdBy: UserType;
   CreatedAt?: Date;

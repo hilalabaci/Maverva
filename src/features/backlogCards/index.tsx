@@ -241,7 +241,7 @@ function BacklogCards() {
                   cardKey={backlogCard.Key}
                   content={backlogCard.Summary}
                   status={backlogCard.Status}
-                  user={backlogCard.User}
+                  reporterUser={backlogCard.ReporterUser}
                 />
               ))}
             </BacklogCardList>

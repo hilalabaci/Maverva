@@ -40,7 +40,7 @@ type IssueProps = {
   id: string;
   labels: LabelType[];
   content: string;
-  userId?: UserType;
+  reporterUser: UserType;
   userName: string;
   cardKey: string;
   status: number;
@@ -52,7 +52,7 @@ function Issue({
   id,
   labels,
   content,
-  userId,
+  reporterUser,
   userName,
   cardKey,
   onUpdate,
@@ -214,11 +214,11 @@ function Issue({
                 $userPhotoHeight="24px"
                 $userPhotoFontSize="10px"
                 $userBorderadius="50px"
-                user={userId}
+                user={reporterUser}
               />
             </ButtomWrapper>
           }
-          content={`Assignee: ${userName}`}
+          content={`Assignee: ${reporterUser?.FullName}`}
         ></ToolTip>
       </CardButtomWrapper>
     </Container>
