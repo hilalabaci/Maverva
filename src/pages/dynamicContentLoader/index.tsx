@@ -22,6 +22,7 @@ import ActiveSprint from "../active-sprint";
 import { useUserContext } from "../../contexts/UserContext";
 import { getSelectedProject } from "../../api/projectApi";
 import { getActiveSprint } from "../../api/sprintApi";
+import { useApplicationContext } from "../../contexts/ApplicationContext";
 
 type URLParams = {
   projectKey: string;
@@ -31,6 +32,7 @@ function DynamicContentLoader() {
   const location = useLocation();
   const { projectKey, boardId } = useParams<URLParams>();
   const { user } = useUserContext();
+  const { selectedBoard, setSelectedBoard } = useApplicationContext();
   const [activeSprint, setActiveSprint] = useState<SprintType>();
   const [issues, setIssues] = useState<IssueType[]>();
   const [filteredIssues, setFilteredIssues] = useState<IssueType[]>([]);
@@ -38,7 +40,6 @@ function DynamicContentLoader() {
   const [selectedProject, setSelectedProject] = useState<ProjectType>();
   const [hideMenu, setHideMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [defaultBoard, setDefaultBoard] = useState<BoardType>();
 
   async function loadSelectedProject() {
     try {
@@ -48,7 +49,7 @@ function DynamicContentLoader() {
       if (ok && data) {
         if (!data) return;
         setSelectedProject(data);
-        setDefaultBoard(data.Boards.length > 0 ? data.Boards[0] : undefined);
+        setSelectedBoard(data.Boards.length > 0 ? data.Boards[0] : undefined);
       }
     } catch (error) {
       console.error("Error fetching project:", error);
@@ -58,9 +59,9 @@ function DynamicContentLoader() {
   const loadActiveSprint = useCallback(async () => {
     try {
       if (!projectKey) return;
-      if (!defaultBoard) return;
+      if (!selectedBoard) return;
 
-      const { ok, data } = await getActiveSprint(projectKey, defaultBoard.Id);
+      const { ok, data } = await getActiveSprint(projectKey, selectedBoard.Id);
       if (ok && data) {
         setActiveSprint(data);
         setIssues(data.Issues);
@@ -70,7 +71,7 @@ function DynamicContentLoader() {
     } catch (error) {
       console.error("Error fetching board:", error);
     }
-  }, [projectKey, defaultBoard]);
+  }, [projectKey, selectedBoard]);
 
   useEffect(() => {
     loadActiveSprint();
@@ -131,18 +132,15 @@ function DynamicContentLoader() {
         projectKey={projectKey as string}
         projectId={selectedProject?.Id as string}
         projectTitle={selectedProject?.Name as string}
-        selectedBoardTitle={defaultBoard?.Name as string}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         hideMenu={hideMenu}
         setHideMenu={setHideMenu}
         isHovered={isHovered}
-        selectedBoardId={boardId as unknown as BoardType}
       >
         <MainContainer>
           {selectedProject && (
             <TopMenu
-              selectedBoardId={defaultBoard?.Id as string}
               activeSprintName={activeSprint?.Name as string}
               projectKey={projectKey as string}
               onProjectUpdate={() => {}}
@@ -150,7 +148,7 @@ function DynamicContentLoader() {
               topMenuTitle={selectedProject?.Name as string}
               user={selectedProject?.LeadUser} //check here!!
               setSearchInput={setSearchInput}
-              boardId={defaultBoard?.Id as string}
+              boardId={selectedBoard?.Id as string}
             />
           )}
           <Scroll

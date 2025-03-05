@@ -15,6 +15,7 @@ import {
 import { Container, MainContainer, Breadcrumbs } from "./styles";
 import { useParams } from "react-router-dom";
 import { BoardType } from "../../../types";
+import { useApplicationContext } from "../../../contexts/ApplicationContext";
 
 type URLParams = {
   projectKey: string;
@@ -25,8 +26,6 @@ type MainContainerLayoutPropsType = PropsWithChildren<{
   projectKey: string;
   projectId: string;
   projectTitle: string;
-  selectedBoardTitle: string;
-  selectedBoardId: BoardType;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   hideMenu: boolean;
@@ -40,12 +39,11 @@ const MainContainerLayout = ({
   hideMenu,
   projectId,
   projectTitle,
-  selectedBoardTitle,
-  selectedBoardId,
   setHideMenu,
   isHovered,
 }: MainContainerLayoutPropsType) => {
   const { projectKey, boardId } = useParams<URLParams>();
+  const { selectedBoard } = useApplicationContext();
   if (!projectKey || !boardId) return;
   return (
     <Container>
@@ -60,7 +58,6 @@ const MainContainerLayout = ({
             projectId={projectId}
             hideMenu={hideMenu}
             ProjectTitle={projectTitle}
-            selectedBoardTitle={selectedBoardTitle}
             selectedProjectsTitle={projectTitle}
           />
           <SideBar
@@ -85,7 +82,7 @@ const MainContainerLayout = ({
                 </Pathitem>
                 <Pathitem>
                   <PathLink to={`boards/${boardId}`}>
-                    {selectedBoardTitle}
+                    {selectedBoard?.Name}
                   </PathLink>
                 </Pathitem>
               </PathList>

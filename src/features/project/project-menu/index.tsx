@@ -46,7 +46,6 @@ type ProjectMenuPropsType = {
   projectKey: string;
   projectId: string;
   onHover?: (hover: boolean) => void;
-  selectedBoardTitle: string;
   selectedProjectsTitle: string;
 };
 type URLParams = {
@@ -115,7 +114,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                     <ProjectBoardContainer>
                       <ProjectBoardTitleWrapper>
                         <ProjectBoardTitle>
-                          {props.selectedBoardTitle}
+                          {selectedBoard?.Name}
                         </ProjectBoardTitle>
                         <ArrowIcon
                           className="dropdown-trigger"
@@ -134,7 +133,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                     <Scroll scrollheight="min-content">
                       <GetBoardsList>
                         <TitleGetBoards>
-                          Boards in {props.selectedProjectsTitle}
+                          Boards in {selectedBoard?.Name}
                         </TitleGetBoards>
 
                         {boards.map((board) => (

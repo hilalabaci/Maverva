@@ -22,6 +22,7 @@ import Modal from "../../components/common/modal";
 import { BoardType, ProjectType, UserType } from "../../types";
 import { getUserstoBoard } from "../../api/boardApi";
 import { useUserContext } from "../../contexts/UserContext";
+import { useApplicationContext } from "../../contexts/ApplicationContext";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -30,12 +31,12 @@ type TopMenuPropsType = {
   user?: UserType;
   setSearchInput: (value: string) => void;
   activeSprintName: string;
-  selectedBoardId: string;
   boardId?: string;
 };
 
 function TopMenu(props: TopMenuPropsType) {
   const location = useLocation();
+  const { selectedBoard } = useApplicationContext();
   const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
   const [showModal, setShowModal] = useState(false);
   const { user } = useUserContext();
