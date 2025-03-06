@@ -4,7 +4,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDrop } from "react-dnd";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
-import FormDemo from "../../features/sprints/edit-sprint";
+import SprintDemo from "../../features/sprints/edit-sprint";
 import { IssueStatus, IssueType, DragItem } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
@@ -220,7 +220,7 @@ function BacklogCards() {
                 open={showModal}
                 onChange={setShowModal}
               >
-                <FormDemo onClose={closeModal} />
+                <SprintDemo onClose={closeModal} />
               </Modal>
             </HeaderButtonWrapper>
             <MoreIcon />

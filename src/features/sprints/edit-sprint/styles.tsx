@@ -41,14 +41,13 @@ export const FormMessage = styled(Form.Message)`
   opacity: 0.8;
 `;
 export const InputForm = styled.input`
-  font-size: 10px;
+  font-size: 14px !important;
   width: 200px;
   line-height: 1;
   all: unset;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   border-radius: 4px;
   color: ${(props) => props.theme.fontColour};
   background-color: var(--black-a2);

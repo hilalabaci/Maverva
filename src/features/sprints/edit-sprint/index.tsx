@@ -13,27 +13,55 @@ import {
   ButtonWrapper,
   ButtonCancel,
 } from "./styles";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { addSprint } from "../../../api/sprintApi";
 
 type FormDemoType = {
   onClose: () => void;
+  sprintNameProps?: string;
+  startSprintDate?: Date;
+  endSprintDate?: Date;
+  sprintTitle?: string;
 };
 
 type URLParams = {
   boardId: string;
 };
 
-const FormDemo = (props: FormDemoType) => {
+const SprintDemo = ({
+  onClose,
+  sprintNameProps,
+  startSprintDate,
+  endSprintDate,
+  sprintTitle,
+}: FormDemoType) => {
   const { boardId } = useParams<URLParams>();
   const { user } = useUserContext();
-  const [sprintName, setSprintName] = useState(`Board Sprint `);
+  const [sprintName, setSprintName] = useState(
+    sprintNameProps || "Board Sprint"
+  );
   const [sprintGoal, setSprintGoal] = useState("");
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(
+    startSprintDate ? new Date(startSprintDate) : new Date()
+  );
+  const [endDate, setEndDate] = useState<Date | null>(
+    endSprintDate ? new Date(endSprintDate) : new Date()
+  );
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const today = new Date();
+  const nextYear = new Date(today);
+  nextYear.setFullYear(today.getFullYear() + 1);
+  const minDate =
+    startSprintDate instanceof Date && !isNaN(startSprintDate.getTime())
+      ? startSprintDate
+      : today;
 
+  const maxDate =
+    endSprintDate instanceof Date && !isNaN(endSprintDate.getTime())
+      ? endSprintDate
+      : nextYear;
   async function submitSprint() {
     try {
       const sprintData = {
@@ -50,11 +78,23 @@ const FormDemo = (props: FormDemoType) => {
       }
       setSprintName("");
       setSprintGoal("");
-      props.onClose();
+      onClose();
     } catch (error) {
       console.error("Error fetching project:", error);
     }
   }
+  useEffect(() => {
+    if (sprintNameProps) {
+      setSprintName(sprintNameProps);
+    }
+  }, [sprintNameProps]);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <FormRoot
       onSubmit={(e) => {
@@ -63,7 +103,10 @@ const FormDemo = (props: FormDemoType) => {
       }}
     >
       <TitleWrapper>
-        <Title>Edit sprint: Board Sprint 1</Title>
+        <Title>
+          Edit sprint:
+          {sprintTitle ? ` ${sprintTitle} ` : " Board Sprint 1"}
+        </Title>
       </TitleWrapper>
       <InfoTitle>Required fields are marked with an asterisk</InfoTitle>
       <FormField name="sprint-name">
@@ -78,6 +121,7 @@ const FormDemo = (props: FormDemoType) => {
         </div>
         <Form.Control asChild>
           <InputForm
+            ref={inputRef}
             type="text"
             value={sprintName}
             onChange={(e) => setSprintName(e.target.value)}
@@ -104,8 +148,8 @@ const FormDemo = (props: FormDemoType) => {
               )
             }
             type="date"
-            min="2024-01-01"
-            max="2024-12-30"
+            min={minDate.toISOString().split("T")[0]}
+            max={maxDate.toISOString().split("T")[0]}
           />
         </Form.Control>
       </FormField>
@@ -128,8 +172,8 @@ const FormDemo = (props: FormDemoType) => {
               )
             }
             type="date"
-            min="2024-01-01"
-            max="2024-12-30"
+            min={minDate.toISOString().split("T")[0]}
+            max={maxDate.toISOString().split("T")[0]}
           />
         </Form.Control>
       </FormField>
@@ -153,7 +197,7 @@ const FormDemo = (props: FormDemoType) => {
       </FormField>
       <Form.Submit asChild>
         <ButtonWrapper>
-          <ButtonCancel onClick={props.onClose}>Cancel</ButtonCancel>
+          <ButtonCancel onClick={onClose}>Cancel</ButtonCancel>
           <ButtonForm>Update</ButtonForm>
         </ButtonWrapper>
       </Form.Submit>
@@ -161,4 +205,4 @@ const FormDemo = (props: FormDemoType) => {
   );
 };
 
-export default FormDemo;
+export default SprintDemo;

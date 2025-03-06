@@ -1,4 +1,4 @@
-import { IssueStatus } from "../../types";
+import { IssueStatus } from "../types";
 
 export const getStatusLabel = (value: IssueStatus) => {
   switch (value) {

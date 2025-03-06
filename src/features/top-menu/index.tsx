@@ -2,73 +2,90 @@ import { useEffect, useState } from "react";
 import {
   Container,
   ProjectTitle,
-  EditProjectTitle,
   AssignMemberContainer,
   ButtonStylesforPersonAdd,
   IconPersonAdd,
   ButtonStylesforIconPerson,
-  TitleWrapper,
+  TitleHeader,
   Title,
   SearchAndAssignMemberContainer,
+  MoreIcon,
+  EditSprintButton,
+  FeaturesSprint,
+  FeaturesSprintContainer,
+  CompleteSprintButton,
+  SprintTime,
+  TimeIcon,
 } from "./styles";
 import MemberPhoto from "../../features/user/member-photo";
-
 import AddPerson from "../../features/addPerson";
-
 import Search from "../../components/common/search";
 import { ToolTip } from "../../components/common/toolstip";
 import { useLocation } from "react-router-dom";
 import Modal from "../../components/common/modal";
-import { BoardType, ProjectType, UserType } from "../../types";
+import { ProjectType, UserType } from "../../types";
 import { getUserstoBoard } from "../../api/boardApi";
 import { useUserContext } from "../../contexts/UserContext";
-import { useApplicationContext } from "../../contexts/ApplicationContext";
+import { formatDate } from "../../utils/dateUtils";
+import { calculateDaysBetween } from "../../utils/calculateDays";
+import { DropdownMenu } from "../../components/common/dropdownMenu";
+import OptionalBoardCreate from "../board/optional/create";
+import SprintDemo from "../sprints/edit-sprint";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
   projectKey: string;
   onProjectUpdate: (project: ProjectType) => void;
-  user?: UserType;
   setSearchInput: (value: string) => void;
   activeSprintName: string;
+  startDateActiveSprint?: Date;
+  endDateActiveSprint?: Date;
   boardId?: string;
 };
 
-function TopMenu(props: TopMenuPropsType) {
+function TopMenu({
+  topMenuTitle,
+  projectId,
+  projectKey,
+  onProjectUpdate,
+  setSearchInput,
+  activeSprintName,
+  startDateActiveSprint,
+  endDateActiveSprint,
+  boardId,
+}: TopMenuPropsType) {
   const location = useLocation();
-  const { selectedBoard } = useApplicationContext();
-  const [projectTitle, setProjectTitle] = useState(props.topMenuTitle);
+  const [projectTitle, setProjectTitle] = useState(topMenuTitle);
   const [showModal, setShowModal] = useState(false);
+  const [createBoardModal, setCreateBoardModal] = useState(false);
+  const [editSprintModal, setEditSprintModal] = useState(false);
   const { user } = useUserContext();
   const [users, setUsers] = useState<UserType[]>([]);
 
   function openModal() {
     setShowModal(true);
   }
+
   function closeModal() {
     setShowModal(false);
   }
+  function openCreateBoardModal() {
+    setCreateBoardModal(true);
+  }
+  function closeCreateBoardModal() {
+    setCreateBoardModal(false);
+  }
+  function openEditSprintModal() {
+    setEditSprintModal(true);
+  }
+  function closeEditSprintModal() {
+    setEditSprintModal(false);
+  }
 
   useEffect(() => {
-    setProjectTitle(props.topMenuTitle);
-  }, [props.topMenuTitle]);
+    setProjectTitle(topMenuTitle);
+  }, [topMenuTitle]);
 
-  async function updateTitle() {
-    const id = props.projectId;
-    const title = projectTitle;
-    const body = { title, id };
-    const response = await fetch(process.env.REACT_APP_API_URL + "project", {
-      method: "PATCH",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      const data = (await response.json()) as ProjectType;
-      props.onProjectUpdate(data);
-    }
-  }
   async function loadUsers(boardId: string, userId: string) {
     try {
       const response = await getUserstoBoard(boardId, userId);
@@ -84,26 +101,65 @@ function TopMenu(props: TopMenuPropsType) {
   }
 
   useEffect(() => {
-    if (props.boardId && user?.Id) {
-      loadUsers(props.boardId, user?.Id);
+    if (boardId && user?.Id) {
+      loadUsers(boardId, user?.Id);
     }
-  }, [props.boardId, user]); // boardId değiştiğinde loadUsers çağırılır
+  }, [boardId, user]);
 
   const onSearch = (value: string) => {
-    props.setSearchInput(value);
+    setSearchInput(value);
   };
 
   return (
     <Container>
-      <TitleWrapper>
+      <TitleHeader>
         <Title>
           <ProjectTitle>
             {location.pathname.includes("/backlog")
               ? "Backlog"
-              : props.activeSprintName}
+              : activeSprintName}
           </ProjectTitle>
         </Title>
-      </TitleWrapper>
+        <FeaturesSprintContainer>
+          <FeaturesSprint>
+            <ToolTip
+              trigger={
+                <SprintTime>
+                  <TimeIcon />
+                  {calculateDaysBetween(
+                    startDateActiveSprint,
+                    endDateActiveSprint
+                  )}
+                </SprintTime>
+              }
+              content={`Start date: ${formatDate(
+                startDateActiveSprint || new Date()
+              )}; Projected end date: ${formatDate(
+                endDateActiveSprint || new Date()
+              )}`}
+            ></ToolTip>
+
+            <CompleteSprintButton>Complete sprint</CompleteSprintButton>
+          </FeaturesSprint>
+          <DropdownMenu
+            trigger={
+              <EditSprintButton>
+                <MoreIcon />
+              </EditSprintButton>
+            }
+            items={[
+              {
+                label: "Edit sprint",
+                action: openEditSprintModal,
+              },
+              {
+                label: "Create board",
+                action: openCreateBoardModal,
+              },
+            ]}
+          />
+        </FeaturesSprintContainer>
+      </TitleHeader>
       <SearchAndAssignMemberContainer>
         <Search onSearch={onSearch} placeHolderForSearchButton="Search" />
         <AssignMemberContainer>
@@ -148,12 +204,31 @@ function TopMenu(props: TopMenuPropsType) {
             <AddPerson
               closeModal={closeModal}
               projectTitle={projectTitle}
-              projectKey={props.projectKey}
-              projectId={props.projectId}
+              projectKey={projectKey}
+              projectId={projectId}
             />
           </Modal>
         </AssignMemberContainer>
       </SearchAndAssignMemberContainer>
+      {createBoardModal && (
+        <Modal open={createBoardModal} onClose={closeCreateBoardModal}>
+          <OptionalBoardCreate
+            handleProjectCreate={onProjectUpdate}
+            onClose={closeCreateBoardModal}
+          />
+        </Modal>
+      )}
+      {editSprintModal && (
+        <Modal open={editSprintModal} onClose={closeEditSprintModal}>
+          <SprintDemo
+            onClose={closeEditSprintModal}
+            sprintNameProps={activeSprintName}
+            startSprintDate={startDateActiveSprint}
+            endSprintDate={endDateActiveSprint}
+            sprintTitle={activeSprintName}
+          />
+        </Modal>
+      )}
     </Container>
   );
 }

@@ -146,9 +146,10 @@ function DynamicContentLoader() {
               onProjectUpdate={() => {}}
               projectId={selectedProject?.Id as string}
               topMenuTitle={selectedProject?.Name as string}
-              user={selectedProject?.LeadUser} //check here!!
               setSearchInput={setSearchInput}
               boardId={selectedBoard?.Id as string}
+              startDateActiveSprint={activeSprint?.StartDate}
+              endDateActiveSprint={activeSprint?.EndDate}
             />
           )}
           <Scroll

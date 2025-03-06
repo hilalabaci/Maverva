@@ -9,7 +9,7 @@ import {
   UserType,
 } from "../../types";
 import useOutsideClick from "../../hooks/useOutsideClick";
-import { getStatusLabel } from "../../utils/label";
+import { getStatusLabel } from "../../utils/getStatus";
 import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
 import { ToolTip } from "../../components/common/toolstip";
 import SelectDemo from "../../components/common/selectDemo";

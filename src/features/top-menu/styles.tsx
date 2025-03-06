@@ -2,6 +2,9 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Link } from "react-router-dom";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import PersonIcon from "@mui/icons-material/Person";
+import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+
 export const GlobalStyle = createGlobalStyle`
 
 `;
@@ -38,9 +41,11 @@ export const PathLink = styled(Link)`
     text-decoration: underline;
   }
 `;
-export const TitleWrapper = styled.div`
+export const TitleHeader = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 40px;
 `;
 export const Title = styled.div`
   //background-color: ${(props) => props.theme.projectColour};
@@ -116,21 +121,84 @@ export const ButtonStylesforPersonAdd = styled.button`
   border-radius: 50px;
   width: 40px;
   height: 40px;
-  background-color: #a1bdd914;
-  color: #b6c2cf;
+  background-color: #091e420f;
   cursor: pointer;
   &:hover {
-    background-color: #a6c5e229;
+    background-color: #091e4224;
   }
 `;
 
 export const IconPersonAdd = styled(PersonAddAlt1Icon)`
   width: 25px !important;
   height: 25px !important;
-  color: ${(props) => props.theme.fontColour};
+  margin-left: 3px;
+  color: ${(props) => props.theme.memberMenuFontColor};
 `;
 export const IconPerson = styled(PersonIcon)`
   width: 25px !important;
   height: 25px !important;
   color: #1d2125;
+`;
+export const FeaturesSprintContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+`;
+export const FeaturesSprint = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+`;
+export const SprintTime = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 450;
+`;
+export const TimeIcon = styled(AccessTimeIcon)`
+  font-size: 20px !important;
+`;
+export const CompleteSprintButton = styled.button`
+  color: ${(props) => props.theme.memberMenuFontColor};
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  outline: none;
+  border: none;
+  background-color: #091e420f;
+  border-radius: 3px;
+  padding: 10px 15px;
+  font-weight: 590;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px !important;
+  }
+`;
+
+export const EditSprintButton = styled.button`
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  outline: none;
+  border: none;
+  background-color: #091e420f;
+  border-radius: 3px;
+  padding: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px !important;
+  }
+`;
+
+export const MoreIcon = styled(MoreHorizRoundedIcon)`
+  color: ${(props) => props.theme.memberMenuFontColor};
 `;
