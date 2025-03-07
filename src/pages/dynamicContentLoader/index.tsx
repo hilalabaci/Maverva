@@ -150,6 +150,9 @@ function DynamicContentLoader() {
               boardId={selectedBoard?.Id as string}
               startDateActiveSprint={activeSprint?.StartDate}
               endDateActiveSprint={activeSprint?.EndDate}
+              sprintId={activeSprint?.Id}
+              sprintGoal={activeSprint?.SprintGoal}
+              loadActiveSprint={loadActiveSprint}
             />
           )}
           <Scroll

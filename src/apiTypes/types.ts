@@ -48,10 +48,6 @@ export type AddIssueRequest = {
   sprintId?: string;
 };
 export type AddSprintRequest = {
-  name: string;
-  sprintGoal: string;
-  startDate: Date | null;
-  endDate: Date | null;
   boardId: string | BoardType | undefined;
   userId: string | UserType | undefined;
 };
@@ -59,4 +55,15 @@ export type AddColumnRequest = {
   userId: string;
   title: string;
   boardId: string | BoardType | undefined;
+};
+
+export type EditSprintRequest = {
+  boardId: string;
+  sprintId: string | undefined;
+  userId: string | undefined;
+  isActiveSprint?: boolean;
+  name?: string;
+  sprintGoal?: string;
+  startDate?: Date | null;
+  endDate?: Date | null;
 };

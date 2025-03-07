@@ -26,7 +26,7 @@ export const FormLabelRequie = styled(Form.Label)`
     margin-left: 3px;
     position: relative;
     top: -2px;
-    color: red;
+    color: ${(props) => props.theme.requiredInfo};
   }
 `;
 export const FormLabel = styled(Form.Label)`
@@ -34,6 +34,13 @@ export const FormLabel = styled(Form.Label)`
   color: ${(props) => props.theme.sideBarFontColour};
   font-weight: 700;
   line-height: 30px;
+  &::after {
+    content: "*";
+    margin-left: 3px;
+    position: relative;
+    top: -2px;
+    color: ${(props) => props.theme.requiredInfo};
+  }
 `;
 export const FormMessage = styled(Form.Message)`
   font-size: 13px;
@@ -51,13 +58,15 @@ export const InputForm = styled.input`
   border-radius: 4px;
   color: ${(props) => props.theme.fontColour};
   background-color: var(--black-a2);
-  border: 1px solid ${(props) => props.theme.sideBarFontColour};
+  outline: 1px solid ${(props) => props.theme.sideBarFontColour};
   padding: 8px 6px;
   width: 250px;
   cursor: inherit;
   &:hover {
+    background: ${(props) => props.theme.searchInputBgHover};
   }
   &:focus {
+    outline: ${(props) => props.theme.searchOutlineColour};
   }
   &::selection {
     background-color: var(--black-a6);
@@ -75,10 +84,13 @@ export const TextareaForm = styled.textarea`
   justify-content: center;
   border-radius: 4px;
   font-size: 15px;
-  border: 1px solid ${(props) => props.theme.activeBorder};
+  padding: 10px;
+  outline: 1px solid ${(props) => props.theme.sideBarFontColour};
   &:hover {
+    background: ${(props) => props.theme.searchInputBgHover};
   }
   &:focus {
+    outline: ${(props) => props.theme.searchOutlineColour};
   }
   &::selection {
     background-color: var(--black-a6);

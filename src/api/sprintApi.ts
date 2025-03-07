@@ -1,4 +1,4 @@
-import { AddSprintRequest } from "../apiTypes/types";
+import { AddSprintRequest, EditSprintRequest } from "../apiTypes/types";
 import { IssueType, SprintType } from "../types";
 import { apiCall } from "./apiClient";
 
@@ -14,15 +14,11 @@ export const getSprints = async (boardId: string) => {
     urlParams: new URLSearchParams({ boardId }),
   });
 };
-
-export const updateSprint = async (
-  sprintId: string,
-  active: boolean,
-  boardId: string
-) => {
+ 
+export const updateSprint = async (data: EditSprintRequest) => {
   return await apiCall<SprintType>("sprint", {
     method: "PUT",
-    data: { sprintId, active, boardId },
+    data: data,
   });
 };
 

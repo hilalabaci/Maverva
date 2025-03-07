@@ -16,33 +16,37 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
-import { addSprint } from "../../../api/sprintApi";
+import { addSprint, updateSprint } from "../../../api/sprintApi";
+import { SprintType } from "../../../types";
 
 type FormDemoType = {
   onClose: () => void;
-  sprintNameProps?: string;
   startSprintDate?: Date;
   endSprintDate?: Date;
   sprintTitle?: string;
+  sprintId?: string;
+  sprintGoalProps?: string;
+  loadActiveSprint: () => void;
 };
 
 type URLParams = {
   boardId: string;
 };
 
-const SprintDemo = ({
+const EditSprint = ({
   onClose,
-  sprintNameProps,
   startSprintDate,
   endSprintDate,
   sprintTitle,
+  sprintId,
+  sprintGoalProps,
+  loadActiveSprint,
 }: FormDemoType) => {
   const { boardId } = useParams<URLParams>();
   const { user } = useUserContext();
-  const [sprintName, setSprintName] = useState(
-    sprintNameProps || "Board Sprint"
-  );
-  const [sprintGoal, setSprintGoal] = useState("");
+  const [activeSprint, setActiveSprint] = useState<SprintType>();
+  const [sprintName, setSprintName] = useState(sprintTitle || "Board Sprint");
+  const [sprintGoal, setSprintGoal] = useState(sprintGoalProps || "");
   const [startDate, setStartDate] = useState<Date | null>(
     startSprintDate ? new Date(startSprintDate) : new Date()
   );
@@ -62,32 +66,36 @@ const SprintDemo = ({
     endSprintDate instanceof Date && !isNaN(endSprintDate.getTime())
       ? endSprintDate
       : nextYear;
-  async function submitSprint() {
-    try {
-      const sprintData = {
-        name: sprintName,
-        sprintGoal: sprintGoal,
-        startDate: startDate,
-        endDate: endDate,
-        boardId: boardId,
-        userId: user?.Id,
-      };
 
-      const { ok, data } = await addSprint(sprintData);
-      if (ok && data) {
-      }
-      setSprintName("");
-      setSprintGoal("");
-      onClose();
-    } catch (error) {
-      console.error("Error fetching project:", error);
+  async function submitSprint() {
+    if (sprintTitle || startSprintDate || endSprintDate) {
+      try {
+        const sprintData = {
+          sprintId: sprintId as string,
+          sprintName: sprintName,
+          sprintGoal: sprintGoal,
+          startDate: startDate,
+          endDate: endDate,
+          boardId: boardId as string,
+          userId: user?.Id as string,
+        };
+        const response = await updateSprint(sprintData);
+        if (response.ok) {
+          onClose();
+          setSprintName(sprintName);
+          setSprintGoal(sprintGoal);
+          loadActiveSprint();
+        }
+      } catch (error) {}
+    } else {
+    
     }
   }
   useEffect(() => {
-    if (sprintNameProps) {
-      setSprintName(sprintNameProps);
+    if (sprintTitle) {
+      setSprintName(sprintTitle);
     }
-  }, [sprintNameProps]);
+  }, [sprintTitle]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -205,4 +213,4 @@ const SprintDemo = ({
   );
 };
 
-export default SprintDemo;
+export default EditSprint;

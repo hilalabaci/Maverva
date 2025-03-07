@@ -30,7 +30,7 @@ import { formatDate } from "../../utils/dateUtils";
 import { calculateDaysBetween } from "../../utils/calculateDays";
 import { DropdownMenu } from "../../components/common/dropdownMenu";
 import OptionalBoardCreate from "../board/optional/create";
-import SprintDemo from "../sprints/edit-sprint";
+import EditSprint from "../sprint/edit-sprint";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -41,6 +41,9 @@ type TopMenuPropsType = {
   startDateActiveSprint?: Date;
   endDateActiveSprint?: Date;
   boardId?: string;
+  sprintId?: string;
+  sprintGoal?: string;
+  loadActiveSprint: () => void;
 };
 
 function TopMenu({
@@ -53,6 +56,9 @@ function TopMenu({
   startDateActiveSprint,
   endDateActiveSprint,
   boardId,
+  sprintId,
+  sprintGoal,
+  loadActiveSprint,
 }: TopMenuPropsType) {
   const location = useLocation();
   const [projectTitle, setProjectTitle] = useState(topMenuTitle);
@@ -220,12 +226,14 @@ function TopMenu({
       )}
       {editSprintModal && (
         <Modal open={editSprintModal} onClose={closeEditSprintModal}>
-          <SprintDemo
+          <EditSprint
             onClose={closeEditSprintModal}
-            sprintNameProps={activeSprintName}
             startSprintDate={startDateActiveSprint}
             endSprintDate={endDateActiveSprint}
             sprintTitle={activeSprintName}
+            sprintId={sprintId}
+            sprintGoalProps={sprintGoal}
+            loadActiveSprint={loadActiveSprint}
           />
         </Modal>
       )}

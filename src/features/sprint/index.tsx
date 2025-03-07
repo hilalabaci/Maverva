@@ -10,6 +10,7 @@ import {
   CreateIssueButton,
   DisplayCreateWrapper,
   Duration,
+  EditSprintButton,
   Form,
   HeaderButton,
   HeaderButtonWrapper,
@@ -40,6 +41,9 @@ import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
 import { ToolTip } from "../../components/common/toolstip";
 import { addIssue, updateIssue } from "../../api/issueApi";
 import { updateSprint } from "../../api/sprintApi";
+import { DropdownMenu } from "../../components/common/dropdownMenu";
+import Modal from "../../components/common/modal";
+import EditSprint from "./edit-sprint";
 
 type SprintPropsType = {
   sprint: SprintType;
@@ -48,8 +52,10 @@ type SprintPropsType = {
   sprintStartDate: Date;
   sprintEndDate: Date;
   sprintIsActive: boolean;
+  sprintGoal: string;
   onUpdate: (data?: IssueType) => void;
   activeToSprint: (id: string) => boolean;
+  loadActiveSprint: () => void;
 };
 
 type URLParams = {
@@ -66,6 +72,8 @@ function Sprint({
   sprintIsActive,
   onUpdate,
   activeToSprint,
+  sprintGoal,
+  loadActiveSprint,
 }: SprintPropsType) {
   const { boardId, projectKey } = useParams<URLParams>();
   const { user } = useUserContext();
@@ -79,7 +87,8 @@ function Sprint({
   const [sprintCards, setSprintCards] = useState<IssueType[]>(
     sprint.Issues ?? []
   );
-  const [isActiveSprint, setIsActiveSprint] = useState(sprintIsActive);
+  const [isActiveSprint, setIsActiveSprint] = useState<boolean>(sprintIsActive);
+  const [editSprintModal, setEditSprintModal] = useState(false);
 
   async function updateCardInfo(
     id: string,
@@ -183,13 +192,19 @@ function Sprint({
   }
 
   async function updateSprintActive(
-    sprintId: string,
-    active: boolean,
-    boardId?: string
+    boardId?: string,
+    sprintId?: string,
+    userId?: string,
+    active?: boolean
   ) {
     {
       if (!boardId) return;
-      const response = await updateSprint(sprintId, active, boardId);
+      const response = await updateSprint({
+        boardId,
+        sprintId,
+        userId,
+        isActiveSprint: active,
+      });
       if (response.ok && response.data) {
         setIsActiveSprint(true);
         // props.onUpdate(response.data);
@@ -201,6 +216,12 @@ function Sprint({
   function onUpdateContent(card: IssueType) {
     if (!sprintCards) return;
     setContent(card.Summary);
+  }
+  function openEditSprintModal() {
+    setEditSprintModal(true);
+  }
+  function closeEditSprintModal() {
+    setEditSprintModal(false);
   }
 
   return (
@@ -278,7 +299,12 @@ function Sprint({
                 ) : (
                   <HeaderButton
                     onClick={() =>
-                      updateSprintActive(sprintId, isActiveSprint, boardId)
+                      updateSprintActive(
+                        boardId,
+                        sprintId,
+                        user?.Id,
+                        isActiveSprint
+                      )
                     }
                     $isActive={false}
                   >
@@ -289,8 +315,27 @@ function Sprint({
             ) : (
               <HeaderButtonWrapper></HeaderButtonWrapper>
             )}
-
-            <MoreIcon />
+            <DropdownMenu
+              trigger={
+                <EditSprintButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <MoreIcon />
+                </EditSprintButton>
+              }
+              items={[
+                {
+                  action: openEditSprintModal,
+                  label: "Edit sprint",
+                },
+                {
+                  action: () => {},
+                  label: "Delete sprint",
+                },
+              ]}
+            ></DropdownMenu>
           </HeaderDropBlog>
         }
         children={
@@ -303,7 +348,7 @@ function Sprint({
                   cardKey={card.Key}
                   content={card.Summary}
                   status={card.Status}
-                  user={card.User}
+                  reporterUser={card.ReporterUser}
                   sprintId={sprintId}
                   boardId={boardId as string}
                   updateCardsAfterDelete={deleteCard}
@@ -346,6 +391,19 @@ function Sprint({
         open={showBacklog}
         setOpen={setShowBacklog}
       ></CollapsibleDemo>
+      {editSprintModal && (
+        <Modal open={editSprintModal} onClose={closeEditSprintModal}>
+          <EditSprint
+            onClose={closeEditSprintModal}
+            startSprintDate={sprintStartDate}
+            endSprintDate={sprintEndDate}
+            sprintTitle={sprintName}
+            sprintId={sprintId}
+            sprintGoalProps={sprintGoal}
+            loadActiveSprint={loadActiveSprint}
+          />
+        </Modal>
+      )}
     </Container>
   );
 }

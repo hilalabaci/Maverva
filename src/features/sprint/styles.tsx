@@ -13,8 +13,12 @@ export const Container = styled.div`
   padding: 8px 8px;
 `;
 export const HeaderDropBlog = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 9fr 1fr 2fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 7fr 1fr 2fr 1fr; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 `;
 type BacklogHeaderProps = { $selected: boolean };
 export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
@@ -24,6 +28,7 @@ export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
     $selected ? `${theme.activeBorder}` : `none`};
   padding: 4px 0;
   cursor: pointer;
+  flex: 1;
 `;
 export const HeaderTitle = styled.div`
   color: ${(props) => props.theme.memberMenuFontColor};
@@ -114,9 +119,10 @@ export const BacklogCardList = styled.div`
   flex-direction: column;
 `;
 export const BacklogCardListItems = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 10fr 2fr 1fr 1fr;
-  justify-content: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   border: ${(props) => props.theme.borderforModal};
   padding: 5px 0;
   background-color: ${(props) => props.theme.primary};
@@ -161,14 +167,33 @@ export const MemberWrapper = styled.div`
   justify-self: center;
   align-self: center;
 `;
+export const EditSprintButton = styled.button`
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 3px;
+  background-color: #091e420f;
+  padding-block: 0;
+  width: fit-content;
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+  ${BacklogCardList}:hover & {
+    opacity: 1;
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px !important;
+    opacity: 1;
+  }
+`;
 export const MoreIcon = styled(MoreHorizRoundedIcon)`
   justify-self: center;
   align-self: center;
   display: flex;
   opacity: 1;
   justify-content: flex-end;
-  border-radius: 3px;
-  background-color: #091e420f;
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
@@ -230,6 +255,7 @@ export const CheckboxWrapper = styled.div`
   justify-self: center;
   align-self: center;
   opacity: 1;
+  width: 50px;
   ${BacklogCardListItems}:hover & {
     opacity: 1;
   }

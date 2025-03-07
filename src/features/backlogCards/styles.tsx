@@ -165,16 +165,33 @@ export const ArrowIcon = styled.button<CommonPropsType>`
   &:hover {
   }
 `;
-
+export const EditSprintButton = styled.button`
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border-radius: 3px;
+  background-color: #091e420f;
+  &:hover {
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+  ${BacklogCardList}:hover & {
+    opacity: 1;
+    background-color: ${(props) => props.theme.IconEditBGHover};
+  }
+  @media only screen and (max-width: 768px) {
+    font-size: 12px !important;
+    opacity: 1;
+  }
+`;
 export const MoreIcon = styled(MoreHorizRoundedIcon)`
   justify-self: center;
   align-self: center;
   display: flex;
   opacity: 1;
   justify-content: flex-end;
-  border-radius: 3px;
-  background-color: #091e420f;
-  cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }

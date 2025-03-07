@@ -2,7 +2,7 @@ import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
 
 export const Backdrop = styled(Dialog.Overlay)`
-  background: rgba(0, 0, 0, 0.4);
+  background: #091e427d;
   inset: 0;
   overflow: auto;
   position: fixed;

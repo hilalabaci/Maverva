@@ -51,6 +51,7 @@ export const darkTheme = {
   tabContentBGColour3: "linear-gradient(352deg, #6731ec 1.65%, #44cfff 118.4%",
   tabContentBGColour4:
     "linear-gradient(168deg, #d613ee -55.05%, #ff674e 64.52%)",
+  requiredInfo: "#ae2e24",
 };
 export const lightTheme = {
   primary: "rgba(255,255,255,255)",
@@ -111,4 +112,5 @@ export const lightTheme = {
   tabContentBGColour4:
     "linear-gradient(168deg, #d613ee -55.05%, #ff674e 64.52%)",
   tabContentBGColour5: "linear-gradient(rgb(69, 104, 220), rgb(176, 106, 179))",
+  requiredInfo: "#ae2e24",
 };

@@ -4,13 +4,12 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDrop } from "react-dnd";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
-import SprintDemo from "../../features/sprints/edit-sprint";
+import SprintDemo from "../sprint/edit-sprint";
 import { IssueStatus, IssueType, DragItem } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
 import { ToolTip } from "../../components/common/toolstip";
 import BacklogCard from "../backlogCard";
-import Modal from "../../components/common/modal";
 import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
 import {
   Accordion,
@@ -33,6 +32,7 @@ import {
   HeaderStatus,
   MoreIcon,
   CheckboxWrapper,
+  EditSprintButton,
 } from "./styles";
 import { getBacklogCards } from "../../api/backlogApi";
 import { addIssue, updateIssueSprintToBacklog } from "../../api/issueApi";
@@ -41,12 +41,14 @@ type URLParams = {
   projectKey: string;
   boardId: string;
 };
+type BacklogCardsProps = {
+  createSprint: () => void;
+};
 
-function BacklogCards() {
+function BacklogCards({ createSprint }: BacklogCardsProps) {
   const { user } = useUserContext();
   const { projectKey, boardId } = useParams<URLParams>();
   const [content, setContent] = useState("");
-  const [showModal, setShowModal] = useState(false);
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
   const [isHeaderSelected, setIsHeaderSelected] = useState(false);
@@ -67,9 +69,7 @@ function BacklogCards() {
   const refBacklogSelected = useOutsideClick<HTMLDivElement>(() =>
     setIsHeaderSelected(false)
   );
-  function closeModal() {
-    setShowModal(false);
-  }
+
   function handleChange(value: string) {
     setContent(value);
   }
@@ -214,16 +214,18 @@ function BacklogCards() {
               ></ToolTip>
             </HeaderStatusWrapper>
             <HeaderButtonWrapper>
-              <Modal
-                trigger={<HeaderButton>Create sprint</HeaderButton>}
-                onClose={closeModal}
-                open={showModal}
-                onChange={setShowModal}
+              <HeaderButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  createSprint();
+                }}
               >
-                <SprintDemo onClose={closeModal} />
-              </Modal>
+                Create sprint
+              </HeaderButton>
             </HeaderButtonWrapper>
-            <MoreIcon />
+            <EditSprintButton>
+              <MoreIcon />
+            </EditSprintButton>
           </HeaderDropBlog>
         }
         children={

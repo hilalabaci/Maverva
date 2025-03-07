@@ -119,7 +119,7 @@ export const EditTextArea = styled.textarea`
   outline: none;
   border-radius: 3px;
   border: ${(props) => props.theme.activeBorder};
-  width: 100%;
+  min-width: 97%;
   font-size: 14px;
 `;
 export const DoneButton = styled.button`
@@ -131,6 +131,9 @@ export const DoneButton = styled.button`
   background: white;
   box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
     0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
+  &:hover {
+    background: blue;
+  }
 `;
 export const IconDone = styled(DoneIcon)`
   font-size: 14px !important;

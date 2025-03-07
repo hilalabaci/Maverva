@@ -36,6 +36,7 @@ import {
   updateIssue,
   updateIssueContent,
 } from "../../../api/issueApi";
+import { useUserContext } from "../../../contexts/UserContext";
 type IssueProps = {
   id: string;
   labels: LabelType[];
@@ -66,6 +67,7 @@ function Issue({
       isDragging: monitor.isDragging(),
     }),
   });
+  const { user } = useUserContext();
   const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
@@ -92,7 +94,7 @@ function Issue({
   }
   async function handleDeleteIssue(issueId: string) {
     try {
-      const response = await deleteIssue(issueId);
+      const response = await deleteIssue(issueId, user?.Id as string);
       if (response.ok) {
         onDelete(issueId);
       } else {
@@ -161,7 +163,7 @@ function Issue({
             items={[
               {
                 action: () => {},
-                label: "Move to",
+                label: "Change status",
                 subItems: [
                   {
                     action: () => {

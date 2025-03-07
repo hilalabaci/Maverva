@@ -44,9 +44,7 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
   const [selectedBoard, setSelectedBoard] = useState<BoardType | undefined>();
   const [activeSprint, setActiveSprint] = useState<SprintType | undefined>();
 
-  useEffect(() => {
-    
-  }, [projects]);
+  useEffect(() => {}, [projects]);
 
   useEffect(() => {
     if (selectedProject)
