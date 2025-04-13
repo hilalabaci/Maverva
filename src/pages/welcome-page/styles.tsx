@@ -48,7 +48,6 @@ export const StartTrial = styled.section`
   } */
   @media only screen and (max-width: 600px) {
     padding-top: 0;
-    height: 85vh;
   }
 `;
 export const StartTrialWrapper = styled.div`

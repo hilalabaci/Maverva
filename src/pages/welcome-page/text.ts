@@ -17,7 +17,7 @@ export const CollapseTexts = [
   },
 ];
 export const imageSources = [
-  "/icons/process.png",
-  "/icons/process.png",
-  "/icons/process.png",
+  "/icons/ss2.png",
+  "/icons/SS3.png",
+  "/icons/SS4.png",
 ];
