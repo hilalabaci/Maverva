@@ -37,6 +37,7 @@ import {
   CollapseTitle,
   CollapseText,
   CollapseContentElement,
+  CollapseContentElementChild,
 } from "./styles";
 import TypedDemo from "../../components/common/Typed/typed";
 import RegisterForm from "../../components/forms/registerForm";
@@ -101,18 +102,26 @@ function WelcomePage() {
             <CollapseParent>
               <CollapseNavigation>
                 {CollapseTexts.map((collapseText, index) => (
-                  <CollapseItem
-                    key={index}
-                    onClick={() => handleCollapseClick(index)}
-                  >
-                    <CollapseTitle $display={activeCollapse === index}>
-                      {collapseText.title}
-                    </CollapseTitle>
-                    <CollapseText $display={activeCollapse === index}>
-                      <b>{collapseText.bold}</b>
-                      {collapseText.text}
-                    </CollapseText>
-                  </CollapseItem>
+                  <>
+                    <CollapseItem
+                      key={index}
+                      onClick={() => handleCollapseClick(index)}
+                    >
+                      <CollapseTitle $display={activeCollapse === index}>
+                        {collapseText.title}
+                      </CollapseTitle>
+                      <CollapseText $display={activeCollapse === index}>
+                        <b>{collapseText.bold}</b>
+                        {collapseText.text}
+                      </CollapseText>
+                    </CollapseItem>
+                    <CollapseContentElementChild
+                      key={index}
+                      $display={activeCollapse === index}
+                    >
+                      <ImgForWelcome src={imageSources[index]} />
+                    </CollapseContentElementChild>
+                  </>
                 ))}
               </CollapseNavigation>
               {CollapseTexts.map((collapseText, index) => (

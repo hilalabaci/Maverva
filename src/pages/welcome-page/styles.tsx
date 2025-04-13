@@ -215,6 +215,10 @@ export const CollapseNavigation = styled.div`
 `;
 export const CollapseItem = styled.div`
   padding: 10px 0;
+  @media only screen and (max-width: 600px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 type displayProps = {
   $display?: boolean;
@@ -258,6 +262,23 @@ export const CollapseText = styled.div<displayProps>`
   padding: 10px 0;
   color: ${(props) => props.theme.fontColour2};
 `;
+export const CollapseContentElementChild = styled.div<displayProps>`
+  display: none;
+  padding: 15px;
+  border-radius: 14px;
+  background: linear-gradient(
+    247deg,
+    #567c8d 17.39%,
+    #2f4156 64.22%,
+    #c8d9e6 97.73%
+  );
+  box-shadow: 0 3px 20px 0 rgba(67, 46, 134, 0.1);
+  @media only screen and (max-width: 600px) {
+    display: ${(props) => (props.$display ? "flex" : "none")};
+    box-shadow: none;
+    background: none;
+  }
+`;
 export const CollapseContentElement = styled.div<displayProps>`
   display: ${(props) => (props.$display ? "flex" : "none")};
   padding: 15px;
@@ -270,6 +291,7 @@ export const CollapseContentElement = styled.div<displayProps>`
   );
   box-shadow: 0 3px 20px 0 rgba(67, 46, 134, 0.1);
   @media only screen and (max-width: 600px) {
+    display: none;
     box-shadow: none;
     background: none;
   }
