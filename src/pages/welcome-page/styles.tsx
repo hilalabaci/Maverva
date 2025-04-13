@@ -172,7 +172,9 @@ export const TabTitle = styled.h2`
   cursor: default;
   @media only screen and (max-width: 600px) {
     padding: 0;
-    font-size: 24px;
+    font-size: 32px;
+    color: black;
+    font-weight: 700;
   }
 `;
 export const TitleDetail = styled.p`
@@ -190,6 +192,8 @@ export const InfoSection = styled.div`
   padding: 50px 0;
   @media only screen and (max-width: 600px) {
     height: min-content;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 `;
 export const CollapseParent = styled.div`
@@ -199,6 +203,12 @@ export const CollapseParent = styled.div`
   align-items: center;
   max-width: 75pc;
   padding: 70px 0 50px 0;
+  @media only screen and (max-width: 600px) {
+    margin: 35px 0;
+    margin-inline: 24px;
+    height: min-content;
+    flex-direction: column;
+  }
 `;
 export const CollapseNavigation = styled.div`
   margin-inline: 24px;
@@ -232,6 +242,9 @@ export const CollapseTitle = styled.h3<displayProps>`
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  @media only screen and (max-width: 600px) {
+    font-size: 24px;
+  }
 `;
 
 export const CollapseText = styled.div<displayProps>`
@@ -256,6 +269,10 @@ export const CollapseContentElement = styled.div<displayProps>`
     #c8d9e6 97.73%
   );
   box-shadow: 0 3px 20px 0 rgba(67, 46, 134, 0.1);
+  @media only screen and (max-width: 600px) {
+    box-shadow: none;
+    background: none;
+  }
 `;
 
 type CommonPropsType = {
@@ -357,7 +374,7 @@ export const ImgForWelcome = styled.img`
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   max-width: 700px;
   @media only screen and (max-width: 600px) {
-    width: 200px;
+    max-width: 400px;
   }
 `;
 export const Footer = styled.footer`
