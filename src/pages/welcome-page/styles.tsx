@@ -204,9 +204,10 @@ export const CollapseParent = styled.div`
   max-width: 75pc;
   padding: 70px 0 50px 0;
   @media only screen and (max-width: 600px) {
-    margin: 35px 0;
+    margin: 0 25px;
     margin-inline: 24px;
     height: min-content;
+    padding: 0;
     flex-direction: column;
   }
 `;
@@ -216,8 +217,8 @@ export const CollapseNavigation = styled.div`
 export const CollapseItem = styled.div`
   padding: 10px 0;
   @media only screen and (max-width: 600px) {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 `;
 type displayProps = {
@@ -277,6 +278,7 @@ export const CollapseContentElementChild = styled.div<displayProps>`
     display: ${(props) => (props.$display ? "flex" : "none")};
     box-shadow: none;
     background: none;
+    
   }
 `;
 export const CollapseContentElement = styled.div<displayProps>`
@@ -396,7 +398,7 @@ export const ImgForWelcome = styled.img`
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   max-width: 700px;
   @media only screen and (max-width: 600px) {
-    max-width: 400px;
+    max-width: 300px;
   }
 `;
 export const Footer = styled.footer`
