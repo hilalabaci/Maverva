@@ -13,9 +13,9 @@ export const Container = styled.div`
   padding: 10px 25px;
   min-width: 900px;
   min-height: 293px;
-  background-color: ${(props) => props.theme.modalBg};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
   border-radius: 5px;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.primary};
   font: var(
     --ds-font-body,
     normal 400 14px / 1.42857142857143 -apple-system,
@@ -51,9 +51,10 @@ export const WrapperforText = styled.div``;
 export const InputWrapperwithIcon = styled.div`
   height: 20px;
   font-size: 14px;
-  background-color: ${(props) => props.theme.modalInputBg};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
   width: 250px;
-  border: 1px solid;
+  border: none;
+  outline: ${(props) => props.theme.colour.modal.border.default};
   border-radius: 3px;
   padding: 4px 7px 5px;
   display: flex;
@@ -67,10 +68,10 @@ export const InputforProjectDropDown = styled.input`
   background-color: transparent;
   border: none;
   outline: none;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.primary};
   width: 100%;
   &:focus-visible {
-    outline: ${(props) => props.theme.activeBorder};
+    outline: ${(props) => props.theme.colour.border.active};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
@@ -79,16 +80,16 @@ export const InputforProjectDropDown = styled.input`
 export const InputStyle = styled.input`
   height: 20px;
   font-size: 14px;
-  font-weight: 14px;
-  background-color: ${(props) => props.theme.modalInputBg};
-  border: 1px solid;
+  border: none;
+  background-color: ${(props) => props.theme.colour.background.default};
+  outline: ${(props) => props.theme.colour.border.default};
   border-radius: 3px;
   padding: 4px 7px 5px;
   width: 250px;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.primary};
   letter-spacing: 0.05em;
   &:focus-visible {
-    outline: ${(props) => props.theme.activeBorder};
+    outline: ${(props) => props.theme.colour.border.active};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
@@ -103,14 +104,14 @@ export const InputforProjectLead = styled.div`
   align-items: center;
   height: 20px;
   font-size: 14px;
-  font-weight: 14px;
-  background-color: ${(props) => props.theme.modalInputBg};
-  border: 1px solid;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
+  border: none;
+  outline: ${(props) => props.theme.colour.modal.border.default};
   border-radius: 3px;
   padding: 4px 7px 5px;
   width: 250px;
-  color: ${(props) => props.theme.fontColour};
-  outline: none;
+  color: ${(props) => props.theme.colour.text.primary};
   gap: 5px;
   cursor: pointer;
   @media only screen and (max-width: 768px) {

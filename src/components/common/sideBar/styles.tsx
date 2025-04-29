@@ -11,7 +11,7 @@ export const BorderforSideBar = styled.div`
   top: 0;
   left: 0;
   width: 2px;
-  background-color: ${(props) => props.theme.borderforSideBar};
+  background-color: ${(props) => props.theme.colour.divider.background.default};
   pointer-events: none;
   width: 4px;
   height: 100%;

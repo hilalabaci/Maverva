@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useContext,
   useMemo,
@@ -10,7 +10,7 @@ import {
   ThemeProvider as SCThemeProvider,
   useTheme as SCuseTheme,
 } from "styled-components";
-import { darkTheme, lightTheme } from "../theme";
+import { themes } from "../theme";
 
 type ThemeProviderProps = PropsWithChildren;
 type ThemeContextType = {
@@ -34,7 +34,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
   }, []);
 
   const theme = useMemo(
-    () => (mode === "light" ? lightTheme : darkTheme),
+    () => (mode === "light" ? themes.light : themes.dark),
     [mode]
   );
 

@@ -37,7 +37,7 @@ export const ButtonWrapper = styled.button`
   cursor: pointer;
 `;
 export const ButtonText = styled.p`
-  color: ${(props) => props.theme.themeActiveColor};
+  color: ${(props) => props.theme.colour.themeActiveColor};
   font-size: 14px;
   &:hover {
     text-decoration: underline;

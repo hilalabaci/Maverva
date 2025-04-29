@@ -9,9 +9,9 @@ export const Container = styled.div`
 
 export const InputContainer = styled.div`
   border-radius: 3px;
-  color: ${(props) => props.theme.fontColour};
-  outline: none;
-  box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
+  color: ${(props) => props.theme.colour.modal.text.default};
+  outline: ${(props) => props.theme.colour.modal.border.default};
+  border: none;
   font-size: 1rem;
   font-weight: 400;
 `;
@@ -19,7 +19,7 @@ export const InputContainer = styled.div`
 export const Inputs = styled.input`
   background-color: transparent;
   padding: 12px 5px;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.inverted};
   outline: none;
   border: none;
   width: 100%;
@@ -37,13 +37,13 @@ export const WarningMessage = styled.p`
   text-align: right;
 `;
 export const EmailIcon = styled(MailOutlinedIcon)`
-  color: #091e4240;
+  color: ${(props) => props.theme.colour.text.inverted};
   font-size: 20px !important;
 `;
 export const LabelTitle = styled.label`
   font-size: 12px;
   font-weight: 600;
-  color: ${(props) => props.theme.fontColourSoft};
+  color: ${(props) => props.theme.colour.text.inverted};
   &::after {
     content: "*";
     margin-left: 3px;

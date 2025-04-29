@@ -31,22 +31,22 @@ export const ScrollAreaScrollbar = styled(ScrollArea.Scrollbar)<{
   touch-action: none;
   transition: 160ms ease-out;
   width: 7px;
-  background: #fafafb;
+  background: ${(props) => props.theme.colour.background.primary};
   /* Adjust width or height based on orientation */
-  ${({ orientation }) =>
+  ${({ orientation, theme }) =>
     orientation === "horizontal"
       ? `
         height: 9px;
         width: 99%;
-        border-top:1px solid #e8e7e8;
         padding:4px;
+        border-top:1px solid ${theme.colour.background.primary};
   
       `
       : `
         width: 9px;
         height: 99%;
-        border-left:1px solid #e8e7e8;
         padding:4px;
+        border-top:1px solid ${theme.colour.background.primary};
  
    
       `}
@@ -57,11 +57,12 @@ export const ScrollAreaScrollbar = styled(ScrollArea.Scrollbar)<{
 export const ScrollAreaThumb = styled(ScrollArea.Thumb)<{
   orientation: "horizontal" | "vertical";
 }>`
-  ${({ orientation }) =>
+  ${({ orientation, theme }) =>
     orientation === "horizontal"
       ? `
         background: #c2c1c2;
         border-radius: 10px;
+        background:${theme.colour.background.primary};
         position: relative;
         &::before {
           content: "";
@@ -77,7 +78,7 @@ export const ScrollAreaThumb = styled(ScrollArea.Thumb)<{
       `
       : `
         flex: 1;
-        background:#c2c1c2;
+        background:${theme.colour.background.primary};
         border-radius: 10px;
         position: relative;
         &::before {

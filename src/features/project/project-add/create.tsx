@@ -153,7 +153,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
           <SubmitButton
             $isFilled={!!projectKey && !!projectTitle}
             type="submit"
-          >
+          > 
             Create Project
           </SubmitButton>
           <CancelButton onClick={props.onClose}>Cancel</CancelButton>

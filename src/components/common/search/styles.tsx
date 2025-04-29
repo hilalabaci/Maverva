@@ -6,12 +6,12 @@ export const SearchContainer = styled.div<{ $isclicked: boolean }>`
   width: 185px;
   display: flex;
   align-items: center;
-  border-radius: 5px;
-  outline: none;
-  border: ${(props) => props.theme.searchBorder};
+  border-radius: 3px;
   outline: ${(props) =>
-    props.$isclicked ? props.theme.searchOutlineColour : "none"};
-  background-color: ${(props) => props.theme.searchInputBg};
+    props.$isclicked
+      ? props.theme.colour.search.border.active
+      : props.theme.colour.search.border.default};
+  background-color: ${(props) => props.theme.colour.search.background.default};
   transition: border-width 0.3s ease-in-out, background-color 0.3s ease-in-out;
   box-sizing: border-box;
   ::placeholder {
@@ -19,7 +19,7 @@ export const SearchContainer = styled.div<{ $isclicked: boolean }>`
     color: ${(props) => props.theme.searchPlaceHolderFontColour};
   }
   &:hover {
-    background-color: ${(props) => props.theme.searchInputBgHover};
+    background-color: ${(props) => props.theme.colour.search.background.hover};
   }
   @media only screen and (max-width: 768px) {
     border: none;
@@ -29,7 +29,7 @@ export const IconWrapper = styled.button`
   background-color: transparent;
   border: none;
   outline: none;
-  color: #a1bdd914;
+  color: ${(props) => props.theme.colour.search.icon.default};
   padding: 0;
   margin: 0;
   @media only screen and (max-width: 768px) {
@@ -51,8 +51,8 @@ export const Input = styled.input`
   border: none;
   background-color: transparent;
   font-size: 14px;
-  color: ${(props) => props.theme.fontColour};
-  padding: 0;
+  color: ${(props) => props.theme.colour.text.default};
+  padding-inline-start: 6px;
   input[type="search"]::-webkit-search-decoration {
     display: none;
   }
@@ -64,7 +64,7 @@ export const Icon = styled(SearchIcon)`
   border: none;
   outline: none;
   margin-top: 3px;
-  color: ${(props) => props.theme.searchPlaceHolderFontColour};
+  color: ${(props) => props.theme.colour.search.icon.default};
   display: flex;
-  font-size: 16px !important;
+  font-size: 18px !important;
 `;

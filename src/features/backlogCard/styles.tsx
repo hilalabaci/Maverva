@@ -9,10 +9,13 @@ export const BacklogCardListItems = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.5fr 10fr 2fr 1fr 1fr;
   justify-content: stretch;
-  border: ${(props) => props.theme.borderforModal};
+  background-color: ${(props) =>
+    props.theme.colour.primary.card.background.default};
   padding: 5px 0;
+  outline: ${(props) => props.theme.colour.primary.card.border.default};
   &:hover {
-    background-color: ${(props) => props.theme.backlogBgHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.card.background.hover};
   }
 `;
 export const CheckboxWrapper = styled.div`
@@ -27,7 +30,7 @@ export const CardKey = styled.div`
   justify-self: start;
   align-self: center;
   font-size: 12px;
-  color: ${(props) => props.theme.sideBarFontColour};
+  color: ${(props) => props.theme.colour.text.inverted};
   cursor: pointer;
   font-weight: 600;
   &:hover {
@@ -46,7 +49,7 @@ export const Content = styled.div`
   font-size: 14px;
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: ${(props) => props.theme.colour.text.inverted};
   &:hover {
     text-decoration: underline;
   }
@@ -75,6 +78,7 @@ export const IconEdit = styled(EditIcon)`
   margin: 0 5px;
   opacity: 0;
   border-radius: 3px;
+  color: ${(props) => props.theme.colour.text.inverted};
   background-color: ${(props) => props.theme.IconEditBg};
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.colour.background.default};
   color: ${(props) => props.theme.fontColour};
 `;
 export const MainContainer = styled.div`

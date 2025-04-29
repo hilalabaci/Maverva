@@ -8,13 +8,12 @@ export const DropdownContent = styled(
   DropdownMenuPrimitive.Content
 )<DropdownContentProps>`
   z-index: 1 !important;
-  background-color: white;
-  color: ${(props) => props.theme.memberMenuFontColor};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
+  color: ${(props) => props.theme.colour.text.inverted};
+  border: ${(props) => props.theme.colour.primary.card.border.default};
   border-radius: 5px;
   padding: 8px 0;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
-    0px 10px 20px -15px rgba(22, 23, 24, 0.2);
-
+  box-shadow: 0 8px 9pt #091e4226, 0 0 1px #091e424f;
   ${({ $triggerWidth }) =>
     $triggerWidth &&
     css`
@@ -29,7 +28,7 @@ export const DropDownItem = styled(DropdownMenuPrimitive.Item)`
   font-weight: 400;
   outline: none;
   &:hover {
-    background-color: #f0f0f0;
+    background-color: ${(props) => props.theme.colour.modal.background.hover};
   }
 `;
 

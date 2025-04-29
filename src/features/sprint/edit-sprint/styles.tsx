@@ -1,7 +1,7 @@
 import * as Form from "@radix-ui/react-form";
 import styled from "styled-components";
 export const FormRoot = styled(Form.Root)`
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.colour.background.default};
   color: ${(props) => props.theme.fontColour};
   width: 500px;
   padding: 30px;
@@ -138,7 +138,7 @@ export const ButtonForm = styled.button`
   text-align: center;
   cursor: pointer;
   background-color: ${(props) => props.theme.themeActiveColor};
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.colour.primary};
   box-shadow: var(
     --ds-shadow-overlay,
     0 0 0 1px rgba(9, 30, 66, 0.08),

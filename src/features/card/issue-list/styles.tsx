@@ -7,7 +7,9 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 export const AddCardButton = styled.button`
-  background-color: ${(props) => props.theme.projectColour};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
+  color: ${(props) => props.theme.colour.text.inverted};
   width: 100%;
   height: 35px;
   outline: none;
@@ -15,14 +17,15 @@ export const AddCardButton = styled.button`
   border-radius: 3px;
   font-size: 14px;
   font-weight: 500;
-  color: ${(props) => props.theme.fontColour};
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  cursor: pointer;
   opacity: 0;
   &:hover {
-    background-color: ${(props) => props.theme.cardBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
 
   @media only screen and (max-width: 768px) {
@@ -57,12 +60,11 @@ export const Container = styled.div`
 `;
 
 export const IssueWrapper = styled.div`
-  overflow: scroll;
+  /* overflow: scroll; */
   display: flex;
   flex-direction: column;
   gap: 4px;
   -webkit-overflow-scrolling: touch;
-  background-color: rgb(247 248 249);
   border: none;
   outline: none;
   @media only screen and (max-width: 768px) {

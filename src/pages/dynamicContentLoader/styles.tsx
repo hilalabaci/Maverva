@@ -12,8 +12,8 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.fontColour};
+  background-color: ${(props) => props.theme.colour.background.default};
+  color: ${(props) => props.theme.colour.text.primary};
 `;
 export const NavbarWrapper = styled.div``;
 export const Wrapper = styled.div`

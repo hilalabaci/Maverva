@@ -31,14 +31,14 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   height: ${(props) => props.$userPhotoHeight};
   font-size: ${(props) => props.$userPhotoFontSize};
   border-radius: ${(props) => props.$userBorderadius};
-  border: ${(props) => props.$userBorder};
   //background: linear-gradient(135deg, #71b7e6, #9b59b6);
   background-color: #de835d;
   color: #182a4e;
   text-transform: uppercase;
   font-weight: ${(props) => props.$fontWeight};
+  box-shadow: 0 0 0 2px
+    ${(props) => props.theme.colour.avatar.background.default};
   @media only screen and (max-width: 768px) {
-
   }
 `;
 export const MemberAvatar = styled.img<MemberphotoProps>`

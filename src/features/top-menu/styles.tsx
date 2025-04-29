@@ -36,7 +36,7 @@ export const Pathitem = styled.li`
 `;
 export const PathLink = styled(Link)`
   text-decoration: none;
-  color: #44546f;
+  color: ${(props) => props.theme.colour.text.subtitle};
   &:hover {
     text-decoration: underline;
   }
@@ -107,7 +107,7 @@ export const ButtonStylesforIconPerson = styled.button`
   padding: 0;
   background: none;
   border-radius: 50px;
-  border: 2px solid ${(props) => props.theme.primary};
+  //border: 2px solid ${(props) => props.theme.colour.memberMenuHoverBg};
   &:hover {
     z-index: 1;
   }
@@ -121,10 +121,10 @@ export const ButtonStylesforPersonAdd = styled.button`
   border-radius: 50px;
   width: 40px;
   height: 40px;
-  background-color: #091e420f;
+  background-color: ${(props) => props.theme.colour.icon.background.default};
   cursor: pointer;
   &:hover {
-    background-color: #091e4224;
+    background-color: ${(props) => props.theme.colour.icon.background.hover};
   }
 `;
 
@@ -132,12 +132,12 @@ export const IconPersonAdd = styled(PersonAddAlt1Icon)`
   width: 25px !important;
   height: 25px !important;
   margin-left: 3px;
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: ${(props) => props.theme.colour.icon.colour.default};
 `;
 export const IconPerson = styled(PersonIcon)`
   width: 25px !important;
   height: 25px !important;
-  color: #1d2125;
+  color: ${(props) => props.theme.colour.icon.colour.default};
 `;
 export const FeaturesSprintContainer = styled.div`
   display: flex;
@@ -161,20 +161,22 @@ export const TimeIcon = styled(AccessTimeIcon)`
   font-size: 20px !important;
 `;
 export const CompleteSprintButton = styled.button`
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: ${(props) => props.theme.colour.text.inverted};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   justify-self: center;
   align-self: center;
   display: flex;
   outline: none;
   border: none;
-  background-color: #091e420f;
   border-radius: 3px;
   padding: 10px 15px;
   font-weight: 590;
   font-size: 14px;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
@@ -187,12 +189,14 @@ export const EditSprintButton = styled.button`
   display: flex;
   outline: none;
   border: none;
-  background-color: #091e420f;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   border-radius: 3px;
   padding: 5px;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
@@ -200,5 +204,5 @@ export const EditSprintButton = styled.button`
 `;
 
 export const MoreIcon = styled(MoreHorizRoundedIcon)`
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: ${(props) => props.theme.colour.icon.colour.default};
 `;

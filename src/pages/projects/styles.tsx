@@ -7,7 +7,7 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 
 export const Container = styled.main`
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: ${(props) => props.theme.colour.text.primary};
 `;
 export const Wrapper = styled.div`
   display: flex;
@@ -42,11 +42,11 @@ export const Tables = styled.table`
   text-align: left;
 `;
 export const TableHead = styled.thead`
-  border-bottom: 3px solid #eeeff2;
+  border-bottom: ${(props) => props.theme.colour.table.border.default};
 `;
 export const TableTitleWrapper = styled.tr``;
 export const Titles = styled.th`
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: ${(props) => props.theme.colour.text.inverted};
   font-size: 14px;
   font-weight: 500;
 `;
@@ -69,13 +69,13 @@ export const IconWrapper = styled.th`
   }
 `;
 export const DataWrapper = styled.tr`
-  border-bottom: 3px solid #eeeff2;
+  border-bottom: ${(props) => props.theme.colour.tableBorder};
   &:hover {
-    background-color: ${(props) => props.theme.projectsBgHover};
+    background-color: ${(props) => props.theme.colour.projectsBgHover};
   }
 `;
 export const LinkforProjects = styled(Link)`
-  color: ${(props) => props.theme.themeActiveColor};
+  color: ${(props) => props.theme.colour.text.link};
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -84,7 +84,7 @@ export const LinkforProjects = styled(Link)`
 export const DataLeadName = styled.td`
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   padding-top: 12px;
   padding-bottom: 12px;
   font-size: 14px;
@@ -101,7 +101,7 @@ export const DataProjectsName = styled.td`
   padding-bottom: 12px;
   font-size: 14px;
   font-weight: 400;
-  color: ${(props) => props.theme.themeActiveColor};
+  color: ${(props) => props.theme.colour.themecolourActiveColor};
   &:hover {
     text-decoration: underline;
   }
@@ -110,18 +110,21 @@ export const MoreIconButton = styled.button`
   border: none;
   outline: none;
   background-color: transparent;
+  border-radius: 3px;
   &:hover {
-    background-color: ${(props) => props.theme.projectsIconHover};
+    background-color: ${(props) => props.theme.colour.projectsIconHover};
   }
 `;
 export const FavIconTable = styled(HeartFilledIcon)`
   width: 17px;
   height: 12px;
   padding-left: 3px;
+  color: ${(props) => props.theme.colour.text.inverted};
 `;
 export const IconFav = styled(HeartIcon)`
   width: 22px;
   height: 18px;
+  color: ${(props) => props.theme.colour.iconButton.default.icon};
 `;
 export const FilledIconFav = styled(HeartFilledIcon)`
   color: #fe0034;
@@ -130,4 +133,6 @@ export const FilledIconFav = styled(HeartFilledIcon)`
   width: 22px;
   height: 18px;
 `;
-export const MoreIcon = styled(MoreHorizRoundedIcon)``;
+export const MoreIcon = styled(MoreHorizRoundedIcon)`
+  color: ${(props) => props.theme.colour.text.inverted};
+`;

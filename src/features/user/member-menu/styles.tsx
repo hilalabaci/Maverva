@@ -7,11 +7,11 @@ export const Container = styled.div`
   inset: 0px 0px auto auto;
   z-index: 1;
   min-width: 234px;
-  background-color: ${(props) => props.theme.modalBg};
-  color: ${(props) => props.theme.memberMenuFontColor};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
+  color: ${(props) => props.theme.colour.text.inverted};
   border-radius: 2px;
   transform: translate3d(-23px, 58.5px, 0px);
-  border: 1px solid ${(props) => props.theme.borderLineColour};
+  border: 1px solid ${(props) => props.theme.colour.border.default};
   box-shadow: var(
     --ds-shadow-overlay,
     0 4px 8px -2px rgba(9, 30, 66, 0.25),
@@ -74,14 +74,17 @@ export const Options = styled.ul<ButtonforThemePropsType>`
   font-weight: 400;
   padding: 15px;
   vertical-align: center;
+  cursor: pointer;
   //border-bottom: ${(props) => props.theme.borderforModal};
   border-left: ${(props) =>
-    props.$active ? props.theme.themeActiveBorder : "none"};
+    props.$active ? props.theme.colour.border.active : "none"};
   background-color: ${(props) =>
-    props.$active ? props.theme.themeActiveBG : props.theme.modalBg};
+    props.$active
+      ? props.theme.colour.modal.background.active
+      : props.theme.colour.modal.background.default};
   &:hover {
-    background-color: ${(props) => props.theme.memberMenuHoverBg};
-    // color: ${(props) => props.theme.themeActiveColor};
+    background-color: ${(props) => props.theme.colour.modal.background.hover};
+    color: ${(props) => props.theme.colour.modal.text.hover};
     //border-left: ${(props) => props.theme.themeActiveBorder};
   }
   @media only screen and (max-width: 768px) {
@@ -112,11 +115,12 @@ export const ButtonforTheme = styled.button`
   outline: none;
   border: none;
   padding: 0;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.inverted};
   background-color: transparent;
   font-size: 14px;
   font-weight: 400;
   flex: 1;
+  cursor: pointer;
   ${Options}:hover & {
     background-color: transparent;
   }

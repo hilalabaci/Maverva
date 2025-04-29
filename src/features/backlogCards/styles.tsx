@@ -8,6 +8,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 8px 8px;
+  background-color: ${(props) => props.theme.colour.background.columnBG};
 `;
 export const HeaderDropBlog = styled.div`
   display: grid;
@@ -84,8 +85,11 @@ export const HeaderButton = styled.button`
   text-align: center;
   cursor: pointer;
   padding: 8px 10px;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
 `;
 export const Accordion = styled.div`
@@ -122,20 +126,24 @@ export const CreateButtonWrapper = styled.button`
   width: 100%;
   font-size: 14px;
   gap: 5px;
+  margin-top: 5px;
+  color: ${(props) => props.theme.colour.text.inverted};
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.backlogBgHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.card.background.default};
   }
 `;
 export const CreateIssueButton = styled.span`
-  color: ${(props) => props.theme.memberMenuFontColor};
-  font-weight: 600;
+  color: ${(props) => props.theme.colour.text.inverted};
+  font-weight: 500;
   font-size: 14px;
   display: flex;
   align-items: center;
 `;
 export const IconAdd = styled(AddIcon)`
   font-size: 19px !important;
+  color: ${(props) => props.theme.colour.text.inverted};
 `;
 
 export const Form = styled.form<FormProps>`
@@ -169,13 +177,15 @@ export const EditSprintButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: transparent;
   margin: 0;
   padding: 0;
   border-radius: 3px;
-  background-color: #091e420f;
+  width: fit-content;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
   ${BacklogCardList}:hover & {
     opacity: 1;

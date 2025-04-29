@@ -14,13 +14,11 @@ type DisplayTextProps = {
 export const EditContentIcon = styled(ModeEditIcon)`
   opacity: 0;
   padding: 2px;
-  &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
-  }
 `;
 export const EditIcon = styled(MoreHorizRoundedIcon)`
   opacity: 0;
   padding: 1px !important;
+  border-radius: 3px;
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
@@ -31,7 +29,7 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
 `;
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.cardBG};
+  background-color: ${(props) => props.theme.colour.background.cardBG.base};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -44,17 +42,18 @@ export const Container = styled.div`
     0 1px 1px #172b4d00, 0 0 1px #172b4d33; */
   box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
     0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
-
+  background-color: ${(props) => props.theme.colour.background.default};
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.cardBGHover};
-    color: var(--ds-text, #172b4d);
+    background-color: ${(props) => props.theme.colour.background.cardBG.hover};
+    color: ${(props) => props.theme.colour.text.primary};
   }
   &:hover ${EditIcon} {
     justify-content: flex-end;
     padding: 1px !important;
     border-radius: 3px !important;
-    background-color: ${(props) => props.theme.IconEditBg};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
     opacity: 1;
   }
   &:hover ${EditContentIcon} {
@@ -106,6 +105,11 @@ export const NoteEdit = styled.button`
   padding: 0;
   margin: 0;
   background: transparent;
+  color: ${(props) => props.theme.colour.text.primary};
+  &:hover {
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
+  }
 `;
 export const EditWrapper = styled.div`
   display: flex;
@@ -118,9 +122,13 @@ export const EditTextArea = styled.textarea`
   resize: none;
   outline: none;
   border-radius: 3px;
-  border: ${(props) => props.theme.activeBorder};
+  border: ${(props) => props.theme.colour.border.active};
+  background-color: ${(props) => props.theme.colour.background.surface};
+  color: ${(props) => props.theme.colour.text.primary};
   min-width: 97%;
   font-size: 14px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 `;
 export const DoneButton = styled.button`
   cursor: pointer;
@@ -128,15 +136,19 @@ export const DoneButton = styled.button`
   border: none;
   border-radius: 3px;
   padding: 4px 5px;
-  background: white;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.primary.background.default};
   box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
     0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
+  color: ${(props) => props.theme.colour.text.primary};
   &:hover {
-    background: blue;
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.primary.background.hover};
   }
 `;
 export const IconDone = styled(DoneIcon)`
-  font-size: 14px !important;
+  font-size: 15px !important;
+  color: ${(props) => props.theme.colour.background.default} !important;
 `;
 export const ButtomWrapper = styled.div`
   display: flex;

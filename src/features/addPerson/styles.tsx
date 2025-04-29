@@ -8,8 +8,8 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  color: ${(props) => props.theme.fontColour2};
-  background-color: ${(props) => props.theme.modalBg};
+  color: ${(props) => props.theme.colour.text.inverted};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
   border-radius: 5px;
   font-weight: 600;
 `;
@@ -43,7 +43,8 @@ export const RoleWrapper = styled.div`
   gap: 6px;
 `;
 export const RoleCheckbox = styled.input`
-  background-color: #22272b;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   padding: 10px;
   border: 1px solid rgba(55, 64, 73, 255);
   border-radius: 2px;
@@ -60,28 +61,32 @@ export const ButtonWrapper = styled.div`
   margin-top: 10px;
 `;
 export const CancelButton = styled.button`
-  color: ${(props) => props.theme.fontColour};
-  background-color: ${(props) => props.theme.modalBg};
+  color: ${(props) => props.theme.colour.text.primary};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
   border: none;
   outline: none;
   font-size: 14px;
-  padding: 5px;
+
   border-radius: 2px;
   padding: 9px;
+  cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.modalInputBg};
+    background-color: ${(props) => props.theme.colour.modal.background.hover};
   }
 `;
 export const SubmitButton = styled.button`
   font-size: 14px;
   padding: 9px;
-  background-color: #0c66e4;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.primary.background.default};
   color: white;
   outline: none;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.submitButtonHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.primary.background.hover};
   }
 `;
 export const WarningMessage = styled.span`
@@ -93,10 +98,12 @@ export const AddProjectWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3px;
+  
 `;
 export const IconDown = styled(KeyboardArrowDownOutlinedIcon)`
   font-size: 16px !important;
   font-weight: 700 !important;
+  
 `;
 export const InputforProjectDropDown = styled.input`
   font-size: 14px;
@@ -104,10 +111,10 @@ export const InputforProjectDropDown = styled.input`
   background-color: transparent;
   border: none;
   outline: none;
-  color: ${(props) => props.theme.fontColour};
   width: 100%;
+  color: ${(props) => props.theme.colour.text.link};
   &:focus-visible {
-    outline: ${(props) => props.theme.activeBorder};
+    outline: ${(props) => props.theme.colour.border.active};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
@@ -116,14 +123,16 @@ export const InputforProjectDropDown = styled.input`
 export const InputWrapperwithIcon = styled.div`
   height: 20px;
   font-size: 14px;
-  background-color: ${(props) => props.theme.modalInputBg};
-  border: 1px solid;
+  background-color: ${(props) => props.theme.colour.modal.background.default};
+  border: none;
+  outline: ${(props) => props.theme.colour.modal.border.default};
   border-radius: 3px;
   padding: 4px 7px 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  
 `;
 export const TitleforProject = styled.label`
   font-size: 12px;

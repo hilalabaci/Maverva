@@ -76,8 +76,8 @@ export const UserInfo = styled.div<CommonPropsType>`
   margin-left: 8px;
   padding: 8px;
   padding-block-start: 24px;
-  border-bottom: ${(props) =>
-    props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"};
+  /* border-bottom: ${(props) =>
+    props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"}; */
   //padding: ${(props) => (props.$hidden ? "0" : "0")};
   @media only screen and (max-width: 768px) {
   }
@@ -115,7 +115,7 @@ export const ProjectIcon = styled.div<CommonPropsType>`
 
 export const SelectedBoard = styled.span`
   font-size: 12px;
-  color: #0c66e4;
+  color: ${(props) => props.theme.colour.text.link};
   font-weight: 400;
 `;
 export const BoardWrapper = styled.div`
@@ -137,7 +137,7 @@ export const ProjectBoardTitleWrapper = styled.div`
   justify-content: space-between;
 `;
 export const ProjectBoardTitle = styled.span`
-  color: #0c66e4;
+  color: ${(props) => props.theme.colour.text.link};
   font-size: 13px;
   font-weight: 450;
 `;
@@ -147,7 +147,7 @@ export const ArrowIcon = styled.button<CommonPropsType>`
   height: 25px;
   border-radius: 100%;
   font-size: 20px !important;
-  color: #0c66e4;
+  color: ${(props) => props.theme.colour.text.link};
   //box-shadow: rgba(9, 30, 66, 0.08) 0px 0px 0px 1px,
   // rgba(9, 30, 66, 0.08) 0px 2px 4px 1px;
   cursor: pointer;
@@ -170,17 +170,20 @@ export const GetBoardsContainer = styled.div`
     0 0 0 1px rgba(9, 30, 66, 0.13),
     0 4px 11px rgba(9, 30, 66, 0.13)
   );
-  background-color: white;
+  background-color: ${(props) => props.theme.colour.background.default};
   box-sizing: border-box;
   max-width: 220px;
   min-width: 200px;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
-  color: ${(props) => props.theme.memberMenuFontColor};
+  border-radius: 3px;
+  color: ${(props) => props.theme.colour.text.inverse};
 `;
 export const CreateBoardinBoards = styled.button`
   background-color: transparent;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.default};
+  color: ${(props) => props.theme.colour.text.primary};
   outline: none;
   border: none;
   border-top: 2px solid #091e4224;
@@ -193,7 +196,8 @@ export const CreateBoardinBoards = styled.button`
   font-size: 14px;
   &:hover {
     cursor: pointer;
-    background-color: #091e420f;
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.hover};
   }
 `;
 export const IconPlus = styled(AddIcon)`
@@ -213,6 +217,7 @@ export const GetBoardsList = styled.div`
   flex-direction: column;
   margin: 0;
   gap: 3px;
+  padding: 10px 0;
 `;
 export const GetBoardsListItemLink = styled(Link)`
   text-decoration: none;
@@ -232,12 +237,13 @@ export const GetBoardsListItem = styled(Link)<{ selected: boolean }>`
     sans-serif
   );
   font-size: 13px;
+  border-radius: 3px;
   gap: 7px;
   text-decoration: none;
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${({ selected, theme }) =>
-    selected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
+    selected ? ` ${theme.colour.text.link}` : `${theme.colour.text.inverse}`};
   background: ${({ selected }) =>
     selected
       ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
@@ -267,8 +273,8 @@ export const SideBarElementWrapper = styled.span<{ selected: boolean }>`
       ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
       : "none"};
   color: ${({ selected, theme }) =>
-    selected ? `#0c66e4` : `${theme.memberMenuFontColor}`};
-  border-radius: 5px;
+    selected ? `${theme.colour.text.link}` : `${theme.colour.text.primary}`};
+  border-radius: 3px;
   &:hover {
     cursor: pointer;
     background: linear-gradient(

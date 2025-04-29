@@ -8,7 +8,7 @@ export const Container = styled.div`
 export const BrandLogo = styled(DashboardRoundedIcon)`
   font-size: 26px !important;
   margin: 0px 5px;
-  //color: ${(props) => props.theme.memberMenuFontColor} !important;
+  //color: ${(props) => props.theme.colour.memberMenuFontColor} !important;
   color: #9b59b6;
   @media only screen and (max-width: 768px) {
     width: 20px;
@@ -101,7 +101,7 @@ export const TabContentWrapper = styled.div`
   }
 `;
 export const TabContent = styled.div`
-  background: ${(props) => props.theme.tabContentBGColour};
+  background: ${(props) => props.theme.colour.tabContentBGColour};
   border-radius: 12px;
   padding: 25px 30px;
   display: flex;
@@ -109,21 +109,21 @@ export const TabContent = styled.div`
   align-items: center;
 `;
 export const TabContent1 = styled.div`
-  background: ${(props) => props.theme.tabContentBGColour1};
+  background: ${(props) => props.theme.colour.tabContentBGColour1};
   border-radius: 12px;
   padding: 25px;
   display: flex;
   flex-direction: column;
 `;
 export const TabContent2 = styled.div`
-  background: ${(props) => props.theme.tabContentBGColour2};
+  background: ${(props) => props.theme.colour.tabContentBGColour2};
   border-radius: 12px;
   padding: 25px;
   display: flex;
   flex-direction: column;
 `;
 export const TabContent3 = styled.div`
-  background: ${(props) => props.theme.tabContentBGColour3};
+  background: ${(props) => props.theme.colour.tabContentBGColour3};
   border-radius: 12px;
   padding: 25px;
   display: flex;
@@ -131,14 +131,14 @@ export const TabContent3 = styled.div`
   grid-column: span 2;
 `;
 export const TabContent4 = styled.div`
-  background: ${(props) => props.theme.tabContentBGColour4};
+  background: ${(props) => props.theme.colour.tabContentBGColour4};
   border-radius: 12px;
   padding: 25px;
   display: flex;
   flex-direction: column;
 `;
 export const TabContent5 = styled.div`
-  background: ${(props) => props.theme.tabContentBGColour5};
+  background: ${(props) => props.theme.colour.tabContentBGColour5};
   border-radius: 12px;
   padding: 25px;
   display: flex;
@@ -168,7 +168,7 @@ export const TabTitle = styled.h2`
   font-size: 2.47rem;
   line-height: 1.243902439;
   font-weight: 600;
-  color: ${(props) => props.theme.fontColour2};
+  color: ${(props) => props.theme.colour.fontColour2};
   cursor: default;
   @media only screen and (max-width: 600px) {
     padding: 0;
@@ -261,7 +261,7 @@ export const CollapseText = styled.div<displayProps>`
   transition: all 1s ease;
   cursor: default;
   padding: 10px 0;
-  color: ${(props) => props.theme.fontColour2};
+  color: ${(props) => props.theme.colour.fontColour2};
 `;
 export const CollapseContentElementChild = styled.div<displayProps>`
   display: none;
@@ -372,7 +372,7 @@ export const ButtonForGetStart = styled.button`
   max-width: fit-content;
   border: none;
   outline: none;
-  //color: ${(props) => props.theme.primary};
+  //color: ${(props) => props.theme.colour.primary};
   color: #2f4156;
   font-weight: 500;
   padding: 12px 50px;

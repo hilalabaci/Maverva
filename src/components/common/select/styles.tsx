@@ -6,21 +6,25 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 export const DropDownContainer = styled(DropdownMenuPrimitive.Root)`
   z-index: 1;
+  
 `;
 export const DropdownMenuPrimitiveTrigger = styled(
   DropdownMenuPrimitive.Trigger
 )`
   border-radius: 3px;
   color: rgb(66, 82, 110);
-  outline: none;
+  outline: ${({ theme }) => theme.colour.border.default};
   box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
   font-size: 1rem;
   font-weight: 400;
   border: none;
   padding: 9.5px 5px;
-  display:flex;
+  display: flex;
+  gap: 30px;
 
-  gap:30px;
+  &:focus-visible {
+    outline: ${({ theme }) => theme.colour.border.active};
+  }
 `;
 export const DropdownContent = styled(
   DropdownMenuPrimitive.Content
@@ -53,12 +57,15 @@ export const DropDownItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  
 `;
 export const DropDownItemWrapper = styled.div`
   padding: 7px 0;
   width: 100%;
   cursor: pointer;
   border-radius: 7px;
+  
+  
   &:hover {
     background-color: #f0f0f0;
   }
@@ -81,14 +88,14 @@ export const DropDownItem = styled(
 export const TitleforDropDownMenu = styled.h2`
   font-size: 15px;
   padding: 0 19px;
+  
 `;
 export const IconForSelect = styled(CheckCircleRoundedIcon)`
   font-size: 17px !important;
-  color: ${(props) => props.theme.themeActiveColor};
+  color: ${(props) => props.theme.colour.text.link} !important;
 `;
 
 export const IconForUnselect = styled(CircleOutlinedIcon)`
   font-size: 17px !important;
-  color: #e2e1e0;
-  //color: ${(props) => props.theme.themeActiveColor};
+  color: ${(props) => props.theme.colour.modal.text.default};
 `;

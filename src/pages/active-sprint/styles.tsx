@@ -35,7 +35,7 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.projectColour};
+  background-color: ${(props) => props.theme.colour.background.columnBG};
   min-width: 282px;
   height: 100%;
 `;
@@ -76,14 +76,16 @@ export const AddColumnWrapper = styled.form`
   flex-direction: column;
   gap: 15px;
   padding: 15px;
-  background-color: ${(props) => props.theme.projectColour};
+  background-color: ${(props) => props.theme.colour.background.columnBG};
 `;
 export const AddColumnTitle = styled.input`
   border: none;
-  outline: ${(props) => props.theme.activeBorder};
+  outline: ${(props) => props.theme.colour.border.active};
   min-width: 200px;
   padding: 10px 20px 10px 5px;
   border-radius: 3px;
+  background-color: ${(props) => props.theme.colour.background.default};
+  color: ${(props) => props.theme.colour.text.primary};
   text-align: left;
   &::placeholder {
     font-size: 14px;
@@ -91,23 +93,25 @@ export const AddColumnTitle = styled.input`
   }
 `;
 export const IconWrapper = styled.button`
-  background-color: ${(props) => props.theme.projectColour};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   border-radius: 3px;
   box-sizing: border-box;
   display: inline-flex;
   text-align: center;
   cursor: pointer;
-  padding: 0px 2px;
+  padding: 5px;
   width: auto;
   outline: none;
   border: none;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.primary};
   &:hover {
-    background-color: ${(props) => props.theme.cardBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
 `;
 export const IconAdd = styled(AddIcon)`
-  font-size: 1.8 !important;
+  font-size: 28px !important;
 `;
 export const ButtonWrapper = styled.div`
   gap: 5px;
@@ -115,11 +119,14 @@ export const ButtonWrapper = styled.div`
 export const CloseButton = styled.button`
   outline: none;
   border: none;
-  background-color: transparent;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   border-radius: 3px;
+  color: ${(props) => props.theme.colour.text.primary};
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
 `;
 export const IconClose = styled(CloseIcon)`

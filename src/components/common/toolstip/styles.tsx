@@ -8,12 +8,12 @@ export const TooltipContent = styled(Tooltip.Content)<TooltipContentType>`
   padding: 2px 4px;
   font-size: ${(props) => props.fontSize || "13px"};
   line-height: 1;
-  color: ${(props) => props.theme.primary};
-  background-color: ${(props) => props.theme.fontColour};
+  background-color: ${(props) => props.theme.colour.tooltip.background};
   user-select: none;
   max-width: 250px;
   line-height: 20px;
   animation-duration: 400ms;
+  color: ${(props) => props.theme.colour.tooltip.text};
 `;
 
 export const TooltipTrigger = styled(Tooltip.Trigger)`
@@ -24,5 +24,5 @@ export const TooltipTrigger = styled(Tooltip.Trigger)`
   margin: 0;
   height: fit-content;
   text-align: left;
-
+  color: ${(props) => props.theme.colour.text.primary};
 `;

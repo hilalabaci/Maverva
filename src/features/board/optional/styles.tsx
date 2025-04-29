@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const TitleForCheckbox = styled.h1`
-  color: ${(props) => props.theme.memberMenuFontColor};
   font-size: 20px;
   line-height: 1.5;
   font-weight: normal;
   padding: 0 0 0 5px;
+  color: ${(props) => props.theme.colour.text.inverted};
 `;
 
 export const WrapperforCheckbox = styled.div`
@@ -25,41 +25,50 @@ export const Details = styled.div`
 `;
 export const NextButton = styled.button`
   font-size: 14px;
+  font-weight: 550;
   padding: 9px;
-  background-color: #0c66e4;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.primary.background.default};
   outline: none;
   border: none;
   border-radius: 3px;
-  color: white;
+  color: ${(props) => props.theme.colour.primary.button.primary.text.default};
   margin-right: 7px;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.submitButtonHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.primary.background.hover};
   }
 `;
 export const BackButton = styled.button`
-  color: ${(props) => props.theme.fontColour};
-  //background-color: ${(props) => props.theme.modalBg};
+  color: ${(props) => props.theme.colour.text.primary};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   border: none;
+  cursor: pointer;
   outline: none;
   font-size: 14px;
   padding: 9px;
   border-radius: 2px;
   padding: 9px;
-  background-color: ${(props) => props.theme.modalInputBg};
+  &:hover {
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
+  }
 `;
 export const CancelButton = styled.button`
-  color: ${(props) => props.theme.fontColour};
-  background-color: ${(props) => props.theme.modalBg};
+  color: ${(props) => props.theme.colour.text.primary};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   border: none;
   outline: none;
   font-size: 14px;
-  padding: 9px;
   border-radius: 3px;
   padding: 9px;
   margin: 0 20px 0 0;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.modalInputBg};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
 `;

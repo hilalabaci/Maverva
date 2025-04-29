@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
 import ChangeThemeModal from "../../changeThemeModal";
-
 import MemberPhoto from "../member-photo";
 import {
   Container,

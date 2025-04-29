@@ -14,7 +14,7 @@ function ChangeThemeModal() {
     }
   };
   return (
-    <Container color={theme.primary}>
+    <Container color={theme.colour}>
       <Wrapper onClick={HandlerChangeLight} active={mode === "light"}>
         <ImgforTheme src="/icons/ligt.png" />
         Light

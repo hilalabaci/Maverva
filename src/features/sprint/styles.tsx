@@ -8,7 +8,7 @@ type FormProps = { $selected: boolean };
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: ${(props) => props.theme.backlogBgHover};
+  background-color: ${(props) => props.theme.colour.background.surface};
   border-radius: 5px;
   padding: 8px 8px;
 `;
@@ -71,11 +71,11 @@ export const HeaderStatus = styled.span<StatusProps>`
   color: ${({ status, theme }) => {
     switch (status) {
       case 0:
-        return !theme.primary; // red for status 1
+        return !theme.colour.primary; // red for status 1
       case 1:
-        return theme.primary; // yellow for status 2
+        return theme.colour.primary; // yellow for status 2
       default:
-        return theme.primary; // default green color
+        return theme.colour.primary; // default green color
     }
   }};
   cursor: default;
@@ -97,18 +97,22 @@ export const HeaderButton = styled.button<HeaderButtonPropsType>`
   border: none;
   outline: none;
   font-size: 14px;
-  color: ${(props) => props.theme.memberMenuFontColor};
   border-radius: 3px;
   font-weight: 500;
   text-align: center;
   cursor: pointer;
   padding: 8px 10px;
   background-color: ${(props) =>
-    props.$isActive ? "#091e420f" : props.theme.themeActiveColor};
+    props.$isActive
+      ? props.theme.colour.primary.button.secondary.background.default
+      : props.theme.colour.primary.button.secondary.background.active};
   color: ${(props) =>
-    props.$isActive ? props.theme.memberMenuFontColor : "white"};
+    props.$isActive ? props.theme.colour.text.primary : "white"};
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.active};
+    color: ${(props) =>
+      props.theme.colour.primary.button.secondary.text.active};
   }
 `;
 export const Accordion = styled.div`
@@ -125,7 +129,7 @@ export const BacklogCardListItems = styled.div`
   gap: 10px;
   border: ${(props) => props.theme.borderforModal};
   padding: 5px 0;
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.colour.primary};
   &:hover {
     background-color: ${(props) => props.theme.backlogBgHover};
   }
@@ -171,13 +175,14 @@ export const EditSprintButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
-  background-color: transparent;
   border-radius: 3px;
-  background-color: #091e420f;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   padding-block: 0;
   width: fit-content;
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
   ${BacklogCardList}:hover & {
     opacity: 1;
@@ -195,6 +200,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
   opacity: 1;
   justify-content: flex-end;
   cursor: pointer;
+  color: ${(props) => props.theme.colour.text.primary};
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
@@ -286,14 +292,18 @@ export const CreateButtonWrapper = styled.button`
   background-color: transparent;
   width: 100%;
   font-size: 14px;
+  gap: 5px;
+  color: ${(props) => props.theme.colour.text.inverted};
+  margin-top: 5px;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.backlogBgHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.card.background.default};
   }
 `;
 export const CreateIssueButton = styled.span`
   color: ${(props) => props.theme.memberMenuFontColor};
-  font-weight: 600;
+  font-weight: 500;
 `;
 export const IconAdd = styled(AddIcon)`
   font-size: 19px !important;

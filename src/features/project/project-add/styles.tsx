@@ -8,11 +8,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 900px;
-  background-color: ${(props) => props.theme.modalBg};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
   //border: 1px solid ${(props) => props.theme.fontColour};
   //height: 45px;
   border-radius: 5px;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.primary};
   font: var(
     --ds-font-body,
     normal 400 14px / 1.42857142857143 -apple-system,
@@ -45,36 +45,36 @@ export const FielsetWrapper = styled.fieldset`
 `;
 
 export const InputStyle = styled.input`
+  background-color: ${(props) => props.theme.colour.background.default};
+  color: ${(props) => props.theme.colour.text.primary};
+  outline: ${(props) => props.theme.colour.modal.border.default};
   height: 20px;
   font-size: 14px;
-  font-weight: 14px;
-  background-color: ${(props) => props.theme.modalInputBg};
-  border: 1px solid;
   border-radius: 3px;
   padding: 4px 7px 5px;
   width: 250px;
-  color: ${(props) => props.theme.fontColour};
   letter-spacing: 0.05em;
+  border: none;
   &:focus-visible {
-    outline: ${(props) => props.theme.activeBorder};
+    outline: ${(props) => props.theme.colour.border.active};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px;
   }
 `;
 export const InputforProjectLead = styled.div`
+  outline: ${(props) => props.theme.colour.modal.border.default};
+  color: ${(props) => props.theme.colour.text.primary};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   display: flex;
   align-items: center;
   height: 20px;
   font-size: 14px;
-  font-weight: 14px;
-  background-color: ${(props) => props.theme.modalInputBg};
-  border: 1px solid;
+  border: none;
   border-radius: 3px;
   padding: 4px 7px 5px;
   width: 250px;
-  color: ${(props) => props.theme.fontColour};
-  outline: none;
   gap: 5px;
   @media only screen and (max-width: 768px) {
     font-size: 12px;
@@ -149,14 +149,22 @@ export interface SubmitButtonStyledButton {
 export const SubmitButton = styled.button<SubmitButtonStyledButton>`
   font-size: 14px;
   padding: 9px;
-  background-color: ${(props) => (props.$isFilled ? " #0c66e4" : "#091e4208")};
-  color: ${(props) => (props.$isFilled ? "white" : "#091e424f")};
+  background-color: ${(props) =>
+    props.$isFilled
+      ? `${props.theme.colour.primary.button.primary.background.default}`
+      : `${props.theme.colour.primary.button.secondary.background.default}`};
+  color: ${(props) =>
+    props.$isFilled
+      ? `${props.theme.colour.primary.button.primary.text.default}`
+      : `${props.theme.colour.modal.text.default}`};
   outline: none;
   border: none;
   border-radius: 2px;
   transition: all 0.5s ease-out allow-discrete;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.submitButtonHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.primary.background.default};
+    color: ${(props) => props.theme.colour.primary.button.primary.text.default};
   }
 `;
