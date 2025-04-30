@@ -39,18 +39,19 @@ const lightColors: ThemeColors = {
         background: {
           default: "#091e420f",
           hover: "#091e4224",
-          active: "#579DFF",
+          active: "#1868DB",
         },
         text: {
           default: "#172b4d",
           hover: "white",
-          active: "#1868DB",
+          active: "white",
         },
       },
     },
     card: {
       border: {
         default: "1px solid rgb(221, 223, 228)",
+        active: "2px solid #388BFF",
       },
       background: {
         default: "rgb(255, 255, 255)",
@@ -61,7 +62,7 @@ const lightColors: ThemeColors = {
   border: {
     default: "1px solid rgb(133, 144, 162)",
     focus: "#3b82f6",
-    active: "2px solid #388BFF",
+    active: "2px solid rgb(12, 102, 228)",
   },
   divider: {
     border: {
@@ -163,6 +164,38 @@ const lightColors: ThemeColors = {
     },
     border: {
       default: "rgba(255,255,255,255",
+    },
+  },
+  progressColours: {
+    toDo: {
+      default: {
+        background: "#091e420f",
+        text: "#44546F",
+      },
+      hover: {
+        background: "#d0d4dc",
+        text: "rgb(0, 0, 0)",
+      },
+    },
+    inProgress: {
+      default: {
+        background: "rgb(233, 242, 255)",
+        text: "#0055CC",
+      },
+      hover: {
+        background: "#CCE0FF",
+        text: "#0055CC",
+      },
+    },
+    done: {
+      default: {
+        background: "#DCFFF1",
+        text: "#216E4E",
+      },
+      hover: {
+        background: "#BAF3DB",
+        text: "rgb(32, 110, 78)",
+      },
     },
   },
 

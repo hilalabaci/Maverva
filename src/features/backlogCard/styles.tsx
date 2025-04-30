@@ -99,21 +99,55 @@ type StatusPropsType = {
 const handleColorType = (status: number, theme: DefaultTheme) => {
   switch (status) {
     case IssueStatus.ToDo:
-      return { backgroundColor: "#f5a142", color: "#000" };
+      return {
+        default: {
+          backgroundColor: theme.colour.progressColours.toDo.default.background,
+          color: theme.colour.progressColours.toDo.default.text,
+        },
+        hover: {
+          backgroundColor: theme.colour.progressColours.toDo.hover.background,
+          color: theme.colour.progressColours.toDo.hover.text,
+        },
+      };
     case IssueStatus.InProgress:
-      return { backgroundColor: "#e9f2ff", color: "#275fa0" };
+      return {
+        default: {
+          backgroundColor:
+            theme.colour.progressColours.inProgress.default.background,
+          color: theme.colour.progressColours.inProgress.default.text,
+        },
+        hover: {
+          backgroundColor:
+            theme.colour.progressColours.inProgress.hover.background,
+          color: theme.colour.progressColours.inProgress.hover.text,
+        },
+      };
     case IssueStatus.Done:
-      return { backgroundColor: "#dcfff1", color: "#206e4e" };
+      return {
+        default: {
+          backgroundColor: theme.colour.progressColours.done.default.background,
+          color: theme.colour.progressColours.done.default.text,
+        },
+        hover: {
+          backgroundColor: theme.colour.progressColours.done.hover.background,
+          color: theme.colour.progressColours.done.hover.text,
+        },
+      };
     default:
-      return { backgroundColor: "#fff", color: "#000" };
+      return {
+        default: { backgroundColor: "#fff", color: "#000" },
+        hover: { backgroundColor: "#ddd", color: "#000" },
+      };
   }
 };
+
 export const Status = styled.div<StatusPropsType>`
   justify-self: start;
   align-self: center;
   background-color: ${({ $status, theme }) =>
-    handleColorType($status, theme).backgroundColor};
-  color: ${({ $status, theme }) => handleColorType($status, theme).color};
+    handleColorType($status, theme).default.backgroundColor};
+  color: ${({ $status, theme }) =>
+    handleColorType($status, theme).default.color};
   text-transform: uppercase;
   border-radius: 3px;
   font-size: 12px;
@@ -121,7 +155,10 @@ export const Status = styled.div<StatusPropsType>`
   font-weight: 700;
   cursor: pointer;
   &:hover {
-    background-color: #d0d4dc;
+    background-color: ${({ $status, theme }) =>
+      handleColorType($status, theme).hover.backgroundColor};
+    color: ${({ $status, theme }) =>
+      handleColorType($status, theme).hover.color};
   }
 `;
 
@@ -137,12 +174,15 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
   opacity: 0;
   justify-content: flex-end;
   border-radius: 3px;
-  background-color: ${(props) => props.theme.IconEditBg};
+  cursor: pointer;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   &:hover {
   }
   ${BacklogCardListItems}:hover & {
     opacity: 1;
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
@@ -151,17 +191,24 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
 `;
 export const EditWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 5px;
   width: 100%;
 `;
 export const EditTextArea = styled.textarea`
   resize: none;
   outline: none;
   border-radius: 3px;
-  border: ${(props) => props.theme.activeBorder};
-  width: 100%;
+  border: none;
+  outline: ${(props) => props.theme.colour.primary.card.border.active};
+  background-color: ${(props) => props.theme.colour.background.surface};
+  color: ${(props) => props.theme.colour.text.inverted};
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  width: 90%;
+  height: auto;
+  padding-inline-start: 5px;
 `;
 export const DoneButton = styled.button`
   cursor: pointer;
@@ -169,9 +216,16 @@ export const DoneButton = styled.button`
   border: none;
   border-radius: 3px;
   padding: 4px 5px;
-  background: white;
-  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
-    0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
+  background: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
+  color: ${(props) => props.theme.colour.primary.button.secondary.text.default};
+  outline: ${(props) => props.theme.colour.primary.card.border.default};
+  &:hover {
+    background: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.active};
+    color: ${(props) =>
+      props.theme.colour.primary.button.secondary.text.active};
+  }
 `;
 export const IconDone = styled(DoneIcon)`
   font-size: 14px !important;

@@ -31,7 +31,11 @@ import {
   DoneButton,
   IconDone,
 } from "./styles";
-import { deleteIssue, updateIssue, updateIssueContent } from "../../api/issueApi";
+import {
+  deleteIssue,
+  updateIssue,
+  updateIssueContent,
+} from "../../api/issueApi";
 import { useUserContext } from "../../contexts/UserContext";
 
 type BacklogCardPropsType = {
@@ -88,7 +92,7 @@ const BacklogCard = ({
       });
     },
   });
-   const { user } = useUserContext();
+  const { user } = useUserContext();
   const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
@@ -151,6 +155,7 @@ const BacklogCard = ({
           <EditWrapper ref={ref}>
             <EditTextArea
               value={changeContent}
+              rows={1}
               onChange={(e) => setChangeContent(e.target.value)}
             />
             <DoneButton onClick={() => updateCardContent(id, changeContent)}>

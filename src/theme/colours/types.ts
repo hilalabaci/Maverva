@@ -49,6 +49,7 @@ export interface ThemeColors {
     card: {
       border: {
         default: string;
+        active: string;
       };
       background: {
         default: string;
@@ -161,6 +162,32 @@ export interface ThemeColors {
     };
     border: {
       default: string;
+    };
+  };
+  progressColours: {
+    toDo: {
+      default: {
+        background: string;
+        text: string;
+      };
+      hover: {
+        background: string;
+        text: string;
+      };
+    };
+    inProgress: {
+      default: { background: string; text: string };
+      hover: { background: string; text: string };
+    };
+    done: {
+      default: {
+        background: string;
+        text: string;
+      };
+      hover: {
+        background: string;
+        text: string;
+      };
     };
   };
 

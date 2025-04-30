@@ -42,7 +42,7 @@ const darkColors: ThemeColors = {
           active: "#579DFF",
         },
         text: {
-          default: "#172B4D",
+          default: "#B6C2CF",
           hover: "white",
           active: "white",
         },
@@ -51,6 +51,7 @@ const darkColors: ThemeColors = {
     card: {
       border: {
         default: "1px solid rgba(255, 255, 255, 0.13)",
+        active: "2px solid rgb(87, 157, 255)",
       },
       background: {
         default: "rgb(29, 33, 37)",
@@ -164,6 +165,38 @@ const darkColors: ThemeColors = {
   tooltip: {
     background: "rgba(255,255,255,255)",
     text: "rgb(66, 82, 110)",
+  },
+  progressColours: {
+    toDo: {
+      default: {
+        background: "#a1bdd914",
+        text: "#9FADBC",
+      },
+      hover: {
+        background: "#a6c5e229",
+        text: "#B6C2CF",
+      },
+    },
+    inProgress: {
+      default: {
+        background: "#1C2B41",
+        text: "#85B8FF",
+      },
+      hover: {
+        background: "#09326C",
+        text: "#85B8FF",
+      },
+    },
+    done: {
+      default: {
+        background: "#1C3329",
+        text: "#7EE2B8",
+      },
+      hover: {
+        background: "#164B35",
+        text: "#7EE2B8",
+      },
+    },
   },
   projectColour: "rgb(22, 26, 29)",
   cardBG: "rgb(29, 33, 37)",

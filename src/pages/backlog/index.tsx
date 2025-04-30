@@ -2,7 +2,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BacklogCards from "../../features/backlogCards";
 import { Container } from "./styles";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { IssueType, SprintType } from "../../types";
 import { addSprint, getSprints } from "../../api/sprintApi";
 import { useParams } from "react-router-dom";
@@ -30,27 +30,7 @@ function Backlog() {
       console.error("Fetch error:", error);
     }
   }
-  useEffect(() => {
-    if (boardId) {
-      loadSprints();
-    }
-  }, [boardId, createSprint]);
-
-  function onUpdateCard(card: IssueType | undefined) {
-    loadSprints();
-  }
-  function ActiontoSprint(id: string) {
-    return sprints.length > 0 && sprints[0].Id === id;
-  }
-
-  useEffect(() => {
-    if (sprints.length > 0) {
-      setActiveToSprint(
-        sprints[0].Id === sprints.find((sprint) => sprint.Id)?.Id
-      );
-    }
-  }, [sprints]);
-  async function createSprint() {
+  const createSprint = useCallback(async () => {
     const sprintData = {
       boardId: boardId,
       userId: user?.Id,
@@ -66,7 +46,28 @@ function Backlog() {
     } catch (error) {
       console.error("Error creating sprint:", error);
     }
+  }, [boardId, user?.Id]);
+
+  useEffect(() => {
+    if (boardId) {
+      loadSprints();
+    }
+  }, [boardId]);
+
+  function onUpdateCard(card: IssueType | undefined) {
+    loadSprints();
   }
+  function ActiontoSprint(id: string) {
+    return sprints.length > 0 && sprints[0].Id === id;
+  }
+
+  useEffect(() => {
+    if (sprints.length > 0) {
+      setActiveToSprint(
+        sprints[0].Id === sprints.find((sprint) => sprint.Id)?.Id
+      );
+    }
+  }, [sprints]);
 
   return (
     <Container>

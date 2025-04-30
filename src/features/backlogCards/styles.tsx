@@ -76,20 +76,22 @@ export const HeaderButtonWrapper = styled.div`
   align-self: center;
 `;
 export const HeaderButton = styled.button`
+  color: ${(props) => props.theme.colour.primary.button.secondary.text.default};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
   border: none;
   outline: none;
   font-size: 14px;
-  color: ${(props) => props.theme.memberMenuFontColor};
   border-radius: 3px;
   font-weight: 500;
   text-align: center;
   cursor: pointer;
   padding: 8px 10px;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
   &:hover {
     background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
+      props.theme.colour.primary.button.secondary.background.active};
+    color: ${(props) =>
+      props.theme.colour.primary.button.secondary.text.active};
   }
 `;
 export const Accordion = styled.div`
@@ -113,7 +115,8 @@ export const DisplayCreateWrapper = styled.div`
   font-size: 14px;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.backlogBgHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.card.background.hover};
   }
 `;
 export const CreateButtonWrapper = styled.button`
@@ -178,18 +181,19 @@ export const EditSprintButton = styled.button`
   outline: none;
   cursor: pointer;
   margin: 0;
-  padding: 0;
   border-radius: 3px;
   width: fit-content;
+  cursor: pointer;
   background-color: ${(props) =>
     props.theme.colour.primary.button.secondary.background.default};
   &:hover {
     background-color: ${(props) =>
       props.theme.colour.primary.button.secondary.background.hover};
   }
-  ${BacklogCardList}:hover & {
-    opacity: 1;
-    background-color: ${(props) => props.theme.IconEditBGHover};
+  ${BacklogCardList}:hover& {
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.default};
+    background-color: yellow;
   }
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
@@ -200,18 +204,10 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
   justify-self: center;
   align-self: center;
   display: flex;
-  opacity: 1;
   justify-content: flex-end;
-  &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
-  }
-  ${BacklogCardList}:hover & {
-    opacity: 1;
-    background-color: ${(props) => props.theme.IconEditBGHover};
-  }
+  color: ${(props) => props.theme.colour.primary.button.secondary.text.default};
   @media only screen and (max-width: 768px) {
     font-size: 12px !important;
-    opacity: 1;
   }
 `;
 export const CheckboxWrapper = styled.div`

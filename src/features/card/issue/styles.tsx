@@ -132,7 +132,6 @@ export const EditTextArea = styled.textarea`
 `;
 export const DoneButton = styled.button`
   cursor: pointer;
-  outline: none;
   border: none;
   border-radius: 3px;
   padding: 4px 5px;
