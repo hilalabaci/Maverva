@@ -79,9 +79,13 @@ export interface DragDropCollect {
 export type NotificationType = {
   isRead: boolean;
   Id: string;
-  message: string;
-  fromUserId: UserType;
-  createdAdd: Date;
+  Message: string;
+  FromUser: {
+    id: string;
+    FullName: string;
+    email: string;
+  };
+  CreatedAt: Date;
 };
 
 export enum IssueStatus {

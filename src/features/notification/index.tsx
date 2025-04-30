@@ -12,7 +12,7 @@ import {
   Main,
   TimeInfo,
 } from "./styles";
-import { NotificationType } from "../../../types";
+import { NotificationType } from "../../types";
 
 type NotificationPropsType = {
   notification: NotificationType;
@@ -20,6 +20,7 @@ type NotificationPropsType = {
 function Notification(props: NotificationPropsType) {
   const { notification } = props;
 
+  console.log("Notification", notification);
   return (
     <Container $isRead={notification.isRead}>
       <Wrapper>
@@ -31,9 +32,9 @@ function Notification(props: NotificationPropsType) {
         <Info>
           <Main>
             <UserName>
-              {notification.fromUserId.fullName} {notification.message}
+              {notification.Message}
               <TimeInfo>
-                {formatDistanceToNow(notification.createdAdd, {
+                {formatDistanceToNow(notification.CreatedAt, {
                   addSuffix: true,
                 })}
               </TimeInfo>

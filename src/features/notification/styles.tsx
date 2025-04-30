@@ -25,7 +25,6 @@ export const UserInfo = styled.div`
 export const UserName = styled.div`
   font-weight: 600;
   font-size: 13px;
-  text-transform: capitalize;
   overflow: hidden;
   word-wrap: break-word;
 `;

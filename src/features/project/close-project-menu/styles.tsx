@@ -9,8 +9,8 @@ export const Container = styled.div`
   flex-direction: column;
   width: 400px;
   border-radius: 3px;
-  background-color: ${(props) => props.theme.modalBg};
-  color: ${(props) => props.theme.memberMenuFontColor};
+  background-color: ${(props) => props.theme.colour.modal.background.default};
+  color: ${(props) => props.theme.colour.text.inverted};
   padding: 12px;
   box-shadow: var(
     --ds-shadow-overlay,
@@ -53,7 +53,8 @@ export const ButtonWrapper = styled.div`
   gap: 8px;
 `;
 export const DeleteButton = styled.button`
-  background: #c9372c;
+  background: ${(props) =>
+    props.theme.colour.primary.button.warning.background.default};
   border-radius: 3px;
   display: flex;
   align-content: center;
@@ -61,11 +62,13 @@ export const DeleteButton = styled.button`
   align-items: center;
   outline: none;
   border: none;
-  color: white;
+  color: ${(props) => props.theme.colour.primary.button.warning.text.default};
   padding: 0 10px;
   font-weight: 500;
   font-size: 14px;
+  cursor: pointer;
   &:hover {
-    background-color: #ff9c8f;
+    background: ${(props) =>
+      props.theme.colour.primary.button.warning.background.hover};
   }
 `;

@@ -47,6 +47,15 @@ const lightColors: ThemeColors = {
           active: "white",
         },
       },
+      warning: {
+        background: {
+          default: "#c9372c",
+          hover: "ff9c8f",
+        },
+        text: {
+          default: "white",
+        },
+      },
     },
     card: {
       border: {

@@ -45,6 +45,15 @@ export interface ThemeColors {
           active: string;
         };
       };
+      warning: {
+        background: {
+          default: string;
+          hover: string;
+        };
+        text: {
+          default: string;
+        };
+      };
     };
     card: {
       border: {
