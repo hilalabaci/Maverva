@@ -26,7 +26,10 @@ import {
   CreateButton,
   MemberButtonWrapper,
 } from "./styles";
-import { getNotifications } from "../../../../api/notificationApi";
+import {
+  getNotifications,
+  markNotificationsReadApi,
+} from "../../../../api/notificationApi";
 type NavbarPropsType = {
   handleProjectCreate: (project: ProjectType) => void;
 };
@@ -88,22 +91,25 @@ function Navbar(props: NavbarPropsType) {
       .filter((n) => !n.isRead)
       .map((n) => n.Id);
     if (unReadNotificationIds.length <= 0) return;
-    const body = { notificationIds: unReadNotificationIds };
-    const response = await fetch(
-      process.env.REACT_APP_API_URL + "notification/mark-read",
-      {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response.ok) {
+    //const data = { notificationIds: unReadNotificationIds };
+    const response = await markNotificationsReadApi({
+      unReadNotificationIds: unReadNotificationIds,
+    });
+    if (response) {
       setTimeout(() => {
         setNotifications(notifications.map((n) => ({ ...n, isRead: true })));
       }, 5000);
     }
+    // const response = await fetch(
+    //   process.env.REACT_APP_API_URL + "notification/mark-read",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify(body),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
   }
 
   const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;

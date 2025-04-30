@@ -87,6 +87,9 @@ export type NotificationType = {
   };
   CreatedAt: Date;
 };
+export type NotificationMarkReadType = {
+  unReadNotificationIds: string[];
+};
 
 export enum IssueStatus {
   ToDo = 1,
