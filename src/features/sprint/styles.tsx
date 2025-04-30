@@ -60,22 +60,23 @@ export const HeaderStatus = styled.span<StatusProps>`
   background-color: ${({ status, theme }) => {
     switch (status) {
       case IssueStatus.ToDo || IssueStatus.ToDo:
-        return theme.statusColourGrey; // red for status 1
+        return theme.colour.progressColours.toDo.default.background;
       case IssueStatus.InProgress:
-        return theme.statusColourBlue; // yellow for status 2
+        return theme.colour.progressColours.inProgress.default.background;
       case IssueStatus.Done:
-        return theme.statusColourGreen;
-      default: // default green color
+        return theme.colour.progressColours.done.default.background;
+      default:
     }
   }};
   color: ${({ status, theme }) => {
     switch (status) {
-      case 0:
-        return !theme.colour.primary; // red for status 1
-      case 1:
-        return theme.colour.primary; // yellow for status 2
+      case IssueStatus.ToDo || IssueStatus.ToDo:
+        return theme.colour.progressColours.toDo.default.text;
+      case IssueStatus.InProgress:
+        return theme.colour.progressColours.inProgress.default.text;
+      case IssueStatus.Done:
+        return theme.colour.progressColours.done.default.text;
       default:
-        return theme.colour.primary; // default green color
     }
   }};
   cursor: default;
@@ -83,7 +84,9 @@ export const HeaderStatus = styled.span<StatusProps>`
   font-size: 12px;
   padding: 2px 7px;
   height: min-content;
+  font-weight: 600;
 `;
+
 export const HeaderButtonWrapper = styled.div`
   justify-self: center;
   align-self: center;
