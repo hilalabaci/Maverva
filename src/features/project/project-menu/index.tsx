@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import OptionalBoardCreate from "../../board/optional/create";
@@ -41,23 +42,35 @@ import {
 import { getBoards } from "../../../api/boardApi";
 
 type ProjectMenuPropsType = {
-  ProjectTitle: string;
+  ProjectTitleProps: string;
   hideMenu: boolean;
-  projectKey: string;
   projectId: string;
   onHover?: (hover: boolean) => void;
-  selectedProjectsTitle: string;
+  selectedProjectsTitle: string | undefined;
 };
 type URLParams = {
   projectKey: string;
   boardId?: string;
 };
-function ProjectMenu(props: ProjectMenuPropsType) {
+function ProjectMenu({
+  ProjectTitleProps,
+  hideMenu,
+  projectId,
+  onHover,
+  selectedProjectsTitle,
+}: ProjectMenuPropsType) {
   const location = useLocation();
-  const { boardId } = useParams<URLParams>();
+  const navigate = useNavigate();
+  const { projectKey, boardId } = useParams<URLParams>();
   const { user } = useUserContext();
+  const {
+    activeSprint,
+    setActiveSprint,
+    selectedProject,
+    selectedBoard,
+    setSelectedBoard,
+  } = useApplicationContext();
   const [boards, setBoards] = useState<BoardType[]>([]);
-  const { selectedBoard, setSelectedBoard } = useApplicationContext();
   const [showBoards, setShowBoards] = useState(false);
   const isBacklog = location.pathname.includes("/backlog");
   const isActiveSprint = !isBacklog;
@@ -72,8 +85,8 @@ function ProjectMenu(props: ProjectMenuPropsType) {
   }
 
   async function loadBoards() {
-    if (!user) return;
-    const { ok, data } = await getBoards(props.projectKey, user.Id);
+    if (!user || !projectKey) return;
+    const { ok, data } = await getBoards(projectKey, user.Id);
     if (ok && data) {
       setBoards(data);
     }
@@ -81,28 +94,32 @@ function ProjectMenu(props: ProjectMenuPropsType) {
   useEffect(() => {
     loadBoards();
   }, []);
+
+  useEffect(() => {
+    if (selectedBoard?.Sprints && selectedBoard?.Sprints.length > 0) {
+      setActiveSprint(selectedBoard.Sprints[0]);
+    }
+  }, [selectedBoard, setActiveSprint]);
   return (
     <Container
-      $hidden={props.hideMenu}
-      onMouseEnter={() => props.onHover?.(true)}
-      onMouseLeave={() => props.onHover?.(false)}
+      $hidden={hideMenu}
+      onMouseEnter={() => onHover?.(true)}
+      onMouseLeave={() => onHover?.(false)}
     >
       <Wrapper>
-        <UserInfo $hidden={props.hideMenu}>
+        <UserInfo $hidden={hideMenu}>
           <ProjectAvatar
-            $hidden={props.hideMenu}
+            $hidden={hideMenu}
             $userPhotoWidth="30px"
             $userPhotoHeight="30px"
             $userPhotoFontSize="1px"
             $userBorderadius="3px"
             $fontWeight="600"
-            projectId={props.projectId}
+            projectId={projectId}
           />
-          <ProjectTitle $hidden={props.hideMenu}>
-            {props.ProjectTitle}
-          </ProjectTitle>
+          <ProjectTitle $hidden={hideMenu}>{selectedProject?.Name}</ProjectTitle>
         </UserInfo>
-        <AddProjectWrapper $hidden={props.hideMenu}>
+        <AddProjectWrapper $hidden={hideMenu}>
           <SideBarItem>
             <Title>Planning</Title>
             <SideBarWrapper>
@@ -138,12 +155,18 @@ function ProjectMenu(props: ProjectMenuPropsType) {
 
                         {boards.map((board) => (
                           <GetBoardsListItem
-                            to={`/projects/${props.projectKey}/boards/${board.Id}`}
+                            //to={`/projects/${projectKey}/boards/${boardId}/sprints/${activeSprint?.Id}`}
                             key={board.Id}
                             selected={selectedBoard?.Id === board.Id}
                             onClick={() => {
                               setSelectedBoard(board);
                               setShowBoards(false);
+                              const activeSprintId = board.Sprints?.[0]?.Id; //only get acive sprint from backend
+                              if (activeSprintId) {
+                                navigate(
+                                  `/projects/${projectKey}/boards/${board.Id}/sprints/${activeSprintId}`
+                                );
+                              }
                             }}
                           >
                             <SideBarElementIcon>
@@ -166,7 +189,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                       onChange={setShowModalforCreateButton}
                     >
                       <OptionalBoardCreate
-                        // onCreate={props.onCreate}
+                        // onCreate={onCreate}
                         onClose={closeModalforCreateButton}
                         handleProjectCreate={function (
                           project: ProjectType
@@ -181,7 +204,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
 
               <SideBarListWrapper>
                 <SideBarElement
-                  to={`/projects/${props.projectKey}/boards/${boardId}/backlog`}
+                  to={`/projects/${projectKey}/boards/${boardId}/backlog`}
                 >
                   <SideBarElementWrapper selected={isBacklog}>
                     <SideBarElementIcon>
@@ -191,7 +214,7 @@ function ProjectMenu(props: ProjectMenuPropsType) {
                   </SideBarElementWrapper>
                 </SideBarElement>
                 <SideBarElement
-                  to={`/projects/${props.projectKey}/boards/${boardId}`}
+                  to={`/projects/${projectKey}/boards/${boardId}/sprints/${activeSprint?.Id}`}
                 >
                   <SideBarElementWrapper selected={isActiveSprint}>
                     <SideBarElementIcon>

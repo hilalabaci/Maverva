@@ -22,7 +22,7 @@ export const addProject = async (
 };
 
 export const getProjects = async (userId: string) => {
-  return await apiCall<ProjectType[]>("project", {
+  return await apiCall<ProjectType[]>("projects", {
     method: "GET",
     urlParams: new URLSearchParams({ userId }),
   });

@@ -13,6 +13,7 @@ export type ProjectType = {
   LeadUser: UserType;
   Boards: BoardType[];
   IsFavourite: boolean;
+  Sprints: SprintType[];
 };
 export type BoardType = {
   Id: string;
@@ -21,6 +22,7 @@ export type BoardType = {
   Users: UserType[];
   ProjectKey: ProjectType;
   ActiveSprint: SprintType;
+  Sprints: SprintType[];
 };
 export type ColumnType = {
   Id: string;
@@ -63,13 +65,13 @@ export type LabelType = {
 };
 
 export type DragItem = {
-  IssueId: string;
+  issueId: string;
   oldSprintId?: string;
   boardId?: string;
 };
 export type BacklogDragItems = {
   oldSprintId?: string;
-  cardId: string;
+  issueId: string;
   boardId: string;
 };
 
@@ -77,7 +79,7 @@ export interface DragDropCollect {
   isDragging: boolean;
 }
 export type NotificationType = {
-  isRead: boolean;
+  IsRead: boolean;
   Id: string;
   Message: string;
   FromUser: {
@@ -89,6 +91,7 @@ export type NotificationType = {
 };
 export type NotificationMarkReadType = {
   unReadNotificationIds: string[];
+  userId: string;
 };
 
 export enum IssueStatus {

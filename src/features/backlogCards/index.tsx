@@ -40,6 +40,7 @@ import { addIssue, updateIssueSprintToBacklog } from "../../api/issueApi";
 type URLParams = {
   projectKey: string;
   boardId: string;
+  sprintId?: string;
 };
 type BacklogCardsProps = {
   createSprint: () => void;
@@ -47,7 +48,7 @@ type BacklogCardsProps = {
 
 function BacklogCards({ createSprint }: BacklogCardsProps) {
   const { user } = useUserContext();
-  const { projectKey, boardId } = useParams<URLParams>();
+  const { projectKey, boardId, sprintId } = useParams<URLParams>();
   const [content, setContent] = useState("");
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
@@ -57,8 +58,7 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
   const [, drop] = useDrop<DragItem>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
-      console.log("dropped,sprint to backlog", item);
-      updateCard(item.IssueId, 1, item.oldSprintId, item.boardId);
+      updateCard(item.issueId, 1, item.oldSprintId, item.boardId);
       loadBacklogCards();
     },
   });
@@ -92,6 +92,7 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
   }
 
   async function submitNote() {
+    if (!projectKey || !boardId || !sprintId) return;
     try {
       const cardData = {
         content: content,
@@ -101,7 +102,7 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
         boardId: boardId,
       };
 
-      const { ok } = await addIssue(cardData);
+      const { ok } = await addIssue(cardData, projectKey, boardId, sprintId);
       if (ok) {
         setContent("");
         await loadBacklogCards();
@@ -114,13 +115,14 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
   async function updateCard(
     id: string,
     status: number,
-    sprintId?: string,
+    oldSprintId?: string,
     boardId?: string
   ) {
     const response = await updateIssueSprintToBacklog(
+      projectKey as string,
       id,
       status,
-      sprintId,
+      oldSprintId,
       boardId
     );
     if (response.ok && response.data) {

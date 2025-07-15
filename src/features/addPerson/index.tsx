@@ -25,6 +25,7 @@ import {
   RoleWrapper,
 } from "./styles";
 import { addUsertoBoard, getBoards } from "../../api/boardApi";
+import { useParams } from "react-router-dom";
 type AddPersonPropsType = {
   projectTitle: string;
   closeModal: () => void;
@@ -32,7 +33,16 @@ type AddPersonPropsType = {
   projectId: string;
 };
 
-function AddPerson(props: AddPersonPropsType) {
+type URLParams = {
+  boardId: string;
+};
+
+function AddPerson({
+  projectKey,
+  projectId,
+  projectTitle,
+}: AddPersonPropsType) {
+  const { boardId } = useParams<URLParams>();
   const [showModal, setShowModal] = useState(false);
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
   const [boards, setBoards] = useState<BoardType[]>([]);
@@ -54,7 +64,7 @@ function AddPerson(props: AddPersonPropsType) {
   }
   async function loadBoards() {
     if (!user) return;
-    const { ok, data } = await getBoards(props.projectKey, user.Id);
+    const { ok, data } = await getBoards(projectKey, user.Id);
     if (ok && data) {
       setBoards(data);
     }
@@ -69,7 +79,7 @@ function AddPerson(props: AddPersonPropsType) {
     }
   }
   async function addUserToBoard() {
-    const projectId = props.projectId;
+    if (!projectKey || !boardId) return;
     const boardIds = selectedBoards.map((board) => board.Id);
     const projectData = {
       projectId: projectId,
@@ -78,9 +88,9 @@ function AddPerson(props: AddPersonPropsType) {
       role: selectedRole,
       userId: user?.Id as string,
     };
-    const { ok, data } = await addUsertoBoard(projectData);
+    const { ok, data } = await addUsertoBoard(projectData, projectKey, boardId);
     if (ok && data) return ok;
-    props.closeModal();
+    closeModal();
   }
   return (
     <Container>
@@ -116,7 +126,7 @@ function AddPerson(props: AddPersonPropsType) {
                     <InputforProjectDropDown
                       type="text"
                       value={selectedBoards
-                        .map((p) => ({ title: p.Name, key: props.projectKey }))
+                        .map((p) => ({ title: p.Name, key: projectKey }))
                         .reduce(
                           (acc, project) =>
                             acc + `${project.title}(${project.key}) `,
@@ -129,7 +139,7 @@ function AddPerson(props: AddPersonPropsType) {
                 }
                 items={boards.map((board) => {
                   return {
-                    label: board.Name + " (" + props.projectKey + ")",
+                    label: board.Name + " (" + projectKey + ")",
                     selected: !!selectedBoards.find((p) => p.Id === board.Id),
                     action: () => {
                       const selected = selectedBoards.find(
@@ -149,7 +159,7 @@ function AddPerson(props: AddPersonPropsType) {
               <TitleforProject>Role</TitleforProject>
               <DropdownSelectMenu
                 triggerWidth={true}
-                title="Boards"
+                title="Role"
                 trigger={
                   <InputWrapperwithIcon>
                     <InputforProjectDropDown
@@ -183,7 +193,7 @@ function AddPerson(props: AddPersonPropsType) {
               />
             </RoleWrapper>
             <ButtonWrapper>
-              <CancelButton onClick={props.closeModal}>Cancel</CancelButton>
+              <CancelButton onClick={closeModal}>Cancel</CancelButton>
               <Modal
                 trigger={<SubmitButton type="submit">Add</SubmitButton>}
                 onClose={closeModal}
@@ -193,9 +203,9 @@ function AddPerson(props: AddPersonPropsType) {
                 <AddedPerson
                   onClose={() => {
                     closeModal();
-                    props.closeModal();
+                    closeModal();
                   }}
-                  projectTitle={props.projectTitle}
+                  projectTitle={projectTitle}
                   emailforAddPerson={emailforAddPerson}
                 />
               </Modal>

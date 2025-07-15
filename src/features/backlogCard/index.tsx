@@ -37,6 +37,7 @@ import {
   updateIssueContent,
 } from "../../api/issueApi";
 import { useUserContext } from "../../contexts/UserContext";
+import { useParams } from "react-router-dom";
 
 type BacklogCardPropsType = {
   cardKey: string;
@@ -51,6 +52,10 @@ type BacklogCardPropsType = {
   updateCardAfterDrag: (id: string) => void;
   onUpdateContent: (card: IssueType) => void;
 };
+type URLParams = {
+  projectKey: string;
+  sprintId: string;
+};
 
 const BacklogCard = ({
   cardKey,
@@ -58,20 +63,20 @@ const BacklogCard = ({
   status,
   reporterUser,
   id,
-  sprintId,
   boardId,
   updateCardsAfterDelete,
   onUpdateCardStatus,
   updateCardAfterDrag,
   onUpdateContent,
 }: BacklogCardPropsType) => {
+  const { projectKey, sprintId } = useParams<URLParams>();
   const [{ isDragging }, drag] = useDrag<
     BacklogDragItems,
     unknown,
     DragDropCollect
   >({
     type: "BACKLOG_CARD",
-    item: { cardId: id, oldSprintId: sprintId, boardId: boardId },
+    item: { issueId: id, oldSprintId: sprintId, boardId: boardId },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -115,7 +120,7 @@ const BacklogCard = ({
   ];
 
   async function updateCard(id: string, status: number) {
-    const response = await updateIssue(id, status);
+    const response = await updateIssue(id, status.toString());
     if (response.ok && response.data) {
       onUpdateCardStatus(response.data.Id, response.data.Status);
     } else {
@@ -124,8 +129,18 @@ const BacklogCard = ({
   }
 
   async function deleteCard() {
-    const cardId = id;
-    const response = await deleteIssue(cardId, user?.Id as string);
+    if (!projectKey || !boardId || !sprintId || !user?.Id) {
+      console.error("Missing required parameters for delete operation.");
+      return;
+    }
+    const issueId = id;
+    const response = await deleteIssue(
+      projectKey,
+      boardId,
+      sprintId,
+      issueId,
+      user.Id
+    );
     if (response.ok) {
       updateCardsAfterDelete(id);
     }

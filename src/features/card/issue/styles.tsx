@@ -28,13 +28,14 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled.button`
   background-color: ${(props) => props.theme.colour.background.cardBG.base};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.75rem;
   border-radius: 3px;
+  border: none;
   //max-width: 270px;
   /* box-shadow: 0px 1px 1px #091e4240, 0px 0px 1px #091e424f, 0 1px 1px #172b4d00,
     0 0 1px #172b4d33;
@@ -42,7 +43,7 @@ export const Container = styled.div`
     0 1px 1px #172b4d00, 0 0 1px #172b4d33; */
   box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
     0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
-  background-color: ${(props) => props.theme.colour.background.default};
+  //background-color: ${(props) => props.theme.colour.background.default};
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.colour.background.cardBG.hover};
@@ -83,6 +84,7 @@ export const NoteWrapper = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  gap: 5px;
   @media only screen and (max-width: 768px) {
     font-size: 10px;
     overflow: scroll;
@@ -106,6 +108,8 @@ export const NoteEdit = styled.button`
   margin: 0;
   background: transparent;
   color: ${(props) => props.theme.colour.text.primary};
+  border-radius: 3px;
+  cursor: pointer;
   &:hover {
     background-color: ${(props) =>
       props.theme.colour.primary.button.secondary.background.hover};

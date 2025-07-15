@@ -20,9 +20,8 @@ type NotificationPropsType = {
 function Notification(props: NotificationPropsType) {
   const { notification } = props;
 
-  console.log("Notification", notification);
   return (
-    <Container $isRead={notification.isRead}>
+    <Container $isRead={notification.IsRead}>
       <Wrapper>
         <UserInfo>
           <ButtonStylesforIconPerson style={{ margin: 0 }}>

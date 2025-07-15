@@ -105,7 +105,6 @@ function DynamicContentLoader() {
     setFilteredIssues(
       issues.filter((issue) => issue.Summary.includes(searchInput))
     );
-    console.log(issues);
   }, [searchInput, issues]);
 
   function addedCard(card: IssueType) {

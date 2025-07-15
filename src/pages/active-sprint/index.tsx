@@ -71,9 +71,13 @@ function ActiveSprint({
   }
 
   async function loadColumns() {
-    if (!boardId) return;
+    if (!boardId || !projectKey || !activeSprint?.Id) return;
     try {
-      const { ok, data } = await getColumns(boardId);
+      const { ok, data } = await getColumns(
+        projectKey,
+        boardId,
+        activeSprint?.Id
+      );
       if (ok && data) setColumns(data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -109,13 +113,11 @@ function ActiveSprint({
     } catch (error) {}
   }
   useEffect(() => {
-    if (boardId) {
+    if (boardId && activeSprint) {
       loadColumns();
     }
-  }, [boardId]);
-  useEffect(() => {
-    console.log(`activeSprintfromActive:`, activeSprint);
-  }, []);
+  }, [boardId, activeSprint]);
+  
 
   return (
     <Container>

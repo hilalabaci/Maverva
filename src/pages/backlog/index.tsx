@@ -11,10 +11,11 @@ import { useUserContext } from "../../contexts/UserContext";
 
 type URLParams = {
   boardId?: string;
+  projectKey?: string;
 };
 
 function Backlog() {
-  const { boardId } = useParams<URLParams>();
+  const { boardId, projectKey } = useParams<URLParams>();
   const [sprints, setSprints] = useState<SprintType[]>([]);
   const [activeToSprint, setActiveToSprint] = useState(false);
   const { user } = useUserContext();
@@ -24,7 +25,7 @@ function Backlog() {
       return;
     }
     try {
-      const { ok, data } = await getSprints(boardId);
+      const { ok, data } = await getSprints(boardId, projectKey as string );
       if (ok && data) setSprints(data);
     } catch (error) {
       console.error("Fetch error:", error);

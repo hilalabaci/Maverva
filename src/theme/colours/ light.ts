@@ -17,6 +17,7 @@ const lightColors: ThemeColors = {
     inverted: "#172b4d",
     link: "#0c66e4",
     subtitle: "#44546F",
+    highlightColor: "black",
   },
   primary: {
     base: "#3b82f6",
@@ -161,8 +162,8 @@ const lightColors: ThemeColors = {
     },
   },
   tooltip: {
-    background: "rgb(29, 33, 37)",
-    text: "rgba(182, 194, 207)",
+    background: "#44556f",
+    text: "white",
   },
   scroll: {
     background: {

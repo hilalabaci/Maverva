@@ -2,11 +2,19 @@ import { AddIssueRequest } from "../apiTypes/types";
 import { IssueType } from "../types";
 import { apiCall } from "./apiClient";
 
-export const addIssue = async (data: AddIssueRequest) => {
-  return await apiCall("issue", {
-    method: "POST",
-    data: data,
-  });
+export const addIssue = async (
+  data: AddIssueRequest,
+  projectKey: string,
+  boardId: string,
+  sprintId: string
+) => {
+  return await apiCall(
+    `projects/${projectKey}/boards/${boardId}/sprints/${sprintId}/issues`,
+    {
+      method: "POST",
+      data: data,
+    }
+  );
 };
 export const getIssues = async (boardId: string) => {
   return await apiCall<IssueType[]>("issue", {
@@ -23,27 +31,35 @@ export const getBacklogIssues = async (projectKey: string, boardId: string) => {
   );
 };
 export const updateIssue = async (
-  cardId: string,
+  projectKey: string,
+  issueId: string,
   status?: number,
   newSprintId?: string,
-  oldSprintId?: string,
+  currentSprintId?: string,
   boardId?: string
 ) => {
-  return await apiCall<IssueType>("issue", {
-    method: "PUT",
-    data: { cardId, status, newSprintId, oldSprintId, boardId },
-  });
+  return await apiCall<IssueType>(
+    `projects/${projectKey}/boards/${boardId}/sprints/${currentSprintId}/issues/${issueId}`,
+    {
+      method: "PUT",
+      data: { issueId, status, newSprintId, currentSprintId, boardId },
+    }
+  );
 };
 export const updateIssueSprintToBacklog = async (
-  cardId: string,
+  projectKey: string,
+  issueId: string,
   status?: number,
   oldSprintId?: string,
   boardId?: string
 ) => {
-  return await apiCall<IssueType>("issue", {
-    method: "PUT",
-    data: { cardId, status, oldSprintId, boardId },
-  });
+  return await apiCall<IssueType>(
+    `projects/${projectKey}/boards/${boardId}/sprints/${oldSprintId}/issues/${issueId}`,
+    {
+      method: "PUT",
+      data: { issueId, status, oldSprintId, boardId },
+    }
+  );
 };
 
 export const updateIssueContent = async (
@@ -55,10 +71,21 @@ export const updateIssueContent = async (
     data: { cardId, newContent },
   });
 };
-export const deleteIssue = async (issueId: string,userId:string) => {
-  return await apiCall("issue", {
-    method: "DELETE",
-    urlParams: new URLSearchParams({ id: issueId }),
-    data: {userId}
-  });
+export const deleteIssue = async (
+  projectKey: string,
+  boardId: string,
+  sprintId: string,
+  issueId: string,
+  userId: string
+) => {
+  return await apiCall(
+    `projects/${projectKey}/boards/${boardId}/sprints/${sprintId}/issues/${issueId}`,
+    {
+      method: "DELETE",
+      data: { userId, issueId, boardId, sprintId },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
 };

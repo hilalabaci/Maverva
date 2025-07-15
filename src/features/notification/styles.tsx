@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { themes } from "../../theme";
 //import Markdown from "react-markdown";
 
 type ContainerPropsType = {
@@ -6,12 +7,15 @@ type ContainerPropsType = {
 };
 export const Container = styled.div<ContainerPropsType>`
   background-color: ${(props) =>
-    props.$isRead ? props.theme.ModalBg : "  rgba(168, 204, 255, 0.3);"};
-  padding: 15px 0;
+    props.$isRead
+      ? props.theme.colour.modal.background.default
+      : "  rgba(168, 204, 255, 0.3);"};
+  padding: 15px 10px;
   font-size: 12px;
   border-radius: 3px;
   &:hover {
-    background-color: var(--ds-background-neutral-subtle-hovered, #f4f5f7);
+    background-color: ${(props) => props.theme.colour.modal.background.hover};
+    cursor: pointer;
   }
 `;
 

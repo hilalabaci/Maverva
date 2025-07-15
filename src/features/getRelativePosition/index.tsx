@@ -25,9 +25,6 @@ const MyComponent: React.FC = () => {
   const handleClick = () => {
     if (myElementRef.current) {
       const position = getRelativePosition(myElementRef.current);
-      console.log(
-        `Top: ${position.top}, Left: ${position.left}, Bottom: ${position.bottom}, Right: ${position.right}`
-      );
     }
   };
 

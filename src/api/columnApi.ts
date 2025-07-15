@@ -2,11 +2,18 @@ import { AddColumnRequest } from "../apiTypes/types";
 import { ColumnType } from "../types";
 import { apiCall } from "./apiClient";
 
-export const getColumns = async (boardId: string) => {
-  return await apiCall<ColumnType[]>("column", {
-    method: "GET",
-    urlParams: new URLSearchParams({ boardId }),
-  });
+export const getColumns = async (
+  projectKey: string,
+  boardId: string,
+  sprintId: string
+) => {
+  return await apiCall<ColumnType[]>(
+    `projects/${projectKey}/boards/${boardId}/sprints/${sprintId}/columns`,
+    {
+      method: "GET",
+      urlParams: new URLSearchParams({ projectKey, boardId, sprintId }),
+    }
+  );
 };
 export const addColumn = async (data: AddColumnRequest) => {
   return await apiCall("column", {

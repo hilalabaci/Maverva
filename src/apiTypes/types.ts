@@ -1,3 +1,4 @@
+import exp from "constants";
 import { BoardType, ProjectType, UserType } from "../types";
 
 export type ApiCallOptions = {
@@ -32,6 +33,9 @@ export type AddBoardRequest = {
 export type AddBoardResponse = {
   message: string;
   newProject: BoardType;
+};
+export type GetUsersToBoardResponse = {
+  boardId: string;
 };
 export type AddUserToBoardRequest = {
   projectId: string;

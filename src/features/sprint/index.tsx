@@ -96,7 +96,12 @@ function Sprint({
     boardId: string,
     oldSprintId?: string
   ) {
+    if (!projectKey || !id || !newSprintId || !boardId) {
+      console.error("Missing required parameters for updateCardInfo");
+      return;
+    }
     const response = await updateIssue(
+      projectKey,
       id,
       undefined,
       newSprintId,
@@ -114,7 +119,7 @@ function Sprint({
   const handleDrop = async (item: BacklogDragItems) => {
     if (selectedSprintId && boardId) {
       const updatedCard = await updateCardInfo(
-        item.cardId,
+        item.issueId,
         selectedSprintId,
         boardId,
         item.oldSprintId
@@ -154,6 +159,7 @@ function Sprint({
     setContent(value);
   }
   async function submitNote() {
+    if (!projectKey || !boardId || !selectedSprintId) return;
     try {
       const cardData = {
         content: content,
@@ -164,7 +170,12 @@ function Sprint({
         sprintId: selectedSprintId,
       };
 
-      const { ok, data } = await addIssue(cardData);
+      const { ok, data } = await addIssue(
+        cardData,
+        projectKey,
+        boardId,
+        selectedSprintId
+      );
       if (ok && data) {
         setSprintCards((prevCards) => [...prevCards, data as IssueType]);
       }

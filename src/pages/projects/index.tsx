@@ -50,6 +50,7 @@ import { useApplicationContext } from "../../contexts/ApplicationContext";
 
 function Projects() {
   const { user } = useUserContext();
+  const { setActiveSprint } = useApplicationContext();
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const { selectedProject, setSelectedProject, setSelectedBoard } =
     useApplicationContext();
@@ -226,10 +227,13 @@ function Projects() {
                         projectId={project.Id}
                       />
                       <LinkforProjects
-                        to={`/projects/${project.Key}/boards/${project.Boards[0].Id}`}
+                        to={`/projects/${project.Key}/boards/${project.Boards[0].Id}/sprints/${project.Boards[0].Sprints[0]?.Id}`}
                         onClick={() => {
                           setSelectedProject(project);
                           setSelectedBoard(project.Boards[0]);
+                          setActiveSprint(
+                            project.Boards[0].Sprints[0] || undefined
+                          );
                         }}
                       >
                         {project.Name}

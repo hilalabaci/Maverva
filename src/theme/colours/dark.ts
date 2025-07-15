@@ -17,6 +17,7 @@ const darkColors: ThemeColors = {
     inverted: "#B6C2CF",
     link: "rgb(87, 157, 255)",
     subtitle: "#9fadbc",
+    highlightColor: "white",
   },
   primary: {
     base: "#000000",

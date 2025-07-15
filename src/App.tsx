@@ -47,6 +47,10 @@ const router = createBrowserRouter([
             children: [
               { index: true, element: <DynamicContentLoader /> },
               { path: `backlog`, element: <DynamicContentLoader /> },
+              {
+                path: `sprints/:sprintId`,
+                children: [{ index: true, element: <DynamicContentLoader /> }],
+              },
             ],
           },
         ],
