@@ -43,7 +43,7 @@ function RegisterForm() {
 
   useGoogleOneTapLogin({
     onSuccess: async (tokenResponse) => {
-      const user = await loginGoogle(tokenResponse.credential!);
+      const user = await loginGoogle(tokenResponse.credential!, true);
       setUser(user.data);
       navigate("/projects");
     },

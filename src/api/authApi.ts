@@ -1,8 +1,8 @@
 import { apiCall } from "./apiClient";
 import { UserType } from "../types";
 
-export const loginGoogle = async (token: string) => {
-  return await apiCall<UserType>("auth/login-google", {
+export const loginGoogle = async (token: string, oneTap?: boolean) => {
+  return await apiCall<UserType>(`auth/login-google?oneTap=${oneTap}`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },
   });
