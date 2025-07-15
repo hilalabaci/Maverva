@@ -155,7 +155,7 @@ function Register() {
               </GoogleSignWrapper>
               <CreateAccountWrapper>
                 <CreateAccountListItemLink href="/login">
-                  Already have an Atlassian account? Log in
+                  Already have an Maverva account? Log in
                 </CreateAccountListItemLink>
               </CreateAccountWrapper>
             </LoginInputs>
