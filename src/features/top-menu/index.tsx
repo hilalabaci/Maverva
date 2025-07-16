@@ -55,12 +55,13 @@ function TopMenu({
   activeSprintName,
   startDateActiveSprint,
   endDateActiveSprint,
-  boardId,
+  //  boardId,
   sprintId,
   sprintGoal,
   loadActiveSprint,
 }: TopMenuPropsType) {
   const location = useLocation();
+  const { boardId } = useParams<{ boardId: string }>();
   const [projectTitle, setProjectTitle] = useState(topMenuTitle);
   const [showModal, setShowModal] = useState(false);
   const [createBoardModal, setCreateBoardModal] = useState(false);

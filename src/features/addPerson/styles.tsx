@@ -142,8 +142,3 @@ export const TitleforProject = styled.label`
     color: red;
   }
 `;
-export const ErrorMessage = styled.div`
-  font-size: 12px;
-  color: red;
-  font-weight: 500;
-`;

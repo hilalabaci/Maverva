@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
@@ -52,28 +52,18 @@ type URLParams = {
   projectKey: string;
   boardId?: string;
 };
-function ProjectMenu({
-  ProjectTitleProps,
-  hideMenu,
-  projectId,
-  onHover,
-  selectedProjectsTitle,
-}: ProjectMenuPropsType) {
+function ProjectMenu({ hideMenu, projectId, onHover }: ProjectMenuPropsType) {
   const location = useLocation();
   const navigate = useNavigate();
   const { projectKey, boardId } = useParams<URLParams>();
   const { user } = useUserContext();
-  const {
-    activeSprint,
-    setActiveSprint,
-    selectedProject,
-    selectedBoard,
-    setSelectedBoard,
-  } = useApplicationContext();
+  const { activeSprint, selectedProject, setSelectedBoard } =
+    useApplicationContext();
   const [boards, setBoards] = useState<BoardType[]>([]);
   const [showBoards, setShowBoards] = useState(false);
   const isBacklog = location.pathname.includes("/backlog");
   const isActiveSprint = !isBacklog;
+  const selectedBoard = boards.find((b) => b.Id === boardId);
   const [showModalforCreateButton, setShowModalforCreateButton] =
     useState(false);
 
@@ -83,23 +73,30 @@ function ProjectMenu({
   function closeModalforCreateButton() {
     setShowModalforCreateButton(false);
   }
-
-  async function loadBoards() {
+  const loadBoards = useCallback(async () => {
     if (!user || !projectKey) return;
     const { ok, data } = await getBoards(projectKey, user.Id);
     if (ok && data) {
       setBoards(data);
     }
-  }
-  useEffect(() => {
-    loadBoards();
-  }, []);
+  }, [user, projectKey]);
 
   useEffect(() => {
-    if (selectedBoard?.Sprints && selectedBoard?.Sprints.length > 0) {
-      setActiveSprint(selectedBoard.Sprints[0]);
+    loadBoards();
+  }, [projectKey, projectId]);
+
+  useEffect(() => {
+    if (boards.length > 0 && !boardId) {
+      const firstBoard = boards[0];
+      if (firstBoard) {
+        navigate(`/projects/${projectKey}/boards/${firstBoard.Id}/backlog`, {
+          replace: true,
+        });
+      }
     }
-  }, [selectedBoard, setActiveSprint]);
+  }, [boards, boardId, navigate, projectKey]);
+  const activeSprintId = selectedBoard?.Sprints?.[0]?.Id;
+
   return (
     <Container
       $hidden={hideMenu}
@@ -117,7 +114,9 @@ function ProjectMenu({
             $fontWeight="600"
             projectId={projectId}
           />
-          <ProjectTitle $hidden={hideMenu}>{selectedProject?.Name}</ProjectTitle>
+          <ProjectTitle $hidden={hideMenu}>
+            {selectedProject?.Name}
+          </ProjectTitle>
         </UserInfo>
         <AddProjectWrapper $hidden={hideMenu}>
           <SideBarItem>
@@ -159,12 +158,23 @@ function ProjectMenu({
                             key={board.Id}
                             selected={selectedBoard?.Id === board.Id}
                             onClick={() => {
-                              setSelectedBoard(board);
                               setShowBoards(false);
-                              const activeSprintId = board.Sprints?.[0]?.Id; //only get acive sprint from backend
-                              if (activeSprintId) {
+
+                              const isBacklogPage =
+                                location.pathname.includes("/backlog");
+                              // const activeSprintId = board.Sprints?.[0]?.Id;
+                              setSelectedBoard(board);
+                              if (isBacklogPage) {
+                                navigate(
+                                  `/projects/${projectKey}/boards/${board.Id}/backlog`
+                                );
+                              } else if (activeSprintId) {
                                 navigate(
                                   `/projects/${projectKey}/boards/${board.Id}/sprints/${activeSprintId}`
+                                );
+                              } else {
+                                navigate(
+                                  `/projects/${projectKey}/boards/${board.Id}/backlog`
                                 );
                               }
                             }}

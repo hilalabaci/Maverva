@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import AddedPerson from "../addedPerson";
-import { useApplicationContext } from "../../contexts/ApplicationContext";
 import { BoardType } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import { DropdownSelectMenu } from "../../components/common/select";
@@ -23,11 +22,9 @@ import {
   InputWrapperwithIcon,
   TitleforProject,
   RoleWrapper,
-  ErrorMessage,
 } from "./styles";
 import { addUsertoBoard, getBoards } from "../../api/boardApi";
 import { useParams } from "react-router-dom";
-import { set } from "date-fns";
 type AddPersonPropsType = {
   projectTitle: string;
   closeModal: () => void;
@@ -78,7 +75,7 @@ function AddPerson({
   }
   useEffect(() => {
     loadBoards();
-  }, []);
+  }, [projectKey, projectId]);
 
   function handleInputChange(value: string, name: string): void {
     if (name === "email") {
@@ -103,8 +100,8 @@ function AddPerson({
       );
       if (ok && data) {
         setErrorMessage(null);
-        return ok;
         setShowAddedPerson(true);
+        return ok;
       } else {
         setErrorMessage((data as ApiError)?.message || "Failed to add user");
         setShowAddedPerson(false);
@@ -133,7 +130,6 @@ function AddPerson({
             <MailWrapper>
               <InputRectangle
                 title="email"
-                //onChange={(e) => handleInputChange(e.target.value, "email")}
                 onChange={(value: string) => handleInputChange(value, "email")}
                 value={emailforAddPerson}
                 placeholder="e.g., Maria, maria@company.com"
@@ -218,24 +214,28 @@ function AddPerson({
               />
             </RoleWrapper>
             <ButtonWrapper>
-              <CancelButton onClick={closeModal}>Cancel</CancelButton>
+              <CancelButton
+                type="button"
+                onClick={() => {
+                  closeModal();
+                }}
+              >
+                Cancel
+              </CancelButton>
               <Modal
                 trigger={<SubmitButton type="submit">Add</SubmitButton>}
                 onClose={closeModal}
                 open={showModal}
                 onChange={setShowModal}
               >
-                {showAddedPerson ? (
+                {showAddedPerson && (
                   <AddedPerson
                     onClose={() => {
-                      closeModal();
                       closeModal();
                     }}
                     projectTitle={projectTitle}
                     emailforAddPerson={emailforAddPerson}
                   />
-                ) : (
-                  <ErrorMessage>{errorMessage}</ErrorMessage>
                 )}
               </Modal>
             </ButtonWrapper>

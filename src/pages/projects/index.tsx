@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Layout from "../templates/layout";
 import Modal from "../../components/common/modal";
 import {
@@ -21,7 +21,6 @@ import {
   DataProjectsName,
   DataLeadName,
   TableHead,
-  OrderIcon,
   MoreIcon,
   IconWrapper,
   MoreIconButton,
@@ -51,10 +50,13 @@ import { useApplicationContext } from "../../contexts/ApplicationContext";
 function Projects() {
   const { user } = useUserContext();
   const hasFetchedProjects = useRef(false);
-  const { setActiveSprint } = useApplicationContext();
+  const {
+    setActiveSprint,
+    selectedProject,
+    setSelectedProject,
+    setSelectedBoard,
+  } = useApplicationContext();
   const [projects, setProjects] = useState<ProjectType[]>([]);
-  const { selectedProject, setSelectedProject, setSelectedBoard } =
-    useApplicationContext();
   const [filteredProject, setFilteredProject] = useState<ProjectType[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [showModalforCreateButton, setShowModalforCreateButton] =
@@ -62,7 +64,7 @@ function Projects() {
   const [showModalforDeleteProject, setShowModalforDeleteProject] =
     useState(false);
 
-  async function loadProjects(userId: string) {
+  const loadProjects = useCallback(async (userId: string) => {
     try {
       const response = await getProjects(userId);
       if (response && response.data) {
@@ -73,7 +75,7 @@ function Projects() {
     } catch (error) {
       console.error("Failed to load projects:", error);
     }
-  }
+  }, []);
 
   function onDelete(id: string) {
     setProjects(projects.filter((project) => project.Id !== id));
@@ -97,7 +99,7 @@ function Projects() {
     hasFetchedProjects.current = true;
     loadProjects(user?.Id);
     // eslint-disable-next-line
-  }, [user?.Id]);
+  }, [user?.Id, loadProjects]);
 
   useEffect(() => {
     const filtered = projects.filter((project) =>
@@ -146,7 +148,7 @@ function Projects() {
       setSelectedProject(projects[0]);
       setSelectedBoard(projects[0].Boards[0]);
     }
-  }, [projects]);
+  }, [projects, selectedProject, setSelectedProject, setSelectedBoard]);
 
   if (!user) return;
   return (
