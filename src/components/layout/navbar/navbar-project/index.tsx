@@ -39,9 +39,9 @@ function Navbar(props: NavbarPropsType) {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
-
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [memberMenu, setMemberMenu] = useState(false);
+  const hasFetchedNotifications = useRef(false);
   function openMemberMenu() {
     setMemberMenu(true);
   }
@@ -83,9 +83,9 @@ function Navbar(props: NavbarPropsType) {
   }, [user]);
 
   useEffect(() => {
-    if (user?.Id) {
-      loadNotifications();
-    }
+    if (!user?.Id || hasFetchedNotifications.current) return;
+    hasFetchedNotifications.current = true;
+    loadNotifications();
   }, [user, loadNotifications]);
 
   async function markNotificationsRead() {

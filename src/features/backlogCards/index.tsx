@@ -44,11 +44,12 @@ type URLParams = {
 };
 type BacklogCardsProps = {
   createSprint: () => void;
+  updateDragandDrop: (issueId: string) => void;
 };
 
-function BacklogCards({ createSprint }: BacklogCardsProps) {
+function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
   const { user } = useUserContext();
-  const { projectKey, boardId, sprintId } = useParams<URLParams>();
+  const { projectKey, boardId } = useParams<URLParams>();
   const [content, setContent] = useState("");
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
@@ -59,6 +60,9 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
     accept: "BACKLOG_CARD",
     drop: (item) => {
       updateCard(item.issueId, 1, item.oldSprintId, item.boardId);
+      updateDragandDrop(item.issueId);
+      console.log("Item dropped: sprintId not coming", item);
+      // Update the card after drag
       loadBacklogCards();
     },
   });
@@ -92,7 +96,6 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
   }
 
   async function submitNote() {
-    if (!projectKey || !boardId || !sprintId) return;
     try {
       const cardData = {
         content: content,
@@ -102,7 +105,7 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
         boardId: boardId,
       };
 
-      const { ok } = await addIssue(cardData, projectKey, boardId, sprintId);
+      const { ok } = await addIssue(cardData);
       if (ok) {
         setContent("");
         await loadBacklogCards();
@@ -113,16 +116,15 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
   }
 
   async function updateCard(
-    id: string,
+    issueId: string,
     status: number,
-    oldSprintId?: string,
+    sprintId?: string,
     boardId?: string
   ) {
     const response = await updateIssueSprintToBacklog(
-      projectKey as string,
-      id,
+      issueId,
       status,
-      oldSprintId,
+      sprintId,
       boardId
     );
     if (response.ok && response.data) {

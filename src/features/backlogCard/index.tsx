@@ -2,11 +2,11 @@ import { useDrag } from "react-dnd";
 import { useState } from "react";
 import MemberPhoto from "../user/member-photo";
 import {
-  BacklogDragItems,
   IssueStatus,
   IssueType,
   DragDropCollect,
   UserType,
+  DragItem,
 } from "../../types";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { getStatusLabel } from "../../utils/getStatus";
@@ -63,18 +63,14 @@ const BacklogCard = ({
   status,
   reporterUser,
   id,
+  sprintId,
   boardId,
   updateCardsAfterDelete,
   onUpdateCardStatus,
   updateCardAfterDrag,
   onUpdateContent,
 }: BacklogCardPropsType) => {
-  const { projectKey, sprintId } = useParams<URLParams>();
-  const [{ isDragging }, drag] = useDrag<
-    BacklogDragItems,
-    unknown,
-    DragDropCollect
-  >({
+  const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "BACKLOG_CARD",
     item: { issueId: id, oldSprintId: sprintId, boardId: boardId },
     collect: (monitor) => ({
@@ -93,6 +89,7 @@ const BacklogCard = ({
 
       dropResult.droppedCard.then((card) => {
         if (!card) return;
+        console.log("Card dropped suanda bunu:", card);
         updateCardAfterDrag(card.Id);
       });
     },
@@ -120,7 +117,7 @@ const BacklogCard = ({
   ];
 
   async function updateCard(id: string, status: number) {
-    const response = await updateIssue(id, status.toString());
+    const response = await updateIssue(id, status);
     if (response.ok && response.data) {
       onUpdateCardStatus(response.data.Id, response.data.Status);
     } else {
@@ -129,18 +126,12 @@ const BacklogCard = ({
   }
 
   async function deleteCard() {
-    if (!projectKey || !boardId || !sprintId || !user?.Id) {
-      console.error("Missing required parameters for delete operation.");
+    if (!user || !user.Id) {
+      console.error("User is not authenticated.");
       return;
     }
     const issueId = id;
-    const response = await deleteIssue(
-      projectKey,
-      boardId,
-      sprintId,
-      issueId,
-      user.Id
-    );
+    const response = await deleteIssue(issueId, user.Id);
     if (response.ok) {
       updateCardsAfterDelete(id);
     }

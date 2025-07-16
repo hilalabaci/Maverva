@@ -25,19 +25,23 @@ function Backlog() {
       return;
     }
     try {
-      const { ok, data } = await getSprints(boardId, projectKey as string );
+      const { ok, data } = await getSprints(boardId, projectKey as string);
       if (ok && data) setSprints(data);
     } catch (error) {
       console.error("Fetch error:", error);
     }
   }
   const createSprint = useCallback(async () => {
-    const sprintData = {
-      boardId: boardId,
-      userId: user?.Id,
-    };
+    if (!boardId || !user?.Id || !projectKey) {
+      console.error("Missing required parameters to create sprint");
+      return;
+    }
     try {
-      const { ok, data } = await addSprint(sprintData);
+      const { ok, data } = await addSprint(
+        user?.Id,
+        boardId,
+        projectKey as string
+      );
       if (ok && data) {
         setSprints((prevSprints: SprintType[]) => [
           ...prevSprints,
@@ -61,6 +65,7 @@ function Backlog() {
   function ActiontoSprint(id: string) {
     return sprints.length > 0 && sprints[0].Id === id;
   }
+  function updateDragandDrop() {}
 
   useEffect(() => {
     if (sprints.length > 0) {
@@ -88,7 +93,10 @@ function Backlog() {
             loadActiveSprint={loadSprints}
           />
         ))}
-        <BacklogCards createSprint={createSprint} />
+        <BacklogCards
+          createSprint={createSprint}
+          updateDragandDrop={updateDragandDrop}
+        />
       </DndProvider>
     </Container>
   );

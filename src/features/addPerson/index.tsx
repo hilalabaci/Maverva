@@ -23,9 +23,11 @@ import {
   InputWrapperwithIcon,
   TitleforProject,
   RoleWrapper,
+  ErrorMessage,
 } from "./styles";
 import { addUsertoBoard, getBoards } from "../../api/boardApi";
 import { useParams } from "react-router-dom";
+import { set } from "date-fns";
 type AddPersonPropsType = {
   projectTitle: string;
   closeModal: () => void;
@@ -35,6 +37,9 @@ type AddPersonPropsType = {
 
 type URLParams = {
   boardId: string;
+};
+type ApiError = {
+  message: string;
 };
 
 function AddPerson({
@@ -48,6 +53,8 @@ function AddPerson({
   const [boards, setBoards] = useState<BoardType[]>([]);
   const [selectedBoards, setSelectedBoards] = useState<BoardType[]>([]);
   const [selectedRole, setSelectedRole] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showAddedPerson, setShowAddedPerson] = useState(false);
   const { user } = useUserContext();
   function openModal() {
     setShowModal(true);
@@ -88,8 +95,25 @@ function AddPerson({
       role: selectedRole,
       userId: user?.Id as string,
     };
-    const { ok, data } = await addUsertoBoard(projectData, projectKey, boardId);
-    if (ok && data) return ok;
+    try {
+      const { ok, data } = await addUsertoBoard(
+        projectData,
+        projectKey,
+        boardId
+      );
+      if (ok && data) {
+        setErrorMessage(null);
+        return ok;
+        setShowAddedPerson(true);
+      } else {
+        setErrorMessage((data as ApiError)?.message || "Failed to add user");
+        setShowAddedPerson(false);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message || "Something went wrong");
+      }
+    }
     closeModal();
   }
   return (
@@ -114,6 +138,7 @@ function AddPerson({
                 value={emailforAddPerson}
                 placeholder="e.g., Maria, maria@company.com"
                 labelValue="Names or emails"
+                error={errorMessage}
               />
             </MailWrapper>
             <AddProjectWrapper>
@@ -200,14 +225,18 @@ function AddPerson({
                 open={showModal}
                 onChange={setShowModal}
               >
-                <AddedPerson
-                  onClose={() => {
-                    closeModal();
-                    closeModal();
-                  }}
-                  projectTitle={projectTitle}
-                  emailforAddPerson={emailforAddPerson}
-                />
+                {showAddedPerson ? (
+                  <AddedPerson
+                    onClose={() => {
+                      closeModal();
+                      closeModal();
+                    }}
+                    projectTitle={projectTitle}
+                    emailforAddPerson={emailforAddPerson}
+                  />
+                ) : (
+                  <ErrorMessage>{errorMessage}</ErrorMessage>
+                )}
               </Modal>
             </ButtonWrapper>
           </FormWrapper>

@@ -69,11 +69,6 @@ export type DragItem = {
   oldSprintId?: string;
   boardId?: string;
 };
-export type BacklogDragItems = {
-  oldSprintId?: string;
-  issueId: string;
-  boardId: string;
-};
 
 export interface DragDropCollect {
   isDragging: boolean;

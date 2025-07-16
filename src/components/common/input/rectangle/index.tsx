@@ -10,7 +10,7 @@ import {
 } from "./styles";
 type InputPropsType = {
   title: string;
-  error?: string;
+  error?: string | null;
   onChange: (value: string, name: string) => void;
   value: string;
   type?: React.HTMLInputTypeAttribute;
@@ -34,9 +34,7 @@ function InputRectangle({
     <Container>
       <LabelTitle htmlFor="email">{labelValue}</LabelTitle>
       <InputContainer
-        style={
-          error !== undefined ? { outline: "1px solid #dc3545" } : undefined
-        }
+        style={error ? { outline: "1px solid #dc3545" } : undefined}
       >
         {type === "email" ? <EmailIcon /> : ""}
 

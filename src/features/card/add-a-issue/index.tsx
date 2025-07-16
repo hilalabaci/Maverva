@@ -39,12 +39,7 @@ function AddIssue(props: AddIssuePropsType) {
         sprintId: props.sprintId,
       };
 
-      const { ok, data } = await addIssue(
-        issueData,
-        projectKey,
-        boardId,
-        sprintId
-      );
+      const { ok, data } = await addIssue(issueData);
       if (ok && data) {
         console.log(`added issue:`, data);
       }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Layout from "../templates/layout";
 import Modal from "../../components/common/modal";
 import {
@@ -50,6 +50,7 @@ import { useApplicationContext } from "../../contexts/ApplicationContext";
 
 function Projects() {
   const { user } = useUserContext();
+  const hasFetchedProjects = useRef(false);
   const { setActiveSprint } = useApplicationContext();
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const { selectedProject, setSelectedProject, setSelectedBoard } =
@@ -92,10 +93,11 @@ function Projects() {
   }
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.Id || hasFetchedProjects.current) return;
+    hasFetchedProjects.current = true;
     loadProjects(user?.Id);
     // eslint-disable-next-line
-  }, [user]);
+  }, [user?.Id]);
 
   useEffect(() => {
     const filtered = projects.filter((project) =>

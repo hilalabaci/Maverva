@@ -1,11 +1,15 @@
-import { AddSprintRequest, EditSprintRequest } from "../apiTypes/types";
+import { EditSprintRequest } from "../apiTypes/types";
 import { IssueType, SprintType } from "../types";
 import { apiCall } from "./apiClient";
 
-export const addSprint = async (data: AddSprintRequest) => {
-  return await apiCall("sprint", {
+export const addSprint = async (
+  userId: string,
+  boardId: string,
+  projectKey: string
+) => {
+  return await apiCall(`projects/${projectKey}/boards/${boardId}/sprints`, {
     method: "POST",
-    data: data,
+    data: { userId, boardId },
   });
 };
 export const getSprints = async (boardId: string, projectKey: string) => {
@@ -18,9 +22,13 @@ export const getSprints = async (boardId: string, projectKey: string) => {
   );
 };
 //DO IT
-export const updateSprint = async (data: EditSprintRequest) => {
+export const updateSprint = async (
+  data: EditSprintRequest,
+  projectKey: string,
+  boardId: string
+) => {
   return await apiCall<SprintType>(
-    "projects/${projectKey}/boards/${boardId}/sprints/${sprintId}",
+    `projects/${projectKey}/boards/${boardId}/sprints`,
     {
       method: "PUT",
       data: data,
@@ -44,3 +52,4 @@ export const getActiveSprint = async (projectKey: string, boardId: string) => {
     }
   );
 };
+

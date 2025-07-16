@@ -39,8 +39,7 @@ import {
 import { useUserContext } from "../../../contexts/UserContext";
 import Modal from "../../../components/common/modal";
 import IssueDetails from "../issue-details";
-import { useParams } from "react-router-dom";
-import { useApplicationContext } from "../../../contexts/ApplicationContext";
+
 type IssueProps = {
   id: string;
   labels: LabelType[];
@@ -63,13 +62,11 @@ function Issue({
   labels,
   content,
   reporterUser,
-  userName,
   cardKey,
   onUpdate,
   onUpdateContent,
   onDelete,
 }: IssueProps) {
-  const { projectKey, boardId, sprintId } = useParams<URLParams>();
   const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "CARD",
     item: { issueId: id },
@@ -78,7 +75,6 @@ function Issue({
     }),
   });
   const { user } = useUserContext();
-  const { activeSprint } = useApplicationContext();
   const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
@@ -111,18 +107,12 @@ function Issue({
     setShowIssueDetails(false);
   }
   async function handleDeleteIssue(issueId: string) {
-    if (!projectKey || !boardId || !sprintId || !user?.Id) {
-      console.error("Missing required parameters for delete operation.");
+    if (user === null || user?.Id === undefined) {
+      console.error("User is not authenticated.");
       return;
     }
     try {
-      const response = await deleteIssue(
-        projectKey,
-        boardId,
-        sprintId,
-        issueId,
-        user.Id
-      );
+      const response = await deleteIssue(issueId, user.Id);
       if (response.ok) {
         onDelete(issueId);
       } else {
@@ -134,7 +124,7 @@ function Issue({
   }
 
   async function updateStatus(id: string, status: number) {
-    const response = await updateIssue(id, status.toString());
+    const response = await updateIssue(id, status);
     if (response.ok && response.data) {
       onUpdate(response.data);
     } else {

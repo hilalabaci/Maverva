@@ -12,7 +12,6 @@ import {
 import { IssueType } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { updateIssue } from "../../../api/issueApi";
-import { useApplicationContext } from "../../../contexts/ApplicationContext";
 interface IssueListProps {
   title: string;
   issues: IssueType[];
@@ -31,7 +30,6 @@ interface DragItem {
 }
 
 function IssueList({
-  title,
   issues,
   status,
   projectKey,
@@ -43,7 +41,6 @@ function IssueList({
   addedCard,
 }: IssueListProps) {
   const [showAdd, setShowAdd] = useState(false);
-  const { activeSprint } = useApplicationContext();
   const ref = useOutsideClick<HTMLDivElement>(closeAddCard);
   function dynamicAddCard() {
     setShowAdd(true);
@@ -52,22 +49,8 @@ function IssueList({
     setShowAdd(false);
   }
 
-  async function updateStatus(
-    projectKey: string,
-    cardId: string,
-    status?: number,
-    newSprintId?: string,
-    oldSprintId?: string,
-    boardId?: string
-  ) {
-    const response = await updateIssue(
-      projectKey,
-      cardId,
-      status,
-      undefined,
-      oldSprintId,
-      boardId
-    );
+  async function updateStatus(issueId: string, status?: number) {
+    const response = await updateIssue(issueId, status);
     if (response.ok && response.data) {
       onUpdate(response.data);
     } else {
@@ -78,14 +61,7 @@ function IssueList({
   const [, drop] = useDrop<DragItem>({
     accept: "CARD",
     drop: (item) => {
-      updateStatus(
-        projectKey,
-        item.issueId,
-        status,
-        activeSprint?.Id,
-        item.oldSprintId,
-        boardId
-      );
+      updateStatus(item.issueId, status);
     },
   });
 

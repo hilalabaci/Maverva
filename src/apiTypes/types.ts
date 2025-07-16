@@ -52,8 +52,8 @@ export type AddIssueRequest = {
   sprintId?: string;
 };
 export type AddSprintRequest = {
-  boardId: string | BoardType | undefined;
-  userId: string | UserType | undefined;
+  boardId: string;
+  userId: string;
 };
 export type AddColumnRequest = {
   userId: string;

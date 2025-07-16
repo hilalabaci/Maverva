@@ -4,7 +4,6 @@ import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 7px;
 `;
 
 export const InputContainer = styled.div`
@@ -14,6 +13,7 @@ export const InputContainer = styled.div`
   border: none;
   font-size: 1rem;
   font-weight: 400;
+  margin-top: 7px;
 `;
 
 export const Inputs = styled.input`

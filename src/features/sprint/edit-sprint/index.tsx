@@ -31,6 +31,7 @@ type FormDemoType = {
 
 type URLParams = {
   boardId: string;
+  projectKey: string;
 };
 
 const EditSprint = ({
@@ -42,7 +43,7 @@ const EditSprint = ({
   sprintGoalProps,
   loadActiveSprint,
 }: FormDemoType) => {
-  const { boardId } = useParams<URLParams>();
+  const { boardId, projectKey } = useParams<URLParams>();
   const { user } = useUserContext();
   const [activeSprint, setActiveSprint] = useState<SprintType>();
   const [sprintName, setSprintName] = useState(sprintTitle || "Board Sprint");
@@ -68,6 +69,10 @@ const EditSprint = ({
       : nextYear;
 
   async function submitSprint() {
+    if (!projectKey || !boardId || !user?.Id) {
+      console.error("Missing required parameters to update sprint");
+      return;
+    }
     if (sprintTitle || startSprintDate || endSprintDate) {
       try {
         const sprintData = {
@@ -75,11 +80,15 @@ const EditSprint = ({
           sprintName: sprintName,
           sprintGoal: sprintGoal,
           startDate: startDate,
-          endDate: endDate,
+          endDate: endDate, 
           boardId: boardId as string,
           userId: user?.Id as string,
         };
-        const response = await updateSprint(sprintData);
+        const response = await updateSprint(
+          sprintData,
+          projectKey as string,
+          boardId as string
+        );
         if (response.ok) {
           onClose();
           setSprintName(sprintName);
@@ -88,7 +97,6 @@ const EditSprint = ({
         }
       } catch (error) {}
     } else {
-    
     }
   }
   useEffect(() => {

@@ -35,7 +35,6 @@ export const Title = styled.h3`
 export const MailWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 6px;
 `;
 export const RoleWrapper = styled.div`
   display: flex;
@@ -98,12 +97,10 @@ export const AddProjectWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3px;
-  
 `;
 export const IconDown = styled(KeyboardArrowDownOutlinedIcon)`
   font-size: 16px !important;
   font-weight: 700 !important;
-  
 `;
 export const InputforProjectDropDown = styled.input`
   font-size: 14px;
@@ -132,7 +129,6 @@ export const InputWrapperwithIcon = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  
 `;
 export const TitleforProject = styled.label`
   font-size: 12px;
@@ -145,4 +141,9 @@ export const TitleforProject = styled.label`
     top: -2px;
     color: red;
   }
+`;
+export const ErrorMessage = styled.div`
+  font-size: 12px;
+  color: red;
+  font-weight: 500;
 `;

@@ -28,12 +28,7 @@ import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 import BacklogCard from "../backlogCard";
-import {
-  BacklogDragItems,
-  IssueStatus,
-  IssueType,
-  SprintType,
-} from "../../types";
+import { DragItem, IssueStatus, IssueType, SprintType } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
@@ -91,18 +86,13 @@ function Sprint({
   const [editSprintModal, setEditSprintModal] = useState(false);
 
   async function updateCardInfo(
-    id: string,
+    issueId: string,
     newSprintId: string,
     boardId: string,
     oldSprintId?: string
   ) {
-    if (!projectKey || !id || !newSprintId || !boardId) {
-      console.error("Missing required parameters for updateCardInfo");
-      return;
-    }
     const response = await updateIssue(
-      projectKey,
-      id,
+      issueId,
       undefined,
       newSprintId,
       oldSprintId,
@@ -116,7 +106,7 @@ function Sprint({
     }
   }
 
-  const handleDrop = async (item: BacklogDragItems) => {
+  const handleDrop = async (item: DragItem) => {
     if (selectedSprintId && boardId) {
       const updatedCard = await updateCardInfo(
         item.issueId,
@@ -135,12 +125,11 @@ function Sprint({
       }
       return updatedCard;
     } else {
-      console.error("selectedSprintId is undefined");
       return undefined;
     }
   };
 
-  const [, drop] = useDrop<BacklogDragItems>({
+  const [, drop] = useDrop<DragItem>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
       return {
@@ -170,12 +159,7 @@ function Sprint({
         sprintId: selectedSprintId,
       };
 
-      const { ok, data } = await addIssue(
-        cardData,
-        projectKey,
-        boardId,
-        selectedSprintId
-      );
+      const { ok, data } = await addIssue(cardData);
       if (ok && data) {
         setSprintCards((prevCards) => [...prevCards, data as IssueType]);
       }
@@ -206,16 +190,21 @@ function Sprint({
     boardId?: string,
     sprintId?: string,
     userId?: string,
-    active?: boolean
+    active?: boolean,
+    projectKey?: string
   ) {
     {
       if (!boardId) return;
-      const response = await updateSprint({
-        boardId,
-        sprintId,
-        userId,
-        isActiveSprint: active,
-      });
+      const response = await updateSprint(
+        {
+          boardId,
+          sprintId,
+          userId,
+          isActiveSprint: active,
+        },
+        projectKey as string,
+        boardId as string
+      );
       if (response.ok && response.data) {
         setIsActiveSprint(true);
         // props.onUpdate(response.data);
