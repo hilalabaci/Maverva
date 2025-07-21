@@ -44,42 +44,6 @@ export const FielsetWrapper = styled.fieldset`
   padding: 0;
 `;
 
-export const InputStyle = styled.input`
-  background-color: ${(props) => props.theme.colour.background.default};
-  color: ${(props) => props.theme.colour.text.primary};
-  outline: ${(props) => props.theme.colour.modal.border.default};
-  height: 20px;
-  font-size: 14px;
-  border-radius: 3px;
-  padding: 4px 7px 5px;
-  width: 250px;
-  letter-spacing: 0.05em;
-  border: none;
-  &:focus-visible {
-    outline: ${(props) => props.theme.colour.border.active};
-  }
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
-export const InputforProjectLead = styled.div`
-  outline: ${(props) => props.theme.colour.modal.border.default};
-  color: ${(props) => props.theme.colour.text.primary};
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
-  display: flex;
-  align-items: center;
-  height: 20px;
-  font-size: 14px;
-  border: none;
-  border-radius: 3px;
-  padding: 4px 7px 5px;
-  width: 250px;
-  gap: 5px;
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
 
 export const Wrapper = styled.div`
   display: flex;
@@ -91,18 +55,6 @@ export const InfoTitle = styled.h2`
   box-sizing: border-box;
   font-weight: 400;
 `;
-export const TitleforProject = styled.label`
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 0 0;
-  &::after {
-    content: "*";
-    margin-left: 3px;
-    position: relative;
-    top: -2px;
-    color: red;
-  }
-`;
 
 export const DetailTitle = styled.h3``;
 
@@ -112,7 +64,6 @@ export const AddProjectWrapper = styled.div`
   gap: 3px;
 `;
 export const DetailsInfo = styled.div``;
-export const ProjectLeadInputWrapper = styled.div``;
 export const DetailWrapper = styled.div`
   box-sizing: border-box;
   vertical-align: top;

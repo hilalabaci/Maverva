@@ -77,48 +77,10 @@ export const InputforProjectDropDown = styled.input`
     font-size: 12px;
   }
 `;
-export const InputStyle = styled.input`
-  height: 20px;
-  font-size: 14px;
-  border: none;
-  background-color: ${(props) => props.theme.colour.background.default};
-  outline: ${(props) => props.theme.colour.border.default};
-  border-radius: 3px;
-  padding: 4px 7px 5px;
-  width: 250px;
-  color: ${(props) => props.theme.colour.text.primary};
-  letter-spacing: 0.05em;
-  &:focus-visible {
-    outline: ${(props) => props.theme.colour.border.active};
-  }
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
 export const IconDown = styled(KeyboardArrowDownOutlinedIcon)`
   font-size: 16px !important;
   font-weight: 700 !important;
 `;
-export const InputforProjectLead = styled.div`
-  display: flex;
-  align-items: center;
-  height: 20px;
-  font-size: 14px;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
-  border: none;
-  outline: ${(props) => props.theme.colour.modal.border.default};
-  border-radius: 3px;
-  padding: 4px 7px 5px;
-  width: 250px;
-  color: ${(props) => props.theme.colour.text.primary};
-  gap: 5px;
-  cursor: pointer;
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
-
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -151,7 +113,6 @@ export const AddProjectWrapper = styled.div`
   gap: 3px;
 `;
 export const DetailsInfo = styled.div``;
-export const ProjectLeadInputWrapper = styled.div``;
 export const DetailWrapper = styled.div`
   box-sizing: border-box;
   vertical-align: top;

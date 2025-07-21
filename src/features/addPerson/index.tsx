@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AddedPerson from "../addedPerson";
-import { BoardType } from "../../types";
+import { BoardType,ApiError } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import { DropdownSelectMenu } from "../../components/common/select";
 import Modal from "../../components/common/modal";
@@ -35,10 +35,6 @@ type AddPersonPropsType = {
 type URLParams = {
   boardId: string;
 };
-type ApiError = {
-  message: string;
-};
-
 function AddPerson({
   projectKey,
   projectId,
@@ -129,7 +125,7 @@ function AddPerson({
           >
             <MailWrapper>
               <InputRectangle
-                title="email"
+                type="email"
                 onChange={(value: string) => handleInputChange(value, "email")}
                 value={emailforAddPerson}
                 placeholder="e.g., Maria, maria@company.com"

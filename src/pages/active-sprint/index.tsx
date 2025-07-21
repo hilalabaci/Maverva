@@ -87,7 +87,13 @@ function ActiveSprint({
   async function deleteColumn(columnId: string) {
     try {
       if (!columnId) return;
-      const { ok, data } = await deleteColumnApi(columnId, user?.Id as string);
+      const { ok, data } = await deleteColumnApi(
+        columnId,
+        user?.Id as string,
+        projectKey as string,
+        boardId as string,
+        activeSprint?.Id as string
+      );
       if (!ok || !data) {
         setColumns(columns.filter((c) => c.Id !== columnId));
         updatedCardsAfterDeleteColumn(data as IssueType[]);
@@ -105,7 +111,13 @@ function ActiveSprint({
         boardId: boardId,
         userId: user?.Id as string,
       };
-      const { ok, data } = await addColumn(columnData);
+      if (!projectKey || !activeSprint?.Id) return;
+      const { ok, data } = await addColumn(
+        columnData,
+        projectKey,
+        boardId,
+        activeSprint?.Id
+      );
       if (ok && data) {
         await loadColumns();
         setTitle("");
@@ -117,7 +129,6 @@ function ActiveSprint({
       loadColumns();
     }
   }, [boardId, activeSprint]);
-  
 
   return (
     <Container>

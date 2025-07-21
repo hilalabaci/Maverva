@@ -15,16 +15,33 @@ export const getColumns = async (
     }
   );
 };
-export const addColumn = async (data: AddColumnRequest) => {
-  return await apiCall("column", {
-    method: "POST",
-    data,
-  });
+export const addColumn = async (
+  data: AddColumnRequest,
+  projectKey: string,
+  boardId: string,
+  sprintId: string
+) => {
+  return await apiCall(
+    `projects/${projectKey}/boards/${boardId}/sprints/${sprintId}/columns`,
+    {
+      method: "POST",
+      data,
+    }
+  );
 };
-export const deleteColumn = async (columnId: string, userId: string) => {
-  return await apiCall("column", {
-    method: "DELETE",
-    urlParams: new URLSearchParams({ columnId }),
-    data: { userId },
-  });
+export const deleteColumn = async (
+  columnId: string,
+  userId: string,
+  projectKey: string,
+  boardId: string,
+  sprintId: string
+) => {
+  return await apiCall(
+    `projects/${projectKey}/boards/${boardId}/sprints/${sprintId}/columns/${columnId}`,
+    {
+      method: "DELETE",
+      urlParams: new URLSearchParams({ columnId }),
+      data: { userId },
+    }
+  );
 };

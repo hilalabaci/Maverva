@@ -1,5 +1,4 @@
-import exp from "constants";
-import { BoardType, ProjectType, UserType } from "../types";
+import { BoardType, ProjectType } from "../types";
 
 export type ApiCallOptions = {
   urlParams?: URLSearchParams;
@@ -13,7 +12,6 @@ export type ApiResponse<T> = {
   ok: boolean;
   data?: T;
 };
-
 export type AddProjectRequest = {
   title: string;
   leadUser: string;

@@ -6,8 +6,8 @@ import {
 import { BoardType } from "../types";
 import { apiCall } from "./apiClient";
 
-export const addBoard = async (data: AddBoardRequest) => {
-  return await apiCall<AddBoardResponse>("/board", {
+export const addBoard = async (data: AddBoardRequest, projectKey: string) => {
+  return await apiCall<AddBoardResponse>(`projects/${projectKey}/boards`, {
     method: "POST",
     data: data,
   });

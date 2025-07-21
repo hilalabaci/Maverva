@@ -94,3 +94,6 @@ export enum IssueStatus {
   InProgress = 2,
   Done = 99,
 }
+export type ApiError = {
+  message?: string;
+};

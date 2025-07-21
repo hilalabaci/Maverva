@@ -2,21 +2,17 @@ import { useEffect, useState } from "react";
 import MemberPhoto from "../../../features/user/member-photo";
 import { CancelButton } from "../../../features/addPerson/styles";
 import { BackButton } from "../../board/optional/styles";
-import { ProjectType } from "../../../types";
+import { ProjectType, ApiError } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import {
   Container,
   GeneralWrapper,
   InfoTitle,
-  InputStyle,
   GlobalStyle,
-  TitleforProject,
   DetailTitle,
-  InputforProjectLead,
   FielsetWrapper,
   AddProjectWrapper,
   ProjectLeadWrapper,
-  ProjectLeadInputWrapper,
   DetailsInfo,
   DetailWrapper,
   WrapperChild,
@@ -24,7 +20,11 @@ import {
   Options,
   SubmitButton,
 } from "./styles";
-import { addProject,createProjectKey as createProjectKeyApi } from "../../../api/projectApi";
+import {
+  addProject,
+  createProjectKey as createProjectKeyApi,
+} from "../../../api/projectApi";
+import InputRectangle from "../../../components/common/input/rectangle";
 
 type ProjectCreatePropsType = {
   onCreate: (project: ProjectType) => void;
@@ -34,10 +34,7 @@ type ProjectCreatePropsType = {
   isOptional?: boolean;
   BackButton: () => void;
 };
-type CreateProjectResponse = {
-  message: string;
-  project: ProjectType;
-};
+
 let debounceTimer: NodeJS.Timeout | undefined;
 
 function ProjectCreate(props: ProjectCreatePropsType) {
@@ -45,13 +42,27 @@ function ProjectCreate(props: ProjectCreatePropsType) {
   const [projectKey, setProjectKey] = useState("");
   const { user } = useUserContext();
   const [boardTitle, setBoardTitle] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  if (!user) {
+    throw new Error("User context is not available");
+  }
 
   async function createProjectKey(title: string) {
-    const response = await createProjectKeyApi(title);
-    if (response.ok && response.data) {
-      setProjectKey(response.data);
-    } else {
-      console.error("Failed to creating project key:", response);
+    try {
+      const response = await createProjectKeyApi(title);
+      if (response.ok && response.data) {
+        setProjectKey(response.data);
+        setErrorMessage(null);
+      } else {
+        setErrorMessage(
+          (response.data as ApiError)?.message ||
+            "Failed to create project key. Please try again."
+        );
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message || "Something went wrong");
+      }
     }
   }
   useEffect(() => {}, [projectTitle, projectKey]);
@@ -98,42 +109,48 @@ function ProjectCreate(props: ProjectCreatePropsType) {
           <WrapperChild>
             <FielsetWrapper>
               <AddProjectWrapper>
-                <TitleforProject>Project name</TitleforProject>
-                <InputStyle
-                  type="text"
+                <InputRectangle
+                  onChange={(value) => handleChange(value)}
                   value={projectTitle}
-                  onChange={(e) => handleChange(e.target.value)}
-                  maxLength={64}
+                  labelValue="Project name"
+                  error={errorMessage}
+                  size={8}
                 />
               </AddProjectWrapper>
               <AddProjectWrapper>
-                <TitleforProject>Key</TitleforProject>
-                <InputforProjectLead>{projectKey}</InputforProjectLead>
+                <InputRectangle
+                  onChange={(value) => handleChange(value)}
+                  value={projectKey}
+                  labelValue="Key"
+                  specialBackground={true}
+                  size={8}
+                />
               </AddProjectWrapper>
               {props.isOptional && (
                 <AddProjectWrapper>
-                  <TitleforProject>Board name</TitleforProject>
-                  <InputStyle
-                    type="text"
+                  <InputRectangle
+                    onChange={(value) => handleChangeforBoard(value)}
                     value={boardTitle}
-                    onChange={(e) => handleChangeforBoard(e.target.value)}
+                    labelValue="Board name"
+                    size={8}
                   />
                 </AddProjectWrapper>
               )}
               <ProjectLeadWrapper>
-                <TitleforProject>Project lead</TitleforProject>
-                <ProjectLeadInputWrapper>
-                  <InputforProjectLead>
-                    <MemberPhoto
-                      $userPhotoWidth="19px"
-                      $userPhotoHeight="19px"
-                      $userPhotoFontSize="7px"
-                      $userBorderadius="50px"
-                      $userBorder={props.userProject}
-                    />
-                    {user?.FullName}
-                  </InputforProjectLead>
-                </ProjectLeadInputWrapper>
+                <InputRectangle
+                  value={user?.FullName}
+                  labelValue="Project lead"
+                  size={8}
+                  specialBackground={true}
+                >
+                  <MemberPhoto
+                    $userPhotoWidth="19px"
+                    $userPhotoHeight="19px"
+                    $userPhotoFontSize="7px"
+                    $userBorderadius="50px"
+                    $userBorder={props.userProject}
+                  />
+                </InputRectangle>
               </ProjectLeadWrapper>
             </FielsetWrapper>
           </WrapperChild>
@@ -153,7 +170,7 @@ function ProjectCreate(props: ProjectCreatePropsType) {
           <SubmitButton
             $isFilled={!!projectKey && !!projectTitle}
             type="submit"
-          > 
+          >
             Create Project
           </SubmitButton>
           <CancelButton onClick={props.onClose}>Cancel</CancelButton>

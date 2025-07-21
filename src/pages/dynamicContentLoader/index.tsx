@@ -47,9 +47,20 @@ function DynamicContentLoader() {
       if (!user) return;
       const { ok, data } = await getSelectedProject(projectKey, user?.Id);
       if (ok && data) {
-        if (!data) return;
         setSelectedProject(data);
-        setSelectedBoard(data.Boards.length > 0 ? data.Boards[0] : undefined);
+        const firstBoard = data.Boards.length > 0 ? data.Boards[0] : undefined;
+        setSelectedBoard(firstBoard);
+
+        if (firstBoard) {
+          const { ok: okSprint, data: sprintData } = await getActiveSprint(
+            projectKey,
+            firstBoard.Id
+          );
+          if (okSprint && sprintData) {
+            setActiveSprint(sprintData);
+            setIssues(sprintData.Issues);
+          }
+        }
       }
     } catch (error) {
       console.error("Error fetching project:", error);
@@ -58,9 +69,7 @@ function DynamicContentLoader() {
 
   const loadActiveSprint = useCallback(async () => {
     try {
-      if (!projectKey) return;
-      if (!selectedBoard) return;
-
+      if (!projectKey || !selectedBoard?.Id) return;
       const { ok, data } = await getActiveSprint(projectKey, selectedBoard.Id);
       if (ok && data) {
         setActiveSprint(data);
@@ -71,11 +80,28 @@ function DynamicContentLoader() {
     } catch (error) {
       console.error("Error fetching board:", error);
     }
-  }, [projectKey, selectedBoard]);
+  }, [projectKey, selectedBoard?.Id]);
 
   useEffect(() => {
-    loadActiveSprint();
-  }, [loadActiveSprint]);
+    if (projectKey) {
+      loadSelectedProject();
+    }
+  }, [projectKey]);
+
+  useEffect(() => {
+    if (selectedBoard?.Id) {
+      loadActiveSprint();
+    }
+  }, [loadActiveSprint, selectedBoard?.Id]);
+
+  useEffect(() => {
+    if (!issues) return;
+    setFilteredIssues(
+      issues.filter((issue) =>
+        issue.Summary.toLowerCase().includes(searchInput.toLowerCase())
+      )
+    );
+  }, [searchInput, issues]);
 
   function deleteCard(id: string) {
     setIssues(issues?.filter((issue) => issue.Id !== id));

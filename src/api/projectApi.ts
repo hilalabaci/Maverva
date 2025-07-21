@@ -15,7 +15,7 @@ export const addProject = async (
   projectKey: string,
   boardTitle: string
 ) => {
-  return await apiCall<AddProjectResponse>("project", {
+  return await apiCall<AddProjectResponse>("projects", {
     method: "POST",
     data: { title, leadUser, projectKey, boardTitle },
   });
@@ -54,7 +54,7 @@ export const updateProjectToFavourite = async (
 };
 
 export const deleteProject = async (projectId: string, userId: string) => {
-  return await apiCall("project", {
+  return await apiCall("projects", {
     method: "DELETE",
     urlParams: new URLSearchParams({
       projectId,

@@ -6,7 +6,6 @@ import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 
 export const DropDownContainer = styled(DropdownMenuPrimitive.Root)`
   z-index: 1;
-  
 `;
 export const DropdownMenuPrimitiveTrigger = styled(
   DropdownMenuPrimitive.Trigger
@@ -18,7 +17,7 @@ export const DropdownMenuPrimitiveTrigger = styled(
   font-size: 1rem;
   font-weight: 400;
   border: none;
-  padding: 9.5px 5px;
+  padding: 8px 3px 5px;
   display: flex;
   gap: 30px;
 
@@ -57,15 +56,13 @@ export const DropDownItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  
 `;
 export const DropDownItemWrapper = styled.div`
   padding: 7px 0;
   width: 100%;
   cursor: pointer;
   border-radius: 7px;
-  
-  
+
   &:hover {
     background-color: #f0f0f0;
   }
@@ -88,7 +85,6 @@ export const DropDownItem = styled(
 export const TitleforDropDownMenu = styled.h2`
   font-size: 15px;
   padding: 0 19px;
-  
 `;
 export const IconForSelect = styled(CheckCircleRoundedIcon)`
   font-size: 17px !important;
