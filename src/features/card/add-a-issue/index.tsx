@@ -3,6 +3,7 @@ import { IssueType } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import { Container, Textarea } from "./styles";
 import { addIssue } from "../../../api/issueApi";
+import { useParams } from "react-router-dom";
 
 type AddIssuePropsType = {
   projectKey: string;
@@ -12,8 +13,14 @@ type AddIssuePropsType = {
   boardId?: string;
   sprintId?: string;
 };
+type URLParams = {
+  projectKey: string;
+  boardId: string;
+  sprintId?: string;
+};
 
 function AddIssue(props: AddIssuePropsType) {
+  const { projectKey, boardId, sprintId } = useParams<URLParams>();
   const [content, setContent] = useState("");
   const { user } = useUserContext();
   const userId = user?.Id;
@@ -21,6 +28,7 @@ function AddIssue(props: AddIssuePropsType) {
     setContent(value);
   }
   async function submitNote() {
+    if (!projectKey || !boardId || !sprintId || !userId) return;
     try {
       const issueData = {
         userId: userId,

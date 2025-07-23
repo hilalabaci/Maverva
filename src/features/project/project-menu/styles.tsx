@@ -88,6 +88,7 @@ export const Title = styled.div`
   margin: 0 8px 0 8px;
 `;
 
+
 export const ProjectTitle = styled.span<CommonPropsType>`
   color: ${(props) => props.theme.fontColour};
   font-size: 14px;
@@ -222,7 +223,7 @@ export const GetBoardsList = styled.div`
 export const GetBoardsListItemLink = styled(Link)`
   text-decoration: none;
 `;
-export const GetBoardsListItem = styled(Link)<{ selected: boolean }>`
+export const GetBoardsListItem = styled.div<{ selected: boolean }>`
   padding: 8px 16px;
   display: flex;
   font: var(

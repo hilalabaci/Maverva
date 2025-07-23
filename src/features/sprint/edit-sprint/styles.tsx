@@ -137,8 +137,9 @@ export const ButtonForm = styled.button`
   padding: 0 10px;
   text-align: center;
   cursor: pointer;
-  background-color: ${(props) => props.theme.themeActiveColor};
-  color: ${(props) => props.theme.colour.primary};
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
+  color: ${(props) => props.theme.colour.primary.button.secondary.text.default};
   box-shadow: var(
     --ds-shadow-overlay,
     0 0 0 1px rgba(9, 30, 66, 0.08),
@@ -146,7 +147,9 @@ export const ButtonForm = styled.button`
     0 0 20px -6px rgba(9, 30, 66, 0.31)
   );
   &:hover {
-    background-color: ${(props) => props.theme.submitButtonHover};
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.primary.background.hover};
+    color: ${(props) => props.theme.colour.primary.button.primary.text.hover};
   }
   &:focus {
   }

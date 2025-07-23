@@ -178,12 +178,12 @@ export const NotificationContainer = styled.div`
   background-color: ${(props) => props.theme.colour.modal.background.default};
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   border: ${(props) => props.theme.colour.borderforNotificationContainer};
+  color: ${(props) => props.theme.colour.text.primary};
   border-radius: 8px;
   width: 100%;
   //transform: translate3d(-142px, 51.5px, 0px);
 `;
 export const NotificationWrapper = styled.div`
-  padding: 15px;
   display: flex;
   flex-direction: column-reverse;
 `;
@@ -191,6 +191,8 @@ export const Title = styled.header`
   border-bottom: 2px solid rgba(225, 227, 231, 255);
   font-size: 24px;
   padding: 15px;
+  font-weight: 600;
+  color: ${(props) => props.theme.colour.text.inverted};
 `;
 
 export const MemberButtonWrapper = styled.div<ModalsToggleProps>`

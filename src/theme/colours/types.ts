@@ -15,6 +15,7 @@ export interface ThemeColors {
     inverted: string;
     link: string;
     subtitle: string;
+    highlightColor: string;
   };
   primary: {
     base: string;

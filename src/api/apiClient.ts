@@ -17,9 +17,9 @@ export async function apiCall<T>(
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    console.error("API call failed:", response.status, errorText);
-    throw new Error(`Error: ${response.status}, ${errorText}`);
+    const error = await response.json() as {message: string};
+    console.error("API call failed:", response.status, error);
+    throw new Error(error.message || `Error: ${response.status}`);
   }
 
   return {

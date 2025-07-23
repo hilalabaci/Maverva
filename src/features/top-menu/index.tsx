@@ -21,7 +21,7 @@ import MemberPhoto from "../../features/user/member-photo";
 import AddPerson from "../../features/addPerson";
 import Search from "../../components/common/search";
 import { ToolTip } from "../../components/common/toolstip";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Modal from "../../components/common/modal";
 import { ProjectType, UserType } from "../../types";
 import { getUserstoBoard } from "../../api/boardApi";
@@ -55,12 +55,13 @@ function TopMenu({
   activeSprintName,
   startDateActiveSprint,
   endDateActiveSprint,
-  boardId,
+  //  boardId,
   sprintId,
   sprintGoal,
   loadActiveSprint,
 }: TopMenuPropsType) {
   const location = useLocation();
+  const { boardId } = useParams<{ boardId: string }>();
   const [projectTitle, setProjectTitle] = useState(topMenuTitle);
   const [showModal, setShowModal] = useState(false);
   const [createBoardModal, setCreateBoardModal] = useState(false);
@@ -92,14 +93,16 @@ function TopMenu({
     setProjectTitle(topMenuTitle);
   }, [topMenuTitle]);
 
-  async function loadUsers(boardId: string, userId: string) {
+  async function loadUsers(
+    projectKey: string,
+    boardId: string,
+    userId: string
+  ) {
     try {
-      const response = await getUserstoBoard(boardId, userId);
+      const response = await getUserstoBoard(projectKey, boardId, userId);
       if (response.ok) {
-        console.log("response", response.data);
         const data = response.data as { users: UserType[] };
         setUsers(data.users);
-        console.log(users);
       }
     } catch (error) {
       console.error("error", error);
@@ -108,7 +111,7 @@ function TopMenu({
 
   useEffect(() => {
     if (boardId && user?.Id) {
-      loadUsers(boardId, user?.Id);
+      loadUsers(projectKey, boardId, user?.Id);
     }
   }, [boardId, user]);
 
@@ -132,10 +135,7 @@ function TopMenu({
               trigger={
                 <SprintTime>
                   <TimeIcon />
-                  {calculateDaysBetween(
-                    startDateActiveSprint,
-                    endDateActiveSprint
-                  )}
+                  {calculateDaysBetween(new Date(), endDateActiveSprint)}
                 </SprintTime>
               }
               content={`Start date: ${formatDate(

@@ -1,25 +1,39 @@
-import { AddSprintRequest, EditSprintRequest } from "../apiTypes/types";
+import { EditSprintRequest } from "../apiTypes/types";
 import { IssueType, SprintType } from "../types";
 import { apiCall } from "./apiClient";
 
-export const addSprint = async (data: AddSprintRequest) => {
-  return await apiCall("sprint", {
+export const addSprint = async (
+  userId: string,
+  boardId: string,
+  projectKey: string
+) => {
+  return await apiCall(`projects/${projectKey}/boards/${boardId}/sprints`, {
     method: "POST",
-    data: data,
+    data: { userId, boardId },
   });
 };
-export const getSprints = async (boardId: string) => {
-  return await apiCall<SprintType[]>("sprint", {
-    method: "GET",
-    urlParams: new URLSearchParams({ boardId }),
-  });
+export const getSprints = async (boardId: string, projectKey: string) => {
+  return await apiCall<SprintType[]>(
+    `projects/${projectKey}/boards/${boardId}/sprints`,
+    {
+      method: "GET",
+      urlParams: new URLSearchParams({ boardId }),
+    }
+  );
 };
- 
-export const updateSprint = async (data: EditSprintRequest) => {
-  return await apiCall<SprintType>("sprint", {
-    method: "PUT",
-    data: data,
-  });
+//DO IT
+export const updateSprint = async (
+  data: EditSprintRequest,
+  projectKey: string,
+  boardId: string
+) => {
+  return await apiCall<SprintType>(
+    `projects/${projectKey}/boards/${boardId}/sprints`,
+    {
+      method: "PUT",
+      data: data,
+    }
+  );
 };
 
 export const getSprintCard = async (projectKey: string, boardId: string) => {
@@ -31,7 +45,11 @@ export const getSprintCard = async (projectKey: string, boardId: string) => {
   );
 };
 export const getActiveSprint = async (projectKey: string, boardId: string) => {
-  return await apiCall<SprintType>(`projects/${projectKey}/boards/${boardId}`, {
-    method: "GET",
-  });
+  return await apiCall<SprintType>(
+    `projects/${projectKey}/boards/${boardId}/sprints/active`,
+    {
+      method: "GET",
+    }
+  );
 };
+

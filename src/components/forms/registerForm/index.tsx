@@ -34,7 +34,6 @@ function RegisterForm() {
   const navigate = useNavigate();
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      console.log("tokenResponse", tokenResponse);
       const user = await loginGoogle(tokenResponse.access_token);
       setUser(user.data);
       navigate("/projects");

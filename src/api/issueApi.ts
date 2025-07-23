@@ -3,13 +3,13 @@ import { IssueType } from "../types";
 import { apiCall } from "./apiClient";
 
 export const addIssue = async (data: AddIssueRequest) => {
-  return await apiCall("issue", {
+  return await apiCall(`issues`, {
     method: "POST",
     data: data,
   });
 };
 export const getIssues = async (boardId: string) => {
-  return await apiCall<IssueType[]>("issue", {
+  return await apiCall<IssueType[]>("issues", {
     method: "GET",
     urlParams: new URLSearchParams({ boardId }),
   });
@@ -23,42 +23,44 @@ export const getBacklogIssues = async (projectKey: string, boardId: string) => {
   );
 };
 export const updateIssue = async (
-  cardId: string,
+  issueId: string,
   status?: number,
   newSprintId?: string,
   oldSprintId?: string,
   boardId?: string
 ) => {
-  return await apiCall<IssueType>("issue", {
+  return await apiCall<IssueType>(`issues/${issueId}`, {
     method: "PUT",
-    data: { cardId, status, newSprintId, oldSprintId, boardId },
+    data: { issueId, status, newSprintId, oldSprintId, boardId },
   });
 };
 export const updateIssueSprintToBacklog = async (
-  cardId: string,
+  issueId: string,
   status?: number,
   oldSprintId?: string,
   boardId?: string
 ) => {
-  return await apiCall<IssueType>("issue", {
+  return await apiCall<IssueType>(`issues/${issueId}`, {
     method: "PUT",
-    data: { cardId, status, oldSprintId, boardId },
+    data: { issueId, status, oldSprintId, boardId },
   });
 };
 
 export const updateIssueContent = async (
-  cardId: string,
+  issueId: string,
   newContent?: string
 ) => {
-  return await apiCall<IssueType>("issue/content", {
+  return await apiCall<IssueType>(`issues/${issueId}/content`, {
     method: "PUT",
-    data: { cardId, newContent },
+    data: { issueId, newContent },
   });
 };
-export const deleteIssue = async (issueId: string,userId:string) => {
-  return await apiCall("issue", {
+export const deleteIssue = async (issueId: string, userId: string) => {
+  return await apiCall(`issues/${issueId}`, {
     method: "DELETE",
-    urlParams: new URLSearchParams({ id: issueId }),
-    data: {userId}
+    data: { issueId },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 };

@@ -10,15 +10,12 @@ import {
   Container,
   GeneralWrapper,
   InfoTitle,
-  InputStyle,
   GlobalStyle,
   TitleforProject,
   DetailTitle,
-  InputforProjectLead,
   FielsetWrapper,
   AddProjectWrapper,
   ProjectLeadWrapper,
-  ProjectLeadInputWrapper,
   DetailsInfo,
   DetailWrapper,
   WrapperChild,
@@ -32,6 +29,7 @@ import {
 } from "./styles";
 import { addBoard, getBoards } from "../../../api/boardApi";
 import { getProjects } from "../../../api/projectApi";
+import InputRectangle from "../../../components/common/input/rectangle";
 type BoardCreatePropsType = {
   onCreate: (project: BoardType) => void;
   BackButton: () => void;
@@ -51,6 +49,9 @@ function BoardCreate(props: BoardCreatePropsType) {
   const { user } = useUserContext();
   const userId = user?.Id;
   const [selectedProjects, setSelectedProjects] = useState<ProjectType[]>([]);
+  if (!user) {
+    throw new Error("User context is not available");
+  }
 
   function handleChange(value: string) {
     setBoardTitle(value);
@@ -63,8 +64,12 @@ function BoardCreate(props: BoardCreatePropsType) {
       userId: userId,
       projectKeys: projectKeys,
     };
-
-    const { ok, data } = await addBoard(boardData);
+    if (!projectKey) {
+      const errorMessage = "Project key is required to create a board.";
+      console.error(errorMessage);
+      return;
+    }
+    const { ok, data } = await addBoard(boardData, projectKey);
     if (ok && data) {
       props.onCreate(data.newProject);
 
@@ -106,11 +111,12 @@ function BoardCreate(props: BoardCreatePropsType) {
           <WrapperChild>
             <FielsetWrapper>
               <AddProjectWrapper>
-                <TitleforProject>Board name</TitleforProject>
-                <InputStyle
-                  type="text"
+                <InputRectangle
+                  onChange={(value) => handleChange(value)}
                   value={boardTitle}
-                  onChange={(e) => handleChange(e.target.value)}
+                  labelValue="Board name"
+                  type="text"
+                  size={8}
                 />
               </AddProjectWrapper>
               <AddProjectWrapper>
@@ -160,19 +166,20 @@ function BoardCreate(props: BoardCreatePropsType) {
                 </Description>
               </AddProjectWrapper>
               <ProjectLeadWrapper>
-                <TitleforProject>Project lead</TitleforProject>
-                <ProjectLeadInputWrapper>
-                  <InputforProjectLead>
-                    <MemberPhoto
-                      $userPhotoWidth="20px"
-                      $userPhotoHeight="20px"
-                      $userPhotoFontSize="7px"
-                      $userBorderadius="50px"
-                      $userBorder={props.userProject}
-                    />
-                    {user?.FullName}
-                  </InputforProjectLead>
-                </ProjectLeadInputWrapper>
+                <InputRectangle
+                  value={user?.FullName}
+                  labelValue="Project lead"
+                  size={8}
+                  specialBackground={true}
+                >
+                  <MemberPhoto
+                    $userPhotoWidth="19px"
+                    $userPhotoHeight="19px"
+                    $userPhotoFontSize="7px"
+                    $userBorderadius="50px"
+                    $userBorder={props.userProject}
+                  />
+                </InputRectangle>
               </ProjectLeadWrapper>
             </FielsetWrapper>
           </WrapperChild>

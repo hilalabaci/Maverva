@@ -71,9 +71,13 @@ function ActiveSprint({
   }
 
   async function loadColumns() {
-    if (!boardId) return;
+    if (!boardId || !projectKey || !activeSprint?.Id) return;
     try {
-      const { ok, data } = await getColumns(boardId);
+      const { ok, data } = await getColumns(
+        projectKey,
+        boardId,
+        activeSprint?.Id
+      );
       if (ok && data) setColumns(data);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -83,7 +87,13 @@ function ActiveSprint({
   async function deleteColumn(columnId: string) {
     try {
       if (!columnId) return;
-      const { ok, data } = await deleteColumnApi(columnId, user?.Id as string);
+      const { ok, data } = await deleteColumnApi(
+        columnId,
+        user?.Id as string,
+        projectKey as string,
+        boardId as string,
+        activeSprint?.Id as string
+      );
       if (!ok || !data) {
         setColumns(columns.filter((c) => c.Id !== columnId));
         updatedCardsAfterDeleteColumn(data as IssueType[]);
@@ -101,7 +111,13 @@ function ActiveSprint({
         boardId: boardId,
         userId: user?.Id as string,
       };
-      const { ok, data } = await addColumn(columnData);
+      if (!projectKey || !activeSprint?.Id) return;
+      const { ok, data } = await addColumn(
+        columnData,
+        projectKey,
+        boardId,
+        activeSprint?.Id
+      );
       if (ok && data) {
         await loadColumns();
         setTitle("");
@@ -109,13 +125,10 @@ function ActiveSprint({
     } catch (error) {}
   }
   useEffect(() => {
-    if (boardId) {
+    if (boardId && activeSprint) {
       loadColumns();
     }
-  }, [boardId]);
-  useEffect(() => {
-    console.log(`activeSprintfromActive:`, activeSprint);
-  }, []);
+  }, [boardId, activeSprint]);
 
   return (
     <Container>

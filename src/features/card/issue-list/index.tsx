@@ -9,7 +9,7 @@ import {
   AddCardButton,
   IconAdd,
 } from "./styles";
-import { IssueType, DragItem } from "../../../types";
+import { IssueType } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { updateIssue } from "../../../api/issueApi";
 interface IssueListProps {
@@ -24,8 +24,22 @@ interface IssueListProps {
   onDelete: (id: string) => void;
   addedCard: (card: IssueType) => void;
 }
+interface DragItem {
+  issueId: string;
+  oldSprintId?: string;
+}
 
-function IssueList(props: IssueListProps) {
+function IssueList({
+  issues,
+  status,
+  projectKey,
+  boardId,
+  sprintId,
+  onUpdate,
+  onUpdateContent,
+  onDelete,
+  addedCard,
+}: IssueListProps) {
   const [showAdd, setShowAdd] = useState(false);
   const ref = useOutsideClick<HTMLDivElement>(closeAddCard);
   function dynamicAddCard() {
@@ -35,10 +49,10 @@ function IssueList(props: IssueListProps) {
     setShowAdd(false);
   }
 
-  async function updateStatus(id: string, status: number) {
-    const response = await updateIssue(id, status);
+  async function updateStatus(issueId: string, status?: number) {
+    const response = await updateIssue(issueId, status);
     if (response.ok && response.data) {
-      props.onUpdate(response.data);
+      onUpdate(response.data);
     } else {
       console.error("Failed to update card:", response);
     }
@@ -47,19 +61,19 @@ function IssueList(props: IssueListProps) {
   const [, drop] = useDrop<DragItem>({
     accept: "CARD",
     drop: (item) => {
-      updateStatus(item.IssueId, props.status);
+      updateStatus(item.issueId, status);
     },
   });
 
   return (
     <Container ref={drop}>
-      {props.issues.length > 0 ? (
+      {issues.length > 0 ? (
         <IssueWrapper>
-          {props.issues.map((issue, index) => (
+          {issues.map((issue, index) => (
             <Issue
-              onUpdate={props.onUpdate}
-              onUpdateContent={props.onUpdateContent}
-              onDelete={props.onDelete}
+              onUpdate={onUpdate}
+              onUpdateContent={onUpdateContent}
+              onDelete={onDelete}
               id={issue.Id}
               key={index}
               content={issue.Summary}
@@ -77,12 +91,12 @@ function IssueList(props: IssueListProps) {
       <AddCardButtonWrapper ref={ref}>
         {showAdd ? (
           <AddIssue
-            addedCard={props.addedCard}
-            projectKey={props.projectKey}
+            addedCard={addedCard}
+            projectKey={projectKey}
             onClose={closeAddCard}
-            status={props.status}
-            boardId={props.boardId}
-            sprintId={props.sprintId}
+            status={status}
+            boardId={boardId}
+            sprintId={sprintId}
           />
         ) : (
           <AddCardButton onClick={dynamicAddCard} type="submit">

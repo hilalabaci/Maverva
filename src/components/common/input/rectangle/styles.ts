@@ -4,25 +4,34 @@ import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 7px;
 `;
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div<{ isSpecialBackground?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 5px;
   border-radius: 3px;
   color: ${(props) => props.theme.colour.modal.text.default};
   outline: ${(props) => props.theme.colour.modal.border.default};
+  background-color: ${({ isSpecialBackground, theme }) =>
+    isSpecialBackground
+      ? theme.colour.primary.button.secondary.background.default
+      : "white"};
   border: none;
   font-size: 1rem;
   font-weight: 400;
+  margin-top: 7px;
+  width: 250px;
 `;
 
-export const Inputs = styled.input`
+export const Inputs = styled.input<{ size?: number }>`
   background-color: transparent;
-  padding: 12px 5px;
   color: ${(props) => props.theme.colour.text.inverted};
   outline: none;
   border: none;
   width: 100%;
+  padding: ${(props) => (props.size ? `${props.size}px 3px 5px;` : "12px 5px")};
 `;
 export const Icon = styled(CheckCircleIcon)`
   color: green;
@@ -33,8 +42,8 @@ export const WarningMessage = styled.p`
   color: #dc3545;
   font-size: 0.79rem;
   margin: 0;
-  padding: 5px 5px 0 0;
   text-align: right;
+  width: 250px;
 `;
 export const EmailIcon = styled(MailOutlinedIcon)`
   color: ${(props) => props.theme.colour.text.inverted};

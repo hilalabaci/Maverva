@@ -40,12 +40,14 @@ import { addIssue, updateIssueSprintToBacklog } from "../../api/issueApi";
 type URLParams = {
   projectKey: string;
   boardId: string;
+  sprintId?: string;
 };
 type BacklogCardsProps = {
   createSprint: () => void;
+  updateDragandDrop: (issueId: string) => void;
 };
 
-function BacklogCards({ createSprint }: BacklogCardsProps) {
+function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
   const { user } = useUserContext();
   const { projectKey, boardId } = useParams<URLParams>();
   const [content, setContent] = useState("");
@@ -57,8 +59,10 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
   const [, drop] = useDrop<DragItem>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
-      console.log("dropped,sprint to backlog", item);
-      updateCard(item.IssueId, 1, item.oldSprintId, item.boardId);
+      updateCard(item.issueId, 1, item.oldSprintId, item.boardId);
+      updateDragandDrop(item.issueId);
+      console.log("Item dropped: sprintId not coming", item);
+      // Update the card after drag
       loadBacklogCards();
     },
   });
@@ -112,13 +116,13 @@ function BacklogCards({ createSprint }: BacklogCardsProps) {
   }
 
   async function updateCard(
-    id: string,
+    issueId: string,
     status: number,
     sprintId?: string,
     boardId?: string
   ) {
     const response = await updateIssueSprintToBacklog(
-      id,
+      issueId,
       status,
       sprintId,
       boardId

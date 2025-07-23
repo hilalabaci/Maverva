@@ -2,11 +2,11 @@ import { useDrag } from "react-dnd";
 import { useState } from "react";
 import MemberPhoto from "../user/member-photo";
 import {
-  BacklogDragItems,
   IssueStatus,
   IssueType,
   DragDropCollect,
   UserType,
+  DragItem,
 } from "../../types";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { getStatusLabel } from "../../utils/getStatus";
@@ -37,6 +37,7 @@ import {
   updateIssueContent,
 } from "../../api/issueApi";
 import { useUserContext } from "../../contexts/UserContext";
+import { useParams } from "react-router-dom";
 
 type BacklogCardPropsType = {
   cardKey: string;
@@ -50,6 +51,10 @@ type BacklogCardPropsType = {
   onUpdateCardStatus: (id: string, status: number) => void;
   updateCardAfterDrag: (id: string) => void;
   onUpdateContent: (card: IssueType) => void;
+};
+type URLParams = {
+  projectKey: string;
+  sprintId: string;
 };
 
 const BacklogCard = ({
@@ -65,13 +70,9 @@ const BacklogCard = ({
   updateCardAfterDrag,
   onUpdateContent,
 }: BacklogCardPropsType) => {
-  const [{ isDragging }, drag] = useDrag<
-    BacklogDragItems,
-    unknown,
-    DragDropCollect
-  >({
+  const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "BACKLOG_CARD",
-    item: { cardId: id, oldSprintId: sprintId, boardId: boardId },
+    item: { issueId: id, oldSprintId: sprintId, boardId: boardId },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -88,6 +89,7 @@ const BacklogCard = ({
 
       dropResult.droppedCard.then((card) => {
         if (!card) return;
+        console.log("Card dropped suanda bunu:", card);
         updateCardAfterDrag(card.Id);
       });
     },
@@ -124,8 +126,12 @@ const BacklogCard = ({
   }
 
   async function deleteCard() {
-    const cardId = id;
-    const response = await deleteIssue(cardId, user?.Id as string);
+    if (!user || !user.Id) {
+      console.error("User is not authenticated.");
+      return;
+    }
+    const issueId = id;
+    const response = await deleteIssue(issueId, user.Id);
     if (response.ok) {
       updateCardsAfterDelete(id);
     }

@@ -1,4 +1,4 @@
-import { BoardType, ProjectType, UserType } from "../types";
+import { BoardType, ProjectType } from "../types";
 
 export type ApiCallOptions = {
   urlParams?: URLSearchParams;
@@ -12,7 +12,6 @@ export type ApiResponse<T> = {
   ok: boolean;
   data?: T;
 };
-
 export type AddProjectRequest = {
   title: string;
   leadUser: string;
@@ -33,6 +32,9 @@ export type AddBoardResponse = {
   message: string;
   newProject: BoardType;
 };
+export type GetUsersToBoardResponse = {
+  boardId: string;
+};
 export type AddUserToBoardRequest = {
   projectId: string;
   boardIds: string[];
@@ -48,8 +50,8 @@ export type AddIssueRequest = {
   sprintId?: string;
 };
 export type AddSprintRequest = {
-  boardId: string | BoardType | undefined;
-  userId: string | UserType | undefined;
+  boardId: string;
+  userId: string;
 };
 export type AddColumnRequest = {
   userId: string;

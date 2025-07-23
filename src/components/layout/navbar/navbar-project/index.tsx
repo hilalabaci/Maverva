@@ -39,7 +39,9 @@ function Navbar(props: NavbarPropsType) {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [memberMenu, setMemberMenu] = useState(false);
+  const hasFetchedNotifications = useRef(false);
   function openMemberMenu() {
     setMemberMenu(true);
   }
@@ -81,23 +83,24 @@ function Navbar(props: NavbarPropsType) {
   }, [user]);
 
   useEffect(() => {
-    if (user?.Id) {
-      loadNotifications();
-    }
+    if (!user?.Id || hasFetchedNotifications.current) return;
+    hasFetchedNotifications.current = true;
+    loadNotifications();
   }, [user, loadNotifications]);
 
   async function markNotificationsRead() {
     const unReadNotificationIds = notifications
-      .filter((n) => !n.isRead)
+      .filter((n) => !n.IsRead)
       .map((n) => n.Id);
     if (unReadNotificationIds.length <= 0) return;
     //const data = { notificationIds: unReadNotificationIds };
     const response = await markNotificationsReadApi({
       unReadNotificationIds: unReadNotificationIds,
+      userId: user?.Id || "",
     });
     if (response) {
       setTimeout(() => {
-        setNotifications(notifications.map((n) => ({ ...n, isRead: true })));
+        setNotifications(notifications.map((n) => ({ ...n, IsRead: true })));
       }, 5000);
     }
     // const response = await fetch(
@@ -112,7 +115,7 @@ function Navbar(props: NavbarPropsType) {
     // );
   }
 
-  const unReadNotificationCount = notifications.filter((n) => !n.isRead).length;
+  const unReadNotificationCount = notifications.filter((n) => !n.IsRead).length;
   function handleProjectsClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
     navigate("/projects");
