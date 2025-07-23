@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
@@ -53,6 +53,7 @@ type URLParams = {
   boardId?: string;
 };
 function ProjectMenu({ hideMenu, projectId, onHover }: ProjectMenuPropsType) {
+  const hasFetchedBoards = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { projectKey, boardId } = useParams<URLParams>();
@@ -82,6 +83,8 @@ function ProjectMenu({ hideMenu, projectId, onHover }: ProjectMenuPropsType) {
   }, [user, projectKey]);
 
   useEffect(() => {
+    if (hasFetchedBoards.current) return;
+    hasFetchedBoards.current = true;
     loadBoards();
   }, [projectKey, projectId]);
 

@@ -12,15 +12,17 @@ import {
 import { IssueType } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { updateIssue } from "../../../api/issueApi";
+import IssueDetails from "../issue-details";
+import Modal from "../../../components/common/modal";
 interface IssueListProps {
-  title: string;
   issues: IssueType[];
   status: number;
   projectKey: string;
   boardId?: string;
   sprintId?: string;
   onUpdate: (card: IssueType) => void;
-  onUpdateContent: (card: IssueType) => void;
+  onUpdateSummary: (issue: IssueType) => void;
+  onUpdateDescription: (issue: IssueType) => void;
   onDelete: (id: string) => void;
   addedCard: (card: IssueType) => void;
 }
@@ -36,12 +38,14 @@ function IssueList({
   boardId,
   sprintId,
   onUpdate,
-  onUpdateContent,
+  onUpdateSummary,
+  onUpdateDescription,
   onDelete,
   addedCard,
 }: IssueListProps) {
   const [showAdd, setShowAdd] = useState(false);
   const ref = useOutsideClick<HTMLDivElement>(closeAddCard);
+  const [selectedIssue, setSelectedIssue] = useState<IssueType | null>(null);
   function dynamicAddCard() {
     setShowAdd(true);
   }
@@ -71,8 +75,10 @@ function IssueList({
         <IssueWrapper>
           {issues.map((issue, index) => (
             <Issue
+              onClick={() => setSelectedIssue(issue)}
               onUpdate={onUpdate}
-              onUpdateContent={onUpdateContent}
+              onUpdateSummary={onUpdateSummary}
+              onUpdateDescription={onUpdateDescription}
               onDelete={onDelete}
               id={issue.Id}
               key={index}
@@ -104,6 +110,25 @@ function IssueList({
           </AddCardButton>
         )}
       </AddCardButtonWrapper>
+      {selectedIssue && (
+        <Modal onClose={() => setSelectedIssue(null)} open={!!selectedIssue}>
+          <IssueDetails
+            issueSummary={selectedIssue.Summary}
+            onUpdateSummary={(newSummary) =>
+              onUpdateSummary({ ...selectedIssue, Summary: newSummary })
+            }
+            issueDescription={selectedIssue.Description}
+            onUpdateDescription={(newDescription) =>
+              onUpdateDescription({
+                ...selectedIssue,
+                Description: newDescription,
+              })
+            }
+            issueKey={selectedIssue.Key}
+            onCloseIssueEdit={() => setSelectedIssue(null)}
+          />
+        </Modal>
+      )}
     </Container>
   );
 }

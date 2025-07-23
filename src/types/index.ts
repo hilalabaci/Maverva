@@ -46,6 +46,7 @@ export type SprintType = {
 export type IssueType = {
   Id: string;
   Summary: string;
+  Description?: string;
   Status: number;
   ReporterUser: UserType;
   AssigneeUser?: UserType;

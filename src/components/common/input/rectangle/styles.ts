@@ -17,7 +17,7 @@ export const InputContainer = styled.div<{ isSpecialBackground?: boolean }>`
   background-color: ${({ isSpecialBackground, theme }) =>
     isSpecialBackground
       ? theme.colour.primary.button.secondary.background.default
-      : "white"};
+      : "transparent"};
   border: none;
   font-size: 1rem;
   font-weight: 400;

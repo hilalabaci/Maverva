@@ -100,10 +100,13 @@ export interface ThemeColors {
     default: {
       background: string;
       icon: string;
+      border?: string;
+      boxShadow?: string;
     };
     hover: {
       background: string;
       icon: string;
+      border?: string;
     };
     active: {
       background: string;

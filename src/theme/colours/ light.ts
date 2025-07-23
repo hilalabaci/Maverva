@@ -38,12 +38,12 @@ const lightColors: ThemeColors = {
       },
       secondary: {
         background: {
-          default: "#091e420f",
-          hover: "#091e4224",
+          default: "transparent",
+          hover: "#091e420f",
           active: "#1868DB",
         },
         text: {
-          default: "#172b4d",
+          default: "#505258",
           hover: "white",
           active: "white",
         },
@@ -102,6 +102,8 @@ const lightColors: ThemeColors = {
     default: {
       background: "rgba(255,255,255,255)",
       icon: "rgb(68, 84, 111,1)",
+      border: "1px solid rgba(24, 27, 30, 0.1)",
+      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1),0 8px 16px rgba(0, 0, 0, 0.08);",
     },
     hover: {
       background: "rgb(9 30 66 / 14%)",

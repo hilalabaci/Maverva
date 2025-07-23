@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AddedPerson from "../addedPerson";
-import { BoardType,ApiError } from "../../types";
+import { BoardType, ApiError } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import { DropdownSelectMenu } from "../../components/common/select";
 import Modal from "../../components/common/modal";
@@ -40,6 +40,7 @@ function AddPerson({
   projectId,
   projectTitle,
 }: AddPersonPropsType) {
+  const hasFetchedBoards = useRef(false);
   const { boardId } = useParams<URLParams>();
   const [showModal, setShowModal] = useState(false);
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
@@ -70,6 +71,10 @@ function AddPerson({
     }
   }
   useEffect(() => {
+    if (hasFetchedBoards.current) return;
+    hasFetchedBoards.current = true;
+    if (!projectKey || !projectId) return;
+    if (!user) return;
     loadBoards();
   }, [projectKey, projectId]);
 
@@ -210,12 +215,7 @@ function AddPerson({
               />
             </RoleWrapper>
             <ButtonWrapper>
-              <CancelButton
-                type="button"
-                onClick={() => {
-                  closeModal();
-                }}
-              >
+              <CancelButton type="button" onClick={closeModal}>
                 Cancel
               </CancelButton>
               <Modal
@@ -226,9 +226,7 @@ function AddPerson({
               >
                 {showAddedPerson && (
                   <AddedPerson
-                    onClose={() => {
-                      closeModal();
-                    }}
+                    onClose={closeModal}
                     projectTitle={projectTitle}
                     emailforAddPerson={emailforAddPerson}
                   />

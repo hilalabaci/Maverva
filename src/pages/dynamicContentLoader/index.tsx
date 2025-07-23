@@ -1,12 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import TopMenu from "../../features/top-menu";
-import {
-  ProjectType,
-  IssueType,
-  BoardType,
-  SprintType,
-  IssueStatus,
-} from "../../types";
+import { ProjectType, IssueType, SprintType, IssueStatus } from "../../types";
 import Layout from "../templates/layout";
 import { useLocation, useParams } from "react-router-dom";
 import MainContainerLayout from "../templates/mainContainerLayout";
@@ -23,14 +17,16 @@ import { useUserContext } from "../../contexts/UserContext";
 import { getSelectedProject } from "../../api/projectApi";
 import { getActiveSprint } from "../../api/sprintApi";
 import { useApplicationContext } from "../../contexts/ApplicationContext";
+import { updateIssueContent } from "../../api/issueApi";
 
 type URLParams = {
   projectKey: string;
   boardId?: string;
 };
 function DynamicContentLoader() {
+  const hasFetchedProjects = useRef(false);
   const location = useLocation();
-  const { projectKey, boardId } = useParams<URLParams>();
+  const { projectKey } = useParams<URLParams>();
   const { user } = useUserContext();
   const { selectedBoard, setSelectedBoard } = useApplicationContext();
   const [activeSprint, setActiveSprint] = useState<SprintType>();
@@ -83,15 +79,15 @@ function DynamicContentLoader() {
   }, [projectKey, selectedBoard?.Id]);
 
   useEffect(() => {
-    if (projectKey) {
-      loadSelectedProject();
-    }
+    if (!projectKey || hasFetchedProjects.current) return;
+    hasFetchedProjects.current = true;
+    loadSelectedProject();
   }, [projectKey]);
 
   useEffect(() => {
-    if (selectedBoard?.Id) {
-      loadActiveSprint();
-    }
+    if (!selectedBoard?.Id || hasFetchedProjects.current) return;
+    hasFetchedProjects.current = true;
+    loadActiveSprint();
   }, [loadActiveSprint, selectedBoard?.Id]);
 
   useEffect(() => {
@@ -107,23 +103,47 @@ function DynamicContentLoader() {
     setIssues(issues?.filter((issue) => issue.Id !== id));
   }
 
-  function updateCard(card: IssueType) {
+  function updateIssue(issue: IssueType) {
     if (!issues) return;
-    const index = issues.findIndex((b) => b.Id === card.Id);
+    const index = issues.findIndex((b) => b.Id === issue.Id);
     const newCards = [...issues];
-    newCards[index] = card;
+    newCards[index] = issue;
     setIssues(newCards);
     /*    setCards([...cards.filter((card) => card.id !== id), card]); */
   }
-  function onUpdateContent(card: IssueType) {
+  async function onUpdateSummary(issue: IssueType) {
     if (!issues) return;
-    loadActiveSprint();
+    const response = await updateIssueContent(
+      issue.Id,
+      issue.Summary,
+      issue.Description
+    );
+    if (response.ok && response.data) {
+      updateIssue(response.data);
+    } else {
+      console.error("Failed to update card:", response);
+    }
+  }
+
+  async function onUpdateDescription(issue: IssueType) {
+    if (!issues) return;
+    console.log("Updating issue description:", issue);
+    const response = await updateIssueContent(
+      issue.Id,
+      issue.Summary,
+      issue.Description
+    );
+    if (response.ok && response.data) {
+      updateIssue(response.data);
+    } else {
+      console.error("Failed to update card:", response);
+    }
   }
 
   useEffect(() => {
-    if (projectKey) {
-      loadSelectedProject();
-    }
+    if (!projectKey || hasFetchedProjects.current) return;
+    hasFetchedProjects.current = true;
+    loadSelectedProject();
   }, [projectKey]);
 
   useEffect(() => {
@@ -133,22 +153,22 @@ function DynamicContentLoader() {
     );
   }, [searchInput, issues]);
 
-  function addedCard(card: IssueType) {
+  function addedCard(issue: IssueType) {
     if (!issues) return;
-    setIssues([...issues, card]);
+    setIssues([...issues, issue]);
   }
-  function updatedCardsAfterDeleteColumn(updateCards: IssueType[]) {
+  function updatedCardsAfterDeleteColumn(updateIssues: IssueType[]) {
     if (!issues) return;
-    const updatedCards = updateCards.map((card) => ({
-      ...card,
+    const updatedIssues = updateIssues.map((issue) => ({
+      ...issue,
       status: IssueStatus.ToDo,
     }));
 
-    const updatedCardIds = updatedCards.map((card) => card.Id);
-    const remainingCards = issues.filter(
-      (issue) => !updatedCardIds.includes(issue.Id)
+    const updatedIssueIds = updatedIssues.map((issue) => issue.Id);
+    const remainingIssues = issues.filter(
+      (issue) => !updatedIssueIds.includes(issue.Id)
     );
-    setIssues([...updatedCards, ...remainingCards]);
+    setIssues([...updatedIssues, ...remainingIssues]);
   }
 
   return (
@@ -192,8 +212,9 @@ function DynamicContentLoader() {
                     <ActiveSprint
                       activeSprint={activeSprint}
                       boardId={activeSprint?.BoardId as string | undefined}
-                      onUpdate={updateCard}
-                      onUpdateContent={onUpdateContent}
+                      onUpdate={updateIssue}
+                      onUpdateSummary={onUpdateSummary}
+                      onUpdateDescription={onUpdateDescription}
                       onDelete={deleteCard}
                       addedCard={addedCard}
                       filteredCards={filteredIssues}

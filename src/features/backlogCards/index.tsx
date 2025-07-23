@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDrop } from "react-dnd";
@@ -48,6 +48,7 @@ type BacklogCardsProps = {
 };
 
 function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
+  const hasFetchedBacklogCards = useRef(false);
   const { user } = useUserContext();
   const { projectKey, boardId } = useParams<URLParams>();
   const [content, setContent] = useState("");
@@ -150,6 +151,8 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
   }
 
   useEffect(() => {
+    if (hasFetchedBacklogCards.current) return;
+    hasFetchedBacklogCards.current = true;
     if (!boardId) {
       setBacklogCards([]);
       return;

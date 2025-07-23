@@ -1,5 +1,7 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import IssueList from "../../features/card/issue-list";
 import {
   ColumnContainer,
@@ -18,8 +20,6 @@ import {
   TitleTotalCardWrapper,
 } from "./styles";
 import { IssueType, ColumnType, SprintType } from "../../types";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
 import NumberOfCards from "../../features/card/number-cards";
 import { ButtomWrapper } from "../../features/card/issue/styles";
 import { NextButton } from "../../features/board/optional/styles";
@@ -39,25 +39,28 @@ type ActiveSprintsProps = {
   activeSprint?: SprintType;
   boardId?: string | undefined;
   filteredCards: IssueType[];
-  onUpdate: (card: IssueType) => void;
-  onUpdateContent: (card: IssueType) => void;
+  onUpdate: (issue: IssueType) => void;
+  onUpdateSummary: (issue: IssueType) => void;
+  onUpdateDescription: (issue: IssueType) => void;
   onDelete: (id: string) => void;
-  addedCard: (card: IssueType) => void;
+  addedCard: (issue: IssueType) => void;
   issues: IssueType[];
   projectKey?: string;
-  updatedCardsAfterDeleteColumn: (cards: IssueType[]) => void;
+  updatedCardsAfterDeleteColumn: (issues: IssueType[]) => void;
 };
 function ActiveSprint({
   activeSprint,
   filteredCards,
   onUpdate,
-  onUpdateContent,
+  onUpdateSummary,
+  onUpdateDescription,
   onDelete,
   addedCard,
   projectKey,
   updatedCardsAfterDeleteColumn,
 }: ActiveSprintsProps) {
   const { user } = useUserContext();
+  const hasFetchedProjects = useRef(false);
   const { boardId } = useParams<URLParams>();
   const [columns, setColumns] = useState<ColumnType[]>([]);
   const [displayCreateColumn, setDisplayCreateColumn] = useState(false);
@@ -125,9 +128,9 @@ function ActiveSprint({
     } catch (error) {}
   }
   useEffect(() => {
-    if (boardId && activeSprint) {
-      loadColumns();
-    }
+    if (!boardId || !activeSprint || hasFetchedProjects.current) return;
+    hasFetchedProjects.current = true;
+    loadColumns();
   }, [boardId, activeSprint]);
 
   return (
@@ -170,10 +173,10 @@ function ActiveSprint({
                   <IssueList
                     key={column.Id}
                     onUpdate={onUpdate}
-                    onUpdateContent={onUpdateContent}
+                    onUpdateSummary={onUpdateSummary}
+                    onUpdateDescription={onUpdateDescription}
                     onDelete={onDelete}
                     addedCard={addedCard}
-                    title={column.Name}
                     projectKey={projectKey as string}
                     issues={filteredCards.filter(
                       (card) => card.Status === column.Status

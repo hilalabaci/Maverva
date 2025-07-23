@@ -1,7 +1,11 @@
 import { useState } from "react";
+import { useDrag } from "react-dnd";
+import { useUserContext } from "../../../contexts/UserContext";
 import Label from "../card-label/index";
 import MemberPhoto from "../../user/member-photo";
-import { useDrag } from "react-dnd";
+import useOutsideClick from "../../../hooks/useOutsideClick";
+import { ToolTip } from "../../../components/common/toolstip";
+import { DropdownMenu } from "../../../components/common/dropdownMenu";
 import {
   IssueStatus,
   IssueType,
@@ -10,9 +14,6 @@ import {
   LabelType,
   UserType,
 } from "../../../types";
-import useOutsideClick from "../../../hooks/useOutsideClick";
-import { ToolTip } from "../../../components/common/toolstip";
-import { DropdownMenu } from "../../../components/common/dropdownMenu";
 import {
   Container,
   NoteWrapper,
@@ -36,9 +37,7 @@ import {
   updateIssue,
   updateIssueContent,
 } from "../../../api/issueApi";
-import { useUserContext } from "../../../contexts/UserContext";
-import Modal from "../../../components/common/modal";
-import IssueDetails from "../issue-details";
+import { on } from "events";
 
 type IssueProps = {
   id: string;
@@ -49,13 +48,10 @@ type IssueProps = {
   cardKey: string;
   status: number;
   onUpdate: (card: IssueType) => void;
-  onUpdateContent: (card: IssueType) => void;
+  onUpdateSummary: (card: IssueType) => void;
+  onUpdateDescription: (card: IssueType) => void;
   onDelete: (id: string) => void;
-};
-type URLParams = {
-  projectKey: string;
-  boardId: string;
-  sprintId: string;
+  onClick?: () => void;
 };
 function Issue({
   id,
@@ -64,8 +60,10 @@ function Issue({
   reporterUser,
   cardKey,
   onUpdate,
-  onUpdateContent,
+  onUpdateSummary,
+  onUpdateDescription,
   onDelete,
+  onClick,
 }: IssueProps) {
   const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "CARD",
@@ -78,34 +76,12 @@ function Issue({
   const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
-  const [showIssueDetails, setShowIssueDetails] = useState(false);
   const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
 
   function openModal() {
     setShowModal(true);
   }
-  function closeModal() {
-    setShowModal(false);
-  }
-  const [showLabel, setShowLabel] = useState(false);
-  const [showModalEdit, setShowModalEdit] = useState(false);
-  function openModalEdit() {
-    setShowModalEdit(true);
-    setShowLabel(false);
-  }
-  function openLabel() {
-    setShowLabel(true);
-    setShowModalEdit(false);
-  }
-  function onCloseEdit() {
-    setShowLabel(false);
-  }
-  function openIssueDetails() {
-    setShowIssueDetails(true);
-  }
-  function closeIssueDetails() {
-    setShowIssueDetails(false);
-  }
+
   async function handleDeleteIssue(issueId: string) {
     if (user === null || user?.Id === undefined) {
       console.error("User is not authenticated.");
@@ -131,10 +107,11 @@ function Issue({
       console.error("Failed to update card:", response);
     }
   }
-  async function updateCardContent(id: string, newContent: string) {
-    const response = await updateIssueContent(id, newContent);
+  async function updateIssueDetails(id: string, newSummary: string) {
+    const response = await updateIssueContent(id, newSummary);
     if (response.ok && response.data) {
-      onUpdateContent(response.data);
+      onUpdateSummary(response.data);
+      //onUpdateDescription(response.data);
       setEditTextDisplay(false);
     } else {
       console.error("Failed to update card:", response);
@@ -143,18 +120,25 @@ function Issue({
 
   return (
     <>
-      <Container ref={drag} onClick={openIssueDetails}>
+      <Container onClick={onClick} ref={drag}>
         <GlobalStyle />
         <ContentWrapper>
           <NoteWrapper>
             {editTextDisplay ? (
-              <EditWrapper ref={ref}>
+              <EditWrapper
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
                 <EditTextArea
                   value={changeContent}
                   onChange={(e) => setChangeContent(e.target.value)}
                 />
                 <DoneButton
-                  onClick={() => updateCardContent(id, changeContent)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateIssueDetails(id, changeContent);
+                  }}
                 >
                   <IconDone />
                 </DoneButton>
@@ -170,7 +154,12 @@ function Issue({
               <ToolTip
                 fontSize="10px"
                 trigger={
-                  <NoteEdit onClick={() => setEditTextDisplay(true)}>
+                  <NoteEdit
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setEditTextDisplay(true);
+                    }}
+                  >
                     <EditContentIcon />
                   </NoteEdit>
                 }
@@ -245,18 +234,6 @@ function Issue({
           ></ToolTip>
         </CardButtomWrapper>
       </Container>
-
-      {showIssueDetails && (
-        <Modal onClose={closeIssueDetails} open={showIssueDetails}>
-          <IssueDetails
-            issueContent={changeContent}
-            setIssueContent={setChangeContent}
-            issueKey={cardKey}
-            onCloseIssueEdit={closeIssueDetails}
-            onUpdateContent={(newContent) => updateCardContent(id, newContent)}
-          />
-        </Modal>
-      )}
     </>
   );
 }

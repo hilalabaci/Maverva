@@ -19,7 +19,8 @@ export const IssueEditWrapper = styled.div`
 `;
 export const IssueInfo = styled.div`
   font-size: 12px;
-  color: ${(props) => props.theme.colour.text.subtitle};
+  color: ${(props) => props.theme.colour.text.link};
+  font-weight: 500;
 `;
 export const ActionWrapper = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ export const ActionWrapper = styled.div`
 `;
 export const ContentWrapper = styled.div``;
 export const IssueWrapper = styled.div`
-  padding: 0pc 2pc 1pc 2pc;
+  padding: 1pc 2pc 1pc 2pc;
 `;
 export const EditWrapper = styled.div`
   display: flex;
@@ -43,21 +44,21 @@ export const ButtomWrapper = styled.div`
   gap: 5px;
 `;
 export const EditTextArea = styled.textarea`
+  display: flex;
   resize: none;
   outline: none;
   border-radius: 3px;
   border: ${(props) => props.theme.colour.border.active};
   background-color: ${(props) => props.theme.colour.background.surface};
-  min-width: 97%;
   text-align: left;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  padding: 5px;
   font-weight: 600;
   font-size: 24px;
-  line-height: 20px;
   color: ${(props) => props.theme.colour.text.highlightColor};
-  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 `;
 export const IssueEdit = styled.div`
   outline: none;
@@ -88,23 +89,40 @@ export const IssueTitle = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
-  padding: 5px;
+  padding: 5px 0;
   margin: 0;
 `;
 export const DescriptionWrapper = styled.div`
-  padding: 0pc 2pc 1pc 2pc;
+  padding: 1pc 2pc 1pc 2pc;
 `;
-export const DescriptionTitle = styled.h4``;
+export const DescriptionTitle = styled.h4`
+  color: ${(props) => props.theme.colour.text.inverted};
+  font-size: 16px;
+  margin: 0;
+`;
 export const DescriptionTextWrapper = styled.div`
-  border: ${(props) => props.theme.colour.border.default};
-  border-radius: 3px;
   width: 100%;
 `;
-export const DescriptionText = styled.textarea`
+export const DescriptionText = styled.div`
+  color: ${(props) => props.theme.colour.text.subtitle};
+  border-radius: 3px;
+  padding: 10px 2px;
+  margin: 0;
+  &:hover {
+    background-color: ${(props) => props.theme.colour.background.surface};
+  }
+`;
+export const DescriptionTextEditer = styled.textarea`
+  background-color: ${(props) => props.theme.colour.background.surface};
+  border-radius: 3px;
+  color: ${(props) => props.theme.colour.text.primary};
+  border: ${(props) => props.theme.colour.border.default};
   line-height: 1.5;
-  border: none;
   resize: none;
   outline: none;
-  padding:5px 20px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  font-size: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 `;
