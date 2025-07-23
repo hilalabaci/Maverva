@@ -43,7 +43,7 @@ export const Container = styled.button`
     0 1px 1px #172b4d00, 0 0 1px #172b4d33; */
   box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
     0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
-  //background-color: ${(props) => props.theme.colour.background.default};
+  background-color: ${(props) => props.theme.colour.background.default};
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.colour.background.cardBG.hover};
@@ -58,12 +58,11 @@ export const Container = styled.button`
     opacity: 1;
   }
   &:hover ${EditContentIcon} {
-    width: 17px !important;
-    height: 14px !important;
     justify-content: flex-end;
     border-radius: 3px;
     opacity: 1;
     padding: 2px;
+    font-size: medium !important;
   }
   @media only screen and (max-width: 768px) {
     padding: 15px;
@@ -164,6 +163,7 @@ export const CardButtomWrapper = styled.div`
 export const CardKeyWrapper = styled.div`
   font-size: 11px;
   font-weight: 600;
+  color: ${(props) => props.theme.colour.text.inverted};
   @media only screen and (max-width: 768px) {
     font-size: 10px;
   }

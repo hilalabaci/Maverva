@@ -17,18 +17,20 @@ export const Container = styled.form`
   }
 `;
 export const Textarea = styled.input`
-  background-color: ${(props) => props.theme.cardBG};
+  background-color: ${(props) => props.theme.colour.background.default};
+  border: ${(props) => props.theme.colour.border.default};
   outline: none;
   border: none;
-  color: ${(props) => props.theme.fontColour};
+  color: ${(props) => props.theme.colour.text.inverted};
   opacity: 0.7;
   text-align: left;
   resize: none;
   font-size: 14px;
   font-weight: 400;
   padding: 10px 5px;
+  border-radius: 3px;
   &::placeholder {
-    color: ${(props) => props.theme.fontColour};
+    color: ${(props) => props.theme.colour.text.surface};
     font-size: 14px;
   }
   @media only screen and (max-width: 768px) {

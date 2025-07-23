@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Container,
   ProjectTitle,
@@ -60,6 +60,7 @@ function TopMenu({
   sprintGoal,
   loadActiveSprint,
 }: TopMenuPropsType) {
+  const hasFetchedProjects = useRef(false);
   const location = useLocation();
   const { boardId } = useParams<{ boardId: string }>();
   const [projectTitle, setProjectTitle] = useState(topMenuTitle);
@@ -110,9 +111,10 @@ function TopMenu({
   }
 
   useEffect(() => {
-    if (boardId && user?.Id) {
-      loadUsers(projectKey, boardId, user?.Id);
-    }
+    if (!projectKey || !boardId || !user?.Id || hasFetchedProjects.current)
+      return;
+    hasFetchedProjects.current = true;
+    loadUsers(projectKey, boardId, user.Id);
   }, [boardId, user]);
 
   const onSearch = (value: string) => {

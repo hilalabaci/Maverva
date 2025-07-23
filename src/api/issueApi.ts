@@ -48,11 +48,12 @@ export const updateIssueSprintToBacklog = async (
 
 export const updateIssueContent = async (
   issueId: string,
-  newContent?: string
+  newSummary?: string,
+  newDescription?: string
 ) => {
   return await apiCall<IssueType>(`issues/${issueId}/content`, {
     method: "PUT",
-    data: { issueId, newContent },
+    data: { issueId, newSummary, newDescription },
   });
 };
 export const deleteIssue = async (issueId: string, userId: string) => {

@@ -1,5 +1,5 @@
 import MemberPhoto from "../../../features/user/member-photo";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { BackButton, CancelButton } from "../optional/styles";
 import { useParams } from "react-router-dom";
 import { BoardType, ProjectType } from "../../../types";
@@ -43,6 +43,7 @@ type URLParams = {
 };
 
 function BoardCreate(props: BoardCreatePropsType) {
+  const hasFetchedProjects = useRef(false);
   const { projectKey } = useParams<URLParams>();
   const [boardTitle, setBoardTitle] = useState("");
   const { projects, setProjects, setSelectedProject } = useApplicationContext();
@@ -91,6 +92,8 @@ function BoardCreate(props: BoardCreatePropsType) {
     }
   }
   useEffect(() => {
+    if (hasFetchedProjects.current) return;
+    hasFetchedProjects.current = true;
     loadProjects();
   }, []);
   return (

@@ -1,4 +1,5 @@
 import { DndProvider } from "react-dnd";
+import { useRef } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BacklogCards from "../../features/backlogCards";
 import { Container } from "./styles";
@@ -15,6 +16,7 @@ type URLParams = {
 };
 
 function Backlog() {
+  const hasFetchedSprints = useRef(false);
   const { boardId, projectKey } = useParams<URLParams>();
   const [sprints, setSprints] = useState<SprintType[]>([]);
   const [activeToSprint, setActiveToSprint] = useState(false);
@@ -54,9 +56,9 @@ function Backlog() {
   }, [boardId, user?.Id]);
 
   useEffect(() => {
-    if (boardId) {
-      loadSprints();
-    }
+    if (!boardId || hasFetchedSprints.current) return;
+    hasFetchedSprints.current = true;
+    loadSprints();
   }, [boardId]);
 
   function onUpdateCard(card: IssueType | undefined) {

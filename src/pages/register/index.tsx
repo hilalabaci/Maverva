@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
-import Button from "../../components/common/button";
+import Button from "../../components/common/button/actionButton";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
