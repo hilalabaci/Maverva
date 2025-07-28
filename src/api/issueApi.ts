@@ -59,9 +59,6 @@ export const updateIssueContent = async (
 export const deleteIssue = async (issueId: string, userId: string) => {
   return await apiCall(`issues/${issueId}`, {
     method: "DELETE",
-    data: { issueId },
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
+    data: { issueId, userId },
   });
 };

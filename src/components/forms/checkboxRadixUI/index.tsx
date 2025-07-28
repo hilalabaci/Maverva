@@ -6,7 +6,7 @@ const CheckboxRadixUi = () => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <form>
+    <Container>
       <Container>
         <CheckboxRoot
           checked={checked}
@@ -19,7 +19,7 @@ const CheckboxRadixUi = () => {
           </CheckboxIndicator>
         </CheckboxRoot>
       </Container>
-    </form>
+    </Container>
   );
 };
 

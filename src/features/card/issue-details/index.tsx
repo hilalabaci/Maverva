@@ -77,7 +77,6 @@ function IssueDetails({
   useEffect(() => {
     setTempSummary(issue.Summary);
     setTempDescription(issue.Description || "");
-    console.log("Issue details updated:", issue);
   }, [issue.Summary, issue.Description]);
   return (
     <Container>

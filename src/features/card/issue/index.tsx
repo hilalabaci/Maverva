@@ -37,8 +37,6 @@ import {
   updateIssue,
   updateIssueContent,
 } from "../../../api/issueApi";
-import { on } from "events";
-
 type IssueProps = {
   id: string;
   labels: LabelType[];
@@ -61,7 +59,6 @@ function Issue({
   cardKey,
   onUpdate,
   onUpdateSummary,
-  onUpdateDescription,
   onDelete,
   onClick,
 }: IssueProps) {
@@ -77,6 +74,7 @@ function Issue({
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
   const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
+  const refModal = useOutsideClick<HTMLDivElement>(() => setShowModal(false));
 
   function openModal() {
     setShowModal(true);
@@ -202,6 +200,7 @@ function Issue({
                 {
                   action: () => {
                     handleDeleteIssue(id);
+                    refModal.current?.click();
                   },
                   label: "Delete",
                 },

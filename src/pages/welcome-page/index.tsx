@@ -42,7 +42,7 @@ import {
 import TypedDemo from "../../components/common/Typed/typed";
 import RegisterForm from "../../components/forms/registerForm";
 import WelcomeIllus2 from "../../components/ DynamicSVG/WelcomeIllus2";
-import { useState } from "react";
+import React, { useState } from "react";
 import ShareTeamIllus from "../../components/ DynamicSVG/shareTeamIllus";
 import { WelcomeTexts } from "../../constants/welcomeTexts";
 import Navbar from "../../components/layout/navbar/navbar-welcomePage";
@@ -102,9 +102,8 @@ function WelcomePage() {
             <CollapseParent>
               <CollapseNavigation>
                 {CollapseTexts.map((collapseText, index) => (
-                  <>
+                  <React.Fragment key={`collapse-group-${index}`}>
                     <CollapseItem
-                      key={index}
                       onClick={() => handleCollapseClick(index)}
                     >
                       <CollapseTitle $display={activeCollapse === index}>
@@ -116,12 +115,11 @@ function WelcomePage() {
                       </CollapseText>
                     </CollapseItem>
                     <CollapseContentElementChild
-                      key={index}
                       $display={activeCollapse === index}
                     >
                       <ImgForWelcome src={imageSources[index]} />
                     </CollapseContentElementChild>
-                  </>
+                  </React.Fragment>
                 ))}
               </CollapseNavigation>
               {CollapseTexts.map((collapseText, index) => (

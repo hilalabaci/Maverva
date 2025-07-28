@@ -36,8 +36,7 @@ import {
   updateIssue,
   updateIssueContent,
 } from "../../api/issueApi";
-import { useUserContext } from "../../contexts/UserContext";
-import { useParams } from "react-router-dom";
+import { tokenKey, useUserContext } from "../../contexts/UserContext";
 
 type BacklogCardPropsType = {
   cardKey: string;
@@ -131,6 +130,8 @@ const BacklogCard = ({
       return;
     }
     const issueId = id;
+    console.log(`token: ${localStorage.getItem("token")}`);
+    console.log(tokenKey, localStorage.getItem(tokenKey));
     const response = await deleteIssue(issueId, user.Id);
     if (response.ok) {
       updateCardsAfterDelete(id);
