@@ -1,8 +1,10 @@
 export type UserType = {
+  token(arg0: string, token: any): unknown;
   Id: string;
   Email: string;
   FullName: string;
   ProfilePicture: string;
+  Token: string;
 };
 
 export type ProjectType = {

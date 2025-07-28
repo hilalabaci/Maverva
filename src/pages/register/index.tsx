@@ -47,14 +47,17 @@ interface FormData {
 
 function Register() {
   const navigate = useNavigate();
-  const { setUser } = useUserContext();
+  const { setUser, setToken } = useUserContext();
   const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const loginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const user = await loginGoogleApi(tokenResponse.access_token);
-      setUser(user.data);
-      navigate("/projects");
+      if (user.ok && user.data) {
+        setUser(user.data?.user);
+        setToken(user.data?.token);
+        navigate("/projects");
+      }
     },
     onError: (tokenResponse) => console.error(tokenResponse),
   });
@@ -98,6 +101,7 @@ function Register() {
       const { ok, data } = await loginVerificationEmail(login.email);
       if (ok && data) {
         setUser(data as UserType);
+        localStorage.setItem("token", (data as UserType).Token);
       }
     } catch (error) {
       setError({
@@ -140,7 +144,7 @@ function Register() {
                   <CheckBoxTextLink> Privacy Policy.</CheckBoxTextLink>
                 </CheckBoxText>
               </RememberWrapper>
-              <Button value="Sign up" type="submit" />
+              <Button children="Sign up" type="submit" />
               <LineforGoogleWrapper>
                 <FirstLine></FirstLine>Or continue with
                 <LastLine></LastLine>

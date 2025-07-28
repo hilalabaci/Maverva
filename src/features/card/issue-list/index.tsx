@@ -113,19 +113,17 @@ function IssueList({
       {selectedIssue && (
         <Modal onClose={() => setSelectedIssue(null)} open={!!selectedIssue}>
           <IssueDetails
-            issueSummary={selectedIssue.Summary}
             onUpdateSummary={(newSummary) =>
               onUpdateSummary({ ...selectedIssue, Summary: newSummary })
             }
-            issueDescription={selectedIssue.Description}
             onUpdateDescription={(newDescription) =>
               onUpdateDescription({
                 ...selectedIssue,
                 Description: newDescription,
               })
             }
-            issueKey={selectedIssue.Key}
             onCloseIssueEdit={() => setSelectedIssue(null)}
+            issue={selectedIssue}
           />
         </Modal>
       )}

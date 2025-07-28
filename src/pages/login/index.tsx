@@ -48,14 +48,17 @@ interface FormData {
 
 function Login() {
   const navigate = useNavigate();
-  const { setUser } = useUserContext();
+  const { setUser, setToken } = useUserContext();
   const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const loginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const user = await loginGoogleApi(tokenResponse.access_token);
-      setUser(user.data);
-      navigate("/projects");
+      if (user.ok && user.data) {
+        setUser(user.data.user);
+        setToken(user.data.token);
+        navigate("/projects");
+      }
     },
     onError: (tokenResponse) => console.error(tokenResponse),
   });
@@ -98,6 +101,7 @@ function Login() {
     try {
       const { ok, data } = await loginVerificationEmail(login.email);
       if (ok && data) {
+        localStorage.setItem("token", (data as UserType).Token);
         setUser(data as UserType);
       }
     } catch (error) {
@@ -136,7 +140,7 @@ function Login() {
                 <CheckboxRadixUi />
                 <CheckBoxText>Remember me</CheckBoxText>
               </RememberWrapper>
-              <Button value="Continue" type="submit" />
+              <Button children="Continue" type="submit" />
               <LineforGoogleWrapper>
                 <FirstLine></FirstLine>Or continue with
                 <LastLine></LastLine>
