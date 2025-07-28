@@ -37,7 +37,9 @@ function RegisterForm() {
       const user = await loginGoogle(tokenResponse.access_token);
       setUser(user.data?.user);
       setToken(user.data?.token);
-      navigate("/projects");
+      setTimeout(() => {
+        navigate("/projects");
+      }, 100);
     },
     onError: (tokenResponse) => console.error(tokenResponse),
   });
@@ -47,7 +49,9 @@ function RegisterForm() {
       const user = await loginGoogle(tokenResponse.credential!, true);
       setUser(user.data?.user);
       setToken(user.data?.token);
-      navigate("/projects");
+      setTimeout(() => {
+        navigate("/projects");
+      }, 100);
     },
     onError: () => console.error("error"),
   });

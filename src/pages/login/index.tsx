@@ -57,7 +57,9 @@ function Login() {
       if (user.ok && user.data) {
         setUser(user.data.user);
         setToken(user.data.token);
-        navigate("/projects");
+        setTimeout(() => {
+          navigate("/projects");
+        }, 100);
       }
     },
     onError: (tokenResponse) => console.error(tokenResponse),
