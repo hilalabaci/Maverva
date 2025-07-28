@@ -17,7 +17,7 @@ const lightColors: ThemeColors = {
     inverted: "#172b4d",
     link: "#0c66e4",
     subtitle: "#44546F",
-    highlightColor: "black",
+    highlightColor: "#292A2E",
   },
   primary: {
     base: "#3b82f6",
@@ -73,6 +73,7 @@ const lightColors: ThemeColors = {
     default: "1px solid rgb(133, 144, 162)",
     focus: "#3b82f6",
     active: "2px solid rgb(12, 102, 228)",
+    inverted: "1px solid #8C8F97",
   },
   divider: {
     border: {

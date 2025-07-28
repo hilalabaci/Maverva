@@ -27,7 +27,7 @@ import {
 import { loginGoogle } from "../../../api/authApi";
 
 function RegisterForm() {
-  const { setUser } = useUserContext();
+  const { setUser, setToken } = useUserContext();
   const [googleVerifyEmail, setGoogleVerifyEmail] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
   const [manuelRegisterEmail, setManuelRegisterEmail] = useState("");
@@ -35,7 +35,8 @@ function RegisterForm() {
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const user = await loginGoogle(tokenResponse.access_token);
-      setUser(user.data);
+      setUser(user.data?.user);
+      setToken(user.data?.token);
       navigate("/projects");
     },
     onError: (tokenResponse) => console.error(tokenResponse),
@@ -44,7 +45,8 @@ function RegisterForm() {
   useGoogleOneTapLogin({
     onSuccess: async (tokenResponse) => {
       const user = await loginGoogle(tokenResponse.credential!, true);
-      setUser(user.data);
+      setUser(user.data?.user);
+      setToken(user.data?.token);
       navigate("/projects");
     },
     onError: () => console.error("error"),

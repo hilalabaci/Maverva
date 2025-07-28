@@ -1,4 +1,5 @@
 import { ApiCallOptions, ApiResponse } from "../apiTypes/types";
+import { tokenKey } from "../contexts/UserContext";
 
 export async function apiCall<T>(
   url: string,
@@ -7,17 +8,19 @@ export async function apiCall<T>(
   let apiUrl = process.env.REACT_APP_API_URL + url;
   if (urlParams) apiUrl = `${apiUrl}?${urlParams.toString()}`;
 
+  const token = localStorage.getItem(tokenKey);
   const response = await fetch(apiUrl, {
     method,
     body: data ? JSON.stringify(data) : undefined,
     headers: {
       "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(headers ?? {}),
     },
   });
 
   if (!response.ok) {
-    const error = await response.json() as {message: string};
+    const error = (await response.json()) as { message: string };
     console.error("API call failed:", response.status, error);
     throw new Error(error.message || `Error: ${response.status}`);
   }

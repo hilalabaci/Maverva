@@ -7,6 +7,7 @@ type actionButtonPropsType = {
   variant?: "primary" | "secondary" | "danger";
   size?: "sm" | "md" | "lg";
   ariaLabel?: string;
+  type?: "button" | "submit" | "reset";
 };
 
 function ActionButton({
@@ -15,13 +16,14 @@ function ActionButton({
   variant,
   size,
   ariaLabel,
+  type,
 }: actionButtonPropsType) {
   return (
     <BaseButton
       onClick={onClick}
       variant={variant}
       size={size}
-      type="button"
+      type={type}
       aria-label={ariaLabel}
     >
       {children}

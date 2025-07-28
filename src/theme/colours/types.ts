@@ -71,6 +71,7 @@ export interface ThemeColors {
     default: string;
     focus: string;
     active: string;
+    inverted?: string;
   };
   divider: {
     border: {
