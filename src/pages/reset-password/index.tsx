@@ -39,7 +39,9 @@ function ResetPassword() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  function handleChange(value: string) {}
+  function handleChange(value: string) {
+    setPassword(value);
+  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
