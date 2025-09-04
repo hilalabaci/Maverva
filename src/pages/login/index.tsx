@@ -127,7 +127,7 @@ function Login() {
               </LineforGoogleWrapper>
               <GoogleLoginButton />
               <CreateAccountWrapper>
-                <CreateAccountListItemLink href="login/resetpassword">
+                <CreateAccountListItemLink href="login/reset-password">
                   Can't log in?
                 </CreateAccountListItemLink>
                 <Point>.</Point>
