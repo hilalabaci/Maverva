@@ -35,28 +35,32 @@ function ResetPassword() {
   const email = searchParams.get("email");
   const navigate = useNavigate();
 
-  const [password, setPassword] = useState("");
+  const [login, setLogin] = useState<FormData>({
+    password: "",
+  });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  function handleChange(value: string) {
-    setPassword(value);
+  function handleChange(value: string, name: string) {
+    setLogin((prevValue) => ({ ...prevValue, [name]: value }));
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError(null);
-    if (!token) {
-      setError(`invalid url`);
-      return;
-    }
-    if (password.length < 8) {
-      setError("Password must have at least 8 characters");
-      return;
-    }
     try {
-      if (!email || password || token) return;
-      const response = await resetPassword(email, password, token);
+      console.log(`here`);
+      event.preventDefault();
+      setError(null);
+      if (!token) {
+        setError(`invalid url`);
+        return;
+      }
+      console.log(`hereeee`);
+      if (login.password.length < 8) {
+        setError("Password must have at least 8 characters");
+        return;
+      }
+      if (!email || !login.password || !token) return;
+      const response = await resetPassword(email, login.password, token);
       if (response.ok) {
         navigate("/projects");
       } else {
@@ -85,7 +89,7 @@ function ResetPassword() {
               <Input
                 type="password"
                 placeholder="Enter your email "
-                value={password}
+                value={login.password}
                 onChange={handleChange}
                 name="password"
                 error={error}
