@@ -23,8 +23,8 @@ import {
 import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import GoogleLoginButton from "../../components/common/button/googleLoginButton";
-import { findUserByEmail, loginVerificationEmail } from "../../api/authApi";
-import CheckBox from "../../components/forms/checkBox";
+import { findUserByEmail } from "../../api/authApi";
+import CheckBoxComponent from "../../components/forms/checkBox";
 
 interface FormError {
   email?: string;
@@ -119,7 +119,7 @@ function Login() {
                   error={error.password}
                 />
               )}
-              <CheckBox />
+              <CheckBoxComponent />
               <Button children="Continue" type="submit" />
               <LineforGoogleWrapper>
                 <FirstLine></FirstLine>Or continue with

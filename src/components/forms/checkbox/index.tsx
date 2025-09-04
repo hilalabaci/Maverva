@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 
-const CheckBox = () => {
+const CheckBoxComponent = () => {
   const { token } = useUserContext();
   const [rememberMe, setRememberMe] = useState<boolean>(false);
 
@@ -43,4 +43,4 @@ const CheckBox = () => {
   );
 };
 
-export default CheckBox;
+export default CheckBoxComponent;
