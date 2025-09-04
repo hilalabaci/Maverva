@@ -20,6 +20,7 @@ import {
 import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import { resetPassword } from "../../api/authApi";
+import { useUserContext } from "../../contexts/UserContext";
 
 interface FormError {
   password?: string;
@@ -29,6 +30,7 @@ interface FormData {
 }
 
 function ResetPassword() {
+  const { setUser } = useUserContext();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const redirectUrl = searchParams.get("redirect");
@@ -61,7 +63,9 @@ function ResetPassword() {
       }
       if (!email || !login.password || !token) return;
       const response = await resetPassword(email, login.password, token);
-      if (response.ok) {
+
+      if (response.ok && response.data) {
+        setUser(response.data.user);
         navigate("/projects");
       } else {
         setError("We could't update your password");

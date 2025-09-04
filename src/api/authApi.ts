@@ -65,7 +65,7 @@ export const resetPassword = async (
   newPassword: string,
   token: string
 ) => {
-  return await apiCall<string>(`auth/reset-password`, {
+  return await apiCall<verificationDataType>(`auth/reset-password`, {
     method: "PUT",
     data: { email, newPassword },
     token: token,
