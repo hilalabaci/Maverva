@@ -1,5 +1,4 @@
 import {
-  loginVerificationEmail,
   signUpVerificationCode,
 } from "../../api/authApi";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
@@ -31,8 +30,6 @@ import ActionButton from "../../components/common/button/actionButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorSVG from "../../components/ DynamicSVG/errorSVG";
-import { verificationDataType } from "../../types";
-import { ApiResponse } from "../../apiTypes/types";
 
 function VerifyCodePage({ reSendCode }: { reSendCode?: () => void }) {
   const { setUser, user, token } = useUserContext();

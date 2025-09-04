@@ -30,90 +30,24 @@ interface FormData {
 function ResetPassword() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
+  const continueUrl = searchParams.get("continue");
   const navigate = useNavigate();
+
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<FormError>({ password: undefined });
-  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const [displayPassword, setDisplayPassword] = useState(false);
+  function handleChange(value: string) {}
 
-  function handleChange(value: string) {
-    setPassword(value);
-    if (error.password) {
-      setError((prev) => ({ ...prev, email: undefined }));
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError(null);
+    if (!token) {
+      setError(`invalid url`);
+      return;
     }
-  }
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {};
-  // async function verifyToken(token: string) {
-  //   try {
-  //     const res = await fetch(`/api/verify-token?token=${token}`);
-  //     if (!res.ok) return false;
-  //     const data = await res.json();
-  //     return data.ok;
-  //   } catch (err) {
-  //     return false;
-  //   }
-  // }
+  };
 
-  // const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   setError({});
-  //   try {
-  //     if (login.password === "") {
-  //       setError({
-  //         password: "Please enter your email",
-  //       });
-  //       return;
-  //     }
-  //     if (
-  //       /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
-  //         login.password
-  //       ) === false
-  //     ) {
-  //       setError({
-  //         password: "This is not valid email address.",
-  //       });
-  //       return;
-  //     }
-  //     if (!token) return;
-  //     const response = await resetPassword(login.password, token);
-  //     console.log(response);
-  //     if (response.ok) {
-  //       setDisplayPassword(true);
-  //     } else {
-  //       setError({
-  //         password:
-  //           (response.data as { message?: string })?.message ||
-  //           "Please sign up to continue",
-  //       });
-  //       setTimeout(() => {
-  //         const continueUrl = encodeURIComponent(
-  //           "https://local300/gateway/api/start/authredirect"
-  //         );
-  //         navigate(
-  //           `/login/resetpassword/continue?link=${continueUrl}&email=${encodeURIComponent(
-  //             login.password
-  //           )}`
-  //         );
-  //       }, 1500);
-  //     }
-  //   } catch (error) {
-  //     setError({ password: "opps! somethings wrong, try again" });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (token && continueUrl) {
-  //     // Token backend'de doğrulandıktan sonra kullanıcıyı yönlendir
-  //     verifyToken(token).then((ok) => {
-  //       if (ok) {
-  //         window.location.href = continueUrl;
-  //       } else {
-  //         alert("Token invalid or expired");
-  //       }
-  //     });
-  //   }
-  // }, [token, continueUrl]);
   return (
     <MainContainer>
       <GlobalStyle />
@@ -135,7 +69,7 @@ function ResetPassword() {
                 value={password}
                 onChange={handleChange}
                 name="password"
-                error={error.password}
+                error={error}
                 label="Password"
               />
               <Button children="Send recovery link" type="submit" />
