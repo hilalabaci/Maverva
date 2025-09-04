@@ -8,6 +8,7 @@ import {
   PasswordIcon,
   PasswordIconButton,
   LabelforInput,
+  InfoMessage,
 } from "./styles";
 type InputPropsType = {
   error?: string | null;
@@ -18,6 +19,7 @@ type InputPropsType = {
   placeholder?: string;
   approved?: boolean;
   label?: string;
+  infoMessage?: string;
 };
 function Input({
   error,
@@ -28,6 +30,7 @@ function Input({
   placeholder,
   approved,
   label,
+  infoMessage,
 }: InputPropsType) {
   const [showPassword, setShowPassword] = useState(false);
   function togglePasswordVisibility() {
@@ -58,6 +61,7 @@ function Input({
         )}
         {/* {type === "password" && approved === true && <Icon />} */}
       </InputContainer>
+      {infoMessage && <InfoMessage>{infoMessage}</InfoMessage>}
       {error && <WarningMessage>{error}</WarningMessage>}
     </Container>
   );

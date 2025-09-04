@@ -1,4 +1,4 @@
- import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 
@@ -93,9 +93,9 @@ export const LoginInputs = styled.div`
   }
 `;
 export const FormTitle = styled.h2`
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 600;
-  color: #2f4156;
+  color: ${(props) => props.theme.colour.text.inverted};
   text-align: center;
   padding-bottom: 15px;
   margin: 0;
@@ -160,4 +160,3 @@ export const CreateAccountListItemLink = styled.a`
     text-decoration: underline;
   }
 `;
- 

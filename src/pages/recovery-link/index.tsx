@@ -19,7 +19,7 @@ import {
 } from "./styles";
 import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
-import { findUserByEmail, resetPassword } from "../../api/authApi";
+import { sendResetPasswordLink } from "../../api/authApi";
 import ResetPassword from "../reset-password";
 import VerifyEmailPage from "../verificationEmail-page";
 
@@ -69,7 +69,7 @@ function RecoveryLink() {
         return;
       }
       if (!token) return;
-      const response = await resetPassword(login.email, token);
+      const response = await sendResetPasswordLink(login.email, token);
       console.log(response);
       if (response.ok) {
         setEmailSent(true);

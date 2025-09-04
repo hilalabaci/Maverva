@@ -5,7 +5,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 9px;
 `;
 
 export const InputContainer = styled.div`
@@ -41,6 +41,13 @@ export const Icon = styled(CheckCircleIcon)`
   color: green;
   padding: 0 10px;
   transition: all 0.3s ease;
+`;
+export const InfoMessage = styled.p`
+  color: ${(props) => props.theme.colour.text.subtitle};
+  font-size: 12px;
+  margin: 0;
+  padding: 5px 5px 0 0;
+  text-align: right;
 `;
 export const WarningMessage = styled.p`
   color: #dc3545;

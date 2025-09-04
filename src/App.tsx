@@ -28,7 +28,7 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   { path: "/login/verify-email/otp", element: <VerifyEmailPage /> },
   { path: "/login/reset-password", element: <RecoveryLink /> },
-  { path: "/login/reset-password/link", element: <ResetPassword /> },
+  { path: "/login/reset-password/continue", element: <ResetPassword /> },
   { path: "/signup/verify-email/otp", element: <VerifyCodePage /> },
 
   // Private

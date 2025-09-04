@@ -41,12 +41,12 @@ export const signUpVerificationCode = async (
     token: token,
   });
 };
-export const resetPassword = async (email: string, token: string) => {
+export const sendResetPasswordLink = async (email: string, token: string) => {
   return await apiCall<{
     user: UserType;
     ok: boolean;
     data: verificationDataType;
-  }>("auth/reset-password", {
+  }>("auth/send-reset-password-link", {
     method: "POST",
     data: { email },
     token: token,
@@ -56,6 +56,18 @@ export const findUserByEmail = async (email: string, token: string) => {
   return await apiCall<string>("auth/find-user-by-email", {
     method: "GET",
     urlParams: new URLSearchParams({ email }),
+    token: token,
+  });
+};
+
+export const resetPassword = async (
+  email: string,
+  newPassword: string,
+  token: string
+) => {
+  return await apiCall<string>(`auth/reset-password`, {
+    method: "PUT",
+    data: { email, newPassword },
     token: token,
   });
 };

@@ -19,6 +19,7 @@ import {
 } from "./styles";
 import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
+import { resetPassword } from "../../api/authApi";
 
 interface FormError {
   password?: string;
@@ -30,7 +31,8 @@ interface FormData {
 function ResetPassword() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
-  const continueUrl = searchParams.get("continue");
+  const redirectUrl = searchParams.get("redirect");
+  const email = searchParams.get("email");
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
@@ -45,6 +47,21 @@ function ResetPassword() {
     if (!token) {
       setError(`invalid url`);
       return;
+    }
+    if (password.length < 8) {
+      setError("Password must have at least 8 characters");
+      return;
+    }
+    try {
+      if (!email || password || token) return;
+      const response = await resetPassword(email, password, token);
+      if (response.ok) {
+        navigate("/projects");
+      } else {
+        setError("We could't update your password");
+      }
+    } catch (error) {
+      setError("Something went wrong. Please try again.");
     }
   };
 
@@ -62,7 +79,7 @@ function ResetPassword() {
         <LoginSection>
           <Form onSubmit={handleSubmit}>
             <LoginInputs>
-              <FormTitle>Can't log in?</FormTitle>
+              <FormTitle>Choose a new password</FormTitle>
               <Input
                 type="password"
                 placeholder="Enter your email "
@@ -71,15 +88,12 @@ function ResetPassword() {
                 name="password"
                 error={error}
                 label="Password"
+                infoMessage="Password must have at least 8 characters"
               />
-              <Button children="Send recovery link" type="submit" />
+              <Button children="Continue" type="submit" />
               <CreateAccountWrapper>
                 <CreateAccountListItemLink href="/login">
-                  Return to log in
-                </CreateAccountListItemLink>
-                <Point>.</Point>
-                <CreateAccountListItemLink href="/signup">
-                  Create an account
+                  Still having trouble logging in?
                 </CreateAccountListItemLink>
               </CreateAccountWrapper>
             </LoginInputs>
