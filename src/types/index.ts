@@ -1,5 +1,5 @@
 export type UserType = {
-  token(arg0: string, token: any): unknown;
+  token: string;
   Id: string;
   Email: string;
   FullName: string;
@@ -99,4 +99,8 @@ export enum IssueStatus {
 }
 export type ApiError = {
   message?: string;
+};
+export type verificationDataType = {
+  token?: string;
+  user?: UserType;
 };

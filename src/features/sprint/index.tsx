@@ -32,7 +32,7 @@ import { DragItem, IssueStatus, IssueType, SprintType } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
-import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
+import CheckBox from "../../components/forms/checkBox";
 import { ToolTip } from "../../components/common/toolstip";
 import { addIssue, updateIssue } from "../../api/issueApi";
 import { updateSprint } from "../../api/sprintApi";
@@ -71,7 +71,7 @@ function Sprint({
   loadActiveSprint,
 }: SprintPropsType) {
   const { boardId, projectKey } = useParams<URLParams>();
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
   const [isHeaderSelected, setIsHeaderSelected] = useState(false);
@@ -91,7 +91,9 @@ function Sprint({
     boardId: string,
     oldSprintId?: string
   ) {
+    if (!token) return;
     const response = await updateIssue(
+      token,
       issueId,
       undefined,
       newSprintId,
@@ -148,7 +150,7 @@ function Sprint({
     setContent(value);
   }
   async function submitNote() {
-    if (!projectKey || !boardId || !selectedSprintId) return;
+    if (!projectKey || !boardId || !selectedSprintId || !token) return;
     try {
       const cardData = {
         content: content,
@@ -159,7 +161,7 @@ function Sprint({
         sprintId: selectedSprintId,
       };
 
-      const { ok, data } = await addIssue(cardData);
+      const { ok, data } = await addIssue(cardData, token);
       if (ok && data) {
         setSprintCards((prevCards) => [...prevCards, data as IssueType]);
       }
@@ -193,24 +195,24 @@ function Sprint({
     active?: boolean,
     projectKey?: string
   ) {
-    {
-      if (!boardId) return;
-      const response = await updateSprint(
-        {
-          boardId,
-          sprintId,
-          userId,
-          isActiveSprint: active,
-        },
-        projectKey as string,
-        boardId as string
-      );
-      if (response.ok && response.data) {
-        setIsActiveSprint(true);
-        // props.onUpdate(response.data);
-      } else {
-        console.error("Failed to update card:", response);
-      }
+    if (!boardId || !token) return;
+    const editSprintData = {
+      boardId: boardId,
+      sprintId: sprintId,
+      userId: userId,
+      isActiveSprint: !active,
+    };
+    const response = await updateSprint(
+      token,
+      editSprintData,
+      projectKey as string,
+      boardId as string
+    );
+    if (response.ok && response.data) {
+      setIsActiveSprint(true);
+      // props.onUpdate(response.data);
+    } else {
+      console.error("Failed to update card:", response);
     }
   }
   function onUpdateContent(card: IssueType) {
@@ -230,7 +232,7 @@ function Sprint({
         trigger={
           <HeaderDropBlog>
             <CheckboxWrapper>
-              <CheckboxRadixUi />
+              <CheckBox />
             </CheckboxWrapper>
 
             <HeaderTitleContent

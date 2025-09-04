@@ -11,7 +11,7 @@ export const Container = styled.form`
   padding: 8px 4px;
   border: ${(props) => props.theme.activeBorder};
   @media only screen and (max-width: 768px) {
-    border-radius: 15px;
+    border-radius: 3px;
     padding: 10px;
     height: 70px;
   }

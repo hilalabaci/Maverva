@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 type DynamicSVGBrandProps = {
   height: string;
   width: string;

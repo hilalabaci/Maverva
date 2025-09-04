@@ -22,13 +22,13 @@ type URLParams = {
 function AddIssue(props: AddIssuePropsType) {
   const { projectKey, boardId, sprintId } = useParams<URLParams>();
   const [content, setContent] = useState("");
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const userId = user?.Id;
   function handleChange(value: string) {
     setContent(value);
   }
   async function submitNote() {
-    if (!projectKey || !boardId || !sprintId || !userId) return;
+    if (!projectKey || !boardId || !sprintId || !userId || !token) return;
     try {
       const issueData = {
         userId: userId,
@@ -39,13 +39,12 @@ function AddIssue(props: AddIssuePropsType) {
         sprintId: props.sprintId,
       };
 
-      const { ok, data } = await addIssue(issueData);
+      const { ok, data } = await addIssue(issueData, token);
       if (ok && data) {
-        console.log(`added issue:`, data);
+        setContent("");
+        props.addedCard(data as IssueType);
+        props.onClose();
       }
-      setContent("");
-      props.addedCard(data as IssueType);
-      props.onClose();
     } catch (error) {
       console.error("Error fetching project:", error);
     }

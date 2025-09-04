@@ -35,11 +35,10 @@ type NavbarPropsType = {
 };
 
 function Navbar(props: NavbarPropsType) {
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [memberMenu, setMemberMenu] = useState(false);
   const hasFetchedNotifications = useRef(false);
   function openMemberMenu() {
@@ -70,17 +69,16 @@ function Navbar(props: NavbarPropsType) {
     }
   }
   const loadNotifications = useCallback(async () => {
-    if (!user?.Id) return;
-
+    if (!user?.Id || !token) return;
     try {
-      const response = await getNotifications(user.Id);
+      const response = await getNotifications(user.Id, token);
       if (response.ok && response.data) {
         setNotifications(response.data);
       }
     } catch (error) {
       console.error("Error loading notifications:", error);
     }
-  }, [user]);
+  }, [user, token]);
 
   useEffect(() => {
     if (!user?.Id || hasFetchedNotifications.current) return;
@@ -94,10 +92,13 @@ function Navbar(props: NavbarPropsType) {
       .map((n) => n.Id);
     if (unReadNotificationIds.length <= 0) return;
     //const data = { notificationIds: unReadNotificationIds };
-    const response = await markNotificationsReadApi({
-      unReadNotificationIds: unReadNotificationIds,
-      userId: user?.Id || "",
-    });
+    const response = await markNotificationsReadApi(
+      {
+        unReadNotificationIds: unReadNotificationIds,
+        userId: user?.Id || "",
+      },
+      token || ""
+    );
     if (response) {
       setTimeout(() => {
         setNotifications(notifications.map((n) => ({ ...n, IsRead: true })));
@@ -191,11 +192,14 @@ function Navbar(props: NavbarPropsType) {
         </Modal>
 
         <MemberButtonWrapper $isMemberButtonOpen={memberMenu}>
-          <MemberButton
-            onClick={openMemberMenu}
-            closeMenu={closeMemberMenu}
-            showMenu={memberMenu}
-          />
+          {user && (
+            <MemberButton
+              onClick={openMemberMenu}
+              closeMenu={closeMemberMenu}
+              showMenu={memberMenu}
+              user={user}
+            />
+          )}
         </MemberButtonWrapper>
       </NavbarLeftSideWrapper>
     </HeaderContainer>

@@ -11,8 +11,6 @@ import {
   DropDownItemContainer,
   DropdownMenuPrimitiveTrigger,
 } from "./styles";
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-
 interface DropdownSelectMenuProps {
   triggerWidth?: boolean;
   title?: string;

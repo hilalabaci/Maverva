@@ -54,7 +54,7 @@ export const Container = styled.div`
   }
   @media only screen and (max-width: 768px) {
     width: 200px;
-    border-radius: 15px;
+    border-radius: 3px;
     padding: 15px;
   }
 `;

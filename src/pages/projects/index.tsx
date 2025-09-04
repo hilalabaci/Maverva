@@ -48,7 +48,7 @@ import {
 import { useApplicationContext } from "../../contexts/ApplicationContext";
 
 function Projects() {
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const hasFetchedProjects = useRef(false);
   const {
     setActiveSprint,
@@ -64,18 +64,22 @@ function Projects() {
   const [showModalforDeleteProject, setShowModalforDeleteProject] =
     useState(false);
 
-  const loadProjects = useCallback(async (userId: string) => {
-    try {
-      const response = await getProjects(userId);
-      if (response && response.data) {
-        setProjects(response.data);
-      } else {
-        throw new Error("Failed to load projects");
+  const loadProjects = useCallback(
+    async (userId: string) => {
+      try {
+        if (!token) return;
+        const response = await getProjects(userId, token);
+        if (response && response.data) {
+          setProjects(response.data);
+        } else {
+          throw new Error("Failed to load projects");
+        }
+      } catch (error) {
+        console.error("Failed to load projects:", error);
       }
-    } catch (error) {
-      console.error("Failed to load projects:", error);
-    }
-  }, []);
+    },
+    [token]
+  );
 
   function onDelete(id: string) {
     setProjects(projects.filter((project) => project.Id !== id));
@@ -83,7 +87,8 @@ function Projects() {
 
   async function deleteProject(projectId: string, userId: string) {
     try {
-      const response = await deleteProjectApi(projectId, userId);
+      if (!token) return;
+      const response = await deleteProjectApi(projectId, userId, token);
       if (response) {
         onDelete(projectId);
       } else {
@@ -117,12 +122,13 @@ function Projects() {
     projectId: string,
     isFavourite: boolean
   ) {
-    if (!user) return;
+    if (!user || !token) return;
     try {
       const updatedProject = await updateProjectToFavourite(
         projectId,
         user.Id,
-        isFavourite
+        isFavourite,
+        token
       );
       if (updatedProject) {
         setProjects((prevProjects) =>

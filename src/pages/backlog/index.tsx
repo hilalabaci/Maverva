@@ -20,19 +20,21 @@ function Backlog() {
   const { boardId, projectKey } = useParams<URLParams>();
   const [sprints, setSprints] = useState<SprintType[]>([]);
   const [activeToSprint, setActiveToSprint] = useState(false);
-  const { user } = useUserContext();
-
-  async function loadSprints() {
-    if (!boardId) {
-      return;
-    }
+  const { user, token } = useUserContext();
+  const loadSprints = useCallback(async () => {
     try {
-      const { ok, data } = await getSprints(boardId, projectKey as string);
+      if (!boardId || !token) return;
+      const { ok, data } = await getSprints(
+        boardId,
+        projectKey as string,
+        token
+      );
       if (ok && data) setSprints(data);
     } catch (error) {
       console.error("Fetch error:", error);
     }
-  }
+  }, [boardId, projectKey, token]);
+
   const createSprint = useCallback(async () => {
     if (!boardId || !user?.Id || !projectKey) {
       console.error("Missing required parameters to create sprint");
@@ -42,7 +44,8 @@ function Backlog() {
       const { ok, data } = await addSprint(
         user?.Id,
         boardId,
-        projectKey as string
+        projectKey as string,
+        token as string
       );
       if (ok && data) {
         setSprints((prevSprints: SprintType[]) => [
@@ -53,13 +56,13 @@ function Backlog() {
     } catch (error) {
       console.error("Error creating sprint:", error);
     }
-  }, [boardId, user?.Id]);
+  }, [boardId, user?.Id, token, projectKey]);
 
   useEffect(() => {
     if (!boardId || hasFetchedSprints.current) return;
     hasFetchedSprints.current = true;
     loadSprints();
-  }, [boardId]);
+  }, [boardId, loadSprints]);
 
   function onUpdateCard(card: IssueType | undefined) {
     loadSprints();

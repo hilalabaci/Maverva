@@ -5,7 +5,7 @@ type IconType = "close" | "more" | "done";
 
 type IconButtonProps = {
   onClick?: () => void;
-  icon: IconType;
+  icon?: IconType;
   toolTipText?: string;
   boxShadow?: boolean;
   size?: "small" | "medium" | "large";
@@ -16,7 +16,7 @@ function IconButtonIcon({
   icon,
   size,
 }: {
-  icon: IconType;
+  icon?: IconType;
   size?: "small" | "medium" | "large";
 }) {
   return (
@@ -28,7 +28,7 @@ function IconButtonIcon({
   );
 }
 
-function IconButton({
+function IconOrTextButton({
   onClick,
   icon,
   toolTipText,
@@ -66,4 +66,4 @@ function IconButton({
     </Container>
   );
 }
-export default IconButton;
+export default IconOrTextButton;

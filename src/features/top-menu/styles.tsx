@@ -160,49 +160,4 @@ export const SprintTime = styled.div`
 export const TimeIcon = styled(AccessTimeIcon)`
   font-size: 20px !important;
 `;
-export const CompleteSprintButton = styled.button`
-  color: ${(props) => props.theme.colour.text.inverted};
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
-  justify-self: center;
-  align-self: center;
-  display: flex;
-  outline: none;
-  border: none;
-  border-radius: 3px;
-  padding: 10px 15px;
-  font-weight: 590;
-  font-size: 14px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
-  }
-  @media only screen and (max-width: 768px) {
-    font-size: 12px !important;
-  }
-`;
 
-export const EditSprintButton = styled.button`
-  justify-self: center;
-  align-self: center;
-  display: flex;
-  outline: none;
-  border: none;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
-  border-radius: 3px;
-  padding: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
-  }
-  @media only screen and (max-width: 768px) {
-    font-size: 12px !important;
-  }
-`;
-
-export const MoreIcon = styled(MoreHorizRoundedIcon)`
-  color: ${(props) => props.theme.colour.icon.colour.default};
-`;

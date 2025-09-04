@@ -1,11 +1,9 @@
 import { FormEvent, useState } from "react";
-import { useGoogleLogin } from "@react-oauth/google";
 import Button from "../../components/common/button/actionButton";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
   BrandContainer,
-  MessageError,
   Form,
   FormTitle,
   GlobalStyle,
@@ -18,100 +16,75 @@ import {
   LineforGoogleWrapper,
   FirstLine,
   LastLine,
-  RememberWrapper,
-  CheckBoxText,
   CreateAccountWrapper,
   CreateAccountListItemLink,
   Point,
 } from "./styles";
 import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
-import {
-  GoogleSignWrapper,
-  GoogleSignButton,
-  GoogleSignButtonText,
-} from "../../components/forms/registerForm/styles";
-import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
-import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
-import { UserType } from "../../types";
-import {
-  loginVerificationEmail,
-  loginGoogle as loginGoogleApi,
-} from "../../api/authApi";
+import GoogleLoginButton from "../../components/common/button/googleLoginButton";
+import { findUserByEmail, loginVerificationEmail } from "../../api/authApi";
+import CheckBox from "../../components/forms/checkBox";
 
 interface FormError {
   email?: string;
+  password?: string;
 }
 interface FormData {
   email: string;
+  password: string;
 }
 
 function Login() {
   const navigate = useNavigate();
-  const { setUser, setToken } = useUserContext();
-  const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const loginGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      const user = await loginGoogleApi(tokenResponse.access_token);
-      if (user.ok && user.data) {
-        setUser(user.data.user);
-        setToken(user.data.token);
-        setTimeout(() => {
-          navigate("/projects");
-        }, 100);
-      }
-    },
-    onError: (tokenResponse) => console.error(tokenResponse),
-  });
-
+  const { setUser, token } = useUserContext();
+  const [displayPassword, setDisplayPassword] = useState(false);
   const [login, setLogin] = useState<FormData>({
     email: "",
+    password: "",
   });
   const [error, setError] = useState<FormError>({
     email: undefined,
   });
+
   function handleChange(value: string, name: string) {
     setLogin((prevValue) => ({ ...prevValue, [name]: value }));
-
-    if (error.email) {
-      setError((prev) => ({ ...prev, email: undefined }));
-    }
+    setError((prev) => ({ ...prev, [name]: undefined }));
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (login.email === "") {
-      setError({
-        email: "Please enter your email",
-      });
-      setErrorMessage("Please enter your email");
-      return;
-    }
-
-    if (
-      /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
-        login.email
-      ) === false
-    ) {
-      setError({
-        email: "This is not valid email address.",
-      });
-      return;
-    }
+    setError({});
     try {
-      const { ok, data } = await loginVerificationEmail(login.email);
-      if (ok && data) {
-        localStorage.setItem("token", (data as UserType).Token);
-        setUser(data as UserType);
+      if (login.email === "") {
+        setError({ email: "Please enter your email" });
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login.email)) {
+        setError({
+          email: "This is not valid email address.",
+        });
+        return;
+      }
+      if (!token) return;
+      console.log(`hereee`);
+      const response = await findUserByEmail(login.email, token);
+      console.log(`response: ${response}`);
+      if (response.ok) {
+        setDisplayPassword(true);
+      } else {
+        setError({
+          email:
+            (response.data as { message?: string })?.message ||
+            "Please sign up to continue",
+        });
+        setTimeout(() => {
+          navigate("/signup");
+        }, 1500);
       }
     } catch (error) {
-      setError({
-        email: "opps! somethings wrong, try again",
-      });
+      setError({ email: "opps! somethings wrong, try again" });
     }
-    navigate("/verification");
   };
   return (
     <MainContainer>
@@ -129,7 +102,6 @@ function Login() {
             <LoginInputs>
               <FormTitle>Log in to continue</FormTitle>
               <Input
-                title="Email Address"
                 type="email"
                 placeholder="Enter your email "
                 value={login.email}
@@ -137,30 +109,29 @@ function Login() {
                 name="email"
                 error={error.email}
               />
-              {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
-              <RememberWrapper>
-                <CheckboxRadixUi />
-                <CheckBoxText>Remember me</CheckBoxText>
-              </RememberWrapper>
+              {displayPassword && (
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  value={login.password}
+                  onChange={handleChange}
+                  name="password"
+                  error={error.password}
+                />
+              )}
+              <CheckBox />
               <Button children="Continue" type="submit" />
               <LineforGoogleWrapper>
                 <FirstLine></FirstLine>Or continue with
                 <LastLine></LastLine>
               </LineforGoogleWrapper>
-              <GoogleSignWrapper>
-                <GoogleSignButton onClick={() => loginGoogle()}>
-                  <DynamicSVGGoogle />
-                  <GoogleSignButtonText>
-                    Continue with Google
-                  </GoogleSignButtonText>
-                </GoogleSignButton>
-              </GoogleSignWrapper>
+              <GoogleLoginButton />
               <CreateAccountWrapper>
-                <CreateAccountListItemLink>
+                <CreateAccountListItemLink href="login/resetpassword">
                   Can't log in?
                 </CreateAccountListItemLink>
                 <Point>.</Point>
-                <CreateAccountListItemLink href="/register">
+                <CreateAccountListItemLink href="/signup">
                   Create an account
                 </CreateAccountListItemLink>
               </CreateAccountWrapper>

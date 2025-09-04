@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { LayoutIcon, ListBulletIcon } from "@radix-ui/react-icons";
-import FormatAlignRightOutlinedIcon from "@mui/icons-material/FormatAlignRightOutlined";
+import { LayoutIcon } from "@radix-ui/react-icons";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
 import AddIcon from "@mui/icons-material/Add";
@@ -87,7 +86,6 @@ export const Title = styled.div`
   font-size: 12px;
   margin: 0 8px 0 8px;
 `;
-
 
 export const ProjectTitle = styled.span<CommonPropsType>`
   color: ${(props) => props.theme.fontColour};

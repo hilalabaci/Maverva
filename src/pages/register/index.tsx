@@ -47,7 +47,7 @@ interface FormData {
 
 function Register() {
   const navigate = useNavigate();
-  const { setUser, setToken } = useUserContext();
+  const { setUser, setToken, token } = useUserContext();
   const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const loginGoogle = useGoogleLogin({
@@ -100,17 +100,24 @@ function Register() {
       return;
     }
     try {
-      const { ok, data } = await loginVerificationEmail(login.email);
+      if (!token) return;
+      const { ok, data } = await loginVerificationEmail(
+        login.email,
+        token,
+        "register"
+      );
       if (ok && data) {
-        setUser(data as UserType);
-        localStorage.setItem("token", (data as UserType).Token);
+        setUser(data.data);
+        localStorage.setItem("signupEmail", login.email);
+        navigate(
+          `/signup/verify-email/otp?${token}=${token}&email=${login.email}`
+        );
       }
     } catch (error) {
       setError({
         email: "opps! somethings wrong, try again",
       });
     }
-    navigate("/verification");
   };
   return (
     <MainContainer>

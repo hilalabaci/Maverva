@@ -32,7 +32,7 @@ export const EmailWrapper = styled.div<CommonPropsType>`
   justify-content: space-between;
   height: 2.5em;
   padding-inline-start: 1.25rem;
-  border-radius: 2rem;
+  border-radius: 3px;
   outline: none;
   border: 0px;
   font-size: 1rem;
@@ -96,7 +96,7 @@ export const SubmitButton = styled.button`
   background-color: #fca700;
   font-size: 1.1rem;
   color: #172b4d;
-  border-radius: 2rem;
+  border-radius: 3px;
   width: 100%;
   text-align: center;
   cursor: pointer;
@@ -148,7 +148,7 @@ export const GoogleSignWrapper = styled.div`
   }
 `;
 export const GoogleSignButton = styled.button`
-  border-radius: 2rem;
+  border-radius: 3px;
   font-size: 1.1rem;
   color: #172b4d;
   background-color: #ffffff;
@@ -174,7 +174,7 @@ export const GoogleSignButton = styled.button`
 export const GoogleSignButtonText = styled.span`
   font-weight: 600;
   color: #2f4156;
-  font-size: 1rem;
+  font-size: 14px;
   @media only screen and (max-width: 768px) {
     font-size: 14px;
   }

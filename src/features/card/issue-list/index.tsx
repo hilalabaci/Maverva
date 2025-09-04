@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Issue from "../issue";
 import AddIssue from "../add-a-issue";
 import { useDrop } from "react-dnd";
@@ -14,6 +15,7 @@ import useOutsideClick from "../../../hooks/useOutsideClick";
 import { updateIssue } from "../../../api/issueApi";
 import IssueDetails from "../issue-details";
 import Modal from "../../../components/common/modal";
+import { useUserContext } from "../../../contexts/UserContext";
 interface IssueListProps {
   issues: IssueType[];
   status: number;
@@ -43,9 +45,12 @@ function IssueList({
   onDelete,
   addedCard,
 }: IssueListProps) {
+  const { token } = useUserContext();
   const [showAdd, setShowAdd] = useState(false);
   const ref = useOutsideClick<HTMLDivElement>(closeAddCard);
   const [selectedIssue, setSelectedIssue] = useState<IssueType | null>(null);
+  const navigate = useNavigate();
+
   function dynamicAddCard() {
     setShowAdd(true);
   }
@@ -54,7 +59,8 @@ function IssueList({
   }
 
   async function updateStatus(issueId: string, status?: number) {
-    const response = await updateIssue(issueId, status);
+    if (!token) return;
+    const response = await updateIssue(token, issueId, status);
     if (response.ok && response.data) {
       onUpdate(response.data);
     } else {
@@ -75,19 +81,17 @@ function IssueList({
         <IssueWrapper>
           {issues.map((issue, index) => (
             <Issue
-              onClick={() => setSelectedIssue(issue)}
+              issue={issue}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedIssue(issue);
+                navigate(`?selectedIssue=${issue.Key}`, { replace: false });
+              }}
               onUpdate={onUpdate}
               onUpdateSummary={onUpdateSummary}
               onUpdateDescription={onUpdateDescription}
               onDelete={onDelete}
-              id={issue.Id}
               key={index}
-              content={issue.Summary}
-              labels={issue.Labels}
-              reporterUser={issue.ReporterUser}
-              userName={issue.createdBy?.FullName}
-              cardKey={issue.Key}
-              status={issue.Status}
             />
           ))}
         </IssueWrapper>

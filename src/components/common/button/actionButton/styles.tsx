@@ -15,8 +15,9 @@ export const BaseButton = styled.button<actionButtonPropsType>`
         `;
       case "lg":
         return css`
-          padding: 12px 24px;
+          padding: 12px 0;
           font-size: 18px;
+          width: 100%;
         `;
       default:
         return css`
@@ -59,6 +60,7 @@ export const BaseButton = styled.button<actionButtonPropsType>`
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
+  height: 40px;
   &:hover {
   }
   @media only screen and (max-width: 768px) {

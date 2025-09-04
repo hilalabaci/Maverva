@@ -17,7 +17,6 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { updateSprint } from "../../../api/sprintApi";
-import { SprintType } from "../../../types";
 
 type FormDemoType = {
   onClose: () => void;
@@ -44,7 +43,7 @@ const EditSprint = ({
   loadActiveSprint,
 }: FormDemoType) => {
   const { boardId, projectKey } = useParams<URLParams>();
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const [sprintName, setSprintName] = useState(sprintTitle || "Board Sprint");
   const [sprintGoal, setSprintGoal] = useState(sprintGoalProps || "");
   const [startDate, setStartDate] = useState<Date | null>(
@@ -68,7 +67,7 @@ const EditSprint = ({
       : nextYear;
 
   async function submitSprint() {
-    if (!projectKey || !boardId || !user?.Id) {
+    if (!projectKey || !boardId || !user?.Id || !token) {
       console.error("Missing required parameters to update sprint");
       return;
     }
@@ -79,11 +78,12 @@ const EditSprint = ({
           sprintName: sprintName,
           sprintGoal: sprintGoal,
           startDate: startDate,
-          endDate: endDate, 
+          endDate: endDate,
           boardId: boardId as string,
           userId: user?.Id as string,
         };
         const response = await updateSprint(
+          token,
           sprintData,
           projectKey as string,
           boardId as string

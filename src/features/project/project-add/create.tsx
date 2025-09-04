@@ -40,7 +40,7 @@ let debounceTimer: NodeJS.Timeout | undefined;
 function ProjectCreate(props: ProjectCreatePropsType) {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectKey, setProjectKey] = useState("");
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const [boardTitle, setBoardTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   if (!user) {
@@ -49,7 +49,8 @@ function ProjectCreate(props: ProjectCreatePropsType) {
 
   async function createProjectKey(title: string) {
     try {
-      const response = await createProjectKeyApi(title);
+      if (!token) return;
+      const response = await createProjectKeyApi(title, token);
       if (response.ok && response.data) {
         setProjectKey(response.data);
         setErrorMessage(null);
@@ -78,11 +79,13 @@ function ProjectCreate(props: ProjectCreatePropsType) {
     setBoardTitle(value);
   }
   async function onSubmit() {
+    if (!token) return;
     const response = await addProject(
       projectTitle,
       user,
       projectKey,
-      boardTitle
+      boardTitle,
+      token
     );
     if (response.ok && response.data) {
       props.onCreate(response.data.project);

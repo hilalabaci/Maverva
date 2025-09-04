@@ -2,7 +2,6 @@ import {
   Container,
   SectionWrapper,
   StartTrial,
-  TabSection,
   InfoSection,
   Title,
   GetStartWrapper,
@@ -13,24 +12,11 @@ import {
   ImgForWelcome,
   TabTitleWrapper,
   TabTitle,
-  TabWrapper,
-  TabContentWrapper,
   MainContainer,
   GetStartGmailWrapper,
   SectionEntery,
-  TitleDetail,
-  TabContent,
-  TabContentTitle,
-  TabParag,
   LoginText,
   LoginLink,
-  TabContent1,
-  TabContent2,
-  TabContent3,
-  TabContent4,
-  TabContent5,
-  LineIcon,
-  WrapperParag,
   CollapseNavigation,
   CollapseParent,
   CollapseItem,
@@ -43,7 +29,6 @@ import TypedDemo from "../../components/common/Typed/typed";
 import RegisterForm from "../../components/forms/registerForm";
 import WelcomeIllus2 from "../../components/ DynamicSVG/WelcomeIllus2";
 import React, { useState } from "react";
-import ShareTeamIllus from "../../components/ DynamicSVG/shareTeamIllus";
 import { WelcomeTexts } from "../../constants/welcomeTexts";
 import Navbar from "../../components/layout/navbar/navbar-welcomePage";
 import Footer from "../../components/layout/footer";
@@ -103,9 +88,7 @@ function WelcomePage() {
               <CollapseNavigation>
                 {CollapseTexts.map((collapseText, index) => (
                   <React.Fragment key={`collapse-group-${index}`}>
-                    <CollapseItem
-                      onClick={() => handleCollapseClick(index)}
-                    >
+                    <CollapseItem onClick={() => handleCollapseClick(index)}>
                       <CollapseTitle $display={activeCollapse === index}>
                         {collapseText.title}
                       </CollapseTitle>

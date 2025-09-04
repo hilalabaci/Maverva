@@ -67,6 +67,7 @@ export const Form = styled.form`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 30px;
 `;
 export const LoginInputs = styled.div`
   display: flex;
@@ -76,7 +77,7 @@ export const LoginInputs = styled.div`
   padding: 60px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
   box-shadow: 0 24px 64px #26214a1a;
-  border-radius: 15px;
+  border-radius: 3px;
   background: #ffffff;
   gap: 20px;
   @media only screen and (max-width: 768px) {

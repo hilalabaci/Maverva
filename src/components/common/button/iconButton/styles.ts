@@ -12,8 +12,8 @@ export const Container = styled.button<displayBorder>`
   cursor: pointer;
   border: none;
   border-radius: 3px;
-  width: 2rem;
-  height: 2rem;
+  width: 2.28571em;
+  height: 2.28571em;
   border: ${(props) => props.theme.colour.iconButton.default.border};
   box-shadow: ${(props) =>
     props.boxShadow

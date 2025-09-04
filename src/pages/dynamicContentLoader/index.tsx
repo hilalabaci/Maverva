@@ -18,7 +18,6 @@ import { getSelectedProject } from "../../api/projectApi";
 import { getActiveSprint } from "../../api/sprintApi";
 import { useApplicationContext } from "../../contexts/ApplicationContext";
 import { updateIssueContent } from "../../api/issueApi";
-
 type URLParams = {
   projectKey: string;
   boardId?: string;
@@ -27,7 +26,7 @@ function DynamicContentLoader() {
   const hasFetchedProjects = useRef(false);
   const location = useLocation();
   const { projectKey } = useParams<URLParams>();
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const { selectedBoard, setSelectedBoard } = useApplicationContext();
   const [activeSprint, setActiveSprint] = useState<SprintType>();
   const [issues, setIssues] = useState<IssueType[]>();
@@ -37,11 +36,16 @@ function DynamicContentLoader() {
   const [hideMenu, setHideMenu] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  async function loadSelectedProject() {
+  const loadSelectedProject = useCallback(async () => {
     try {
       if (!projectKey) return;
       if (!user) return;
-      const { ok, data } = await getSelectedProject(projectKey, user?.Id);
+      if (!token) return;
+      const { ok, data } = await getSelectedProject(
+        projectKey,
+        user?.Id,
+        token
+      );
       if (ok && data) {
         setSelectedProject(data);
         const firstBoard = data.Boards.length > 0 ? data.Boards[0] : undefined;
@@ -50,7 +54,8 @@ function DynamicContentLoader() {
         if (firstBoard) {
           const { ok: okSprint, data: sprintData } = await getActiveSprint(
             projectKey,
-            firstBoard.Id
+            firstBoard.Id,
+            token
           );
           if (okSprint && sprintData) {
             setActiveSprint(sprintData);
@@ -61,12 +66,16 @@ function DynamicContentLoader() {
     } catch (error) {
       console.error("Error fetching project:", error);
     }
-  }
+  }, [projectKey, user, token, setSelectedBoard]);
 
   const loadActiveSprint = useCallback(async () => {
     try {
-      if (!projectKey || !selectedBoard?.Id) return;
-      const { ok, data } = await getActiveSprint(projectKey, selectedBoard.Id);
+      if (!projectKey || !selectedBoard?.Id || !token) return;
+      const { ok, data } = await getActiveSprint(
+        projectKey,
+        selectedBoard.Id,
+        token
+      );
       if (ok && data) {
         setActiveSprint(data);
         setIssues(data.Issues);
@@ -76,13 +85,13 @@ function DynamicContentLoader() {
     } catch (error) {
       console.error("Error fetching board:", error);
     }
-  }, [projectKey, selectedBoard?.Id]);
+  }, [projectKey, selectedBoard?.Id, token]);
 
   useEffect(() => {
     if (!projectKey || hasFetchedProjects.current) return;
     hasFetchedProjects.current = true;
     loadSelectedProject();
-  }, [projectKey]);
+  }, [projectKey, loadSelectedProject]);
 
   useEffect(() => {
     if (!selectedBoard?.Id || hasFetchedProjects.current) return;
@@ -127,7 +136,6 @@ function DynamicContentLoader() {
 
   async function onUpdateDescription(issue: IssueType) {
     if (!issues) return;
-    console.log("Updating issue description:", issue);
     const response = await updateIssueContent(
       issue.Id,
       issue.Summary,
@@ -139,12 +147,6 @@ function DynamicContentLoader() {
       console.error("Failed to update card:", response);
     }
   }
-
-  useEffect(() => {
-    if (!projectKey || hasFetchedProjects.current) return;
-    hasFetchedProjects.current = true;
-    loadSelectedProject();
-  }, [projectKey]);
 
   useEffect(() => {
     if (!issues) return;

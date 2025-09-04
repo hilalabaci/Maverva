@@ -1,14 +1,46 @@
-import "./index.css";
-type CheckboxPropsType = {
-  check: boolean;
+import { CheckIcon } from "@radix-ui/react-icons";
+import {
+  Container,
+  CheckboxIndicator,
+  CheckboxRoot,
+  CheckBoxText,
+} from "./styles";
+import { useEffect, useState } from "react";
+import { useUserContext } from "../../../contexts/UserContext";
+
+const CheckBox = () => {
+  const { token } = useUserContext();
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("rememberMe");
+    setRememberMe(saved === "true");
+  }, []);
+
+  useEffect(() => {
+    if (rememberMe && token) {
+      localStorage.setItem("token", token);
+      localStorage.setItem("rememberMe", "true");
+    } else {
+      localStorage.removeItem("rememberMe");
+    }
+  }, [rememberMe, token]);
+
+  return (
+    <Container>
+      <CheckboxRoot
+        checked={rememberMe}
+        onCheckedChange={(value) => setRememberMe(!!value)}
+        $selected={rememberMe}
+        id="c1"
+      >
+        <CheckboxIndicator>
+          <CheckIcon />
+        </CheckboxIndicator>
+      </CheckboxRoot>
+      <CheckBoxText>Remember me</CheckBoxText>
+    </Container>
+  );
 };
 
-function Checkbox(props: CheckboxPropsType) {
-  return (
-    <label className="container">
-      <input type="checkbox" checked={props.check} />
-      <span className="checkmark"></span>
-    </label>
-  );
-}
-export default Checkbox;
+export default CheckBox;

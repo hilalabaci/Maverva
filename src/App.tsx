@@ -11,33 +11,32 @@ import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import Projects from "./pages/projects";
-import { ProjectType } from "./types";
 import DynamicContentLoader from "./pages/dynamicContentLoader";
 import WelcomePage from "./pages/welcome-page";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import SendVerificationEmail from "./pages/sendVerificationEmail";
+import VerifyEmailPage from "./pages/verificationEmail-page";
 import { GlobalStyle } from "./styles/GlobalStyle";
+import VerifyCodePage from "./pages/verificationCode-page";
+import RecoveryLink from "./pages/recovery-link";
+import ResetPassword from "./pages/reset-password";
 
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
+  // Public route
   { path: "/", element: <WelcomePage /> },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  { path: "/verification", element: <SendVerificationEmail /> },
+  { path: "/signup", element: <Register /> },
+  { path: "/login", element: <Login /> },
+  { path: "/login/verify-email/otp", element: <VerifyEmailPage /> },
+  { path: "/login/resetpassword", element: <RecoveryLink /> },
+  { path: "/login/reset-password/link", element: <ResetPassword /> },
+  { path: "/signup/verify-email/otp", element: <VerifyCodePage /> },
+
+  // Private
   {
     path: "/projects",
     element: <PrivateRoute />,
     children: [
-      {
-        index: true,
-        element: <Projects />,
-      },
+      { index: true, element: <Projects /> },
       {
         path: `:projectKey`,
         children: [
@@ -63,7 +62,9 @@ function PrivateRoute() {
   const { user, isLoading } = useUserContext();
 
   if (isLoading) return <>Loading...</>;
-
+  if (user) {
+    <Navigate to="projects" />;
+  }
   if (!user || !user.Id) return <Navigate to="/login" />;
 
   return <Outlet />;

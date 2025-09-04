@@ -37,6 +37,7 @@ function RegisterForm() {
       const user = await loginGoogle(tokenResponse.access_token);
       setUser(user.data?.user);
       setToken(user.data?.token);
+      setGoogleVerifyEmail(true);
       setTimeout(() => {
         navigate("/projects");
       }, 100);

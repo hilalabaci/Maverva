@@ -4,13 +4,15 @@ export type ApiCallOptions = {
   urlParams?: URLSearchParams;
   data?: object;
   headers?: HeadersInit;
+  token?: string;
   method: "GET" | "POST" | "PUT" | "DELETE";
 };
 
 export type ApiResponse<T> = {
   status: number;
-  ok: boolean;
+  ok?: boolean;
   data?: T;
+  message?: string;
 };
 export type AddProjectRequest = {
   title: string;

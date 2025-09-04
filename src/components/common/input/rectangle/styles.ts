@@ -22,7 +22,7 @@ export const InputContainer = styled.div<{ isSpecialBackground?: boolean }>`
   font-size: 1rem;
   font-weight: 400;
   margin-top: 7px;
-  width: 250px;
+  min-width: 250px;
 `;
 
 export const Inputs = styled.input<{ size?: number }>`

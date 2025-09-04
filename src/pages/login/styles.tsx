@@ -67,6 +67,7 @@ export const Form = styled.form`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 30px;
   @media only screen and (max-width: 768px) {
     width: 100%;
     justify-content: flex-start;
@@ -80,7 +81,7 @@ export const LoginInputs = styled.div`
   padding: 60px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
   box-shadow: 0 24px 64px #26214a1a;
-  border-radius: 15px;
+  border-radius: 3px;
   background: #ffffff;
   gap: 20px;
   @media only screen and (max-width: 768px) {
@@ -113,23 +114,6 @@ export const StyledLink = styled(Link)`
   @media only screen and (max-width: 768px) {
     font-size: 14px;
   }
-`;
-export const MessageError = styled.p`
-  color: #ed4956;
-`;
-export const RememberWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-  padding-left: 15px;
-  @media only screen and (max-width: 768px) {
-    padding: 5px 0 5px 15px;
-  }
-`;
-export const CheckBoxText = styled.span`
-  color: #172b4d;
-  font-size: 14px;
-  opacity: 0.7;
-  font-weight: 500;
 `;
 export const LineforGoogleWrapper = styled.div`
   font-size: 13px;

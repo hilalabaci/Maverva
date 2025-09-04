@@ -47,17 +47,22 @@ type ProjectMenuPropsType = {
   projectId: string;
   onHover?: (hover: boolean) => void;
   selectedProjectsTitle: string | undefined;
+  projectKey: string;
 };
 type URLParams = {
-  projectKey: string;
   boardId?: string;
 };
-function ProjectMenu({ hideMenu, projectId, onHover }: ProjectMenuPropsType) {
+function ProjectMenu({
+  hideMenu,
+  projectId,
+  onHover,
+  projectKey,
+}: ProjectMenuPropsType) {
   const hasFetchedBoards = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { projectKey, boardId } = useParams<URLParams>();
-  const { user } = useUserContext();
+  const { boardId } = useParams<URLParams>();
+  const { user, token } = useUserContext();
   const { activeSprint, selectedProject, setSelectedBoard } =
     useApplicationContext();
   const [boards, setBoards] = useState<BoardType[]>([]);
@@ -75,18 +80,18 @@ function ProjectMenu({ hideMenu, projectId, onHover }: ProjectMenuPropsType) {
     setShowModalforCreateButton(false);
   }
   const loadBoards = useCallback(async () => {
-    if (!user || !projectKey) return;
-    const { ok, data } = await getBoards(projectKey, user.Id);
+    if (!user || !projectKey || !token) return;
+    const { ok, data } = await getBoards(projectKey, user.Id, token);
     if (ok && data) {
       setBoards(data);
     }
-  }, [user, projectKey]);
+  }, [user, projectKey, token]);
 
   useEffect(() => {
     if (hasFetchedBoards.current) return;
     hasFetchedBoards.current = true;
     loadBoards();
-  }, [projectKey, projectId]);
+  }, [projectKey, projectId, loadBoards]);
 
   useEffect(() => {
     if (boards.length > 0 && !boardId) {

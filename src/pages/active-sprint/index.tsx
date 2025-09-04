@@ -1,7 +1,7 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import IssueList from "../../features/card/issue-list";
 import {
   ColumnContainer,
@@ -59,33 +59,35 @@ function ActiveSprint({
   projectKey,
   updatedCardsAfterDeleteColumn,
 }: ActiveSprintsProps) {
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const hasFetchedProjects = useRef(false);
   const { boardId } = useParams<URLParams>();
   const [columns, setColumns] = useState<ColumnType[]>([]);
   const [displayCreateColumn, setDisplayCreateColumn] = useState(false);
   const [title, setTitle] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showModal, setShowModal] = useState(false);
+
   function openModal() {
     setShowModal(true);
   }
   function handleChange(value: string) {
     setTitle(value);
   }
-
-  async function loadColumns() {
-    if (!boardId || !projectKey || !activeSprint?.Id) return;
+  const loadColumns = useCallback(async () => {
+    if (!boardId || !projectKey || !activeSprint?.Id || !token) return;
     try {
       const { ok, data } = await getColumns(
         projectKey,
         boardId,
-        activeSprint?.Id
+        activeSprint?.Id,
+        token
       );
       if (ok && data) setColumns(data);
     } catch (error) {
       console.error("Fetch error:", error);
     }
-  }
+  }, [token, projectKey, boardId, activeSprint?.Id]);
 
   async function deleteColumn(columnId: string) {
     try {
@@ -95,9 +97,10 @@ function ActiveSprint({
         user?.Id as string,
         projectKey as string,
         boardId as string,
-        activeSprint?.Id as string
+        activeSprint?.Id as string,
+        token as string
       );
-      if (!ok || !data) {
+      if (ok || data) {
         setColumns(columns.filter((c) => c.Id !== columnId));
         updatedCardsAfterDeleteColumn(data as IssueType[]);
       }
@@ -114,12 +117,13 @@ function ActiveSprint({
         boardId: boardId,
         userId: user?.Id as string,
       };
-      if (!projectKey || !activeSprint?.Id) return;
+      if (!projectKey || !activeSprint?.Id || !token) return;
       const { ok, data } = await addColumn(
         columnData,
         projectKey,
         boardId,
-        activeSprint?.Id
+        activeSprint?.Id,
+        token
       );
       if (ok && data) {
         await loadColumns();
@@ -131,7 +135,7 @@ function ActiveSprint({
     if (!boardId || !activeSprint || hasFetchedProjects.current) return;
     hasFetchedProjects.current = true;
     loadColumns();
-  }, [boardId, activeSprint]);
+  }, [boardId, activeSprint, loadColumns]);
 
   return (
     <Container>

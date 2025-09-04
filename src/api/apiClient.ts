@@ -1,14 +1,12 @@
 import { ApiCallOptions, ApiResponse } from "../apiTypes/types";
-import { tokenKey } from "../contexts/UserContext";
 
 export async function apiCall<T>(
   url: string,
-  { urlParams, method, data, headers }: ApiCallOptions
+  { urlParams, method, data, headers, token }: ApiCallOptions
 ): Promise<ApiResponse<T>> {
   let apiUrl = process.env.REACT_APP_API_URL + url;
   if (urlParams) apiUrl = `${apiUrl}?${urlParams.toString()}`;
 
-  const token = localStorage.getItem(tokenKey);
   const response = await fetch(apiUrl, {
     method,
     body: data ? JSON.stringify(data) : undefined,

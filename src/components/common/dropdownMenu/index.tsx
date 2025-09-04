@@ -21,7 +21,7 @@ interface DropdownMenuProps {
 
 interface DropdownMenuItem {
   label: string;
-  action: () => void;
+  action: (event: Event) => void;
   subItems?: Array<Omit<DropdownMenuItem, "subItems">>;
 }
 

@@ -7,10 +7,6 @@ import DoneIcon from "@mui/icons-material/Done";
 export const GlobalStyle = createGlobalStyle`
 
 `;
-
-type DisplayTextProps = {
-  displayEditText: boolean;
-};
 export const EditContentIcon = styled(ModeEditIcon)`
   opacity: 0;
   padding: 2px;
@@ -29,7 +25,6 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
 `;
 
 export const Container = styled.button`
-  background-color: ${(props) => props.theme.colour.background.cardBG.base};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

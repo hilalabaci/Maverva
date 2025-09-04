@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { themes } from "../../theme";
-//import Markdown from "react-markdown";
+
 
 type ContainerPropsType = {
   $isRead?: boolean;

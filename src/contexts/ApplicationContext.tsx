@@ -31,7 +31,6 @@ const ApplicationContext = createContext<ApplicationContextType>({
   activeSprint: undefined,
   setActiveSprint: () => {},
 });
-const projectStorageKey = "projects";
 const selectedProjectStorageKey = "selected_project";
 const boardStorageKey = "selected_board";
 const sprintStorageKey = "selected_sprint";

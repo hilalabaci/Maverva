@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import { loginVerificationEmail } from "../../api/authApi";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import { useUserContext } from "../../contexts/UserContext";
@@ -22,12 +23,17 @@ import {
   Title,
 } from "./styles";
 
-function SendVerificationEmail() {
-  const { user } = useUserContext();
+function VerifyEmailPage() {
+  const { user, token } = useUserContext();
+  const [searchParams] = useSearchParams();
   async function handleSendVerify() {
     try {
-      if (!user) return;
-      const { ok, data } = await loginVerificationEmail(user.Email);
+      if (!user || !token) return;
+      const { ok, data } = await loginVerificationEmail(
+        user.Email,
+        token,
+        "login"
+      );
       if (ok && data) {
       }
     } catch (error) {}
@@ -52,7 +58,7 @@ function SendVerificationEmail() {
               </ImgWrapper>
               <ExplainTitle>
                 To complete setup and log in, click the verification link in the
-                email we’ve sent to
+                email we’ve sent tos
                 <EmailforLogin>{user?.Email}</EmailforLogin>
               </ExplainTitle>
               <ButtonWrapper onClick={handleSendVerify}>
@@ -66,4 +72,4 @@ function SendVerificationEmail() {
   );
 }
 
-export default SendVerificationEmail;
+export default VerifyEmailPage;

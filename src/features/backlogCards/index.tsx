@@ -1,16 +1,15 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDrop } from "react-dnd";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
-import SprintDemo from "../sprint/edit-sprint";
 import { IssueStatus, IssueType, DragItem } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
 import { ToolTip } from "../../components/common/toolstip";
 import BacklogCard from "../backlogCard";
-import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
+import CheckBox from "../../components/forms/checkBox";
 import {
   Accordion,
   BacklogCardList,
@@ -49,7 +48,7 @@ type BacklogCardsProps = {
 
 function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
   const hasFetchedBacklogCards = useRef(false);
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const { projectKey, boardId } = useParams<URLParams>();
   const [content, setContent] = useState("");
   const [showBacklog, setShowBacklog] = useState(true);
@@ -60,9 +59,9 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
   const [, drop] = useDrop<DragItem>({
     accept: "BACKLOG_CARD",
     drop: (item) => {
-      updateCard(item.issueId, 1, item.oldSprintId, item.boardId);
+      if (!token) return;
+      updateCard(token, item.issueId, 1, item.oldSprintId, item.boardId);
       updateDragandDrop(item.issueId);
-      console.log("Item dropped: sprintId not coming", item);
       // Update the card after drag
       loadBacklogCards();
     },
@@ -79,11 +78,11 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
     setContent(value);
   }
 
-  async function loadBacklogCards() {
+  const loadBacklogCards = useCallback(async () => {
     try {
       if (!projectKey) return;
-      if (!boardId) return;
-      const { ok, data } = await getBacklogCards(projectKey, boardId);
+      if (!boardId || !token) return;
+      const { ok, data } = await getBacklogCards(projectKey, boardId, token);
       if (ok && data) {
         setBacklogCards(data);
       } else {
@@ -94,10 +93,11 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
       console.error("Error fetching board:", error);
       setBacklogCards([]);
     }
-  }
+  }, [projectKey, boardId, token]);
 
   async function submitNote() {
     try {
+      if (!token) return;
       const cardData = {
         content: content,
         status: 1,
@@ -106,7 +106,7 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
         boardId: boardId,
       };
 
-      const { ok } = await addIssue(cardData);
+      const { ok } = await addIssue(cardData, token);
       if (ok) {
         setContent("");
         await loadBacklogCards();
@@ -117,12 +117,14 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
   }
 
   async function updateCard(
+    token: string,
     issueId: string,
     status: number,
     sprintId?: string,
     boardId?: string
   ) {
     const response = await updateIssueSprintToBacklog(
+      token,
       issueId,
       status,
       sprintId,
@@ -158,7 +160,7 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
       return;
     }
     loadBacklogCards();
-  }, [boardId, projectKey]);
+  }, [boardId, projectKey, loadBacklogCards]);
 
   function getStatusCount(status: IssueStatus) {
     return backlogCards?.filter((card) => card.Status === status).length || 0;
@@ -170,7 +172,7 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
         trigger={
           <HeaderDropBlog>
             <CheckboxWrapper>
-              <CheckboxRadixUi />
+              <CheckBox />
             </CheckboxWrapper>
             <HeaderTitleContent
               ref={refBacklogSelected}

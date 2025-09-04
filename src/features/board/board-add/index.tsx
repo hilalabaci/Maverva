@@ -1,5 +1,5 @@
 import MemberPhoto from "../../../features/user/member-photo";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { BackButton, CancelButton } from "../optional/styles";
 import { useParams } from "react-router-dom";
 import { BoardType, ProjectType } from "../../../types";
@@ -47,7 +47,7 @@ function BoardCreate(props: BoardCreatePropsType) {
   const { projectKey } = useParams<URLParams>();
   const [boardTitle, setBoardTitle] = useState("");
   const { projects, setProjects, setSelectedProject } = useApplicationContext();
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const userId = user?.Id;
   const [selectedProjects, setSelectedProjects] = useState<ProjectType[]>([]);
   if (!user) {
@@ -58,7 +58,7 @@ function BoardCreate(props: BoardCreatePropsType) {
     setBoardTitle(value);
   }
   async function onSubmit() {
-    if (!userId) return;
+    if (!userId || !token) return;
     const projectKeys = selectedProjects.map((project) => project.Key);
     const boardData = {
       title: boardTitle,
@@ -70,12 +70,12 @@ function BoardCreate(props: BoardCreatePropsType) {
       console.error(errorMessage);
       return;
     }
-    const { ok, data } = await addBoard(boardData, projectKey);
+    const { ok, data } = await addBoard(boardData, projectKey, token);
     if (ok && data) {
       props.onCreate(data.newProject);
 
       if (projectKey) {
-        const { ok, data } = await getBoards(projectKey, userId);
+        const { ok, data } = await getBoards(projectKey, userId, token);
         if (ok && data)
           setSelectedProject((prev) =>
             prev ? { ...prev, Boards: data } : prev
@@ -83,19 +83,19 @@ function BoardCreate(props: BoardCreatePropsType) {
       }
     }
   }
-  async function loadProjects() {
-    if (userId) {
-      const { ok, data } = await getProjects(userId);
+  const loadProjects = useCallback(async () => {
+    if (userId && token) {
+      const { ok, data } = await getProjects(userId, token);
       if (ok && data) {
         setProjects(data);
       }
     }
-  }
+  }, [userId, token, setProjects]);
   useEffect(() => {
     if (hasFetchedProjects.current) return;
     hasFetchedProjects.current = true;
     loadProjects();
-  }, []);
+  }, [loadProjects]);
   return (
     <Container>
       <GeneralWrapper

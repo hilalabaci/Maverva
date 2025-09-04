@@ -12,10 +12,10 @@ export const ContainerSendEmail = styled.div`
   justify-content: center;
   align-items: center;
   width: 350px;
-  padding: 40px;
+  padding: 20px 40px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
   box-shadow: 0 24px 64px #26214a1a;
-  border-radius: 15px;
+  border-radius: 3px;
   background: #ffffff;
   gap: 10px;
   @media only screen and (max-width: 768px) {
@@ -23,8 +23,9 @@ export const ContainerSendEmail = styled.div`
   }
 `;
 export const ExplainTitle = styled.div`
-  color: #2f4156;
-  padding:0 25px;
+  color: ${(props) => props.theme.colour.text.primary};
+  font-size: 14px;
+  line-height: 1.5;
 `;
 export const EmailforLogin = styled.p`
   color: #2f4156;
@@ -42,4 +43,20 @@ export const ButtonText = styled.p`
   &:hover {
     text-decoration: underline;
   }
+`;
+export const VerifyCodeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  gap: 20px;
+  width: 100%;
+`;
+export const ErrorMessage = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 3px ;
+  color: #dc3545;
+  font-size: 0.79rem;
+  margin: 0;
+  text-align: right;
 `;

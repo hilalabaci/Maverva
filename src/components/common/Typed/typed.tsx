@@ -6,7 +6,7 @@ type TypedDemoPropsType = {
   textforTyped: string[];
 };
 
-const TypedDemo = (props: TypedDemoPropsType) => {
+const TypedDemo = ({ textforTyped }: TypedDemoPropsType) => {
   // Typed.js instance'ını saklamak için bir ref kullanıyoruz
   const typedElement = useRef<HTMLSpanElement>(null);
   const typedInstance = useRef<Typed | null>(null);
@@ -14,7 +14,7 @@ const TypedDemo = (props: TypedDemoPropsType) => {
   useEffect(() => {
     if (typedElement.current) {
       typedInstance.current = new Typed(typedElement.current, {
-        strings: props.textforTyped,
+        strings: textforTyped,
         typeSpeed: 50,
         backSpeed: 25,
         loop: true,
@@ -25,7 +25,7 @@ const TypedDemo = (props: TypedDemoPropsType) => {
     return () => {
       typedInstance.current?.destroy();
     };
-  }, []);
+  }, [textforTyped]);
 
   return <span ref={typedElement}></span>;
 };

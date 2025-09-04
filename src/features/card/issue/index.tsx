@@ -11,8 +11,6 @@ import {
   IssueType,
   DragDropCollect,
   DragItem,
-  LabelType,
-  UserType,
 } from "../../../types";
 import {
   Container,
@@ -38,25 +36,15 @@ import {
   updateIssueContent,
 } from "../../../api/issueApi";
 type IssueProps = {
-  id: string;
-  labels: LabelType[];
-  content: string;
-  reporterUser: UserType;
-  userName: string;
-  cardKey: string;
-  status: number;
+  issue: IssueType;
   onUpdate: (card: IssueType) => void;
   onUpdateSummary: (card: IssueType) => void;
   onUpdateDescription: (card: IssueType) => void;
   onDelete: (id: string) => void;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 };
 function Issue({
-  id,
-  labels,
-  content,
-  reporterUser,
-  cardKey,
+  issue,
   onUpdate,
   onUpdateSummary,
   onDelete,
@@ -64,15 +52,15 @@ function Issue({
 }: IssueProps) {
   const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "CARD",
-    item: { issueId: id },
+    item: { issueId: issue.Id },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
-  const [changeContent, setChangeContent] = useState(content);
+  const [changeContent, setChangeContent] = useState(issue.Summary);
   const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
   const refModal = useOutsideClick<HTMLDivElement>(() => setShowModal(false));
 
@@ -81,12 +69,12 @@ function Issue({
   }
 
   async function handleDeleteIssue(issueId: string) {
-    if (user === null || user?.Id === undefined) {
+    if (user === null || user?.Id === undefined || !token) {
       console.error("User is not authenticated.");
       return;
     }
     try {
-      const response = await deleteIssue(issueId, user.Id);
+      const response = await deleteIssue(issueId, user.Id, token);
       if (response.ok) {
         onDelete(issueId);
       } else {
@@ -98,7 +86,8 @@ function Issue({
   }
 
   async function updateStatus(id: string, status: number) {
-    const response = await updateIssue(id, status);
+    if (!token) return;
+    const response = await updateIssue(token, id, status);
     if (response.ok && response.data) {
       onUpdate(response.data);
     } else {
@@ -135,7 +124,7 @@ function Issue({
                 <DoneButton
                   onClick={(e) => {
                     e.stopPropagation();
-                    updateIssueDetails(id, changeContent);
+                    updateIssueDetails(issue.Id, changeContent);
                   }}
                 >
                   <IconDone />
@@ -144,8 +133,8 @@ function Issue({
             ) : (
               <ToolTip
                 contentStyle={{ zIndex: 0 }}
-                trigger={<Note>{content}</Note>}
-                content={content}
+                trigger={<Note>{issue.Summary}</Note>}
+                content={issue.Summary}
               ></ToolTip>
             )}
             {!editTextDisplay && (
@@ -174,33 +163,38 @@ function Issue({
                   label: "Change status",
                   subItems: [
                     {
-                      action: () => {
-                        updateStatus(id, IssueStatus.ToDo);
+                      action: (event) => {
+                        event.stopPropagation();
+                        updateStatus(issue.Id, IssueStatus.ToDo);
                       },
                       label: "To Do",
                     },
                     {
-                      action: () => {
-                        updateStatus(id, IssueStatus.InProgress);
+                      action: (event) => {
+                        event.stopPropagation();
+                        updateStatus(issue.Id, IssueStatus.InProgress);
                       },
                       label: "In progress",
                     },
                     {
-                      action: () => {
-                        updateStatus(id, IssueStatus.Done);
+                      action: (event) => {
+                        event.stopPropagation();
+                        updateStatus(issue.Id, IssueStatus.Done);
                       },
                       label: "Done",
                     },
                   ],
                 },
                 {
-                  action: () => {},
+                  action: (event) => {
+                    event.stopPropagation();
+                  },
                   label: "Add Label",
                 },
                 {
-                  action: () => {
-                    handleDeleteIssue(id);
-                    refModal.current?.click();
+                  action: (event) => {
+                    event.stopPropagation();
+                    handleDeleteIssue(issue.Id);
                   },
                   label: "Delete",
                 },
@@ -209,13 +203,13 @@ function Issue({
           )}
         </ContentWrapper>
         <LabelWrapper>
-          {(labels || []).map((label, index) => {
+          {(issue.Labels || []).map((label, index) => {
             return <Label key={index} colour={label.colour} />;
           })}
         </LabelWrapper>
 
         <CardButtomWrapper>
-          <CardKeyWrapper>{cardKey}</CardKeyWrapper>
+          <CardKeyWrapper>{issue.Key}</CardKeyWrapper>
           <ToolTip
             contentStyle={{ zIndex: 0 }}
             trigger={
@@ -225,11 +219,11 @@ function Issue({
                   $userPhotoHeight="24px"
                   $userPhotoFontSize="10px"
                   $userBorderadius="50px"
-                  user={reporterUser}
+                  user={issue.AssigneeUser}
                 />
               </ButtomWrapper>
             }
-            content={`Assignee: ${reporterUser?.FullName}`}
+            content={`Assignee: ${issue?.AssigneeUser?.FullName}`}
           ></ToolTip>
         </CardButtomWrapper>
       </Container>

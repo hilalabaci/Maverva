@@ -14,7 +14,6 @@ import {
 } from "../../../features/top-menu/styles";
 import { Container, MainContainer, Breadcrumbs } from "./styles";
 import { useParams } from "react-router-dom";
-import { BoardType } from "../../../types";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";
 
 type URLParams = {
@@ -57,7 +56,7 @@ const MainContainerLayout = ({
             projectKey={projectKey}
             projectId={projectId}
             hideMenu={hideMenu}
-            ProjectTitle={projectTitle}
+            ProjectTitleProps={projectTitle}
             selectedProjectsTitle={projectTitle}
           />
           <SideBar

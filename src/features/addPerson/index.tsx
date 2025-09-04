@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import AddedPerson from "../addedPerson";
 import { BoardType, ApiError } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
@@ -49,7 +49,7 @@ function AddPerson({
   const [selectedRole, setSelectedRole] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [showAddedPerson, setShowAddedPerson] = useState(false);
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   function openModal() {
     setShowModal(true);
   }
@@ -63,20 +63,21 @@ function AddPerson({
       openModal();
     }
   }
-  async function loadBoards() {
-    if (!user) return;
-    const { ok, data } = await getBoards(projectKey, user.Id);
+  const loadBoards = useCallback(async () => {
+    if (!user || !token) return;
+    const { ok, data } = await getBoards(projectKey, user.Id, token);
     if (ok && data) {
       setBoards(data);
     }
-  }
+  }, [projectKey, user, token]);
+
   useEffect(() => {
     if (hasFetchedBoards.current) return;
     hasFetchedBoards.current = true;
     if (!projectKey || !projectId) return;
     if (!user) return;
     loadBoards();
-  }, [projectKey, projectId]);
+  }, [projectKey, projectId, user, loadBoards]);
 
   function handleInputChange(value: string, name: string): void {
     if (name === "email") {
@@ -84,7 +85,7 @@ function AddPerson({
     }
   }
   async function addUserToBoard() {
-    if (!projectKey || !boardId) return;
+    if (!projectKey || !boardId || !token) return;
     const boardIds = selectedBoards.map((board) => board.Id);
     const projectData = {
       projectId: projectId,
@@ -97,7 +98,8 @@ function AddPerson({
       const { ok, data } = await addUsertoBoard(
         projectData,
         projectKey,
-        boardId
+        boardId,
+        token
       );
       if (ok && data) {
         setErrorMessage(null);

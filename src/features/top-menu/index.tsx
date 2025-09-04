@@ -9,11 +9,8 @@ import {
   TitleHeader,
   Title,
   SearchAndAssignMemberContainer,
-  MoreIcon,
-  EditSprintButton,
   FeaturesSprint,
   FeaturesSprintContainer,
-  CompleteSprintButton,
   SprintTime,
   TimeIcon,
 } from "./styles";
@@ -31,6 +28,8 @@ import { calculateDaysBetween } from "../../utils/calculateDays";
 import { DropdownMenu } from "../../components/common/dropdownMenu";
 import OptionalBoardCreate from "../board/optional/create";
 import EditSprint from "../sprint/edit-sprint";
+import IconButton from "../../components/common/button/iconButton";
+import TextButton from "../../components/common/button/textButton";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -62,12 +61,12 @@ function TopMenu({
 }: TopMenuPropsType) {
   const hasFetchedProjects = useRef(false);
   const location = useLocation();
+  const { user, token } = useUserContext();
   const { boardId } = useParams<{ boardId: string }>();
   const [projectTitle, setProjectTitle] = useState(topMenuTitle);
   const [showModal, setShowModal] = useState(false);
   const [createBoardModal, setCreateBoardModal] = useState(false);
   const [editSprintModal, setEditSprintModal] = useState(false);
-  const { user } = useUserContext();
   const [users, setUsers] = useState<UserType[]>([]);
 
   function openModal() {
@@ -97,10 +96,17 @@ function TopMenu({
   async function loadUsers(
     projectKey: string,
     boardId: string,
-    userId: string
+    userId: string,
+    token: string
   ) {
     try {
-      const response = await getUserstoBoard(projectKey, boardId, userId);
+      if (!token) return;
+      const response = await getUserstoBoard(
+        projectKey,
+        boardId,
+        userId,
+        token
+      );
       if (response.ok) {
         const data = response.data as { users: UserType[] };
         setUsers(data.users);
@@ -111,11 +117,17 @@ function TopMenu({
   }
 
   useEffect(() => {
-    if (!projectKey || !boardId || !user?.Id || hasFetchedProjects.current)
+    if (
+      !projectKey ||
+      !boardId ||
+      !user?.Id ||
+      hasFetchedProjects.current ||
+      !token
+    )
       return;
     hasFetchedProjects.current = true;
-    loadUsers(projectKey, boardId, user.Id);
-  }, [boardId, user]);
+    loadUsers(projectKey, boardId, user.Id, token);
+  }, [boardId, user, projectKey, token]);
 
   const onSearch = (value: string) => {
     setSearchInput(value);
@@ -146,15 +158,10 @@ function TopMenu({
                 endDateActiveSprint || new Date()
               )}`}
             ></ToolTip>
-
-            <CompleteSprintButton>Complete sprint</CompleteSprintButton>
+            <TextButton>Complete sprint</TextButton>
           </FeaturesSprint>
           <DropdownMenu
-            trigger={
-              <EditSprintButton>
-                <MoreIcon />
-              </EditSprintButton>
-            }
+            trigger={<IconButton icon="more" />}
             items={[
               {
                 label: "Edit sprint",

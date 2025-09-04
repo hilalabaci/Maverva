@@ -10,7 +10,7 @@ import {
 } from "../../types";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { getStatusLabel } from "../../utils/getStatus";
-import CheckboxRadixUi from "../../components/forms/checkboxRadixUI";
+import CheckBox from "../../components/forms/checkBox";
 import { ToolTip } from "../../components/common/toolstip";
 import SelectDemo from "../../components/common/selectDemo";
 import { DropdownMenu } from "../../components/common/dropdownMenu";
@@ -51,11 +51,6 @@ type BacklogCardPropsType = {
   updateCardAfterDrag: (id: string) => void;
   onUpdateContent: (card: IssueType) => void;
 };
-type URLParams = {
-  projectKey: string;
-  sprintId: string;
-};
-
 const BacklogCard = ({
   cardKey,
   content,
@@ -88,12 +83,11 @@ const BacklogCard = ({
 
       dropResult.droppedCard.then((card) => {
         if (!card) return;
-        console.log("Card dropped suanda bunu:", card);
         updateCardAfterDrag(card.Id);
       });
     },
   });
-  const { user } = useUserContext();
+  const { user, token } = useUserContext();
   const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
@@ -116,7 +110,8 @@ const BacklogCard = ({
   ];
 
   async function updateCard(id: string, status: number) {
-    const response = await updateIssue(id, status);
+    if (!token) return;
+    const response = await updateIssue(token, id, status);
     if (response.ok && response.data) {
       onUpdateCardStatus(response.data.Id, response.data.Status);
     } else {
@@ -125,14 +120,12 @@ const BacklogCard = ({
   }
 
   async function deleteCard() {
-    if (!user || !user.Id) {
+    if (!user || !user.Id || !token) {
       console.error("User is not authenticated.");
       return;
     }
     const issueId = id;
-    console.log(`token: ${localStorage.getItem("token")}`);
-    console.log(tokenKey, localStorage.getItem(tokenKey));
-    const response = await deleteIssue(issueId, user.Id);
+    const response = await deleteIssue(issueId, user.Id, token);
     if (response.ok) {
       updateCardsAfterDelete(id);
     }
@@ -154,7 +147,7 @@ const BacklogCard = ({
   return (
     <BacklogCardListItems role="button" ref={drag}>
       <CheckboxWrapper>
-        <CheckboxRadixUi />
+        <CheckBox />
       </CheckboxWrapper>
       <CardKey>{cardKey}</CardKey>
       <ContentWrapper>

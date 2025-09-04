@@ -93,7 +93,7 @@ export const IssueTitle = styled.h3`
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
-  line-height: 20px;
+  line-height: 34px;
   color: ${(props) => props.theme.colour.text.highlightColor};
   resize: none;
   outline: none;

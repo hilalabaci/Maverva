@@ -43,7 +43,7 @@ export const NavbarSignWrapper = styled.div`
 export const ButtonForLogintonNavbar = styled.a`
   border: none;
   background-color: transparent;
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: ${(props) => props.theme.colour.text.link};
   font-weight: 500;
   font-size: 16px;
   text-decoration: none;

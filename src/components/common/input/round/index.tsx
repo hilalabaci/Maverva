@@ -1,44 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Inputs,
   WarningMessage,
-  Icon,
   EmailIcon,
   InputContainer,
+  PasswordIcon,
+  PasswordIconButton,
+  LabelforInput,
 } from "./styles";
 type InputPropsType = {
-  title: string;
-  error?: string;
+  error?: string | null;
   onChange: (value: string, name: string) => void;
   value: string;
   type?: React.HTMLInputTypeAttribute;
   name?: string;
   placeholder?: string;
   approved?: boolean;
+  label?: string;
 };
-function Input(props: InputPropsType) {
+function Input({
+  error,
+  onChange,
+  value,
+  type = "text",
+  name,
+  placeholder,
+  approved,
+  label,
+}: InputPropsType) {
+  const [showPassword, setShowPassword] = useState(false);
+  function togglePasswordVisibility() {
+    setShowPassword((prev) => !prev);
+  }
+
+  const inputType =
+    type === "password" ? (showPassword ? "text" : "password") : type;
+
   return (
     <Container>
+      {label && <LabelforInput>{label}</LabelforInput>}
       <InputContainer
-        style={
-          props.error !== undefined
-            ? { outline: "1px solid #dc3545" }
-            : undefined
-        }
+        style={error ? { outline: "1px solid #dc3545" } : undefined}
       >
-        {props.type === "email" ? <EmailIcon /> : ""}
-
+        {type === "email" ? <EmailIcon /> : ""}
         <Inputs
-          onChange={(e) => props.onChange(e.target.value, e.target.name)}
-          value={props.value}
-          type={props.type}
-          name={props.name}
-          placeholder={props.placeholder}
+          onChange={(e) => onChange(e.target.value, e.target.name)}
+          value={value}
+          type={inputType}
+          name={name}
+          placeholder={placeholder}
         />
-        {props.type === "password" && props.approved === true && <Icon />}
+        {type === "password" && (
+          <PasswordIconButton type="button" onClick={togglePasswordVisibility}>
+            <PasswordIcon />
+          </PasswordIconButton>
+        )}
+        {/* {type === "password" && approved === true && <Icon />} */}
       </InputContainer>
-      <WarningMessage>{props.error}</WarningMessage>
+      {error && <WarningMessage>{error}</WarningMessage>}
     </Container>
   );
 }
