@@ -10,7 +10,7 @@ import {
 } from "../../types";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { getStatusLabel } from "../../utils/getStatus";
-import CheckBox from "../../components/forms/checkBox";
+import CheckBox from "../../components/forms/checkBoxComponent";
 import { ToolTip } from "../../components/common/toolstip";
 import SelectDemo from "../../components/common/selectDemo";
 import { DropdownMenu } from "../../components/common/dropdownMenu";

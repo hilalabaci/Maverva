@@ -9,7 +9,7 @@ import { useUserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
 import { ToolTip } from "../../components/common/toolstip";
 import BacklogCard from "../backlogCard";
-import CheckBox from "../../components/forms/checkBox";
+import CheckBox from "../../components/forms/checkBoxComponent";
 import {
   Accordion,
   BacklogCardList,

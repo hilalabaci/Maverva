@@ -32,7 +32,7 @@ import { DragItem, IssueStatus, IssueType, SprintType } from "../../types";
 import { useUserContext } from "../../contexts/UserContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/common/collapsible";
-import CheckBox from "../../components/forms/checkBox";
+import CheckBox from "../../components/forms/checkBoxComponent";
 import { ToolTip } from "../../components/common/toolstip";
 import { addIssue, updateIssue } from "../../api/issueApi";
 import { updateSprint } from "../../api/sprintApi";

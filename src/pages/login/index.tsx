@@ -24,7 +24,7 @@ import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import GoogleLoginButton from "../../components/common/button/googleLoginButton";
 import { findUserByEmail } from "../../api/authApi";
-import CheckBoxComponent from "../../components/forms/checkBox";
+import CheckBoxComponent from "../../components/forms/checkBoxComponent";
 
 interface FormError {
   email?: string;
