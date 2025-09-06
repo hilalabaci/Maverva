@@ -25,6 +25,12 @@ export const loginVerificationEmail = async (
     }
   );
 };
+export const loginUser = async (email: string, password: string) => {
+  return await apiCall<{ user: UserType; token: string }>("auth/login", {
+    method: "POST",
+    data: { email, password },
+  });
+};
 
 export const signUpVerificationCode = async (
   email: string,
