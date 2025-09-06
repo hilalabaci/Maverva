@@ -8,6 +8,7 @@ type actionButtonPropsType = {
   size?: "sm" | "md" | "lg";
   ariaLabel?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
 function ActionButton({
@@ -17,6 +18,7 @@ function ActionButton({
   size,
   ariaLabel,
   type,
+  disabled = false,
 }: actionButtonPropsType) {
   return (
     <BaseButton
@@ -25,6 +27,7 @@ function ActionButton({
       size={size}
       type={type}
       aria-label={ariaLabel}
+      disabled={disabled}
     >
       {children}
     </BaseButton>

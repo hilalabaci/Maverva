@@ -23,7 +23,7 @@ import {
 import Input from "../../components/common/input/round";
 import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import GoogleLoginButton from "../../components/common/button/googleLoginButton";
-import { findUserByEmail } from "../../api/authApi";
+import { findUserByEmail, loginUser } from "../../api/authApi";
 import CheckBoxComponent from "../../components/forms/checkBoxComponent";
 
 interface FormError {
@@ -39,51 +39,70 @@ function Login() {
   const navigate = useNavigate();
   const { setUser, token } = useUserContext();
   const [displayPassword, setDisplayPassword] = useState(false);
-  const [login, setLogin] = useState<FormData>({
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
   const [error, setError] = useState<FormError>({
     email: undefined,
   });
+  const [stage, setStage] = useState<"email" | "password">("email");
+  const [loading, setLoading] = useState(false);
 
   function handleChange(value: string, name: string) {
-    setLogin((prevValue) => ({ ...prevValue, [name]: value }));
+    setFormData((prevValue) => ({ ...prevValue, [name]: value }));
     setError((prev) => ({ ...prev, [name]: undefined }));
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError({});
+    setLoading(true);
+    console.log(stage);
     try {
-      if (login.email === "") {
-        setError({ email: "Please enter your email" });
-        return;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login.email)) {
-        setError({
-          email: "This is not valid email address.",
-        });
-        return;
-      }
-      if (!token) return;
-      console.log(`hereee`);
-      const response = await findUserByEmail(login.email, token);
-      console.log(`response: ${response}`);
-      if (response.ok) {
-        setDisplayPassword(true);
-      } else {
-        setError({
-          email:
-            (response.data as { message?: string })?.message ||
-            "Please sign up to continue",
-        });
-        setTimeout(() => {
-          navigate("/signup");
-        }, 1500);
+      if (stage === "email") {
+        if (formData.email === "") {
+          setError({ email: "Please enter your email" });
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+          setError({
+            email: "This is not valid email address.",
+          });
+          return;
+        }
+        if (!token) return;
+        const response = await findUserByEmail(formData.email, token);
+        if (response.ok) {
+          setStage("password");
+          setDisplayPassword(true);
+        } else {
+          setError({
+            email:
+              (response.data as { message?: string })?.message ||
+              "Please sign up to continue",
+          });
+          setTimeout(() => {
+            navigate("/signup");
+          }, 1500);
+        }
+      } else if (stage === "password") {
+        if (!formData.password) {
+          setError({ password: "Please enter your password" });
+          return;
+        }
+        const response = await loginUser(formData.email, formData.password);
+        if (response.ok) {
+          setUser(response.data?.user); 
+          navigate("/projects");
+        } else {
+          setError({ password: "Invalid password, try again" });
+        }
       }
     } catch (error) {
       setError({ email: "opps! somethings wrong, try again" });
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -104,7 +123,7 @@ function Login() {
               <Input
                 type="email"
                 placeholder="Enter your email "
-                value={login.email}
+                value={formData.email}
                 onChange={handleChange}
                 name="email"
                 error={error.email}
@@ -113,14 +132,16 @@ function Login() {
                 <Input
                   type="password"
                   placeholder="Enter your password"
-                  value={login.password}
+                  value={formData.password}
                   onChange={handleChange}
                   name="password"
                   error={error.password}
                 />
               )}
               <CheckBoxComponent />
-              <Button children="Continue" type="submit" />
+              <Button type="submit" disabled={loading}>
+                {stage === "email" ? "Continue" : "Log in"}
+              </Button>
               <LineforGoogleWrapper>
                 <FirstLine></FirstLine>Or continue with
                 <LastLine></LastLine>
