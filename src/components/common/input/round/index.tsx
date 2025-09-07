@@ -9,6 +9,7 @@ import {
   PasswordIconButton,
   LabelforInput,
   InfoMessage,
+  PasswordIconHidden,
 } from "./styles";
 type InputPropsType = {
   error?: string | null;
@@ -17,7 +18,6 @@ type InputPropsType = {
   type?: React.HTMLInputTypeAttribute;
   name?: string;
   placeholder?: string;
-  approved?: boolean;
   label?: string;
   infoMessage?: string;
 };
@@ -28,7 +28,6 @@ function Input({
   type = "text",
   name,
   placeholder,
-  approved,
   label,
   infoMessage,
 }: InputPropsType) {
@@ -56,7 +55,7 @@ function Input({
         />
         {type === "password" && (
           <PasswordIconButton type="button" onClick={togglePasswordVisibility}>
-            <PasswordIcon />
+            {showPassword ? <PasswordIconHidden /> : <PasswordIcon />}
           </PasswordIconButton>
         )}
         {/* {type === "password" && approved === true && <Icon />} */}

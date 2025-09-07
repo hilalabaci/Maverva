@@ -2,6 +2,8 @@ import styled from "styled-components";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,16 +62,32 @@ export const EmailIcon = styled(MailOutlinedIcon)`
   color: #091e4240;
   font-size: 20px !important;
 `;
-export const PasswordIcon = styled(MdOutlineRemoveRedEye)`
-  width: 2em;
-  height: 2em;
-`;
 export const PasswordIconButton = styled.button`
   border: none;
   outline: none;
   background-color: transparent;
   cursor: pointer;
+  padding: 1px 5px;
+  border-radius: 3px;
+  &:hover {
+    background-color: ${(props) => props.theme.colour.background.cardBG.hover};
+  }
 `;
+export const PasswordIcon = styled(MdOutlineRemoveRedEye)`
+  width: 2em;
+  height: 2em;
+  color: ${(props) => props.theme.colour.text.inverted};
+  padding: 0;
+  margin: 0;
+`;
+export const PasswordIconHidden = styled(FaEye)`
+  width: 2em;
+  height: 2em;
+  color: ${(props) => props.theme.colour.text.inverted};
+  padding: 0;
+  margin: 0;
+`;
+
 export const LabelforInput = styled.span`
   color: ${(props) => props.theme.colour.text.subtitle};
   font-size: 12px;
