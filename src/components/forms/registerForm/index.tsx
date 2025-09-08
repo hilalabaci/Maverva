@@ -2,36 +2,39 @@ import DynamicSVGGoogle from "../../ DynamicSVG/DynamicSVG";
 import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   Container,
-  EmailLabel,
-  RegisterForm as StyledRegisterForm,
-  RegisterFormWrapper,
-  AccoutCreatInput,
   EmailHelpText,
-  SubmitWrapper,
-  SubmitButton,
-  SubmitButtonText,
   LineforGoogleWrapper,
   FirstLine,
   LastLine,
   GoogleSignWrapper,
   GoogleSignButton,
   GoogleSignButtonText,
-  CheckEmail,
   EmailWrapper,
-  ErrorText,
-  IconError,
+  Form,
 } from "./styles";
-import { loginGoogle } from "../../../api/authApi";
-
+import { loginGoogle, loginVerificationEmail } from "../../../api/authApi";
+import Input from "../../common/input/round";
+import Button from "../../../components/common/button/actionButton";
+import { validateEmail } from "../../../utils/validation";
+interface FormData {
+  email: string;
+}
+interface FormError {
+  email?: string;
+}
 function RegisterForm() {
-  const { setUser, setToken } = useUserContext();
+  const navigate = useNavigate();
+  const { setUser, token, setToken } = useUserContext();
   const [googleVerifyEmail, setGoogleVerifyEmail] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState(false);
-  const [manuelRegisterEmail, setManuelRegisterEmail] = useState("");
-  const navigate = useNavigate();
+  const [register, setRegister] = useState<FormData>({
+    email: "",
+  });
+  const [errors, setErrors] = useState<FormError>({});
+
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const user = await loginGoogle(tokenResponse.access_token);
@@ -56,67 +59,65 @@ function RegisterForm() {
     },
     onError: () => console.error("error"),
   });
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    setManuelRegisterEmail(value);
-  }
 
-  function handleBlur() {
-    if (
-      !/^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
-        manuelRegisterEmail
-      )
-    ) {
-      setVerifyEmail(true);
-    } else {
-      setVerifyEmail(false);
+  function handleChange(value: string, name: string) {
+    setRegister((prevValue) => ({ ...prevValue, [name]: value }));
+    if (errors.email) {
+      setErrors((prev) => ({ ...prev, email: undefined }));
     }
   }
-
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      handleBlur();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const emailError = validateEmail(register.email);
+      if (emailError) {
+        setErrors({ email: emailError });
+        return;
+      }
+      if (!token) return;
+      const { ok, data } = await loginVerificationEmail(
+        register.email,
+        token,
+        "register"
+      );
+      if (ok && data) {
+        setUser(data.data);
+        localStorage.setItem("signupEmail", register.email);
+        navigate(
+          `/signup/verify-email/otp?${token}=${token}&email=${register.email}`
+        );
+      }
+    } catch (error) {
+      setErrors({
+        email: "opps! somethings wrong, try again",
+      });
     }
-  }
+  };
 
   return (
     <Container>
-      <StyledRegisterForm>
-        <RegisterFormWrapper
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <EmailLabel>Work email</EmailLabel>
-          <EmailWrapper $errorEmailDisplay={!verifyEmail}>
-            <AccoutCreatInput
-              type="email"
-              placeholder="you@company.com"
-              title="email"
-              value={manuelRegisterEmail}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              onKeyDown={handleKeyDown}
-              name="email"
-            />
-            <IconError $errorEmailDisplay={!verifyEmail} />
-            <CheckEmail $googleVerifyEmail={googleVerifyEmail} />
-          </EmailWrapper>
-          <ErrorText $errorEmailDisplay={!verifyEmail}>
-            Please enter a valid email address.
-          </ErrorText>
-          <EmailHelpText $errorEmailDisplay={verifyEmail}>
-            Find teammates, plus keep work and life separate by using your work
-            email
-          </EmailHelpText>
-        </RegisterFormWrapper>
-        <SubmitWrapper>
-          <SubmitButton>
-            <SubmitButtonText>Sign up</SubmitButtonText>
-          </SubmitButton>
-        </SubmitWrapper>
-      </StyledRegisterForm>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          onChange={handleChange}
+          value={register.email}
+          placeholder="you@company.com"
+          type="email"
+          name="email"
+          label="Work email"
+          error={errors.email || (verifyEmail ? "Invalid email" : null)}
+          fontColour="Light"
+        />
+        <EmailHelpText $errorEmailDisplay={verifyEmail}>
+          Find teammates, plus keep work and life separate by using your work
+          email
+        </EmailHelpText>
+        <Button
+          children="Sign up"
+          type="submit"
+          variant="warning"
+          fontSize="lg"
+        />
+      </Form>
       <LineforGoogleWrapper>
         <FirstLine></FirstLine>Or continue with
         <LastLine></LastLine>

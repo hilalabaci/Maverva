@@ -16,7 +16,7 @@ function BoxLayout({ children }: BoxLayoutProps) {
           <SectionofBox>
             <BrandContainer>
               <img
-                src="email/emailLogo2.png"
+                src="/email/emailLogo2.png"
                 alt="Logo"
                 style={{ height: 60, marginRight: 10 }}
               />

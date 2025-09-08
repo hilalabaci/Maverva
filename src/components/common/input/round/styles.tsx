@@ -53,6 +53,7 @@ export const Inputs = styled.input<InputContainerProps>`
       : props.theme.colour.background.default};
   color: ${(props) =>
     props.filled ? "#091e424f" : props.theme.colour.text.inverted};
+  font-size: 1rem;
 
   @media only screen and (max-width: 768px) {
     font-size: 14px;
@@ -107,8 +108,13 @@ export const PasswordIconHidden = styled(FaEye)`
   margin: 0;
 `;
 
-export const LabelforInput = styled.span`
-  color: ${(props) => props.theme.colour.text.subtitle};
+type LabelforInputProps = {
+  fontColour?: "Dark" | "Light";
+};
+
+export const LabelforInput = styled.span<LabelforInputProps>`
+  color: ${(props) =>
+    props.fontColour === "Dark" ? props.theme.colour.text.subtitle : "#ffffff"};
   font-size: 12px;
   font-weight: bold;
   &::after {

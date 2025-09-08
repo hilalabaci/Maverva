@@ -23,6 +23,7 @@ type InputPropsType = {
   infoMessage?: string;
   filled?: boolean;
   onEditClick?: () => void;
+  fontColour?: "Dark" | "Light";
 };
 function Input({
   error,
@@ -35,6 +36,7 @@ function Input({
   infoMessage,
   filled = false,
   onEditClick,
+  fontColour = "Dark",
 }: InputPropsType) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -47,7 +49,7 @@ function Input({
 
   return (
     <Container>
-      {label && <LabelforInput>{label}</LabelforInput>}
+      {label && <LabelforInput fontColour={fontColour}>{label}</LabelforInput>}
       <InputContainer error={!!error} filled={filled}>
         {type === "email" ? <EmailIcon /> : ""}
         <Inputs

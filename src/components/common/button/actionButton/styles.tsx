@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
 
 type actionButtonPropsType = {
-  variant?: "primary" | "secondary" | "danger";
+  variant?: "primary" | "secondary" | "danger" | "warning";
   size?: "sm" | "md" | "lg";
+  fontSize?: "sm" | "md" | "lg";
 };
 
 export const BaseButton = styled.button<actionButtonPropsType>`
@@ -26,8 +27,18 @@ export const BaseButton = styled.button<actionButtonPropsType>`
         `;
     }
   }}
+  font-size: ${({ fontSize }) => {
+    switch (fontSize) {
+      case "sm":
+        return "12px";
+      case "lg":
+        return "18px";
+      default:
+        return "14px";
+    }
+  }};
 
-  ${({ variant, theme }) => {
+  ${({ variant, theme, fontSize }) => {
     switch (variant) {
       case "secondary":
         return css`
@@ -44,6 +55,14 @@ export const BaseButton = styled.button<actionButtonPropsType>`
           background: #e53935;
           color: white;
         `;
+      case "warning":
+        return css`
+          background: #fca700;
+          color: #172b4d;
+          &:hover {
+            background-color: #ff8b00;
+          }
+        `;
       default:
         return css`
           background: ${theme.colour.primary.button.primary.background.default};
@@ -58,7 +77,6 @@ export const BaseButton = styled.button<actionButtonPropsType>`
   border-radius: 3px;
   border: none;
   font-weight: 500;
-  font-size: 14px;
   cursor: pointer;
   height: 40px;
   &:hover {

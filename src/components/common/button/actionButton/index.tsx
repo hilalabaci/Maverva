@@ -4,11 +4,12 @@ import { BaseButton } from "./styles";
 type actionButtonPropsType = {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
-  variant?: "primary" | "secondary" | "danger";
+  variant?: "primary" | "secondary" | "danger" | "warning";
   size?: "sm" | "md" | "lg";
   ariaLabel?: string;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  fontSize?: "sm" | "md" | "lg";
 };
 
 function ActionButton({
@@ -19,6 +20,7 @@ function ActionButton({
   ariaLabel,
   type,
   disabled = false,
+  fontSize,
 }: actionButtonPropsType) {
   return (
     <BaseButton
@@ -28,6 +30,7 @@ function ActionButton({
       type={type}
       aria-label={ariaLabel}
       disabled={disabled}
+      fontSize={fontSize}
     >
       {children}
     </BaseButton>

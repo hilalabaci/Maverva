@@ -31,6 +31,7 @@ import {
   loginGoogle as loginGoogleApi,
 } from "../../api/authApi";
 import BoxLayout from "../../components/layout/boxLayout";
+import { validateEmail } from "../../utils/validation";
 
 interface FormError {
   email?: string;
@@ -44,6 +45,7 @@ function Register() {
   const { setUser, setToken, token } = useUserContext();
   const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+
   const loginGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const user = await loginGoogleApi(tokenResponse.access_token);
@@ -74,26 +76,12 @@ function Register() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    if (login.email === "") {
-      setError({
-        email: "Please enter your email",
-      });
-      setErrorMessage("Please enter your email");
-      return;
-    }
-
-    if (
-      /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
-        login.email
-      ) === false
-    ) {
-      setError({
-        email: "This is not valid email address.",
-      });
-      return;
-    }
     try {
+      const emailError = validateEmail(login.email);
+      if (emailError) {
+        setError({ email: emailError });
+        return;
+      }
       if (!token) return;
       const { ok, data } = await loginVerificationEmail(
         login.email,
@@ -117,46 +105,46 @@ function Register() {
     <BoxLayout>
       <LoginContainer>
         <GlobalStyle />
-          <Form onSubmit={handleSubmit}>
-            <LoginInputs>
-              <FormTitle>Sign up to continue</FormTitle>
-              <Input
-                type="email"
-                placeholder="Enter your email "
-                value={login.email}
-                onChange={handleChange}
-                name="email"
-                error={error.email}
-              />
-              {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
-              <RememberWrapper>
-                <CheckBoxText>
-                  By signing up, I accept the Maverva
-                  <CheckBoxTextLink> Cloud Terms of Service </CheckBoxTextLink>
-                  and acknowledge the
-                  <CheckBoxTextLink> Privacy Policy.</CheckBoxTextLink>
-                </CheckBoxText>
-              </RememberWrapper>
-              <Button children="Sign up" type="submit" />
-              <LineforGoogleWrapper>
-                <FirstLine></FirstLine>Or continue with
-                <LastLine></LastLine>
-              </LineforGoogleWrapper>
-              <GoogleSignWrapper>
-                <GoogleSignButton onClick={() => loginGoogle()}>
-                  <DynamicSVGGoogle />
-                  <GoogleSignButtonText>
-                    Continue with Google
-                  </GoogleSignButtonText>
-                </GoogleSignButton>
-              </GoogleSignWrapper>
-              <CreateAccountWrapper>
-                <CreateAccountListItemLink href="/login">
-                  Already have an Maverva account? Log in
-                </CreateAccountListItemLink>
-              </CreateAccountWrapper>
-            </LoginInputs>
-          </Form>
+        <Form onSubmit={handleSubmit}>
+          <LoginInputs>
+            <FormTitle>Sign up to continue</FormTitle>
+            <Input
+              type="email"
+              placeholder="Enter your email "
+              value={login.email}
+              onChange={handleChange}
+              name="email"
+              error={error.email}
+            />
+            {showErrorMessage && <MessageError>{errorMessage}</MessageError>}
+            <RememberWrapper>
+              <CheckBoxText>
+                By signing up, I accept the Maverva
+                <CheckBoxTextLink> Cloud Terms of Service </CheckBoxTextLink>
+                and acknowledge the
+                <CheckBoxTextLink> Privacy Policy.</CheckBoxTextLink>
+              </CheckBoxText>
+            </RememberWrapper>
+            <Button children="Sign up" type="submit" />
+            <LineforGoogleWrapper>
+              <FirstLine></FirstLine>Or continue with
+              <LastLine></LastLine>
+            </LineforGoogleWrapper>
+            <GoogleSignWrapper>
+              <GoogleSignButton onClick={() => loginGoogle()}>
+                <DynamicSVGGoogle />
+                <GoogleSignButtonText>
+                  Continue with Google
+                </GoogleSignButtonText>
+              </GoogleSignButton>
+            </GoogleSignWrapper>
+            <CreateAccountWrapper>
+              <CreateAccountListItemLink href="/login">
+                Already have an Maverva account? Log in
+              </CreateAccountListItemLink>
+            </CreateAccountWrapper>
+          </LoginInputs>
+        </Form>
       </LoginContainer>
     </BoxLayout>
   );
