@@ -137,7 +137,7 @@ function Login() {
                 error={errors.password}
                 label="Password"
               />
-              <CheckBoxComponent />
+              <CheckBoxComponent text="Remember me" />
             </>
           )}
           <Button type="submit" disabled={loading}>

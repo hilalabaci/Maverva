@@ -20,7 +20,6 @@ export const BoxContainer = styled.div`
   flex-direction: column;
   margin: 0px auto;
   width: 400px;
-  min-height: 561px;
   padding: 32px 40px;
   background: rgb(255, 255, 255);
   border-radius: 3px;

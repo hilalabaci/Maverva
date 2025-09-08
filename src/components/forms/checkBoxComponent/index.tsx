@@ -8,7 +8,11 @@ import {
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../../contexts/UserContext";
 
-const CheckBoxComponent = () => {
+type CheckBoxProps = {
+  text?: string;
+};
+
+const CheckBoxComponent = ({ text }: CheckBoxProps) => {
   const { token } = useUserContext();
   const [rememberMe, setRememberMe] = useState<boolean>(false);
 
@@ -38,7 +42,7 @@ const CheckBoxComponent = () => {
           <CheckIcon />
         </CheckboxIndicator>
       </CheckboxRoot>
-      <CheckBoxText>Remember me</CheckBoxText>
+      <CheckBoxText>{text}</CheckBoxText>
     </Container>
   );
 };
