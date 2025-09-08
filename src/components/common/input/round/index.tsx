@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Inputs,
@@ -6,10 +6,11 @@ import {
   EmailIcon,
   InputContainer,
   PasswordIcon,
-  PasswordIconButton,
+  IconButton,
   LabelforInput,
   InfoMessage,
   PasswordIconHidden,
+  EditIcon,
 } from "./styles";
 type InputPropsType = {
   error?: string | null;
@@ -20,6 +21,8 @@ type InputPropsType = {
   placeholder?: string;
   label?: string;
   infoMessage?: string;
+  filled?: boolean;
+  onEditClick?: () => void;
 };
 function Input({
   error,
@@ -30,8 +33,11 @@ function Input({
   placeholder,
   label,
   infoMessage,
+  filled = false,
+  onEditClick,
 }: InputPropsType) {
   const [showPassword, setShowPassword] = useState(false);
+
   function togglePasswordVisibility() {
     setShowPassword((prev) => !prev);
   }
@@ -42,9 +48,7 @@ function Input({
   return (
     <Container>
       {label && <LabelforInput>{label}</LabelforInput>}
-      <InputContainer
-        style={error ? { outline: "1px solid #dc3545" } : undefined}
-      >
+      <InputContainer error={!!error} filled={filled}>
         {type === "email" ? <EmailIcon /> : ""}
         <Inputs
           onChange={(e) => onChange(e.target.value, e.target.name)}
@@ -52,13 +56,19 @@ function Input({
           type={inputType}
           name={name}
           placeholder={placeholder}
+          filled={filled}
+          readOnly={filled}
         />
         {type === "password" && (
-          <PasswordIconButton type="button" onClick={togglePasswordVisibility}>
+          <IconButton type="button" onClick={togglePasswordVisibility}>
             {showPassword ? <PasswordIconHidden /> : <PasswordIcon />}
-          </PasswordIconButton>
+          </IconButton>
         )}
-        {/* {type === "password" && approved === true && <Icon />} */}
+        {filled && (
+          <IconButton type="button" onClick={onEditClick}>
+            <EditIcon />
+          </IconButton>
+        )}
       </InputContainer>
       {infoMessage && <InfoMessage>{infoMessage}</InfoMessage>}
       {error && <WarningMessage>{error}</WarningMessage>}

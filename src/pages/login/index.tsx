@@ -1,18 +1,12 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Button from "../../components/common/button/actionButton";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
-  BrandContainer,
   Form,
   FormTitle,
   GlobalStyle,
-  LoginContainer,
   LoginInputs,
-  MainContainer,
-  NavbarContainer,
-  BrandWrapper,
-  LoginSection,
   LineforGoogleWrapper,
   FirstLine,
   LastLine,
@@ -21,10 +15,11 @@ import {
   Point,
 } from "./styles";
 import Input from "../../components/common/input/round";
-import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import GoogleLoginButton from "../../components/common/button/googleLoginButton";
 import { findUserByEmail, loginUser } from "../../api/authApi";
 import CheckBoxComponent from "../../components/forms/checkBoxComponent";
+import BoxLayout from "../../components/layout/boxLayout";
+import { validateEmail } from "../../utils/validation";
 
 interface FormError {
   email?: string;
@@ -34,133 +29,137 @@ interface FormData {
   email: string;
   password: string;
 }
+type Step = "email" | "password";
 
 function Login() {
   const navigate = useNavigate();
   const { setUser, token } = useUserContext();
-  const [displayPassword, setDisplayPassword] = useState(false);
+  const [verifiedEmail, setVerifiedEmail] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
-  const [error, setError] = useState<FormError>({
+  const [errors, setErrors] = useState<FormError>({
     email: undefined,
   });
-  const [stage, setStage] = useState<"email" | "password">("email");
+  const [step, setStep] = useState<Step>("email");
   const [loading, setLoading] = useState(false);
 
   function handleChange(value: string, name: string) {
     setFormData((prevValue) => ({ ...prevValue, [name]: value }));
-    setError((prev) => ({ ...prev, [name]: undefined }));
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
   }
+
+  const handleEmailStep = async () => {
+    const emailError = validateEmail(formData.email);
+    if (emailError) {
+      setErrors({ email: emailError });
+      return;
+    }
+    if (!token) return;
+    const response = await findUserByEmail(formData.email, token);
+    if (response.ok) {
+      setVerifiedEmail(true);
+      setStep("password");
+    } else {
+      setErrors({
+        email:
+          (response.data as { message?: string })?.message ||
+          "Please sign up to continue",
+      });
+      setTimeout(() => {
+        navigate("/signup");
+      }, 1500);
+    }
+  };
+
+  const handlePasswordStep = async () => {
+    if (!formData.password) {
+      setErrors({ password: "Please enter your password" });
+      return;
+    }
+    const response = await loginUser(formData.email, formData.password);
+    if (response.ok) {
+      setUser(response.data?.user);
+      navigate("/projects");
+    } else {
+      setErrors({ password: "Invalid password, try again" });
+    }
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError({});
+    setErrors({});
     setLoading(true);
-    console.log(stage);
     try {
-      if (stage === "email") {
-        if (formData.email === "") {
-          setError({ email: "Please enter your email" });
-          return;
-        }
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-          setError({
-            email: "This is not valid email address.",
-          });
-          return;
-        }
-        if (!token) return;
-        const response = await findUserByEmail(formData.email, token);
-        if (response.ok) {
-          setStage("password");
-          setDisplayPassword(true);
-        } else {
-          setError({
-            email:
-              (response.data as { message?: string })?.message ||
-              "Please sign up to continue",
-          });
-          setTimeout(() => {
-            navigate("/signup");
-          }, 1500);
-        }
-      } else if (stage === "password") {
-        if (!formData.password) {
-          setError({ password: "Please enter your password" });
-          return;
-        }
-        const response = await loginUser(formData.email, formData.password);
-        if (response.ok) {
-          setUser(response.data?.user); 
-          navigate("/projects");
-        } else {
-          setError({ password: "Invalid password, try again" });
-        }
-      }
+      step === "email" ? await handleEmailStep() : await handlePasswordStep();
     } catch (error) {
-      setError({ email: "opps! somethings wrong, try again" });
+      setErrors({ email: "Oops! Something went wrong, try again." });
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    verifiedEmail && setStep("password");
+  }, [verifiedEmail, setStep]);
+
   return (
-    <MainContainer>
+    <BoxLayout>
       <GlobalStyle />
-      <NavbarContainer>
-        <BrandWrapper>
-          <BrandContainer href="/">
-            <DynamicSVGBrand width="150" height="40" />
-          </BrandContainer>
-        </BrandWrapper>
-      </NavbarContainer>
-      <LoginContainer>
-        <LoginSection>
-          <Form onSubmit={handleSubmit}>
-            <LoginInputs>
-              <FormTitle>Log in to continue</FormTitle>
+      <Form onSubmit={handleSubmit}>
+        <LoginInputs>
+          <FormTitle>Log in to continue</FormTitle>
+          <Input
+            type="email"
+            placeholder="Enter your email "
+            value={formData.email}
+            onChange={(value: string, name: string) => {
+              handleChange(value, name);
+            }}
+            name="email"
+            onEditClick={() => {
+              setVerifiedEmail(false);
+              setStep("email");
+            }}
+            error={errors.email}
+            filled={verifiedEmail}
+            label="Email"
+          />
+          {step === "password" && (
+            <>
               <Input
-                type="email"
-                placeholder="Enter your email "
-                value={formData.email}
+                type="password"
+                placeholder="Enter your password"
+                value={formData.password}
                 onChange={handleChange}
-                name="email"
-                error={error.email}
+                name="password"
+                error={errors.password}
+                label="Password"
               />
-              {displayPassword && (
-                <Input
-                  type="password"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  name="password"
-                  error={error.password}
-                />
-              )}
               <CheckBoxComponent />
-              <Button type="submit" disabled={loading}>
-                {stage === "email" ? "Continue" : "Log in"}
-              </Button>
-              <LineforGoogleWrapper>
-                <FirstLine></FirstLine>Or continue with
-                <LastLine></LastLine>
-              </LineforGoogleWrapper>
-              <GoogleLoginButton />
-              <CreateAccountWrapper>
-                <CreateAccountListItemLink href="login/reset-password">
-                  Can't log in?
-                </CreateAccountListItemLink>
-                <Point>.</Point>
-                <CreateAccountListItemLink href="/signup">
-                  Create an account
-                </CreateAccountListItemLink>
-              </CreateAccountWrapper>
-            </LoginInputs>
-          </Form>
-        </LoginSection>
-      </LoginContainer>
-    </MainContainer>
+            </>
+          )}
+          <Button type="submit" disabled={loading}>
+            {step === "email" ? "Continue" : "Log in"}
+          </Button>
+          <LineforGoogleWrapper>
+            <FirstLine></FirstLine>Or continue with
+            <LastLine></LastLine>
+          </LineforGoogleWrapper>
+          <GoogleLoginButton />
+          <CreateAccountWrapper>
+            <CreateAccountListItemLink href="login/reset-password">
+              Can't log in?
+            </CreateAccountListItemLink>
+            <Point>.</Point>
+            <CreateAccountListItemLink href="/signup">
+              Create an account
+            </CreateAccountListItemLink>
+          </CreateAccountWrapper>
+        </LoginInputs>
+      </Form>
+    </BoxLayout>
   );
 }
 export default Login;

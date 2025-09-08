@@ -3,14 +3,18 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
+import { MdOutlineEdit } from "react-icons/md";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 9px;
 `;
-
-export const InputContainer = styled.div`
+type InputContainerProps = {
+  error?: boolean;
+  filled?: boolean;
+};
+export const InputContainer = styled.div<InputContainerProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,17 +27,32 @@ export const InputContainer = styled.div`
   font-size: 14px;
   font-weight: 400;
   gap: 5px;
-  background-color: #ffffff;
+  background-color: ${(props) =>
+    props.filled
+      ? props.theme.colour.background.muted
+      : props.theme.colour.background.default};
   color: ${(props) => props.theme.colour.text.inverted};
+  &:focus-within {
+    box-shadow: 0 0 0 2px ${(props) => props.theme.colour.border.focus};
+    box-shadow: ${(props) =>
+      props.filled
+        ? `0 0 0 2px ${props.theme.colour.background.muted}`
+        : `0 0 0 2px ${props.theme.colour.border.focus}`};
+  }
 `;
 
-export const Inputs = styled.input`
+export const Inputs = styled.input<InputContainerProps>`
   border: none;
   font-size: 14px;
   outline: none;
   font-weight: 400;
   flex: 1;
-  color: ${(props) => props.theme.colour.text.inverted};
+  background-color: ${(props) =>
+    props.filled
+      ? props.theme.colour.background.muted
+      : props.theme.colour.background.default};
+  color: ${(props) =>
+    props.filled ? "#091e424f" : props.theme.colour.text.inverted};
 
   @media only screen and (max-width: 768px) {
     font-size: 14px;
@@ -62,7 +81,7 @@ export const EmailIcon = styled(MailOutlinedIcon)`
   color: #091e4240;
   font-size: 20px !important;
 `;
-export const PasswordIconButton = styled.button`
+export const IconButton = styled.button`
   border: none;
   outline: none;
   background-color: transparent;
@@ -74,15 +93,15 @@ export const PasswordIconButton = styled.button`
   }
 `;
 export const PasswordIcon = styled(MdOutlineRemoveRedEye)`
-  width: 2em;
-  height: 2em;
+  width: 1.7em;
+  height: 1.7em;
   color: ${(props) => props.theme.colour.text.inverted};
   padding: 0;
   margin: 0;
 `;
 export const PasswordIconHidden = styled(FaEye)`
-  width: 2em;
-  height: 2em;
+  width: 1.7em;
+  height: 1.7em;
   color: ${(props) => props.theme.colour.text.inverted};
   padding: 0;
   margin: 0;
@@ -92,4 +111,13 @@ export const LabelforInput = styled.span`
   color: ${(props) => props.theme.colour.text.subtitle};
   font-size: 12px;
   font-weight: bold;
+  &::after {
+    content: "*";
+    color: #dc3545;
+    padding-left: 2px;
+  }
+`;
+export const EditIcon = styled(MdOutlineEdit)`
+  width: 1.7em;
+  height: 1.7em;
 `;

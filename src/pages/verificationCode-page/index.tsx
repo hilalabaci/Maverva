@@ -1,18 +1,6 @@
-import {
-  signUpVerificationCode,
-} from "../../api/authApi";
-import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
+import { signUpVerificationCode } from "../../api/authApi";
 import { useUserContext } from "../../contexts/UserContext";
-import {
-  BrandContainer,
-  BrandWrapper,
-  Form,
-  GlobalStyle,
-  LoginContainer,
-  LoginSection,
-  MainContainer,
-  NavbarContainer,
-} from "../login/styles";
+import { Form, GlobalStyle } from "../login/styles";
 import {
   ButtonText,
   ButtonWrapper,
@@ -30,9 +18,10 @@ import ActionButton from "../../components/common/button/actionButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorSVG from "../../components/ DynamicSVG/errorSVG";
+import BoxLayout from "../../components/layout/boxLayout";
 
 function VerifyCodePage({ reSendCode }: { reSendCode?: () => void }) {
-  const { setUser, user, token } = useUserContext();
+  const { setUser, token } = useUserContext();
   const [code, setCode] = useState<number | "">("");
   const [error, setError] = useState<string | null>(null);
   const [email, setEmail] = useState<string>(
@@ -58,51 +47,39 @@ function VerifyCodePage({ reSendCode }: { reSendCode?: () => void }) {
     }
   }
   return (
-    <MainContainer>
+    <BoxLayout>
       <GlobalStyle />
-      <NavbarContainer>
-        <BrandWrapper>
-          <BrandContainer href="/">
-            <DynamicSVGBrand width="150" height="40" />
-          </BrandContainer>
-        </BrandWrapper>
-      </NavbarContainer>
-      <LoginContainer>
-        <LoginSection>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSendVerify();
-            }}
-          >
-            <ContainerSendEmail>
-              <Title> Check your inbox to register in</Title>
-              <ImgWrapper>
-                <IllusSendEmail src="/email/sendEmail.png" />
-              </ImgWrapper>
-              <ExplainTitle>
-                To complete setup and sign up, click the verification code in
-                the email we’ve sent to
-                <EmailforLogin>{email}</EmailforLogin>
-              </ExplainTitle>
-              <VerifyCodeWrapper>
-                <VerifyCodeInput onChange={(newCode) => setCode(newCode)} />
-                {error && (
-                  <ErrorMessage>
-                    <ErrorSVG /> {error}
-                  </ErrorMessage>
-                )}
-                <ActionButton children="Verify" size="lg" />
-              </VerifyCodeWrapper>
-              <ButtonWrapper type="submit">
-                <ButtonText>Resend verification code</ButtonText>
-              </ButtonWrapper>
-            </ContainerSendEmail>
-          </Form>
-          .
-        </LoginSection>
-      </LoginContainer>
-    </MainContainer>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSendVerify();
+        }}
+      >
+        <ContainerSendEmail>
+          <Title> Check your inbox to register in</Title>
+          <ImgWrapper>
+            <IllusSendEmail src="/email/sendEmail.png" />
+          </ImgWrapper>
+          <ExplainTitle>
+            To complete setup and sign up, click the verification code in the
+            email we’ve sent to
+            <EmailforLogin>{email}</EmailforLogin>
+          </ExplainTitle>
+          <VerifyCodeWrapper>
+            <VerifyCodeInput onChange={(newCode) => setCode(newCode)} />
+            {error && (
+              <ErrorMessage>
+                <ErrorSVG /> {error}
+              </ErrorMessage>
+            )}
+            <ActionButton children="Verify" size="lg" />
+          </VerifyCodeWrapper>
+          <ButtonWrapper type="submit">
+            <ButtonText>Resend verification code</ButtonText>
+          </ButtonWrapper>
+        </ContainerSendEmail>
+      </Form>
+    </BoxLayout>
   );
 }
 

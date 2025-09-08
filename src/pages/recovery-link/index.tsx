@@ -1,27 +1,20 @@
 import { FormEvent, useState } from "react";
 import Button from "../../components/common/button/actionButton";
-import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
-  BrandContainer,
   Form,
   FormTitle,
   GlobalStyle,
   LoginContainer,
   LoginInputs,
-  MainContainer,
-  NavbarContainer,
-  BrandWrapper,
-  LoginSection,
   CreateAccountWrapper,
   CreateAccountListItemLink,
   Point,
 } from "./styles";
 import Input from "../../components/common/input/round";
-import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import { sendResetPasswordLink } from "../../api/authApi";
-import ResetPassword from "../reset-password";
 import VerifyEmailPage from "../verificationEmail-page";
+import BoxLayout from "../../components/layout/boxLayout";
 
 interface FormError {
   email?: string;
@@ -31,7 +24,6 @@ interface FormData {
 }
 
 function RecoveryLink() {
-  const navigate = useNavigate();
   const { token } = useUserContext();
   const [emailSent, setEmailSent] = useState(false);
   const [login, setLogin] = useState<FormData>({
@@ -70,7 +62,6 @@ function RecoveryLink() {
       }
       if (!token) return;
       const response = await sendResetPasswordLink(login.email, token);
-      console.log(response);
       if (response.ok) {
         setEmailSent(true);
       } else {
@@ -85,48 +76,39 @@ function RecoveryLink() {
     }
   };
   return (
-    <MainContainer>
+    <BoxLayout>
       <GlobalStyle />
-      <NavbarContainer>
-        <BrandWrapper>
-          <BrandContainer href="/">
-            <DynamicSVGBrand width="150" height="40" />
-          </BrandContainer>
-        </BrandWrapper>
-      </NavbarContainer>
       {emailSent ? (
         <VerifyEmailPage />
       ) : (
         <LoginContainer>
-          <LoginSection>
-            <Form onSubmit={handleSubmit}>
-              <LoginInputs>
-                <FormTitle>Can't log in?</FormTitle>
-                <Input
-                  type="email"
-                  placeholder="Enter your email "
-                  value={login.email}
-                  onChange={handleChange}
-                  name="email"
-                  error={error.email}
-                  label="We'll send a recovery link to"
-                />
-                <Button children="Send recovery link" type="submit" />
-                <CreateAccountWrapper>
-                  <CreateAccountListItemLink href="/login">
-                    Return to log in
-                  </CreateAccountListItemLink>
-                  <Point>.</Point>
-                  <CreateAccountListItemLink href="/signup">
-                    Create an account
-                  </CreateAccountListItemLink>
-                </CreateAccountWrapper>
-              </LoginInputs>
-            </Form>
-          </LoginSection>
+          <Form onSubmit={handleSubmit}>
+            <LoginInputs>
+              <FormTitle>Can't log in?</FormTitle>
+              <Input
+                type="email"
+                placeholder="Enter your email "
+                value={login.email}
+                onChange={handleChange}
+                name="email"
+                error={error.email}
+                label="We'll send a recovery link to"
+              />
+              <Button children="Send recovery link" type="submit" />
+              <CreateAccountWrapper>
+                <CreateAccountListItemLink href="/login">
+                  Return to log in
+                </CreateAccountListItemLink>
+                <Point>.</Point>
+                <CreateAccountListItemLink href="/signup">
+                  Create an account
+                </CreateAccountListItemLink>
+              </CreateAccountWrapper>
+            </LoginInputs>
+          </Form>
         </LoginContainer>
       )}
-    </MainContainer>
+    </BoxLayout>
   );
 }
 export default RecoveryLink;

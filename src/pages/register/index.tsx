@@ -4,17 +4,12 @@ import Button from "../../components/common/button/actionButton";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import {
-  BrandContainer,
   MessageError,
   Form,
   FormTitle,
   GlobalStyle,
   LoginContainer,
   LoginInputs,
-  MainContainer,
-  NavbarContainer,
-  BrandWrapper,
-  LoginSection,
   LineforGoogleWrapper,
   FirstLine,
   LastLine,
@@ -25,18 +20,17 @@ import {
   CheckBoxTextLink,
 } from "./styles";
 import Input from "../../components/common/input/round";
-import DynamicSVGBrand from "../../components/ DynamicSVG/LogoSVG";
 import {
   GoogleSignWrapper,
   GoogleSignButton,
   GoogleSignButtonText,
 } from "../../components/forms/registerForm/styles";
 import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
-import { UserType } from "../../types";
 import {
   loginVerificationEmail,
   loginGoogle as loginGoogleApi,
 } from "../../api/authApi";
+import BoxLayout from "../../components/layout/boxLayout";
 
 interface FormError {
   email?: string;
@@ -120,23 +114,13 @@ function Register() {
     }
   };
   return (
-    <MainContainer>
-      <GlobalStyle />
-      <NavbarContainer>
-        <BrandWrapper>
-          <BrandContainer href="/">
-            <DynamicSVGBrand width="150" height="40" />
-          </BrandContainer>
-        </BrandWrapper>
-      </NavbarContainer>
+    <BoxLayout>
       <LoginContainer>
-        <LoginSection>
+        <GlobalStyle />
           <Form onSubmit={handleSubmit}>
             <LoginInputs>
               <FormTitle>Sign up to continue</FormTitle>
-
               <Input
-                title="Email Address"
                 type="email"
                 placeholder="Enter your email "
                 value={login.email}
@@ -173,9 +157,8 @@ function Register() {
               </CreateAccountWrapper>
             </LoginInputs>
           </Form>
-        </LoginSection>
       </LoginContainer>
-    </MainContainer>
+    </BoxLayout>
   );
 }
 export default Register;

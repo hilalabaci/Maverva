@@ -11,27 +11,6 @@ body {
   
 }
 `;
-export const NavbarContainer = styled.header`
-  position: fixed;
-  width: calc(100% - 40px);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
-  background-color: #ffff;
-  @media only screen and (max-width: 768px) {
-    justify-content: center;
-    margin-top: 50px;
-  }
-`;
-
-export const BrandWrapper = styled.div`
-  margin-left: 150px;
-  @media only screen and (max-width: 768px) {
-    margin: 0;
-  }
-`;
 
 export const LoginContainer = styled.div`
   width: 100%;
@@ -40,26 +19,7 @@ export const LoginContainer = styled.div`
   color: rgba(255, 255, 255, 0.7);
   background: linear-gradient(135deg, #567c8d, #2f4156);
 `;
-export const LoginSection = styled.section`
-  flex: 1;
-`;
-export const BrandContainer = styled.a`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-`;
 
-export const MainContainer = styled.div`
-  flex: 1;
-  display: flex;
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
 export const Form = styled.form`
   flex: 1;
   display: flex;
@@ -145,12 +105,6 @@ export const CreateAccountWrapper = styled.div`
   align-items: flex-end;
 `;
 
-export const Point = styled.p`
-  color: #44546f;
-  margin: 0 8px;
-  text-align: center;
-  font-size: 1.5rem;
-`;
 export const CreateAccountListItemLink = styled.a`
   color: #0c66e4;
   font-size: 0.9rem;

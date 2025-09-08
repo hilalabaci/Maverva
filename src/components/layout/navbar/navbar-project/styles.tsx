@@ -89,7 +89,7 @@ export const CreateButton = styled.button`
 export const BrandContainer = styled.a`
   display: flex;
   align-items: center;
-  text-align: center;
+  justify-content: center;
   font-style: normal;
   font-weight: 600;
   font-size: 18px;

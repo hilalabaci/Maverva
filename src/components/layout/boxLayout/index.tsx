@@ -4,9 +4,8 @@ import {
   InnerContainer,
   BoxContainer,
   SectionofBox,
+  BrandContainer,
 } from "./styles";
-import { BrandContainer, Presentation } from "../navbar/navbar-project/styles";
-import DynamicSVGBrand from "../../ DynamicSVG/LogoSVG";
 type BoxLayoutProps = PropsWithChildren<{}>;
 
 function BoxLayout({ children }: BoxLayoutProps) {
@@ -16,12 +15,17 @@ function BoxLayout({ children }: BoxLayoutProps) {
         <BoxContainer>
           <SectionofBox>
             <BrandContainer>
-              <DynamicSVGBrand width="120" height="30" />
+              <img
+                src="email/emailLogo2.png"
+                alt="Logo"
+                style={{ height: 60, marginRight: 10 }}
+              />
             </BrandContainer>
-            <Presentation></Presentation>
+            {children}
           </SectionofBox>
         </BoxContainer>
       </InnerContainer>
     </MainContainer>
   );
 }
+export default BoxLayout;

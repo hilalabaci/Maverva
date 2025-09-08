@@ -11,75 +11,25 @@ body {
   
 }
 `;
-export const NavbarContainer = styled.header`
-  position: fixed;
-  width: calc(100% - 40px);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 20px;
-  background-color: #ffff;
-  @media only screen and (max-width: 768px) {
-    justify-content: center;
-    margin-top: 50px;
-  }
-`;
 
-export const BrandWrapper = styled.div`
-  margin-left: 150px;
-  @media only screen and (max-width: 768px) {
-    margin: 0;
-  }
-`;
-
-export const LoginContainer = styled.div`
-  width: 100%;
-  flex: 1;
-  display: flex;
-  color: rgba(255, 255, 255, 0.7);
-  background: linear-gradient(135deg, #567c8d, #2f4156);
-`;
-export const LoginSection = styled.section`
-  flex: 1;
-`;
-export const BrandContainer = styled.a`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-`;
-
-export const MainContainer = styled.div`
-  flex: 1;
-  display: flex;
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
+export const LoginContainer = styled.div``;
 export const Form = styled.form`
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  padding: 30px;
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    justify-content: flex-start;
+  }
 `;
 export const LoginInputs = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 350px;
-  padding: 60px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
-  box-shadow: 0 24px 64px #26214a1a;
-  border-radius: 3px;
-  background: #ffffff;
+  padding: 60px 0;
   gap: 20px;
+  width: 100%;
   @media only screen and (max-width: 768px) {
     width: 86%;
     height: 100vh;
@@ -94,7 +44,7 @@ export const LoginInputs = styled.div`
   }
 `;
 export const FormTitle = styled.h2`
-  font-size: 28px;
+  font-size: 16px;
   font-weight: 600;
   color: #2f4156;
   text-align: center;

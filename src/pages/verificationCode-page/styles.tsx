@@ -1,5 +1,6 @@
 import styled from "styled-components";
 export const Title = styled.h2`
+  font-size: 16px;
   color: #2f4156;
 `;
 export const ImgWrapper = styled.div``;
@@ -11,12 +12,7 @@ export const ContainerSendEmail = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 350px;
-  padding: 20px 40px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
-  box-shadow: 0 24px 64px #26214a1a;
   border-radius: 3px;
-  background: #ffffff;
   gap: 10px;
   @media only screen and (max-width: 768px) {
     width: max-content;
