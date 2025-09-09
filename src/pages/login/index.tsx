@@ -28,22 +28,25 @@ interface FormError {
 interface FormData {
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 type Step = "email" | "password";
 
 function Login() {
   const navigate = useNavigate();
-  const { setUser, token } = useUserContext();
+  const { setUser, setToken } = useUserContext();
   const [verifiedEmail, setVerifiedEmail] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
+    rememberMe: false,
   });
   const [errors, setErrors] = useState<FormError>({
     email: undefined,
   });
   const [step, setStep] = useState<Step>("email");
   const [loading, setLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   function handleChange(value: string, name: string) {
     setFormData((prevValue) => ({ ...prevValue, [name]: value }));
@@ -56,8 +59,7 @@ function Login() {
       setErrors({ email: emailError });
       return;
     }
-    if (!token) return;
-    const response = await findUserByEmail(formData.email, token);
+    const response = await findUserByEmail(formData.email);
     if (response.ok) {
       setVerifiedEmail(true);
       setStep("password");
@@ -78,9 +80,14 @@ function Login() {
       setErrors({ password: "Please enter your password" });
       return;
     }
-    const response = await loginUser(formData.email, formData.password);
+    const response = await loginUser(
+      formData.email,
+      formData.password,
+      formData.rememberMe
+    );
     if (response.ok) {
       setUser(response.data?.user);
+      setToken(response.data?.token);
       navigate("/projects");
     } else {
       setErrors({ password: "Invalid password, try again" });
@@ -137,7 +144,10 @@ function Login() {
                 error={errors.password}
                 label="Password"
               />
-              <CheckBoxComponent text="Remember me" />
+              <CheckBoxComponent
+                text="Remember me"
+                onCheckedChange={setRememberMe}
+              />
             </>
           )}
           <Button type="submit" disabled={loading}>
