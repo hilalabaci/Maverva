@@ -5,37 +5,26 @@ import {
   CheckboxRoot,
   CheckBoxText,
 } from "./styles";
-import { useEffect, useState } from "react";
-import { useUserContext } from "../../../contexts/UserContext";
+import { useState } from "react";
 
 type CheckBoxProps = {
   text?: string;
+  onCheckedChange?: (checked: boolean) => void;
 };
 
-const CheckBoxComponent = ({ text }: CheckBoxProps) => {
-  const { token } = useUserContext();
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("rememberMe");
-    setRememberMe(saved === "true");
-  }, []);
-
-  useEffect(() => {
-    if (rememberMe && token) {
-      localStorage.setItem("token", token);
-      localStorage.setItem("rememberMe", "true");
-    } else {
-      localStorage.removeItem("rememberMe");
-    }
-  }, [rememberMe, token]);
+const CheckBoxComponent = ({ text, onCheckedChange }: CheckBoxProps) => {
+  const [checked, setChecked] = useState(false);
+    const handleCheckedChange = (value: boolean) => {
+    setChecked(!!value);
+    onCheckedChange?.(!!value);
+  };
 
   return (
     <Container>
       <CheckboxRoot
-        checked={rememberMe}
-        onCheckedChange={(value) => setRememberMe(!!value)}
-        $selected={rememberMe}
+        checked={checked}
+        onCheckedChange={handleCheckedChange}
+        $selected={checked}
         id="c1"
       >
         <CheckboxIndicator>
