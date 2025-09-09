@@ -115,7 +115,7 @@ function RegisterForm() {
           children="Sign up"
           type="submit"
           variant="warning"
-          fontSize="lg"
+          fontSize="md"
         />
       </Form>
       <LineforGoogleWrapper>

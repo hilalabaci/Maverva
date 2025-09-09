@@ -31,6 +31,8 @@ export const BaseButton = styled.button<actionButtonPropsType>`
     switch (fontSize) {
       case "sm":
         return "12px";
+      case "md":
+        return "16px";
       case "lg":
         return "18px";
       default:

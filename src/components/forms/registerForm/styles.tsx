@@ -93,9 +93,10 @@ export const GoogleSignButton = styled.button`
   }
 `;
 export const GoogleSignButtonText = styled.span`
-  font-weight: 600;
-  color: #2f4156;
-  font-size: 14px;
+  font-weight: 500;
+  color: #42526E;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   @media only screen and (max-width: 768px) {
     font-size: 14px;
   }
