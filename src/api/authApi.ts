@@ -25,10 +25,14 @@ export const loginVerificationEmail = async (
     }
   );
 };
-export const loginUser = async (email: string, password: string) => {
+export const loginUser = async (
+  email: string,
+  password: string,
+  rememberMe: boolean
+) => {
   return await apiCall<{ user: UserType; token: string }>("auth/login", {
     method: "POST",
-    data: { email, password },
+    data: { email, password,rememberMe },
   });
 };
 
@@ -58,11 +62,10 @@ export const sendResetPasswordLink = async (email: string, token: string) => {
     token: token,
   });
 };
-export const findUserByEmail = async (email: string, token: string) => {
+export const findUserByEmail = async (email: string) => {
   return await apiCall<string>("auth/find-user-by-email", {
     method: "GET",
     urlParams: new URLSearchParams({ email }),
-    token: token,
   });
 };
 
