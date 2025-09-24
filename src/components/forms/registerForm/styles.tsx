@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import ErrorIcon from "@mui/icons-material/Error";
+
 import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`

@@ -17,7 +17,9 @@ export const BrandLogo = styled(DashboardRoundedIcon)`
     margin: 0px 10px;
   }
 `;
-export const MainContainer = styled.main``;
+export const MainContainer = styled.main`
+  padding-block-start: 70px;
+`;
 export const SectionWrapper = styled.article`
   box-sizing: border-box;
   height: fit-content;
@@ -62,7 +64,7 @@ export const StartTrialWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-width: 75pc;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     grid-template-columns: 1fr;
   }
 `;
@@ -206,7 +208,7 @@ export const InfoSection = styled.div`
   justify-content: center;
   align-items: center;
   padding: 50px 0;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     height: min-content;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -219,7 +221,7 @@ export const CollapseParent = styled.div`
   align-items: center;
   max-width: 75pc;
   padding: 70px 0 50px 0;
-   @media ${device.mobile} {
+  @media ${device.mobile} {
     height: min-content;
     padding: 0;
     flex-direction: column;
@@ -339,7 +341,7 @@ export const CollapseContentElement = styled.div<displayProps>`
     #c8d9e6 97.73%
   );
   box-shadow: 0 3px 20px 0 rgba(67, 46, 134, 0.1);
- @media ${device.mobile} {
+  @media ${device.mobile} {
     display: none;
     box-shadow: none;
     background: none;
@@ -431,7 +433,7 @@ export const TitleParag = styled.h3`
 export const ImgForWelcome = styled.img`
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   max-width: 700px;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     max-width: 300px;
   }
 `;
