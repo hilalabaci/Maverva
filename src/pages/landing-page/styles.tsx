@@ -47,7 +47,8 @@ export const StartTrial = styled.section`
       );
   } */
   @media ${device.mobile} {
-   height: fit-content;
+    align-items: flex-start;
+    height: 85vh;
   }
   @media ${device.tablet} {
   }
@@ -355,7 +356,7 @@ export const SectionEntery = styled.div`
   margin-inline: 24px;
   @media ${device.mobile} {
     margin-inline: 10px;
-    padding-block-start: 100px;
+    padding-block-start: 65px;
   }
   @media ${device.tablet} {
   }
