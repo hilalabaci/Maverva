@@ -8,7 +8,6 @@ import {
   Promotion,
   TitleParag,
   StartTrialWrapper,
-  ButtonForGetStart,
   ImgForWelcome,
   TabTitleWrapper,
   TabTitle,
@@ -33,8 +32,9 @@ import { WelcomeTexts } from "../../constants/welcomeTexts";
 import Navbar from "../../components/layout/navbar/navbar-welcomePage";
 import Footer from "../../components/layout/footer";
 import { CollapseTexts, imageSources } from "./text";
+import ActionButton from "../../components/common/button/actionButton";
 
-function WelcomePage() {
+function LandingPage() {
   const [displaySign, setDisplaySign] = useState(false);
   const [activeCollapse, setActiveCollapse] = useState<number | null>(0);
 
@@ -60,9 +60,14 @@ function WelcomePage() {
                         textforTyped={WelcomeTexts.paragraphs}
                       ></TypedDemo>
                     </TitleParag>
-                    <ButtonForGetStart onClick={() => setDisplaySign(true)}>
-                      Get Started
-                    </ButtonForGetStart>
+                    <ActionButton
+                      onClick={() => setDisplaySign(true)}
+                      children="Get Start"
+                      size="lg"
+                      fontSize="lg"
+                      variant="warning"
+                      borderRadius="xl"
+                    />
                   </GetStartWrapper>
                   <GetStartGmailWrapper $hidden={!displaySign}>
                     <RegisterForm />
@@ -192,4 +197,4 @@ function WelcomePage() {
     </Container>
   );
 }
-export default WelcomePage;
+export default LandingPage;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import ErrorIcon from "@mui/icons-material/Error";
+import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`
   display: flex;
@@ -11,15 +12,14 @@ type CommonPropsType = {
   $googleVerifyEmail?: boolean;
   $errorEmailDisplay?: boolean;
 };
-export const EmailWrapper = styled.div<CommonPropsType>``;
 export const EmailHelpText = styled.div<CommonPropsType>`
-  opacity: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "1")};
+  opacity: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "0.6")};
   width: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "auto")};
   height: ${({ $errorEmailDisplay }) => ($errorEmailDisplay ? "0" : "auto")};
   font-size: 12px;
   margin-block-start: 6px;
   color: #ffffff;
-  font-weight: 500;
+  font-weight: 400;
   padding: 5px 0px 10px 0px;
 `;
 export const Form = styled.form`
@@ -27,7 +27,7 @@ export const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 100%;
     justify-content: flex-start;
   }
@@ -43,8 +43,9 @@ export const LineforGoogleWrapper = styled.div`
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  @media only screen and (max-width: 768px) {
-    font-size: 16px;
+ @media ${device.mobile} {
+    font-size: 14px;
+    font-weight: 400;
   }
 `;
 export const FirstLine = styled.div`
@@ -65,39 +66,6 @@ export const LastLine = styled.div`
 `;
 export const GoogleSignWrapper = styled.div`
   margin-top: 25px;
-  @media only screen and (max-width: 768px) {
-  }
-`;
-export const GoogleSignButton = styled.button`
-  border-radius: 3px;
-  font-size: 1.1rem;
-  color: #172b4d;
-  background-color: #ffffff;
-  padding-left: 0.75rem;
-  padding-bottom: 0.5rem;
-  padding-right: 0.75rem;
-  padding-top: 0.5rem;
-  gap: 0.5rem;
-  box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
-  height: 40px;
-  border: 0;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-  width: 100%;
-  &:hover {
-    background-color: #f1f2f4;
-  }
-`;
-export const GoogleSignButtonText = styled.span`
-  font-weight: 500;
-  color: #42526E;
-  font-size: 16px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  @media only screen and (max-width: 768px) {
-    font-size: 14px;
+  @media ${device.mobile} {
   }
 `;

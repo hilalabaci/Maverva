@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
+import { device } from "../../styles/breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
 #root,
@@ -17,7 +18,7 @@ export const LoginContainer = styled.div``;
 export const MainContainer = styled.div`
   flex: 1;
   display: flex;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     flex-direction: column;
   }
 `;
@@ -26,7 +27,7 @@ export const Form = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 100%;
     justify-content: flex-start;
   }
@@ -38,7 +39,7 @@ justify-content: flex-start;
   padding: 60px 0;
   gap: 20px;
   width: 100%;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 86%;
     height: 100vh;
     padding: 160px 30px 0 30px;
@@ -53,7 +54,7 @@ export const FormTitle = styled.h2`
   text-align: center;
   padding-bottom: 15px;
   margin: 0;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 20px;
   }
 `;
@@ -65,7 +66,7 @@ export const StyledLink = styled(Link)`
     color: #007bff;
     opacity: 1;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 14px;
   }
 `;

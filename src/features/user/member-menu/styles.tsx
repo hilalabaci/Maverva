@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`
   position: fixed;
@@ -17,7 +18,7 @@ export const Container = styled.div`
     0 4px 8px -2px rgba(9, 30, 66, 0.25),
     0 0 1px rgba(9, 30, 66, 0.31)
   );
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 100px;
     padding: 5px;
     top: 52px;
@@ -30,7 +31,7 @@ export const Title = styled.div`
   font-size: 12px;
   font-weight: 600;
   padding: 15px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
   }
 `;
@@ -39,7 +40,7 @@ export const Accountdetails = styled.div`
   align-items: center;
   gap: 15px;
   padding: 15px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     padding: 10px 0;
   }
 `;
@@ -54,13 +55,13 @@ export const MemberName = styled.div`
   font-size: 14px;
   font-weight: 600;
   line-height: 25px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 9px;
   }
 `;
 export const MemberEmail = styled.div`
   font-size: 12px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 5px;
   }
 `;
@@ -87,7 +88,7 @@ export const Options = styled.ul<ButtonforThemePropsType>`
     color: ${(props) => props.theme.colour.modal.text.hover};
     //border-left: ${(props) => props.theme.themeActiveBorder};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
     padding: 10px 0;
   }
@@ -101,7 +102,7 @@ export const Logout = styled.div`
   &:hover {
     background-color: transparent;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
     padding: 5px 0;
   }

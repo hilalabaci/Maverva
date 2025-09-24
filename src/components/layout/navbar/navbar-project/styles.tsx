@@ -4,6 +4,7 @@ import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link } from "react-router-dom";
+import { device } from "../../../../styles/breakpoints";
 interface ModalsToggleProps {
   $isNotificationModalOpen?: boolean; // Mark as optional
   $isMemberButtonOpen?: boolean;
@@ -95,14 +96,14 @@ export const BrandContainer = styled.a`
   font-size: 18px;
   line-height: 39px;
   /* identical to box height */
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 20px;
   }
 `;
 export const BrandLogo = styled(DashboardRoundedIcon)`
   font-size: 20px !important;
   margin: 0px 5px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 20px;
     height: 20px;
     margin: 0px 10px;

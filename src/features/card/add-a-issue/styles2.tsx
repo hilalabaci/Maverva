@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`
   display: flex;
   height: 75px;
   width: -webkit-fill-available;
   align-items: center;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     height: 50px;
   }
 `;

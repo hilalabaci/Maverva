@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
+import { device } from "../../../../styles/breakpoints";
 
 type actionButtonPropsType = {
   variant?: "primary" | "secondary" | "danger" | "warning";
   size?: "sm" | "md" | "lg";
   fontSize?: "sm" | "md" | "lg";
+  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
 };
 
 export const BaseButton = styled.button<actionButtonPropsType>`
@@ -16,7 +18,7 @@ export const BaseButton = styled.button<actionButtonPropsType>`
         `;
       case "lg":
         return css`
-          padding: 12px 0;
+          padding: 15px 0;
           font-size: 18px;
           width: 100%;
         `;
@@ -34,13 +36,15 @@ export const BaseButton = styled.button<actionButtonPropsType>`
       case "md":
         return "16px";
       case "lg":
-        return "18px";
+        return "20px";
       default:
         return "14px";
     }
   }};
+  border-radius: ${({ borderRadius, theme }) =>
+    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.sm};
 
-  ${({ variant, theme, fontSize }) => {
+  ${({ variant, theme }) => {
     switch (variant) {
       case "secondary":
         return css`
@@ -64,6 +68,14 @@ export const BaseButton = styled.button<actionButtonPropsType>`
           &:hover {
             background-color: #ff8b00;
           }
+          @media ${device.mobile} {
+            &:active {
+              background-color: #ff8b00;
+            }
+            &:focus {
+              background-color: #ff8b00;
+            }
+          }
         `;
       default:
         return css`
@@ -75,15 +87,23 @@ export const BaseButton = styled.button<actionButtonPropsType>`
         `;
     }
   }}
+  display: flex;
+  align-items: center;
+  justify-content: center;
   outline: none;
-  border-radius: 3px;
   border: none;
-  font-weight: 500;
+  font-weight: 550;
   cursor: pointer;
   height: 40px;
-  &:hover {
+  @media ${device.mobile} {
+    &:active {
+    }
   }
-  @media only screen and (max-width: 768px) {
-    font-size: 14px;
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;

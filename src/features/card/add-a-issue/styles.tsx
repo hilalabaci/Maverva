@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.form`
   background-color: ${(props) => props.theme.cardBG};
@@ -10,7 +11,7 @@ export const Container = styled.form`
   border-radius: 3px;
   padding: 8px 4px;
   border: ${(props) => props.theme.activeBorder};
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     border-radius: 3px;
     padding: 10px;
     height: 70px;
@@ -33,7 +34,7 @@ export const Textarea = styled.input`
     color: ${(props) => props.theme.colour.text.surface};
     font-size: 14px;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px;
   }
 `;
@@ -41,7 +42,7 @@ export const ButtonWrapper = styled.form`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     margin-top: 10px;
   }
 `;
@@ -57,7 +58,7 @@ export const Button = styled.button`
   &:hover {
     background-color: #a8ccff;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px;
     padding: 4px;
   }

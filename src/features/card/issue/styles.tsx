@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DoneIcon from "@mui/icons-material/Done";
+import { device } from "../../../styles/breakpoints";
 //--ds-shadow-raised:  0px 1px 1px #091E4240, 0px 0px 1px #091E424F;
 
 export const GlobalStyle = createGlobalStyle`
@@ -18,7 +19,7 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
     opacity: 1;
   }
@@ -59,7 +60,7 @@ export const Container = styled.button`
     padding: 2px;
     font-size: medium !important;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     padding: 15px;
     border-radius: 3px;
     height: 60px;
@@ -79,7 +80,7 @@ export const NoteWrapper = styled.div`
   text-overflow: ellipsis;
   width: 100%;
   gap: 5px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
     overflow: scroll;
   }
@@ -159,7 +160,7 @@ export const CardKeyWrapper = styled.div`
   font-size: 11px;
   font-weight: 600;
   color: ${(props) => props.theme.colour.text.inverted};
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
   }
 `;

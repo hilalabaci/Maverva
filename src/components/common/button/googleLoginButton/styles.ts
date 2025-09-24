@@ -1,6 +1,11 @@
 import styled from "styled-components";
+import { device } from "../../../../styles/breakpoints";
+
+type GoogleButtonProps = {
+  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
+};
 export const GoogleSignWrapper = styled.div``;
-export const Button = styled.button`
+export const Button = styled.button<GoogleButtonProps>`
   border-radius: 3px;
   font-size: 1.1rem;
   color: #172b4d;
@@ -20,12 +25,14 @@ export const Button = styled.button`
   width: 100%;
   box-sizing: border-box;
   width: 100%;
+  border-radius: ${({ borderRadius, theme }) =>
+    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.sm};
 `;
 export const Text = styled.span`
   font-weight: 600;
   color: #2f4156;
   font-size: 14px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 14px;
   }
 `;

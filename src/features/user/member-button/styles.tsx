@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { device } from "../../../styles/breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -24,7 +25,7 @@ export const Container = styled.button`
       border-radius: 100px;
     }
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 30px;
     height: 30px;
   }
@@ -33,7 +34,7 @@ export const UserInitials = styled.h1`
   font-size: 10px;
   text-transform: uppercase;
   color: #182a4e;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 15px;
   }
 `;

@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { device } from "../../../styles/breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -27,7 +28,7 @@ export const Container = styled.div`
     sans-serif
   );
 
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
     margin: 0;
     height: 30px;
@@ -82,7 +83,7 @@ export const Okicon = styled(CheckCircleIcon)`
     border: none;
     outline: none;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 18px !important;
   }
 `;

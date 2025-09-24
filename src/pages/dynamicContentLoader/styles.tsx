@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
+import { device } from "../../styles/breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
   #root,
@@ -45,7 +46,7 @@ export const MainContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     margin-left: 7px;
     overflow-x: scroll;
   }

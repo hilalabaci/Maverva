@@ -2,6 +2,7 @@ import styled from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import AddIcon from "@mui/icons-material/Add";
 import { IssueStatus } from "../../types";
+import { device } from "../../styles/breakpoints";
 
 type FormProps = { $selected: boolean };
 export const Container = styled.div`
@@ -197,7 +198,7 @@ export const EditSprintButton = styled.button`
       props.theme.colour.primary.button.secondary.background.default};
     background-color: yellow;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
     opacity: 1;
   }
@@ -208,7 +209,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
   display: flex;
   justify-content: flex-end;
   color: ${(props) => props.theme.colour.primary.button.secondary.text.default};
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
   }
 `;

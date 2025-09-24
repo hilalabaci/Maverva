@@ -3,6 +3,7 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
 import { IssueStatus } from "../../types";
+import { device } from "../../styles/breakpoints";
 
 type FormProps = { $selected: boolean };
 export const Container = styled.div`
@@ -191,7 +192,7 @@ export const EditSprintButton = styled.button`
     opacity: 1;
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
     opacity: 1;
   }
@@ -211,7 +212,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
     opacity: 1;
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
     opacity: 1;
   }
@@ -233,7 +234,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
 //     opacity: 1;
 //   }
 
-//   @media only screen and (max-width: 768px) {
+//  @media ${device.mobile} {
 //     font-size: 12px !important;
 //     opacity: 1;
 //   }
@@ -255,7 +256,7 @@ export const IconEdit = styled(EditIcon)`
     opacity: 1;
   }
 
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
     opacity: 1;
   }

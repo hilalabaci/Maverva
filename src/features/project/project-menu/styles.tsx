@@ -4,6 +4,7 @@ import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBullet
 import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
 import AddIcon from "@mui/icons-material/Add";
 import styled from "styled-components";
+import { device } from "../../../styles/breakpoints";
 type CommonPropsType = {
   $hidden?: boolean;
 };
@@ -12,7 +13,7 @@ export const Container = styled.div<CommonPropsType>`
   min-width: ${(props) => (props.$hidden ? "20px" : "240px")};
   height: 100vh;
   background-color: ${(props) => props.theme.BorderMenuBG};
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: ${(props) => (props.$hidden ? "20px" : "fit-content")};
   }
   &:hover {
@@ -43,7 +44,7 @@ export const AddProjectWrapper = styled.div<CommonPropsType>`
   justify-content: space-around;
   gap: 20px;
   color: ${(props) => props.theme.fontColour};
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px;
   }
 `;
@@ -78,8 +79,9 @@ export const UserInfo = styled.div<CommonPropsType>`
   /* border-bottom: ${(props) =>
     props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"}; */
   //padding: ${(props) => (props.$hidden ? "0" : "0")};
-  @media only screen and (max-width: 768px) {
-  }
+  @media ${device.mobile} {
+ 
+    }
 `;
 export const Title = styled.div`
   text-transform: uppercase;
@@ -92,7 +94,7 @@ export const ProjectTitle = styled.span<CommonPropsType>`
   font-size: 14px;
   font-weight: bold;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px;
   }
 `;

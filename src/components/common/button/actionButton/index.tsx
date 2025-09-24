@@ -10,6 +10,7 @@ type actionButtonPropsType = {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   fontSize?: "sm" | "md" | "lg";
+  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
 };
 
 function ActionButton({
@@ -21,6 +22,7 @@ function ActionButton({
   type,
   disabled = false,
   fontSize,
+  borderRadius,
 }: actionButtonPropsType) {
   return (
     <BaseButton
@@ -31,6 +33,7 @@ function ActionButton({
       aria-label={ariaLabel}
       disabled={disabled}
       fontSize={fontSize}
+      borderRadius={borderRadius}
     >
       {children}
     </BaseButton>

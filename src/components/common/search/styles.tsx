@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
+import { device } from "../../../styles/breakpoints";
 
 export const SearchContainer = styled.div<{ $isclicked: boolean }>`
   height: 35px;
@@ -21,7 +22,7 @@ export const SearchContainer = styled.div<{ $isclicked: boolean }>`
   &:hover {
     background-color: ${(props) => props.theme.colour.search.background.hover};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     border: none;
   }
 `;
@@ -32,7 +33,7 @@ export const IconWrapper = styled.button`
   color: ${(props) => props.theme.colour.search.icon.default};
   padding: 0;
   margin: 0;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     background: none;
   }
 `;
@@ -56,7 +57,7 @@ export const Input = styled.input`
   input[type="search"]::-webkit-search-decoration {
     display: none;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     display: none;
   }
 `;

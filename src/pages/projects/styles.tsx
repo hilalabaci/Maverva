@@ -5,6 +5,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 //import StarRoundedIcon from "@mui/icons-material/StarRounded";
 import { HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
+import { device } from "../../styles/breakpoints";
 
 export const Container = styled.main`
   color: ${(props) => props.theme.colour.text.primary};
@@ -15,7 +16,7 @@ export const Wrapper = styled.div`
   padding-inline: 40px;
   padding-top: 5px;
   gap: 10px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     padding-inline: 0;
   }
 `;
@@ -32,7 +33,7 @@ export const Header = styled.h1`
 export const SearchWrapper = styled.div``;
 export const DataContainer = styled.div`
   padding-top: 10px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     padding-top: 0;
   }
 `;
@@ -53,7 +54,7 @@ export const Titles = styled.th`
 export const OrderIcon = styled(ArrowDownwardIcon)`
   width: 16px !important;
   height: 16px !important;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 10px !important;
     height: 10px !important;
   }
@@ -63,7 +64,7 @@ export const TableBody = styled.tbody``;
 export const IconWrapper = styled.th`
   padding-top: 12px;
   padding-bottom: 12px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     padding-top: 0;
     padding-bottom: 0;
   }

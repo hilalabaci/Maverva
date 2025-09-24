@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ export const ArrowIcon = styled.button<CommonPropsType>`
     background-color: #0c66e4;
     color: white;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     margin: 0;
     font-size: 18px !important;
     padding-top: 5px;

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import CircleIcon from "@mui/icons-material/Circle";
+import { device } from "../../styles/breakpoints";
 
 export const Container = styled.div`
   height: 100vh;
@@ -10,7 +11,7 @@ export const BrandLogo = styled(DashboardRoundedIcon)`
   margin: 0px 5px;
   //color: ${(props) => props.theme.colour.memberMenuFontColor} !important;
   color: #9b59b6;
-  @media only screen and (max-width: 768px) {
+  @media ${device.mobile} {
     width: 20px;
     height: 20px;
     margin: 0px 10px;
@@ -29,7 +30,6 @@ export const StartTrial = styled.section`
   background-position: 100% 0, 0 0;
   height: 100vh;
   background-repeat: no-repeat;
-  padding-top: 3.75rem;
   gap: 2rem;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -46,15 +46,22 @@ export const StartTrial = styled.section`
         #fafbfc
       );
   } */
-  @media only screen and (max-width: 600px) {
-    padding-top: 0;
+  @media ${device.mobile} {
+   height: fit-content;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;
 export const StartTrialWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-width: 75pc;
-  @media only screen and (max-width: 600px) {
+ @media ${device.mobile} {
     grid-template-columns: 1fr;
   }
 `;
@@ -64,7 +71,7 @@ export const TabSection = styled.div`
   margin-top: 40px;
   background: white;
 
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     margin: 35px 0;
     margin-inline: 24px;
   }
@@ -78,7 +85,7 @@ export const TabWrapper = styled.div`
   @media (min-width: 64rem) {
     max-width: 75pc;
   }
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     height: min-content;
   }
 `;
@@ -94,7 +101,7 @@ export const TabContentWrapper = styled.div`
   box-sizing: border-box;
   line-height: 1.5;
   margin-inline: 24px;
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -170,11 +177,19 @@ export const TabTitle = styled.h2`
   font-weight: 600;
   color: ${(props) => props.theme.colour.fontColour2};
   cursor: default;
-  @media only screen and (max-width: 600px) {
+
+  @media ${device.mobile} {
     padding: 0;
-    font-size: 32px;
-    color: black;
-    font-weight: 700;
+    font-size: 24px;
+    color: ${(props) => props.theme.colour.fontColour2};
+    font-weight: 600;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;
 export const TitleDetail = styled.p`
@@ -190,7 +205,7 @@ export const InfoSection = styled.div`
   justify-content: center;
   align-items: center;
   padding: 50px 0;
-  @media only screen and (max-width: 600px) {
+ @media ${device.mobile} {
     height: min-content;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -203,9 +218,7 @@ export const CollapseParent = styled.div`
   align-items: center;
   max-width: 75pc;
   padding: 70px 0 50px 0;
-  @media only screen and (max-width: 600px) {
-    margin: 0 25px;
-    margin-inline: 24px;
+   @media ${device.mobile} {
     height: min-content;
     padding: 0;
     flex-direction: column;
@@ -216,9 +229,15 @@ export const CollapseNavigation = styled.div`
 `;
 export const CollapseItem = styled.div`
   padding: 10px 0;
-  @media only screen and (max-width: 600px) {
-    padding-left: 3rem;
-    padding-right: 3rem;
+
+  @media ${device.mobile} {
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;
 type displayProps = {
@@ -247,8 +266,16 @@ export const CollapseTitle = styled.h3<displayProps>`
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  @media only screen and (max-width: 600px) {
-    font-size: 24px;
+
+  @media ${device.mobile} {
+    font-size: 20px;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;
 
@@ -262,6 +289,18 @@ export const CollapseText = styled.div<displayProps>`
   cursor: default;
   padding: 10px 0;
   color: ${(props) => props.theme.colour.fontColour2};
+
+  @media ${device.mobile} {
+    font-size: 16px;
+    line-height: 1.5rem;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
+  }
 `;
 export const CollapseContentElementChild = styled.div<displayProps>`
   display: none;
@@ -274,11 +313,18 @@ export const CollapseContentElementChild = styled.div<displayProps>`
     #c8d9e6 97.73%
   );
   box-shadow: 0 3px 20px 0 rgba(67, 46, 134, 0.1);
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     display: ${(props) => (props.$display ? "flex" : "none")};
     box-shadow: none;
     background: none;
-    
+    padding: 5px 0;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;
 export const CollapseContentElement = styled.div<displayProps>`
@@ -292,7 +338,7 @@ export const CollapseContentElement = styled.div<displayProps>`
     #c8d9e6 97.73%
   );
   box-shadow: 0 3px 20px 0 rgba(67, 46, 134, 0.1);
-  @media only screen and (max-width: 600px) {
+ @media ${device.mobile} {
     display: none;
     box-shadow: none;
     background: none;
@@ -307,7 +353,16 @@ export const SectionEntery = styled.div`
   flex-direction: column;
   gap: 20px;
   margin-inline: 24px;
-  @media only screen and (max-width: 768px) {
+  @media ${device.mobile} {
+    margin-inline: 10px;
+    padding-block-start: 65px;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;
 
@@ -328,15 +383,13 @@ export const GetStartGmailWrapper = styled.div<CommonPropsType>`
   height: ${({ $hidden }) => ($hidden ? "0" : "auto")};
   width: ${({ $hidden }) => ($hidden ? "0" : "auto")};
   transition: 750ms opacity;
-  @media only screen and (max-width: 768px) {
-  }
 `;
 export const Promotion = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     display: none;
   }
 `;
@@ -348,9 +401,16 @@ export const Title = styled.h1`
   cursor: default;
   margin: 0;
   text-shadow: 0.5px 0.5px #2f4156;
-  @media only screen and (max-width: 600px) {
-    font-size: 32px;
-    line-height: 2rem;
+  @media ${device.mobile} {
+    font-size: 48px;
+    line-height: 3.4rem;
+  }
+  @media ${device.tablet} {
+  }
+  @media ${device.laptop} {
+  }
+
+  @media ${device.desktop} {
   }
 `;
 export const TitleParag = styled.h3`
@@ -366,38 +426,10 @@ export const TitleParag = styled.h3`
     font-size: 1.5rem;
   }
 `;
-//  background: linear-gradient(135deg, #71b7e6, #9b59b6);
-
-export const ButtonForGetStart = styled.button`
-  max-width: fit-content;
-  border: none;
-  outline: none;
-  //color: ${(props) => props.theme.colour.primary};
-  color: #2f4156;
-  font-weight: 500;
-  padding: 12px 50px;
-  border-radius: 5px;
-  font-size: 17px;
-  //background: linear-gradient(135deg, #71b7e6, #9b59b6);
-  background-color: #f5efeb;
-  margin-top: 10px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
-  &:hover {
-    // background: linear-gradient(-135deg, #567c8d, #2f4156);
-    color: #f5efeb;
-    background-color: #2f4156;
-    transition: 500ms background-color;
-  }
-  @media only screen and (max-width: 768px) {
-    font-size: 14px;
-    margin-top: 47px;
-  }
-`;
 export const ImgForWelcome = styled.img`
   box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   max-width: 700px;
-  @media only screen and (max-width: 600px) {
+ @media ${device.mobile} {
     max-width: 300px;
   }
 `;
@@ -406,15 +438,16 @@ export const Footer = styled.footer`
 `;
 
 export const LoginText = styled.p`
-  font-size: 17px;
+  font-size: 14px;
   color: #f5efeb;
   //padding: 20px 0;
   font-weight: 400;
   cursor: default;
+  text-align: center;
 `;
 export const LoginLink = styled.a`
   color: #fca700;
-  font-size: 17px;
+  font-size: 14px;
   margin-left: 5px;
   font-weight: 500;
   text-decoration: underline;

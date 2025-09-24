@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../styles/breakpoints";
 
 export const MainContainer = styled.div`
   background: linear-gradient(135deg, #567c8d, #2f4156);
@@ -38,7 +39,7 @@ export const BrandContainer = styled.div`
   font-size: 18px;
   line-height: 39px;
   /* identical to box height */
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 20px;
   }
 `;

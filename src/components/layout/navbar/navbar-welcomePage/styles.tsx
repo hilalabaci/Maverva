@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../../styles/breakpoints";
 
 export const NavbarContainer = styled.header`
   position: fixed;
@@ -27,7 +28,7 @@ export const BrandContainer = styled.a`
   padding-inline-start: 150px;
   cursor: pointer;
   /* identical to box height */
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     padding: 0;
   }
 `;
@@ -36,7 +37,7 @@ export const NavbarSignWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     display: none;
   }
 `;
@@ -74,7 +75,7 @@ export const ButtonForGetStartonNavbar = styled.a`
   &:hover {
     background: #ff8b00;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 14px;
   }
 `;

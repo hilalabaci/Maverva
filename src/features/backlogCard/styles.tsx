@@ -4,6 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import DoneIcon from "@mui/icons-material/Done";
 import { IssueStatus } from "../../types";
+import { device } from "../../styles/breakpoints";
 
 export const BacklogCardListItems = styled.div`
   display: grid;
@@ -87,7 +88,7 @@ export const IconEdit = styled(EditIcon)`
     opacity: 1;
   }
 
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
     opacity: 1;
   }
@@ -184,7 +185,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
     background-color: ${(props) =>
       props.theme.colour.primary.button.secondary.background.hover};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px !important;
     opacity: 1;
   }

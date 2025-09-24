@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import { device } from "../../../styles/breakpoints";
 
 export const FooterContainer = styled.footer`
   display: flex;
@@ -9,11 +10,11 @@ export const FooterContainer = styled.footer`
   justify-content: space-between;
   padding-inline: 150px;
   padding-block: 50px;
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     padding: 0;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 2rem 1rem;
+    align-items:flex-start;
+    padding: 3rem 1rem;
     gap: 2rem;
     margin-inline: 24px;
   }
@@ -27,6 +28,9 @@ export const BrandInfo = styled.div`
   justify-content: center;
   align-items: center;
   cursor: default;
+    @media ${device.mobile} {
+
+  }
 `;
 export const LinkWrapper = styled.div`
   font-size: 14px;
@@ -35,13 +39,11 @@ export const LinkWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  @media only screen and (max-width: 600px) {
-    gap: 5px;
-  }
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;
+    padding-bottom: 250px;
   }
 `;
 export const Brandlogo = styled.img`
@@ -55,8 +57,9 @@ export const CopyRigtWrapper = styled.p`
   gap: 4px;
   font-size: 14px;
   color: #505258;
+  margin: 0;
   cursor: pointer;
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     font-weight: 500;
   }
 `;
@@ -67,7 +70,7 @@ export const LinkItem = styled.a`
   gap: 4px;
   font-size: 14px;
   cursor: pointer;
-  @media only screen and (max-width: 600px) {
+  @media ${device.mobile} {
     font-weight: 500;
   }
 `;

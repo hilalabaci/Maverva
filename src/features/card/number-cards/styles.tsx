@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`
   font-style: normal;
@@ -8,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
   text-align: center;
   color: ${(props) => props.theme.searchPlaceHolderFontColour};
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 15px;
   }
 `;

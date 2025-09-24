@@ -1,5 +1,6 @@
 import lightColors from "./colours/ light";
 import darkColors from "./colours/dark";
+import borderRadius from "./tokens/borderRadius";
 // import typography from "./typography";
 // import spacing from "./spacing";
 // import shadows from "./shadows";
@@ -7,12 +8,14 @@ import darkColors from "./colours/dark";
 export const themes = {
   light: {
     colour: lightColors,
+    borderRadius,
     // typography,
     // spacing,
     // shadows,
   },
   dark: {
     colour: darkColors,
+    borderRadius,
     // typography,
     // spacing,
     // shadows,

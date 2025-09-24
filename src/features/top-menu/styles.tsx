@@ -2,8 +2,8 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Link } from "react-router-dom";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import PersonIcon from "@mui/icons-material/Person";
-import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { device } from "../../styles/breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -13,7 +13,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: -webkit-fill-available;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     height: 50px;
     align-items: start;
   }
@@ -51,7 +51,7 @@ export const Title = styled.div`
   //background-color: ${(props) => props.theme.projectColour};
   border-radius: 2px;
   display: flex;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     height: 35px;
     margin-top: 5px;
   }
@@ -67,7 +67,7 @@ export const ProjectTitle = styled.h1`
   overflow: hidden;
   max-width: 600px;
   margin-top: 0;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 11px;
     margin: 10px;
   }
@@ -85,7 +85,7 @@ export const EditProjectTitle = styled.input`
   text-align: center;
   vertical-align: center;
   text-transform: uppercase;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 15px;
   }
 `;

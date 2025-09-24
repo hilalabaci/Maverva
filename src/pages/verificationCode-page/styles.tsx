@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/breakpoints";
 export const Title = styled.h2`
   font-size: 16px;
   color: #2f4156;
@@ -14,7 +15,7 @@ export const ContainerSendEmail = styled.div`
   align-items: center;
   border-radius: 3px;
   gap: 10px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: max-content;
   }
 `;

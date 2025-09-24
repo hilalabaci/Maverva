@@ -12,7 +12,7 @@ import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import Projects from "./pages/projects";
 import DynamicContentLoader from "./pages/dynamicContentLoader";
-import WelcomePage from "./pages/welcome-page";
+import LandingPage from "./pages/landing-page";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import VerifyEmailPage from "./pages/verificationEmail-page";
 import { GlobalStyle } from "./styles/GlobalStyle";
@@ -23,7 +23,7 @@ import ResetPassword from "./pages/reset-password";
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
   // Public route
-  { path: "/", element: <WelcomePage /> },
+  { path: "/", element: <LandingPage /> },
   { path: "/signup", element: <Register /> },
   { path: "/login", element: <Login /> },
   { path: "/login/verify-email/otp", element: <VerifyEmailPage /> },

@@ -5,7 +5,11 @@ import { useUserContext } from "../../../../contexts/UserContext";
 import { useGoogleLogin } from "@react-oauth/google";
 import { loginGoogle as loginGoogleApi } from "../../../../api/authApi";
 
-const GoogleLoginButton = () => {
+type loginGooglePropsType = {
+  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
+};
+
+const GoogleLoginButton = ({ borderRadius }: loginGooglePropsType) => {
   const navigate = useNavigate();
   const { setUser, setToken } = useUserContext();
 
@@ -25,7 +29,11 @@ const GoogleLoginButton = () => {
 
   return (
     <GoogleSignWrapper>
-      <Button onClick={() => loginGoogle()} aria-label="Login with Google">
+      <Button
+        onClick={() => loginGoogle()}
+        aria-label="Login with Google"
+        borderRadius={borderRadius}
+      >
         <FcGoogle size={25} />
         <Text>Continue with Google</Text>
       </Button>

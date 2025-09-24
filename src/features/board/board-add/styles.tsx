@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import { device } from "../../../styles/breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -30,7 +31,7 @@ export const Container = styled.div`
     sans-serif
   );
 
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
     margin: 0;
     height: 30px;
@@ -73,7 +74,7 @@ export const InputforProjectDropDown = styled.input`
   &:focus-visible {
     outline: ${(props) => props.theme.colour.border.active};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 12px;
   }
 `;
@@ -136,7 +137,7 @@ export const Okicon = styled(CheckCircleIcon)`
     border: none;
     outline: none;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 18px !important;
   }
 `;

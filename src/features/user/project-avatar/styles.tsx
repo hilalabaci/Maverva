@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../styles/breakpoints";
 
 interface ContainerProps {
   $hidden?: boolean;
@@ -37,7 +38,7 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   text-transform: uppercase;
   font-weight: ${(props) => props.$fontWeight};
 
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 25px;
     height: 25px;
     font-size: 10px;

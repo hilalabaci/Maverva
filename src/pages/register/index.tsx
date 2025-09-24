@@ -20,11 +20,7 @@ import {
   CheckBoxTextLink,
 } from "./styles";
 import Input from "../../components/common/input/round";
-import {
-  GoogleSignWrapper,
-  GoogleSignButton,
-  GoogleSignButtonText,
-} from "../../components/forms/registerForm/styles";
+import { GoogleSignWrapper } from "../../components/forms/registerForm/styles";
 import DynamicSVGGoogle from "../../components/ DynamicSVG/DynamicSVG";
 import {
   loginVerificationEmail,
@@ -32,6 +28,7 @@ import {
 } from "../../api/authApi";
 import BoxLayout from "../../components/layout/boxLayout";
 import { validateEmail } from "../../utils/validation";
+import GoogleLoginButton from "../../components/common/button/googleLoginButton";
 
 interface FormError {
   email?: string;
@@ -131,12 +128,7 @@ function Register() {
               <LastLine></LastLine>
             </LineforGoogleWrapper>
             <GoogleSignWrapper>
-              <GoogleSignButton onClick={() => loginGoogle()}>
-                <DynamicSVGGoogle />
-                <GoogleSignButtonText>
-                  Continue with Google
-                </GoogleSignButtonText>
-              </GoogleSignButton>
+              <GoogleLoginButton borderRadius="xl" />
             </GoogleSignWrapper>
             <CreateAccountWrapper>
               <CreateAccountListItemLink href="/login">

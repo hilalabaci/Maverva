@@ -1,4 +1,3 @@
-import DynamicSVGGoogle from "../../ DynamicSVG/DynamicSVG";
 import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -10,15 +9,13 @@ import {
   FirstLine,
   LastLine,
   GoogleSignWrapper,
-  GoogleSignButton,
-  GoogleSignButtonText,
-  EmailWrapper,
   Form,
 } from "./styles";
 import { loginGoogle, loginVerificationEmail } from "../../../api/authApi";
 import Input from "../../common/input/round";
-import Button from "../../../components/common/button/actionButton";
 import { validateEmail } from "../../../utils/validation";
+import ActionButton from "../../../components/common/button/actionButton";
+import GoogleLoginButton from "../../common/button/googleLoginButton";
 interface FormData {
   email: string;
 }
@@ -106,16 +103,19 @@ function RegisterForm() {
           label="Work email"
           error={errors.email || (verifyEmail ? "Invalid email" : null)}
           fontColour="Light"
+          borderRadius="xl"
         />
         <EmailHelpText $errorEmailDisplay={verifyEmail}>
           Find teammates, plus keep work and life separate by using your work
           email
         </EmailHelpText>
-        <Button
+        <ActionButton
           children="Sign up"
-          type="submit"
-          variant="warning"
+          size="lg"
           fontSize="md"
+          variant="warning"
+          borderRadius="lg"
+          type="submit"
         />
       </Form>
       <LineforGoogleWrapper>
@@ -123,10 +123,7 @@ function RegisterForm() {
         <LastLine></LastLine>
       </LineforGoogleWrapper>
       <GoogleSignWrapper>
-        <GoogleSignButton onClick={() => login()}>
-          <DynamicSVGGoogle />
-          <GoogleSignButtonText>Google</GoogleSignButtonText>
-        </GoogleSignButton>
+        <GoogleLoginButton borderRadius="xl" />
       </GoogleSignWrapper>
     </Container>
   );

@@ -38,8 +38,7 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   font-weight: ${(props) => props.$fontWeight};
   box-shadow: 0 0 0 2px
     ${(props) => props.theme.colour.avatar.background.default};
-  @media only screen and (max-width: 768px) {
-  }
+
 `;
 export const MemberAvatar = styled.img<MemberphotoProps>`
   width: ${(props) => props.$userPhotoWidth};

@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 import AddIcon from "@mui/icons-material/Add";
+import { device } from "../../../styles/breakpoints";
 export const GlobalStyle = createGlobalStyle`
 .addIcon-button{
   margin-right: 10px;
@@ -28,7 +29,7 @@ export const AddCardButton = styled.button`
       props.theme.colour.primary.button.secondary.background.hover};
   }
 
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: fit-content;
     height: fit-content;
     font-size: 10px;
@@ -38,7 +39,7 @@ export const AddCardButton = styled.button`
 export const IconAdd = styled(AddIcon)`
   font-size: 18px !important;
   padding-right: 10px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px !important;
   }
 `;
@@ -52,7 +53,7 @@ export const Container = styled.div`
     opacity: 1;
     color: ${(props) => props.theme.memberMenuFontColor};
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 200px;
     border-radius: 3px;
     padding: 15px;
@@ -67,7 +68,7 @@ export const IssueWrapper = styled.div`
   -webkit-overflow-scrolling: touch;
   border: none;
   outline: none;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     margin-top: 10px;
   }
 `;

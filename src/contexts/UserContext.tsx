@@ -44,6 +44,15 @@ export const UserProvider = ({ children }: Props) => {
     else localStorage.removeItem(userKey);
   }, [user]);
 
+  // //read the token from cookie named token
+  // useEffect(() => {
+  //   const tokenFromCookie = document.cookie
+  //     .split("; ")
+  //     .find((row) => row.startsWith("token="))
+  //     ?.split("=")[1];
+  //   if (tokenFromCookie) setToken(tokenFromCookie);
+  // }, []);
+
   useEffect(() => {
     if (token) localStorage.setItem(tokenKey, token);
     else localStorage.removeItem(tokenKey);

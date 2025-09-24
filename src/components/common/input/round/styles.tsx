@@ -4,6 +4,7 @@ import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { MdOutlineEdit } from "react-icons/md";
+import { device } from "../../../../styles/breakpoints";
 
 export const Container = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ export const Container = styled.div`
 type InputContainerProps = {
   error?: boolean;
   filled?: boolean;
+  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
 };
 export const InputContainer = styled.div<InputContainerProps>`
   display: flex;
@@ -21,7 +23,8 @@ export const InputContainer = styled.div<InputContainerProps>`
   height: 40px;
   padding-inline-start: 1.25rem;
   padding-inline-end: 1.25rem;
-  border-radius: 3px;
+  border-radius: ${({ borderRadius, theme }) =>
+    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.sm}; 
   outline: none;
   box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
   font-size: 14px;
@@ -55,7 +58,7 @@ export const Inputs = styled.input<InputContainerProps>`
     props.filled ? "#091e424f" : props.theme.colour.text.inverted};
   font-size: 1rem;
 
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 14px;
   }
 `;

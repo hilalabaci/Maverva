@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { device } from "../../../styles/breakpoints";
 
 export const Wrapper = styled.div`
   height: 45px;
@@ -20,7 +21,7 @@ export const Wrapper = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.427);
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     width: 120px;
     padding: 10px 0;
     margin-bottom: 10px;
@@ -36,7 +37,7 @@ export const Label = styled.label`
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 10px;
   }
 `;
@@ -48,7 +49,7 @@ export const EditIcon = styled(DeleteIcon)`
   &:hover {
     opacity: 1;
   }
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     font-size: 18px !important;
   }
 `;

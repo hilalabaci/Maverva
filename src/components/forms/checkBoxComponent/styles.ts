@@ -1,5 +1,6 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import styled from "styled-components";
+import { device } from "../../../styles/breakpoints";
 
 type FormProps = { $selected: boolean };
 
@@ -7,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   gap: 10px;
   padding-left: 15px;
-  @media only screen and (max-width: 768px) {
+ @media ${device.mobile} {
     padding: 5px 0 5px 15px;
   }
 `;

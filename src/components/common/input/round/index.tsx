@@ -24,6 +24,8 @@ type InputPropsType = {
   filled?: boolean;
   onEditClick?: () => void;
   fontColour?: "Dark" | "Light";
+   borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
+  
 };
 function Input({
   error,
@@ -37,6 +39,7 @@ function Input({
   filled = false,
   onEditClick,
   fontColour = "Dark",
+  borderRadius,
 }: InputPropsType) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -50,7 +53,7 @@ function Input({
   return (
     <Container>
       {label && <LabelforInput fontColour={fontColour}>{label}</LabelforInput>}
-      <InputContainer error={!!error} filled={filled}>
+      <InputContainer error={!!error} filled={filled} borderRadius={borderRadius}>
         {type === "email" ? <EmailIcon /> : ""}
         <Inputs
           onChange={(e) => onChange(e.target.value, e.target.name)}
