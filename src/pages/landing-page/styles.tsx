@@ -357,7 +357,7 @@ export const SectionEntery = styled.div`
   margin-inline: 24px;
   @media ${device.mobile} {
     margin-inline: 10px;
-    padding-block-start: 65px;
+    padding-block-start: 50px;
   }
   @media ${device.tablet} {
   }
