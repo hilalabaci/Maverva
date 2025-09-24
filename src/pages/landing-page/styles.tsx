@@ -50,7 +50,6 @@ export const StartTrial = styled.section`
   } */
   @media ${device.mobile} {
     align-items: flex-start;
-    height: 85vh;
   }
   @media ${device.tablet} {
   }
