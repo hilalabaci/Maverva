@@ -43,7 +43,6 @@ export const LinkWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;
-    padding-bottom: 250px;
   }
 `;
 export const Brandlogo = styled.img`
