@@ -355,7 +355,7 @@ export const SectionEntery = styled.div`
   margin-inline: 24px;
   @media ${device.mobile} {
     margin-inline: 10px;
-    padding-block-start: 65px;
+    padding-block-start: 100px;
   }
   @media ${device.tablet} {
   }
@@ -402,8 +402,8 @@ export const Title = styled.h1`
   margin: 0;
   text-shadow: 0.5px 0.5px #2f4156;
   @media ${device.mobile} {
-    font-size: 48px;
-    line-height: 3.4rem;
+    font-size: 36px;
+    line-height: 3rem;
   }
   @media ${device.tablet} {
   }
@@ -422,8 +422,9 @@ export const TitleParag = styled.h3`
   min-height: 80px;
   max-height: 100px;
   cursor: default;
-  @media only screen and (min-width: 768px) {
-    font-size: 1.5rem;
+  @media ${device.mobile} {
+    font-size: 16px;
+    font-weight: 400;
   }
 `;
 export const ImgForWelcome = styled.img`
