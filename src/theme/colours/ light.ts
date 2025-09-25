@@ -18,6 +18,7 @@ const lightColors: ThemeColors = {
     link: "#0c66e4",
     subtitle: "#44546F",
     highlightColor: "#292A2E",
+    warningMessage: "#dc3545",
   },
   primary: {
     base: "#3b82f6",

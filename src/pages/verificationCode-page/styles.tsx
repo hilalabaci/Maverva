@@ -7,6 +7,9 @@ export const Title = styled.h2`
 export const ImgWrapper = styled.div``;
 export const IllusSendEmail = styled.img`
   width: 200px;
+  @media ${device.mobile} {
+      width: 150px;
+  }
 `;
 export const ContainerSendEmail = styled.div`
   display: flex;
@@ -15,8 +18,7 @@ export const ContainerSendEmail = styled.div`
   align-items: center;
   border-radius: 3px;
   gap: 10px;
- @media ${device.mobile} {
-    width: max-content;
+  @media ${device.mobile} {
   }
 `;
 export const ExplainTitle = styled.div`
@@ -51,7 +53,7 @@ export const VerifyCodeWrapper = styled.div`
 export const ErrorMessage = styled.span`
   display: flex;
   align-items: center;
-  gap: 3px ;
+  gap: 3px;
   color: #dc3545;
   font-size: 0.79rem;
   margin: 0;

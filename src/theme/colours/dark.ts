@@ -18,6 +18,7 @@ const darkColors: ThemeColors = {
     link: "rgb(87, 157, 255)",
     subtitle: "#9fadbc",
     highlightColor: "white",
+    warningMessage:"#9b000f",
   },
   primary: {
     base: "#000000",

@@ -16,6 +16,7 @@ export interface ThemeColors {
     link: string;
     subtitle: string;
     highlightColor: string;
+    warningMessage: string;
   };
   primary: {
     base: string;

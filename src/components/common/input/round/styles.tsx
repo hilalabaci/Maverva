@@ -24,7 +24,7 @@ export const InputContainer = styled.div<InputContainerProps>`
   padding-inline-start: 1.25rem;
   padding-inline-end: 1.25rem;
   border-radius: ${({ borderRadius, theme }) =>
-    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.lg}; 
+    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.lg};
   outline: none;
   box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
   font-size: 14px;
@@ -58,7 +58,7 @@ export const Inputs = styled.input<InputContainerProps>`
     props.filled ? "#091e424f" : props.theme.colour.text.inverted};
   font-size: 1rem;
 
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 14px;
   }
 `;
@@ -75,7 +75,7 @@ export const InfoMessage = styled.p`
   text-align: right;
 `;
 export const WarningMessage = styled.p`
-  color: #dc3545;
+  color: ${(props) => props.theme.colour.text.warningMessage};
   font-size: 12px;
   margin: 0;
   padding: 5px 5px 0 0;
@@ -122,7 +122,7 @@ export const LabelforInput = styled.span<LabelforInputProps>`
   font-weight: bold;
   &::after {
     content: "*";
-    color: #dc3545;
+    color: ${(props) => props.theme.colour.text.warningMessage};
     padding-left: 2px;
   }
 `;

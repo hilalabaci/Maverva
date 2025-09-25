@@ -7,6 +7,8 @@ export const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media ${device.mobile} {
+  }
 `;
 export const InnerContainer = styled.div`
   min-height: calc(100% - 100px);
@@ -15,6 +17,10 @@ export const InnerContainer = styled.div`
   -webkit-box-pack: center;
   justify-content: center;
   margin: 50px 0px;
+  @media ${device.mobile} {
+    margin: 0;
+    height: 100%;
+  }
 `;
 export const BoxContainer = styled.div`
   display: flex;
@@ -28,6 +34,12 @@ export const BoxContainer = styled.div`
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
   box-shadow: 0 24px 64px #26214a1a;
+  @media ${device.mobile} {
+    flex: 1;
+    width: fit-content;
+    justify-content: center;
+    padding: 20px 40px;
+  }
 `;
 
 export const BrandContainer = styled.div`
@@ -39,8 +51,15 @@ export const BrandContainer = styled.div`
   font-size: 18px;
   line-height: 39px;
   /* identical to box height */
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 20px;
   }
 `;
-export const SectionofBox = styled.section``;
+export const SectionofBox = styled.section`
+  @media ${device.mobile} {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;

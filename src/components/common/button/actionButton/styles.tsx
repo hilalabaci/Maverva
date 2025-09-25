@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
 import { device } from "../../../../styles/breakpoints";
+import borderRadius from "../../../../theme/tokens/borderRadius";
 
 type actionButtonPropsType = {
   variant?: "primary" | "secondary" | "danger" | "warning";
   size?: "sm" | "md" | "lg";
   fontSize?: "sm" | "md" | "lg";
-  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
+  borderRadius?: keyof typeof borderRadius;
 };
 
 export const BaseButton = styled.button<actionButtonPropsType>`
@@ -68,7 +69,7 @@ export const BaseButton = styled.button<actionButtonPropsType>`
       case "warning":
         return css`
           background: ${theme.colour.primary.button.warning.background.default};
-          color: ${theme.colour.primary.button.warning.text};
+          color: ${theme.colour.primary.button.warning.text.default};
           &:hover {
             background: ${theme.colour.primary.button.warning.background.hover};
           }

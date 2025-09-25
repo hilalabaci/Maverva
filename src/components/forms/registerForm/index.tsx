@@ -71,10 +71,8 @@ function RegisterForm() {
         setErrors({ email: emailError });
         return;
       }
-      if (!token) return;
       const { ok, data } = await loginVerificationEmail(
         register.email,
-        token,
         "register"
       );
       if (ok && data) {
@@ -83,10 +81,20 @@ function RegisterForm() {
         navigate(
           `/signup/verify-email/otp?${token}=${token}&email=${register.email}`
         );
+        console.log("here3");
       }
-    } catch (error) {
+    } catch (error: any) {
+      let apiMessage = "opps! somethings wrong, try again";
+      if (typeof error === "object" && error !== null) {
+        apiMessage =
+          (error as any)?.response?.data?.message ||
+          (error as any)?.message ||
+          apiMessage;
+      } else if (typeof error === "string") {
+        apiMessage = error;
+      }
       setErrors({
-        email: "opps! somethings wrong, try again",
+        email: apiMessage,
       });
     }
   };

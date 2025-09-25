@@ -1,5 +1,5 @@
 import { apiCall } from "./apiClient";
-import { UserType, verificationDataType } from "../types";
+import { ApiError, UserType, verificationDataType } from "../types";
 
 export const loginGoogle = async (token: string, oneTap?: boolean) => {
   return await apiCall<{ user: UserType; token: string }>(
@@ -13,15 +13,13 @@ export const loginGoogle = async (token: string, oneTap?: boolean) => {
 
 export const loginVerificationEmail = async (
   email: string,
-  token: string,
   mode: "login" | "register"
 ) => {
-  return await apiCall<{ ok: boolean; data: UserType }>(
+  return await apiCall<{ ok: boolean; data: UserType & ApiError }>(
     "auth/login-verification-email",
     {
       method: "POST",
       data: { email, mode },
-      token: token,
     }
   );
 };
@@ -32,7 +30,7 @@ export const loginUser = async (
 ) => {
   return await apiCall<{ user: UserType; token: string }>("auth/login", {
     method: "POST",
-    data: { email, password,rememberMe },
+    data: { email, password, rememberMe },
   });
 };
 
