@@ -13,8 +13,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: -webkit-fill-available;
- @media ${device.mobile} {
-    height: 50px;
+  @media ${device.mobile} {
     align-items: start;
   }
 `;
@@ -30,6 +29,9 @@ export const PathList = styled.ol`
   color: #44546f;
   font-size: 14px;
   padding: 10px 0 0;
+  @media ${device.mobile} {
+        flex-wrap: wrap;
+  }
 `;
 export const Pathitem = styled.li`
   padding-left: 5px;
@@ -46,12 +48,16 @@ export const TitleHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-right: 40px;
+  @media ${device.mobile} {
+    width: -webkit-fill-available;
+    margin-right: 7px;
+  }
 `;
 export const Title = styled.div`
   //background-color: ${(props) => props.theme.projectColour};
   border-radius: 2px;
   display: flex;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     height: 35px;
     margin-top: 5px;
   }
@@ -67,7 +73,7 @@ export const ProjectTitle = styled.h1`
   overflow: hidden;
   max-width: 600px;
   margin-top: 0;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 11px;
     margin: 10px;
   }
@@ -85,7 +91,7 @@ export const EditProjectTitle = styled.input`
   text-align: center;
   vertical-align: center;
   text-transform: uppercase;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 15px;
   }
 `;
@@ -93,6 +99,10 @@ export const SearchAndAssignMemberContainer = styled.div`
   display: flex;
   padding: 10px 0;
   gap: 20px;
+  @media ${device.mobile} {
+    width: -webkit-fill-available;
+    padding: 10px 10px;
+  }
 `;
 export const AssignMemberContainer = styled.div`
   display: flex;
@@ -160,4 +170,3 @@ export const SprintTime = styled.div`
 export const TimeIcon = styled(AccessTimeIcon)`
   font-size: 20px !important;
 `;
-

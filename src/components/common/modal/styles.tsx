@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
+import { device } from "../../../styles/breakpoints";
 
 export const Backdrop = styled(Dialog.Overlay)`
   background: #10121499;
@@ -24,4 +25,8 @@ export const ModalContent = styled(Dialog.Content)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  @media ${device.mobile} {
+    height: 100vh;
+    width: 100%;
+  }
 `;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colour.modal.background.default};
@@ -7,20 +8,33 @@ export const Container = styled.div`
   box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
     0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
   border-radius: 3px;
+  @media ${device.mobile} {
+    height: 100vh;
+  }
 `;
 export const IssueDetailsContainer = styled.div`
   display: flex;
   padding: 2pc 2pc 2pc 2pc;
+  @media ${device.mobile} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const IssueEditContainer = styled.div`
   padding: 0pc 3pc 2pc 0pc;
   width: 350px;
+  @media ${device.mobile} {
+    width: fit-content;
+  }
 `;
 export const IssueInfoContainer = styled.div`
   box-sizing: border-box;
   border: ${({ theme }) => theme.colour.divider.border.default};
   width: 350px;
   padding: 1pc 1pc 1pc 1pc;
+  @media ${device.mobile} {
+    width: fit-content;
+  }
 `;
 export const ModalEditWrapper = styled.div`
   display: flex;
@@ -139,6 +153,9 @@ export const DescriptionTextEditer = styled.textarea`
   width: 100%;
   margin: 0;
   padding: 0;
+  @media ${device.mobile} {
+    width: fit-content;
+  }
 `;
 export const IssueDetailsInfoWrapper = styled.div``;
 export const TitleforDetails = styled.h2`

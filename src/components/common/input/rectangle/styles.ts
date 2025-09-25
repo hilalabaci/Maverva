@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
+import { device } from "../../../../styles/breakpoints";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,6 +33,9 @@ export const Inputs = styled.input<{ size?: number }>`
   border: none;
   width: 100%;
   padding: ${(props) => (props.size ? `${props.size}px 3px 5px;` : "12px 5px")};
+  @media ${device.mobile} {
+    font-size: 14px;
+  }
 `;
 export const Icon = styled(CheckCircleIcon)`
   color: green;
@@ -59,5 +63,8 @@ export const LabelTitle = styled.label`
     position: relative;
     top: -2px;
     color: red;
+  }
+  @media ${device.mobile} {
+    font-size: 14px;
   }
 `;

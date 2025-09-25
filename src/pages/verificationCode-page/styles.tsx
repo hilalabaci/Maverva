@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { device } from "../../styles/breakpoints";
 export const Title = styled.h2`
-  font-size: 16px;
-  color: #2f4156;
+  font-size: 20px;
+  color: ${(props) => props.theme.colour.text.inverted};
 `;
 export const ImgWrapper = styled.div``;
 export const IllusSendEmail = styled.img`
   width: 200px;
   @media ${device.mobile} {
-      width: 150px;
+    width: 150px;
   }
 `;
 export const ContainerSendEmail = styled.div`

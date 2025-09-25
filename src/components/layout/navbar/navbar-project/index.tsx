@@ -60,6 +60,7 @@ function Navbar(props: NavbarPropsType) {
   function closeModal() {
     setShowModal(false);
   }
+  const isMobile = window.innerWidth <= 768;
 
   function toggleModal() {
     setShowModal(!showModal);
@@ -174,8 +175,8 @@ function Navbar(props: NavbarPropsType) {
           style={{
             alignItems: "flex-start",
             justifyContent: "flex-end",
-            top: "60px",
-            right: "70px",
+            top: isMobile ? "50px" : "60px",
+            right: isMobile ? "0px" : "70px",
             background: "none",
             transform: "none",
             left: "unset",

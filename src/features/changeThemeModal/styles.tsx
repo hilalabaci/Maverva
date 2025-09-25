@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { device } from "../../styles/breakpoints";
 
 export const Container = styled.div`
   cursor: pointer;
@@ -21,6 +22,10 @@ export const Container = styled.div`
   padding: 1px;
   border-radius: 3px;
   font-weight: 400;
+  @media ${device.mobile} {
+    width: 120px;
+    transform: translate3d(-139px, 45.5px, 0px);
+  }
 `;
 
 type WrapperPropsType = {
@@ -49,6 +54,9 @@ export const Wrapper = styled.button<WrapperPropsType>`
         ? props.theme.colour.modal.text.active
         : props.theme.colour.text.primary};
   }
+  @media ${device.mobile} {
+    font-size: 14px;
+  }
 `;
 
 const activeStyle = css`
@@ -59,4 +67,7 @@ const activeStyle = css`
 
 export const ImgforTheme = styled.img`
   width: 90px;
+  @media ${device.mobile} {
+    display: none;
+  }
 `;

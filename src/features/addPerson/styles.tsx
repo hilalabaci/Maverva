@@ -66,12 +66,14 @@ export const CancelButton = styled.button`
   border: none;
   outline: none;
   font-size: 14px;
-
   border-radius: 2px;
   padding: 9px;
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.colour.modal.background.hover};
+  }
+  @media ${device.mobile} {
+    font-size: 14px;
   }
 `;
 export const SubmitButton = styled.button`
@@ -114,7 +116,7 @@ export const InputforProjectDropDown = styled.input`
   &:focus-visible {
     outline: ${(props) => props.theme.colour.border.active};
   }
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 12px;
   }
 `;

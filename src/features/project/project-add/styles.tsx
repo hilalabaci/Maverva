@@ -28,14 +28,19 @@ export const Container = styled.div`
     sans-serif
   );
 
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 10px;
     margin: 0;
-    height: 30px;
+    height: 100vh;
+    width: fit-content;
   }
 `;
 export const GeneralWrapper = styled.form`
   padding: 40px 30px;
+  @media ${device.mobile} {
+    background: ${(props) => props.theme.colour.background.default};
+    height: 100vh;
+  }
 `;
 export const FielsetWrapper = styled.fieldset`
   display: flex;
@@ -45,30 +50,52 @@ export const FielsetWrapper = styled.fieldset`
   padding: 0;
 `;
 
-
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media ${device.mobile} {
+    flex-direction: column;
+    gap: 24px;
+  }
 `;
 export const WrapperChild = styled.div``;
 export const InfoTitle = styled.h2`
   box-sizing: border-box;
-  font-weight: 400;
+  font-weight: 500;
+  @media ${device.mobile} {
+    font-size: 20px;
+  }
 `;
 
-export const DetailTitle = styled.h3``;
+export const DetailTitle = styled.h3`
+  @media ${device.mobile} {
+    font-size: 14px;
+  }
+`;
 
 export const AddProjectWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3px;
 `;
-export const DetailsInfo = styled.div``;
+export const DetailsInfo = styled.div`
+  font-weight: 400;
+  color: ${(props) => props.theme.colour.text.subtitle};
+  @media ${device.mobile} {
+    font-size: 14px;
+  }
+`;
 export const DetailWrapper = styled.div`
   box-sizing: border-box;
   vertical-align: top;
+  font-size: 14px;
   max-width: 450px;
+
+  @media ${device.mobile} {
+    width: fit-content;
+    font-size: 14px;
+  }
 `;
 export const ProjectLeadWrapper = styled.div``;
 
@@ -83,7 +110,7 @@ export const Okicon = styled(CheckCircleIcon)`
     border: none;
     outline: none;
   }
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 18px !important;
   }
 `;

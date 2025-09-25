@@ -54,9 +54,8 @@ export const Container = styled.div`
     color: ${(props) => props.theme.memberMenuFontColor};
   }
  @media ${device.mobile} {
-    width: 200px;
     border-radius: 3px;
-    padding: 15px;
+    padding: 10px;
   }
 `;
 

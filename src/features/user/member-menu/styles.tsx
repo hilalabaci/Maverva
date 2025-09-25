@@ -18,11 +18,11 @@ export const Container = styled.div`
     0 4px 8px -2px rgba(9, 30, 66, 0.25),
     0 0 1px rgba(9, 30, 66, 0.31)
   );
- @media ${device.mobile} {
+  @media ${device.mobile} {
     width: 100px;
-    padding: 5px;
-    top: 52px;
-    right: -14px;
+    padding: 10px 15px;
+    top: -1px;
+    right: -19px;
   }
 `;
 export const Title = styled.div`
@@ -31,8 +31,8 @@ export const Title = styled.div`
   font-size: 12px;
   font-weight: 600;
   padding: 15px;
- @media ${device.mobile} {
-    font-size: 10px;
+  @media ${device.mobile} {
+    font-size: 14px;
   }
 `;
 export const Accountdetails = styled.div`
@@ -40,7 +40,7 @@ export const Accountdetails = styled.div`
   align-items: center;
   gap: 15px;
   padding: 15px;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     padding: 10px 0;
   }
 `;
@@ -55,14 +55,14 @@ export const MemberName = styled.div`
   font-size: 14px;
   font-weight: 600;
   line-height: 25px;
- @media ${device.mobile} {
-    font-size: 9px;
+  @media ${device.mobile} {
+    font-size: 14px;
   }
 `;
 export const MemberEmail = styled.div`
   font-size: 12px;
- @media ${device.mobile} {
-    font-size: 5px;
+  @media ${device.mobile} {
+    font-size: 12px;
   }
 `;
 type ButtonforThemePropsType = {
@@ -88,8 +88,8 @@ export const Options = styled.ul<ButtonforThemePropsType>`
     color: ${(props) => props.theme.colour.modal.text.hover};
     //border-left: ${(props) => props.theme.themeActiveBorder};
   }
- @media ${device.mobile} {
-    font-size: 10px;
+  @media ${device.mobile} {
+    font-size: 14px;
     padding: 10px 0;
   }
 `;
@@ -102,8 +102,8 @@ export const Logout = styled.div`
   &:hover {
     background-color: transparent;
   }
- @media ${device.mobile} {
-    font-size: 10px;
+  @media ${device.mobile} {
+    font-size: 14px;
     padding: 5px 0;
   }
 `;

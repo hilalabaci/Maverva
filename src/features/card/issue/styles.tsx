@@ -63,7 +63,6 @@ export const Container = styled.button`
  @media ${device.mobile} {
     padding: 15px;
     border-radius: 3px;
-    height: 60px;
   }
 `;
 export const ContentWrapper = styled.div`

@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
   padding-top: 5px;
   gap: 10px;
  @media ${device.mobile} {
-    padding-inline: 0;
+    padding-inline: 10px;
   }
 `;
 export const HeaderAndCreateWrapper = styled.div``;

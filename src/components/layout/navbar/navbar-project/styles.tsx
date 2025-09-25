@@ -32,6 +32,9 @@ export const NavbarContainer = styled.nav`
   flex-direction: row;
   align-items: center;
   gap: 20px;
+  @media ${device.mobile} {
+    gap: 5px;
+  }
 `;
 export const Presentation = styled.div`
   font-size: 15px;
@@ -65,7 +68,11 @@ export const ProjectsLink = styled(Link)`
 export const ProjectsSpan = styled(KeyboardArrowDownIcon)`
   font-size: 16px !important;
 `;
-export const CreateWrapper = styled.div``;
+export const CreateWrapper = styled.div`
+  @media ${device.mobile} {
+    //display: none;
+  }
+`;
 export const CreateButton = styled.button`
   cursor: pointer;
   display: flex;
@@ -96,14 +103,14 @@ export const BrandContainer = styled.a`
   font-size: 18px;
   line-height: 39px;
   /* identical to box height */
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 20px;
   }
 `;
 export const BrandLogo = styled(DashboardRoundedIcon)`
   font-size: 20px !important;
   margin: 0px 5px;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     width: 20px;
     height: 20px;
     margin: 0px 10px;

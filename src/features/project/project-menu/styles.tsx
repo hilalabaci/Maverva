@@ -13,7 +13,7 @@ export const Container = styled.div<CommonPropsType>`
   min-width: ${(props) => (props.$hidden ? "20px" : "240px")};
   height: 100vh;
   background-color: ${(props) => props.theme.BorderMenuBG};
- @media ${device.mobile} {
+  @media ${device.mobile} {
     width: ${(props) => (props.$hidden ? "20px" : "fit-content")};
   }
   &:hover {
@@ -44,7 +44,7 @@ export const AddProjectWrapper = styled.div<CommonPropsType>`
   justify-content: space-around;
   gap: 20px;
   color: ${(props) => props.theme.fontColour};
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 12px;
   }
 `;
@@ -80,13 +80,14 @@ export const UserInfo = styled.div<CommonPropsType>`
     props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"}; */
   //padding: ${(props) => (props.$hidden ? "0" : "0")};
   @media ${device.mobile} {
- 
-    }
+  }
 `;
 export const Title = styled.div`
   text-transform: uppercase;
   font-size: 12px;
   margin: 0 8px 0 8px;
+  @media ${device.mobile} {
+  }
 `;
 
 export const ProjectTitle = styled.span<CommonPropsType>`
@@ -94,8 +95,8 @@ export const ProjectTitle = styled.span<CommonPropsType>`
   font-size: 14px;
   font-weight: bold;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
- @media ${device.mobile} {
-    font-size: 12px;
+  @media ${device.mobile} {
+    font-size: 14px;
   }
 `;
 export const ProjectIcon = styled.div<CommonPropsType>`
