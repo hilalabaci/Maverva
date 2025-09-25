@@ -13,19 +13,23 @@ export const BaseButton = styled.button<actionButtonPropsType>`
     switch (size) {
       case "sm":
         return css`
-          padding: 8px 12px;
+          padding: 10px 80px;
           font-size: 14px;
+          height: 40px;
+          width: fit-content;
         `;
       case "lg":
         return css`
-          padding: 15px 0;
+          padding: 12px 0;
           font-size: 18px;
           width: 100%;
         `;
       default:
         return css`
-          padding: 8px 16px;
-          font-size: 16px;
+          padding: 10px 80px;
+          font-size: 14px;
+          height: 40px;
+          width: fit-content;
         `;
     }
   }}
@@ -63,17 +67,19 @@ export const BaseButton = styled.button<actionButtonPropsType>`
         `;
       case "warning":
         return css`
-          background: #fca700;
-          color: #172b4d;
+          background: ${theme.colour.primary.button.warning.background.default};
+          color: ${theme.colour.primary.button.warning.text};
           &:hover {
-            background-color: #ff8b00;
+            background: ${theme.colour.primary.button.warning.background.hover};
           }
           @media ${device.mobile} {
             &:active {
-              background-color: #ff8b00;
+              background: ${theme.colour.primary.button.warning.background
+                .hover};
             }
             &:focus {
-              background-color: #ff8b00;
+              background: ${theme.colour.primary.button.warning.background
+                .hover};
             }
           }
         `;
@@ -94,7 +100,6 @@ export const BaseButton = styled.button<actionButtonPropsType>`
   border: none;
   font-weight: 550;
   cursor: pointer;
-  height: 40px;
   @media ${device.mobile} {
     &:active {
     }

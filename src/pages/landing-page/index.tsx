@@ -63,11 +63,10 @@ function LandingPage() {
                     <ActionButton
                       onClick={() => setDisplaySign(true)}
                       children="Get Start"
-                      size="lg"
+                      size="sm"
                       fontSize="lg"
                       variant="warning"
-                      borderRadius="xl"
-                    />
+                      borderRadius="lg"                  />
                   </GetStartWrapper>
                   <GetStartGmailWrapper $hidden={!displaySign}>
                     <RegisterForm />

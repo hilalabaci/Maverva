@@ -174,17 +174,16 @@ export const WrapperParag = styled.div`
 `;
 
 export const TabTitle = styled.h2`
-  font-size: 2.47rem;
-  line-height: 1.243902439;
-  font-weight: 600;
-  color: ${(props) => props.theme.colour.fontColour2};
+  font-size: 3pc;
+  line-height: 56px;
+  font-weight: 700;
+  color: ${(props) => props.theme.colour.text.inverted};
   cursor: default;
-
   @media ${device.mobile} {
     padding: 0;
     font-size: 24px;
-    color: ${(props) => props.theme.colour.fontColour2};
-    font-weight: 600;
+    color: ${(props) => props.theme.colour.text.inverted};
+    font-weight: 700;
   }
   @media ${device.tablet} {
   }
@@ -248,7 +247,7 @@ type displayProps = {
 export const CollapseTitle = styled.h3<displayProps>`
   cursor: pointer;
   font-size: 34px;
-  font-weight: 800;
+  font-weight: 700;
   background: rgb(127 118 174 / 60%);
   background: ${(props) =>
     props.$display
@@ -286,12 +285,12 @@ export const CollapseText = styled.div<displayProps>`
   opacity: ${(props) => (props.$display ? "1" : "0")};
   flex-direction: column;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.7;
   transition: all 1s ease;
   cursor: default;
   padding: 10px 0;
-  color: ${(props) => props.theme.colour.fontColour2};
-
+  color: ${(props) => props.theme.colour.text.inverted};
+  font-weight: 500;
   @media ${device.mobile} {
     font-size: 16px;
     line-height: 1.5rem;
@@ -446,7 +445,7 @@ export const LoginText = styled.p`
   //padding: 20px 0;
   font-weight: 400;
   cursor: default;
-  text-align: center;
+  text-align: start;
 `;
 export const LoginLink = styled.a`
   color: #fca700;

@@ -3,17 +3,20 @@ import { device } from "../../../../styles/breakpoints";
 
 export const NavbarContainer = styled.header`
   position: fixed;
-  width: calc(100% - 40px);
+  width: calc(100% - 120px);
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 15px 20px;
+  padding: 15px 60px;
   background-color: #ffff;
   @media only screen and (max-width: 600px) {
   }
 `;
-export const BrandWrapper = styled.div``;
+export const BrandWrapper = styled.div`
+  flex-grow: 2;
+`;
 
 export const BrandContainer = styled.a`
   color: ${(props) => props.theme.memberMenuFontColor};
@@ -25,10 +28,10 @@ export const BrandContainer = styled.a`
   font-size: 27px;
   line-height: 39px;
   gap: 5px;
-  padding-inline-start: 150px;
+  padding-inline-start: 150px; 
   cursor: pointer;
   /* identical to box height */
- @media ${device.mobile} {
+  @media ${device.mobile} {
     padding: 0;
   }
 `;
@@ -37,7 +40,8 @@ export const NavbarSignWrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
- @media ${device.mobile} {
+  flex-grow: 1;
+  @media ${device.mobile} {
     display: none;
   }
 `;
@@ -50,13 +54,14 @@ export const ButtonForLogintonNavbar = styled.a`
   text-decoration: none;
   padding: 10px 20px;
   cursor: pointer;
-  outline: 1.5px solid #fca700;
-  border-radius: 5px;
+  //outline: 1.5px solid #fca700;
+  //border-radius:${(props) => props.theme.borderRadius.lg};
   transition: 750ms outline;
-  box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  //box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   &:hover {
     outline: 2px solid #ff8b00;
     transition: 150ms outline;
+    border-radius: ${(props) => props.theme.borderRadius.lg};
   }
 `;
 export const ButtonForGetStartonNavbar = styled.a`
@@ -64,7 +69,7 @@ export const ButtonForGetStartonNavbar = styled.a`
   outline: none;
   color: ${(props) => props.theme.primary};
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: ${(props) => props.theme.borderRadius.lg};
   font-size: 16px;
   font-weight: 500;
   color: #2f4156;
@@ -75,7 +80,7 @@ export const ButtonForGetStartonNavbar = styled.a`
   &:hover {
     background: #ff8b00;
   }
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 14px;
   }
 `;

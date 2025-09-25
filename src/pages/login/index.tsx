@@ -150,7 +150,7 @@ function Login() {
               />
             </>
           )}
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={loading} size="lg">
             {step === "email" ? "Continue" : "Log in"}
           </Button>
           <LineforGoogleWrapper>

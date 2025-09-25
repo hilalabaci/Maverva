@@ -24,7 +24,7 @@ export const InputContainer = styled.div<InputContainerProps>`
   padding-inline-start: 1.25rem;
   padding-inline-end: 1.25rem;
   border-radius: ${({ borderRadius, theme }) =>
-    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.sm}; 
+    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.lg}; 
   outline: none;
   box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
   font-size: 14px;

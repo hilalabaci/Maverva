@@ -17,10 +17,10 @@ function Navbar() {
         </BrandContainer>
       </BrandWrapper>
       <NavbarSignWrapper>
-        <ButtonForLogintonNavbar href="/login">Log in</ButtonForLogintonNavbar>
         <ButtonForGetStartonNavbar href="/signup">
           Get it free
         </ButtonForGetStartonNavbar>
+        <ButtonForLogintonNavbar href="/login">Log in</ButtonForLogintonNavbar>
       </NavbarSignWrapper>
     </NavbarContainer>
   );

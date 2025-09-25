@@ -8,8 +8,6 @@ export const GoogleSignWrapper = styled.div``;
 export const Button = styled.button<GoogleButtonProps>`
   border-radius: 3px;
   font-size: 1.1rem;
-  color: #172b4d;
-  background-color: #ffffff;
   padding-left: 0.75rem;
   padding-bottom: 0.5rem;
   padding-right: 0.75rem;
@@ -25,14 +23,21 @@ export const Button = styled.button<GoogleButtonProps>`
   width: 100%;
   box-sizing: border-box;
   width: 100%;
+  background-color: ${(props) =>
+    props.theme.colour.primary.button.secondary.background.default};
+
   border-radius: ${({ borderRadius, theme }) =>
-    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.sm};
+    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.lg};
+  &:hover{
+    background-color: ${(props) =>
+      props.theme.colour.primary.button.secondary.background.hover};
+  }
 `;
 export const Text = styled.span`
-  font-weight: 600;
-  color: #2f4156;
-  font-size: 14px;
- @media ${device.mobile} {
+  font-weight: 550;
+  color: ${(props) => props.theme.colour.text.inverted};
+  font-size: 16px;
+  @media ${device.mobile} {
     font-size: 14px;
   }
 `;

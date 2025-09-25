@@ -114,7 +114,7 @@ function RegisterForm() {
           size="lg"
           fontSize="md"
           variant="warning"
-          borderRadius="lg"
+          borderRadius="xl"
           type="submit"
         />
       </Form>

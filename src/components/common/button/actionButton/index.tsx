@@ -1,5 +1,6 @@
 import React from "react";
 import { BaseButton } from "./styles";
+import borderRadius from "../../../../theme/tokens/borderRadius";
 
 type actionButtonPropsType = {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -10,7 +11,7 @@ type actionButtonPropsType = {
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   fontSize?: "sm" | "md" | "lg";
-  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
+  borderRadius?: keyof typeof borderRadius;
 };
 
 function ActionButton({
