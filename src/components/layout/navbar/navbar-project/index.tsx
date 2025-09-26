@@ -30,6 +30,7 @@ import {
   getNotifications,
   markNotificationsReadApi,
 } from "../../../../api/notificationApi";
+import { useIsMobile } from "../../../../hooks/useIsMobile";
 type NavbarPropsType = {
   handleProjectCreate: (project: ProjectType) => void;
 };
@@ -37,6 +38,7 @@ type NavbarPropsType = {
 function Navbar(props: NavbarPropsType) {
   const { user, token } = useUserContext();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
   const [memberMenu, setMemberMenu] = useState(false);
@@ -60,8 +62,6 @@ function Navbar(props: NavbarPropsType) {
   function closeModal() {
     setShowModal(false);
   }
-  const isMobile = window.innerWidth <= 768;
-
   function toggleModal() {
     setShowModal(!showModal);
 
@@ -128,7 +128,7 @@ function Navbar(props: NavbarPropsType) {
       <NavbarContainer>
         <GlobalStyle />
         <BrandContainer>
-          <DynamicSVGBrand width="120" height="30" />
+          <DynamicSVGBrand width={isMobile ? "100" : "120"} height="30" />
         </BrandContainer>
         <Presentation>
           <ProjectsLink to="/projects" onClick={handleProjectsClick}>
