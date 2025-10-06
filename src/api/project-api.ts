@@ -1,5 +1,5 @@
-import { AddProjectResponse } from "../api-types/types";
-import { ProjectType, UserType } from "../types";
+import { AddProjectResponse } from "../types/auth.types";
+import { ProjectType, UserType } from "../types/user.types";
 import { apiCall } from "./api-client";
 
 export const createProjectKey = async (title: string, token: string) => {

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import Modal from "../../components/ui/Modal";
 import {
   CreateButton,
   CreateWrapper,
@@ -13,14 +12,15 @@ import ProjectAvatar from "../../features/user/project-avatar";
 import Toggle from "../../components/ui/Toggle";
 import MemberPhoto from "../../features/user/member-photo";
 import { HoverCardDemo } from "../../components/ui/HoverCard";
+
+import { useApplicationContext } from "../../contexts/ApplicationContext";
+import Modal from "../../components/ui/Modal";
+import { ProjectType } from "../../types/user.types";
 import {
-  deleteProject as deleteProjectApi,
   getProjects,
   updateProjectToFavourite,
+  deleteProject as deleteProjectApi,
 } from "../../api/project-api";
-import { useApplicationContext } from "../../contexts/ApplicationContext";
-import { ProjectType } from "../../types/user.types";
-
 import {
   Container,
   Header,

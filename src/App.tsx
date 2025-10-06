@@ -10,7 +10,6 @@ import {
 import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
-import Projects from "./pages/Projects";
 import DynamicContentLoader from "./pages/DynamicContentLoader";
 import LandingPage from "./pages/LandingPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -19,6 +18,7 @@ import { GlobalStyle } from "./styles/GlobalStyle";
 import VerifyCodePage from "./pages/auth/VerificationCodePage";
 import RecoveryLink from "./pages/auth/RecoveryLinkPage";
 import ResetPassword from "./pages/auth/ResetPasswordPage";
+import Projects from "./pages/ProjectsPage";
 
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
