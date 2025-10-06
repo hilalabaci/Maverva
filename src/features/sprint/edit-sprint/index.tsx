@@ -16,7 +16,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
-import { updateSprint } from "../../../api/sprintApi";
+import { updateSprint } from "../../../api/sprint-api";
 
 type FormDemoType = {
   onClose: () => void;

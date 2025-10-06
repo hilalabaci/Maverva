@@ -17,7 +17,7 @@ export const FormField = styled(Form.Field)`
   display: grid;
 `;
 export const FormLabelRequie = styled(Form.Label)`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};;
   color: ${(props) => props.theme.sideBarFontColour};
   font-weight: 700;
   line-height: 30px;
@@ -30,7 +30,7 @@ export const FormLabelRequie = styled(Form.Label)`
   }
 `;
 export const FormLabel = styled(Form.Label)`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};;
   color: ${(props) => props.theme.sideBarFontColour};
   font-weight: 700;
   line-height: 30px;
@@ -48,7 +48,7 @@ export const FormMessage = styled(Form.Message)`
   opacity: 0.8;
 `;
 export const InputForm = styled.input`
-  font-size: 14px !important;
+  font-size: ${(props) => props.theme.fontSize.default}!important;
   width: 200px;
   line-height: 1;
   all: unset;
@@ -156,7 +156,7 @@ export const ButtonForm = styled.button`
 `;
 
 export const InfoTitle = styled.p`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   color: ${(props) => props.theme.memberMenuFontColor};
   font-weight: 500;
   &::after {

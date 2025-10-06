@@ -16,20 +16,20 @@ import {
 } from "./styles";
 import MemberPhoto from "../../features/user/member-photo";
 import AddPerson from "../../features/addPerson";
-import Search from "../../components/common/search";
-import { ToolTip } from "../../components/common/toolstip";
+import Search from "../../components/ui/Search";
+import { ToolTip } from "../../components/ui/Toolstip";
 import { useLocation, useParams } from "react-router-dom";
-import Modal from "../../components/common/modal";
-import { ProjectType, UserType } from "../../types";
-import { getUserstoBoard } from "../../api/boardApi";
+import Modal from "../../components/ui/Modal";
+import { getUserstoBoard } from "../../api/board-api";
 import { useUserContext } from "../../contexts/UserContext";
 import { formatDate } from "../../utils/dateUtils";
 import { calculateDaysBetween } from "../../utils/calculateDays";
-import { DropdownMenu } from "../../components/common/dropdownMenu";
+import { DropdownMenu } from "../../components/ui/DropDownMenu";
 import OptionalBoardCreate from "../board/optional/create";
 import EditSprint from "../sprint/edit-sprint";
-import IconButton from "../../components/common/button/iconButton";
-import TextButton from "../../components/common/button/textButton";
+import IconButton from "../../components/ui/Button/IconButton";
+import TextButton from "../../components/ui/Button/TextButton";
+import { ProjectType, UserType } from "../../types/user.types";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;

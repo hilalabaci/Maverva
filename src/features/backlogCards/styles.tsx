@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import AddIcon from "@mui/icons-material/Add";
-import { IssueStatus } from "../../types";
 import { device } from "../../styles/breakpoints";
+import { IssueStatus } from "../../types/user.types";
 
 type FormProps = { $selected: boolean };
 export const Container = styled.div`
@@ -27,11 +27,11 @@ export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
 export const HeaderTitle = styled.div`
   color: ${(props) => props.theme.memberMenuFontColor};
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;
 export const HeaderIssue = styled.div`
   color: ${(props) => props.theme.searchPlaceHolderFontColour};
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   text-align: center;
   margin-left: 8px;
 `;
@@ -84,7 +84,7 @@ export const HeaderButton = styled.button`
     props.theme.colour.primary.button.secondary.background.default};
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   border-radius: 3px;
   font-weight: 500;
   text-align: center;
@@ -115,7 +115,7 @@ export const DisplayCreateWrapper = styled.div`
   outline: none;
   background-color: transparent;
   width: 100%;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   cursor: pointer;
   &:hover {
     background-color: ${(props) =>
@@ -130,7 +130,7 @@ export const CreateButtonWrapper = styled.button`
   outline: none;
   background-color: transparent;
   width: 100%;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   gap: 5px;
   margin-top: 5px;
   color: ${(props) => props.theme.colour.text.inverted};
@@ -143,7 +143,7 @@ export const CreateButtonWrapper = styled.button`
 export const CreateIssueButton = styled.span`
   color: ${(props) => props.theme.colour.text.inverted};
   font-weight: 500;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   display: flex;
   align-items: center;
 `;
@@ -163,7 +163,7 @@ export const TextCreate = styled.input`
   outline: none;
   border: none;
   background-color: transparent;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   width: 100%;
 `;
 type CommonPropsType = {
@@ -198,8 +198,8 @@ export const EditSprintButton = styled.button`
       props.theme.colour.primary.button.secondary.background.default};
     background-color: yellow;
   }
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
     opacity: 1;
   }
 `;
@@ -209,8 +209,8 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
   display: flex;
   justify-content: flex-end;
   color: ${(props) => props.theme.colour.primary.button.secondary.text.default};
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
   }
 `;
 export const CheckboxWrapper = styled.div`

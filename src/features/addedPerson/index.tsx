@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, SubmitButton } from "../addPerson/styles";
 import {
   GenerelWrapper,

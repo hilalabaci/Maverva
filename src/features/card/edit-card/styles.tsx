@@ -30,7 +30,7 @@ export const Wrapper = styled.div`
   }
 `;
 export const Title = styled.span`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;
 
 export const IconMove = styled(TrendingFlatIcon)`

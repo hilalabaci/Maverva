@@ -1,4 +1,4 @@
-import { WelcomeTexts } from "../../../constants/welcomeTexts";
+import { WelcomeTexts } from "../../../constants/welcome-page-contents";
 import {
   BrandInfo,
   Brandlogo,
@@ -9,12 +9,13 @@ import {
   LinkWrapper,
   CopyRigtWrapper,
 } from "./styles";
+import logoBrand from "../../../assets/logo/logo32.ico";
 
 function Footer() {
   return (
     <FooterContainer>
       <BrandInfo>
-        <Brandlogo src="/logo/logo32.ico" />
+        <Brandlogo src={logoBrand} />
         Manage all your projects in one place
       </BrandInfo>
       <LinkWrapper>

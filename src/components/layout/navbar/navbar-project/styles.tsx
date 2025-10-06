@@ -52,7 +52,7 @@ export const ProjectsLink = styled(Link)`
   color: ${(props) => props.theme.colour.text.primary};
   //background-color: ${(props) => props.theme.colour.background.default};
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   border-radius: 3px;
   padding: 9px 5px;
   text-decoration: none;

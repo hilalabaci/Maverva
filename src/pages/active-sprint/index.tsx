@@ -23,12 +23,12 @@ import { IssueType, ColumnType, SprintType } from "../../types";
 import NumberOfCards from "../../features/card/number-cards";
 import { ButtomWrapper } from "../../features/card/issue/styles";
 import { NextButton } from "../../features/board/optional/styles";
-import { DropdownMenu } from "../../components/common/dropdownMenu";
+import { DropdownMenu } from "../../components/ui/DropDownMenu";
 import {
   getColumns,
   deleteColumn as deleteColumnApi,
   addColumn,
-} from "../../api/columnApi";
+} from "../../api/column-api";
 import { useUserContext } from "../../contexts/UserContext";
 
 type URLParams = {

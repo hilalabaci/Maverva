@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   align-items: center;
   padding: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   outline: none;
   gap: 10px;

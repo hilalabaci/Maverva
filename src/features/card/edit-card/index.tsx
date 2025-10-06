@@ -12,7 +12,7 @@ import {
 } from "./styles";
 import EditLabel from "./edit-label";
 import { IssueType, LabelType } from "../../../types";
-import { DropdownMenu } from "../../../components/common/dropdownMenu";
+import { DropdownMenu } from "../../../components/ui/DropDownMenu";
 
 type EditCardProps = {
   onUpdate: (card: IssueType) => void;

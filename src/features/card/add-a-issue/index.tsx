@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IssueType } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import { Container, Textarea } from "./styles";
-import { addIssue } from "../../../api/issueApi";
+import { addIssue } from "../../../api/issue-api";
 import { useParams } from "react-router-dom";
 
 type AddIssuePropsType = {

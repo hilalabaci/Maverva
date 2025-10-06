@@ -4,14 +4,14 @@ import { useUserContext } from "../../../contexts/UserContext";
 import Label from "../card-label/index";
 import MemberPhoto from "../../user/member-photo";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import { ToolTip } from "../../../components/common/toolstip";
-import { DropdownMenu } from "../../../components/common/dropdownMenu";
+import { ToolTip } from "../../../components/ui/Toolstip";
+import { DropdownMenu } from "../../../components/ui/DropDownMenu";
 import {
   IssueStatus,
   IssueType,
   DragDropCollect,
   DragItem,
-} from "../../../types";
+} from "../../../types/user.types";
 import {
   Container,
   NoteWrapper,
@@ -34,7 +34,7 @@ import {
   deleteIssue,
   updateIssue,
   updateIssueContent,
-} from "../../../api/issueApi";
+} from "../../../api/issue-api";
 type IssueProps = {
   issue: IssueType;
   onUpdate: (card: IssueType) => void;

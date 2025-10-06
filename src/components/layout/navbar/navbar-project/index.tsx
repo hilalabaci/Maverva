@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../../common/modal";
+import Modal from "../../../ui/Modal";
 import { useUserContext } from "../../../../contexts/UserContext";
 import { ProjectType, NotificationType } from "../../../../types";
 import OptionalBoardCreate from "../../../../features/board/optional/create";
 import Notification from "../../../../features/notification";
 import MemberButton from "../../../../features/user/member-button";
-import DynamicSVGBrand from "../../../ DynamicSVG/LogoSVG";
+import DynamicSVGBrand from "../../../../assets/icons/logo-svg";
 import {
   BrandContainer,
   HeaderContainer,
@@ -29,8 +29,8 @@ import {
 import {
   getNotifications,
   markNotificationsReadApi,
-} from "../../../../api/notificationApi";
-import { useIsMobile } from "../../../../hooks/useIsMobile";
+} from "../../../../api/notification-api";
+import { useIsMobile } from "../../../../hooks/useBreakpoint";
 type NavbarPropsType = {
   handleProjectCreate: (project: ProjectType) => void;
 };

@@ -11,7 +11,7 @@ export const Container = styled.form`
   border-radius: 3px;
   padding: 8px 4px;
   border: ${(props) => props.theme.activeBorder};
- @media ${device.mobile} {
+  @media ${device.mobile} {
     border-radius: 3px;
     padding: 10px;
     height: 70px;
@@ -26,28 +26,28 @@ export const Textarea = styled.input`
   opacity: 0.7;
   text-align: left;
   resize: none;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   padding: 10px 5px;
   border-radius: 3px;
   &::placeholder {
     color: ${(props) => props.theme.colour.text.surface};
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
- @media ${device.mobile} {
-    font-size: 12px;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle};
   }
 `;
 export const ButtonWrapper = styled.form`
   display: flex;
   justify-content: flex-end;
   align-items: center;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     margin-top: 10px;
   }
 `;
 export const Button = styled.button`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   font-weight: bold;
   background-color: #579dff;
   border: none;
@@ -58,8 +58,8 @@ export const Button = styled.button`
   &:hover {
     background-color: #a8ccff;
   }
- @media ${device.mobile} {
-    font-size: 12px;
+  @media ${device.mobile} {
+     font-size: ${(props) => props.theme.fontSize.subtitle};
     padding: 4px;
   }
 `;

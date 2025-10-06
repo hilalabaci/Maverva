@@ -44,7 +44,7 @@ export const ModalEditWrapper = styled.div`
   padding: 2pc 2pc 1pc 2pc;
 `;
 export const IssueInfo = styled.div`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   color: ${(props) => props.theme.colour.text.link};
   font-weight: 500;
 `;
@@ -135,7 +135,7 @@ export const DescriptionText = styled.div`
   border-radius: 3px;
   padding: 10px 2px;
   margin: 0;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.colour.background.surface};
@@ -149,7 +149,7 @@ export const DescriptionTextEditer = styled.textarea`
   resize: none;
   outline: none;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   width: 100%;
   margin: 0;
   padding: 0;
@@ -177,7 +177,7 @@ export const LabelWrapper = styled.div`
   color: ${(props) => props.theme.colour.text.inverted};
   font-weight: 500;
   flex: 1;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;
 export const DataWrapper = styled.div`
   color: ${(props) => props.theme.colour.text.primary};
@@ -186,5 +186,5 @@ export const DataWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;

@@ -7,13 +7,13 @@ import {
   DragDropCollect,
   UserType,
   DragItem,
-} from "../../types";
+} from "../../types/user.types";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { getStatusLabel } from "../../utils/getStatus";
-import CheckBox from "../../components/forms/checkBoxComponent";
-import { ToolTip } from "../../components/common/toolstip";
-import SelectDemo from "../../components/common/selectDemo";
-import { DropdownMenu } from "../../components/common/dropdownMenu";
+import CheckBox from "../../components/forms/checkbox-component";
+import { ToolTip } from "../../components/ui/Toolstip";
+import SelectDemo from "../../components/ui/SelectDemo";
+import { DropdownMenu } from "../../components/ui/DropDownMenu";
 import {
   BacklogCardListItems,
   CheckboxWrapper,
@@ -35,7 +35,7 @@ import {
   deleteIssue,
   updateIssue,
   updateIssueContent,
-} from "../../api/issueApi";
+} from "../../api/issue-api";
 import { tokenKey, useUserContext } from "../../contexts/UserContext";
 
 type BacklogCardPropsType = {

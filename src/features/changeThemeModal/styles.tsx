@@ -16,7 +16,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   width: 170px;
   gap: 10px;
   padding: 1px;
@@ -55,7 +55,7 @@ export const Wrapper = styled.button<WrapperPropsType>`
         : props.theme.colour.text.primary};
   }
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 

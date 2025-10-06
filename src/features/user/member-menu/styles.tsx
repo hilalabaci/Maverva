@@ -28,11 +28,11 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};;
   font-weight: 600;
   padding: 15px;
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 export const Accountdetails = styled.div`
@@ -52,17 +52,17 @@ export const Memberinfo = styled.div`
 `;
 export const MemberName = styled.div`
   text-transform: capitalize;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 600;
   line-height: 25px;
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 export const MemberEmail = styled.div`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};;
   @media ${device.mobile} {
-    font-size: 12px;
+    font-size: ${(props) => props.theme.fontSize.subtitle};;
   }
 `;
 type ButtonforThemePropsType = {
@@ -71,7 +71,7 @@ type ButtonforThemePropsType = {
 export const Options = styled.ul<ButtonforThemePropsType>`
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   padding: 15px;
   vertical-align: center;
@@ -89,12 +89,12 @@ export const Options = styled.ul<ButtonforThemePropsType>`
     //border-left: ${(props) => props.theme.themeActiveBorder};
   }
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
     padding: 10px 0;
   }
 `;
 export const Logout = styled.div`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@ export const Logout = styled.div`
     background-color: transparent;
   }
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
     padding: 5px 0;
   }
 `;
@@ -118,7 +118,7 @@ export const ButtonforTheme = styled.button`
   padding: 0;
   color: ${(props) => props.theme.colour.text.inverted};
   background-color: transparent;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   flex: 1;
   cursor: pointer;

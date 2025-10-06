@@ -1,23 +1,28 @@
 import { useCallback, useEffect, useState, useRef } from "react";
 import TopMenu from "../../features/top-menu";
-import { ProjectType, IssueType, SprintType, IssueStatus } from "../../types";
-import Layout from "../templates/layout";
+import {
+  ProjectType,
+  IssueType,
+  SprintType,
+  IssueStatus,
+} from "../../types/user.types";
+import Layout from "../../components/layout/templates/layout";
 import { useLocation, useParams } from "react-router-dom";
-import MainContainerLayout from "../templates/mainContainerLayout";
+import MainContainerLayout from "../../components/layout/templates/mainContainerLayout";
 import {
   ActiveSprintWrapper,
   BacklogWrapper,
   Main,
   MainContainer,
 } from "./styles";
-import Backlog from "../backlog";
-import Scroll from "../../components/common/scroll";
+import Scroll from "../../components/ui/Scroll";
 import ActiveSprint from "../active-sprint";
 import { useUserContext } from "../../contexts/UserContext";
-import { getSelectedProject } from "../../api/projectApi";
-import { getActiveSprint } from "../../api/sprintApi";
+import { getSelectedProject } from "../../api/project-api";
+import { getActiveSprint } from "../../api/sprint-api";
 import { useApplicationContext } from "../../contexts/ApplicationContext";
-import { updateIssueContent } from "../../api/issueApi";
+import { updateIssueContent } from "../../api/issue-api";
+import Backlog from "../Backlog";
 type URLParams = {
   projectKey: string;
   boardId?: string;

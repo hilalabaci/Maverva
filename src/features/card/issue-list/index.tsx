@@ -12,9 +12,9 @@ import {
 } from "./styles";
 import { IssueType } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import { updateIssue } from "../../../api/issueApi";
+import { updateIssue } from "../../../api/issue-api";
 import IssueDetails from "../issue-details";
-import Modal from "../../../components/common/modal";
+import Modal from "../../../components/ui/Modal";
 import { useUserContext } from "../../../contexts/UserContext";
 interface IssueListProps {
   issues: IssueType[];

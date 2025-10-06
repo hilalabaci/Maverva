@@ -1,10 +1,26 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import Layout from "../templates/layout";
-import Modal from "../../components/common/modal";
+import Modal from "../../components/ui/Modal";
 import {
   CreateButton,
   CreateWrapper,
 } from "../../components/layout/navbar/navbar-project/styles";
+import Search from "../../components/ui/Search";
+import { useUserContext } from "../../contexts/UserContext";
+import { DropdownMenu } from "../../components/ui/DropDownMenu/index";
+import CloseProjectMenu from "../../features/project/close-project-menu";
+import ProjectCreate from "../../features/project/project-add/create";
+import ProjectAvatar from "../../features/user/project-avatar";
+import Toggle from "../../components/ui/Toggle";
+import MemberPhoto from "../../features/user/member-photo";
+import { HoverCardDemo } from "../../components/ui/HoverCard";
+import {
+  deleteProject as deleteProjectApi,
+  getProjects,
+  updateProjectToFavourite,
+} from "../../api/project-api";
+import { useApplicationContext } from "../../contexts/ApplicationContext";
+import { ProjectType } from "../../types/user.types";
+
 import {
   Container,
   Header,
@@ -30,22 +46,7 @@ import {
   FilledIconFav,
   FavIconTable,
 } from "./styles";
-import Search from "../../components/common/search";
-import { useUserContext } from "../../contexts/UserContext";
-import { ProjectType } from "../../types";
-import { DropdownMenu } from "../../components/common/dropdownMenu/index";
-import CloseProjectMenu from "../../features/project/close-project-menu";
-import ProjectCreate from "../../features/project/project-add/create";
-import ProjectAvatar from "../../features/user/project-avatar";
-import Toggle from "../../components/common/toggle";
-import MemberPhoto from "../../features/user/member-photo";
-import { HoverCardDemo } from "../../components/common/hoverCard";
-import {
-  deleteProject as deleteProjectApi,
-  getProjects,
-  updateProjectToFavourite,
-} from "../../api/projectApi";
-import { useApplicationContext } from "../../contexts/ApplicationContext";
+import Layout from "../../components/layout/templates/layout";
 
 function Projects() {
   const { user, token } = useUserContext();

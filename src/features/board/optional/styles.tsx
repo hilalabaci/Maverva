@@ -24,7 +24,7 @@ export const Details = styled.div`
   font-size: 13px;
 `;
 export const NextButton = styled.button`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 550;
   padding: 9px;
   background-color: ${(props) =>
@@ -47,7 +47,7 @@ export const BackButton = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   padding: 9px;
   border-radius: 2px;
   padding: 9px;
@@ -62,7 +62,7 @@ export const CancelButton = styled.button`
     props.theme.colour.primary.button.secondary.background.default};
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   border-radius: 3px;
   padding: 9px;
   margin: 0 20px 0 0;

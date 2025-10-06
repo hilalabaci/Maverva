@@ -45,7 +45,7 @@ export const AddProjectWrapper = styled.div<CommonPropsType>`
   gap: 20px;
   color: ${(props) => props.theme.fontColour};
   @media ${device.mobile} {
-    font-size: 12px;
+    font-size: ${(props) => props.theme.fontSize.subtitle};
   }
 `;
 export const SideBarItem = styled.div`
@@ -84,7 +84,7 @@ export const UserInfo = styled.div<CommonPropsType>`
 `;
 export const Title = styled.div`
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   margin: 0 8px 0 8px;
   @media ${device.mobile} {
   }
@@ -92,11 +92,11 @@ export const Title = styled.div`
 
 export const ProjectTitle = styled.span<CommonPropsType>`
   color: ${(props) => props.theme.fontColour};
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: bold;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 export const ProjectIcon = styled.div<CommonPropsType>`
@@ -116,7 +116,7 @@ export const ProjectIcon = styled.div<CommonPropsType>`
 `;
 
 export const SelectedBoard = styled.span`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   color: ${(props) => props.theme.colour.text.link};
   font-weight: 400;
 `;
@@ -195,7 +195,7 @@ export const CreateBoardinBoards = styled.button`
   align-items: center;
   gap: 10px;
   padding: 10px 10px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   &:hover {
     cursor: pointer;
     background-color: ${(props) =>
@@ -266,7 +266,7 @@ export const SideBarElementWrapper = styled.span<{ selected: boolean }>`
   color: ${(props) => props.theme.sideBarFontColour};
   display: flex;
   gap: 15px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   padding: 8px 8px 8px 14px;
   align-items: center;

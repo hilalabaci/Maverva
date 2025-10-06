@@ -70,7 +70,7 @@ export const InfoTitle = styled.h2`
 
 export const DetailTitle = styled.h3`
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 
@@ -83,18 +83,18 @@ export const DetailsInfo = styled.div`
   font-weight: 400;
   color: ${(props) => props.theme.colour.text.subtitle};
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 export const DetailWrapper = styled.div`
   box-sizing: border-box;
   vertical-align: top;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   max-width: 450px;
 
   @media ${device.mobile} {
     width: fit-content;
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 export const ProjectLeadWrapper = styled.div``;
@@ -126,7 +126,7 @@ export interface SubmitButtonStyledButton {
   $isFilled?: boolean;
 }
 export const SubmitButton = styled.button<SubmitButtonStyledButton>`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   padding: 9px;
   background-color: ${(props) =>
     props.$isFilled

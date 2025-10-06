@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import AddedPerson from "../addedPerson";
-import { BoardType, ApiError } from "../../types";
+import { BoardType, ApiError } from "../../types/user.types";
 import { useUserContext } from "../../contexts/UserContext";
-import { DropdownSelectMenu } from "../../components/common/select";
-import Modal from "../../components/common/modal";
-import InputRectangle from "../../components/common/input/rectangle";
+import { DropdownSelectMenu } from "../../components/ui/Select";
+import Modal from "../../components/ui/Modal";
+import InputRectangle from "../../components/ui/Input/rectangle";
 import {
   ButtonWrapper,
   Container,
@@ -23,7 +23,7 @@ import {
   TitleforProject,
   RoleWrapper,
 } from "./styles";
-import { addUsertoBoard, getBoards } from "../../api/boardApi";
+import { addUsertoBoard, getBoards } from "../../api/board-api";
 import { useParams } from "react-router-dom";
 type AddPersonPropsType = {
   projectTitle: string;

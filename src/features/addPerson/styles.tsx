@@ -65,7 +65,7 @@ export const CancelButton = styled.button`
   background-color: ${(props) => props.theme.colour.modal.background.default};
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   border-radius: 2px;
   padding: 9px;
   cursor: pointer;
@@ -73,11 +73,11 @@ export const CancelButton = styled.button`
     background-color: ${(props) => props.theme.colour.modal.background.hover};
   }
   @media ${device.mobile} {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
 export const SubmitButton = styled.button`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   padding: 9px;
   background-color: ${(props) =>
     props.theme.colour.primary.button.primary.background.default};
@@ -92,7 +92,7 @@ export const SubmitButton = styled.button`
   }
 `;
 export const WarningMessage = styled.span`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   color: #c9372c;
   font-weight: 500;
 `;
@@ -106,7 +106,7 @@ export const IconDown = styled(KeyboardArrowDownOutlinedIcon)`
   font-weight: 700 !important;
 `;
 export const InputforProjectDropDown = styled.input`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 14px;
   background-color: transparent;
   border: none;
@@ -117,12 +117,12 @@ export const InputforProjectDropDown = styled.input`
     outline: ${(props) => props.theme.colour.border.active};
   }
   @media ${device.mobile} {
-    font-size: 12px;
+    font-size: ${(props) => props.theme.fontSize.subtitle};
   }
 `;
 export const InputWrapperwithIcon = styled.div`
   height: 20px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   background-color: ${(props) => props.theme.colour.modal.background.default};
   border: none;
   outline: ${(props) => props.theme.colour.modal.border.default};
@@ -134,7 +134,7 @@ export const InputWrapperwithIcon = styled.div`
   align-items: center;
 `;
 export const TitleforProject = styled.label`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   font-weight: 600;
   color: ${(props) => props.theme.fontColourSoft};
   &::after {

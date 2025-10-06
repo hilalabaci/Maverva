@@ -2,13 +2,13 @@ import { DndProvider } from "react-dnd";
 import { useRef } from "react";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BacklogCards from "../../features/backlogCards";
-import { Container } from "./styles";
 import { useCallback, useEffect, useState } from "react";
-import { IssueType, SprintType } from "../../types";
-import { addSprint, getSprints } from "../../api/sprintApi";
+import { addSprint, getSprints } from "../../api/sprint-api";
 import { useParams } from "react-router-dom";
 import Sprint from "../../features/sprint";
 import { useUserContext } from "../../contexts/UserContext";
+import { Container } from "./styles";
+import { IssueType, SprintType } from "../../types/user.types";
 
 type URLParams = {
   boardId?: string;

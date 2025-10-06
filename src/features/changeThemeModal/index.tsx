@@ -1,5 +1,7 @@
 import { Container, Wrapper, ImgforTheme } from "./styles";
 import { useTheme } from "../../contexts/ThemeContext";
+import lightThemeImg from "../../assets/images/lightTheme.png";
+import darkThemeImg from "../../assets/images/darkTheme.png";
 
 function ChangeThemeModal() {
   const { changeMode, mode, theme } = useTheme();
@@ -16,11 +18,11 @@ function ChangeThemeModal() {
   return (
     <Container color={theme.colour}>
       <Wrapper onClick={HandlerChangeLight} active={mode === "light"}>
-        <ImgforTheme src="/icons/ligt.png" />
+        <ImgforTheme src={lightThemeImg} />
         Light
       </Wrapper>
       <Wrapper onClick={HandlerChangeDark} active={mode === "dark"}>
-        <ImgforTheme src="/icons/dark.png" />
+        <ImgforTheme src={darkThemeImg} />
         Dark
       </Wrapper>
     </Container>

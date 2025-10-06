@@ -7,9 +7,9 @@ import ProjectAvatar from "../../../features/user/project-avatar";
 import { useLocation, useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";
-import CollapsibleDemo from "../../../components/common/collapsible";
-import Scroll from "../../../components/common/scroll";
-import Modal from "../../../components/common/modal";
+import CollapsibleDemo from "../../../components/ui/Collapsible";
+import Scroll from "../../../components/ui/Scroll";
+import Modal from "../../../components/ui/Modal";
 import { BoardType, ProjectType } from "../../../types";
 import {
   Container,
@@ -39,7 +39,7 @@ import {
   CreateBoardinBoards,
   IconPlus,
 } from "./styles";
-import { getBoards } from "../../../api/boardApi";
+import { getBoards } from "../../../api/board-api";
 
 type ProjectMenuPropsType = {
   ProjectTitleProps: string;

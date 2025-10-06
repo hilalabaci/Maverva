@@ -23,8 +23,8 @@ import {
 import {
   addProject,
   createProjectKey as createProjectKeyApi,
-} from "../../../api/projectApi";
-import InputRectangle from "../../../components/common/input/rectangle";
+} from "../../../api/project-api";
+import InputRectangle from "../../../components/ui/Input/rectangle";
 
 type ProjectCreatePropsType = {
   onCreate: (project: ProjectType) => void;

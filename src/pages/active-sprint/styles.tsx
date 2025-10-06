@@ -29,7 +29,7 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
  @media ${device.mobile} {
-    font-size: 12px !important;
+    font-size: ${(props) => props.theme.fontSize.subtitle}; !important;
     opacity: 1;
   }
 `;
@@ -62,7 +62,7 @@ export const TitleTotalCardWrapper = styled.div`
 export const Title = styled.h1`
   font-style: normal;
   font-weight: 600;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};;
   line-height: 29px;
   color: ${(props) => props.theme.searchPlaceHolderFontColour};
   margin-left: 10px;
@@ -89,7 +89,7 @@ export const AddColumnTitle = styled.input`
   color: ${(props) => props.theme.colour.text.primary};
   text-align: left;
   &::placeholder {
-    font-size: 14px;
+    font-size: ${(props) => props.theme.fontSize.default};
     text-align: left;
   }
 `;

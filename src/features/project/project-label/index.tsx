@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../../../common/modal";
+import Modal from "../../../ui/modal";
 import { Label, Wrapper, EditIcon } from "./styles";
 import CloseProjectMenu from "../close-project-menu";
 

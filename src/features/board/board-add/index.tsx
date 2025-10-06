@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { BoardType, ProjectType } from "../../../types";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";
 import { useUserContext } from "../../../contexts/UserContext";
-import { DropdownSelectMenu } from "../../../components/common/select";
+import { DropdownSelectMenu } from "../../../components/ui/Select";
 import {
   Container,
   GeneralWrapper,
@@ -27,9 +27,9 @@ import {
   InputforProjectDropDown,
   SubmitButton,
 } from "./styles";
-import { addBoard, getBoards } from "../../../api/boardApi";
-import { getProjects } from "../../../api/projectApi";
-import InputRectangle from "../../../components/common/input/rectangle";
+import { addBoard, getBoards } from "../../../api/board-api";
+import { getProjects } from "../../../api/project-api";
+import InputRectangle from "../../../components/ui/Input/rectangle";
 type BoardCreatePropsType = {
   onCreate: (project: BoardType) => void;
   BackButton: () => void;

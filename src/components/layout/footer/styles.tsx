@@ -22,7 +22,7 @@ export const FooterContainer = styled.footer`
 export const BrandInfo = styled.div`
   font-weight: 850;
   color: #2f4156;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   display: flex;
   gap: 7px;
   justify-content: center;
@@ -33,7 +33,7 @@ export const BrandInfo = styled.div`
   }
 `;
 export const LinkWrapper = styled.div`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   color: rgba(81, 75, 129);
   display: flex;
   justify-content: center;
@@ -54,7 +54,7 @@ export const CopyRigtWrapper = styled.p`
   justify-content: center;
   align-items: center;
   gap: 4px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   color: #505258;
   margin: 0;
   cursor: pointer;
@@ -67,7 +67,7 @@ export const LinkItem = styled.a`
   justify-content: center;
   align-items: center;
   gap: 4px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   cursor: pointer;
   @media ${device.mobile} {
     font-weight: 500;

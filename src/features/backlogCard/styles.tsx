@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import DoneIcon from "@mui/icons-material/Done";
-import { IssueStatus } from "../../types";
+import { IssueStatus } from "../../types/user.types";
 import { device } from "../../styles/breakpoints";
 
 export const BacklogCardListItems = styled.div`
@@ -30,7 +30,7 @@ export const CheckboxWrapper = styled.div`
 export const CardKey = styled.div`
   justify-self: start;
   align-self: center;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   color: ${(props) => props.theme.colour.text.inverted};
   cursor: pointer;
   font-weight: 600;
@@ -47,7 +47,7 @@ export const ContentWrapper = styled.div`
 export const Content = styled.div`
   max-width: 570px;
   justify-items: stretch;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   display: flex;
   align-items: center;
   color: ${(props) => props.theme.colour.text.inverted};
@@ -59,7 +59,7 @@ export const ContentText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;
 
 export const NoteEdit = styled.button`
@@ -75,7 +75,7 @@ export const IconEdit = styled(EditIcon)`
   align-self: center;
   align-content: center;
   padding: 5px 10px;
-  font-size: 14px !important;
+  font-size: ${(props) => props.theme.fontSize.default}!important;
   margin: 0 5px;
   opacity: 0;
   border-radius: 3px;
@@ -88,8 +88,8 @@ export const IconEdit = styled(EditIcon)`
     opacity: 1;
   }
 
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
     opacity: 1;
   }
 `;
@@ -151,7 +151,7 @@ export const Status = styled.div<StatusPropsType>`
     handleColorType($status, theme).default.color};
   text-transform: uppercase;
   border-radius: 3px;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   padding: 3px;
   font-weight: 700;
   cursor: pointer;
@@ -185,8 +185,8 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
     background-color: ${(props) =>
       props.theme.colour.primary.button.secondary.background.hover};
   }
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
     opacity: 1;
   }
 `;
@@ -229,5 +229,5 @@ export const DoneButton = styled.button`
   }
 `;
 export const IconDone = styled(DoneIcon)`
-  font-size: 14px !important;
+  font-size: ${(props) => props.theme.fontSize.default}!important;
 `;

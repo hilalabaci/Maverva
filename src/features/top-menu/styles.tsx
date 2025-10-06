@@ -19,7 +19,7 @@ export const Container = styled.div`
 `;
 export const PathInfo = styled.nav`
   color: #44546f;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;
 export const PathList = styled.ol`
   list-style-type: none;
@@ -27,7 +27,7 @@ export const PathList = styled.ol`
   margin-left: 0;
   display: flex;
   color: #44546f;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   padding: 10px 0 0;
   @media ${device.mobile} {
         flex-wrap: wrap;
@@ -164,7 +164,7 @@ export const SprintTime = styled.div`
   display: flex;
   align-items: center;
   gap: 3px;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};;
   font-weight: 450;
 `;
 export const TimeIcon = styled(AccessTimeIcon)`

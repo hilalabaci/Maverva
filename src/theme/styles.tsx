@@ -34,7 +34,7 @@
 //   gap: 6px;
 // `;
 // export const LabelTitle = styled.label`
-//   font-size: 12px;
+//   font-size: ${(props) => props.theme.fontSize.subtitle};;
 //   color: rgba(136, 151, 165, 255);
 // `;
 // export const MailInput = styled.input`
@@ -76,7 +76,7 @@
 //   background-color:transparent;
 //   border: none;
 //   outline: none;
-//   font-size: 14px;
+//   font-size: ${(props) => props.theme.fontSize.default};
 //   padding: 5px;
 //   border-radius: 2px;
 //   padding: 9px;
@@ -85,7 +85,7 @@
 //   }
 // `;
 // export const SubmitButton = &:hover
-//   font-size: 14px;
+//   font-size: ${(props) => props.theme.fontSize.default};
 //   padding: 9px;
 //   background-color: #579dff;
 //   outline: none;
@@ -96,7 +96,7 @@
 //   }
 // `;
 // export const WarningMessage = styled.span`
-//   font-size: 12px;
+//   font-size: ${(props) => props.theme.fontSize.subtitle};;
 //   color: #c9372c;
 //   font-weight: 500;
 // `;

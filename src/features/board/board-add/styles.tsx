@@ -31,7 +31,7 @@ export const Container = styled.div`
     sans-serif
   );
 
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 10px;
     margin: 0;
     height: 30px;
@@ -51,7 +51,7 @@ export const FielsetWrapper = styled.fieldset`
 export const WrapperforText = styled.div``;
 export const InputWrapperwithIcon = styled.div`
   height: 20px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   background-color: ${(props) => props.theme.colour.modal.background.default};
   width: 250px;
   border: none;
@@ -64,7 +64,7 @@ export const InputWrapperwithIcon = styled.div`
   align-items: center;
 `;
 export const InputforProjectDropDown = styled.input`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 14px;
   background-color: transparent;
   border: none;
@@ -74,8 +74,8 @@ export const InputforProjectDropDown = styled.input`
   &:focus-visible {
     outline: ${(props) => props.theme.colour.border.active};
   }
- @media ${device.mobile} {
-    font-size: 12px;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle};
   }
 `;
 export const IconDown = styled(KeyboardArrowDownOutlinedIcon)`
@@ -95,7 +95,7 @@ export const InfoTitle = styled.h2`
   color: ${(props) => props.theme.memberMenuFontColor};
 `;
 export const TitleforProject = styled.label`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   font-weight: 600;
   &::after {
     content: "*";
@@ -137,7 +137,7 @@ export const Okicon = styled(CheckCircleIcon)`
     border: none;
     outline: none;
   }
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 18px !important;
   }
 `;
@@ -150,14 +150,14 @@ export const Options = styled.div`
 export const CreateButton = styled.button``;
 export const LinkforCancelButton = styled.a``;
 export const Description = styled.div`
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   margin: 4px 0 0 0;
 `;
 export interface SubmitButtonStyledButton {
   $isFilled?: boolean;
 }
 export const SubmitButton = styled.button<SubmitButtonStyledButton>`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   padding: 9px;
   background-color: ${(props) => (props.$isFilled ? " #0c66e4" : "#091e4208")};
   color: ${(props) => (props.$isFilled ? "white" : "#091e424f")};

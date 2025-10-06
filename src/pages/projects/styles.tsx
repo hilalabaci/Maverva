@@ -48,7 +48,7 @@ export const TableHead = styled.thead`
 export const TableTitleWrapper = styled.tr``;
 export const Titles = styled.th`
   color: ${(props) => props.theme.colour.text.inverted};
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 500;
 `;
 export const OrderIcon = styled(ArrowDownwardIcon)`
@@ -88,11 +88,11 @@ export const DataLeadName = styled.td`
   gap: 8px;
   padding-top: 12px;
   padding-bottom: 12px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
 `;
 export const DataKey = styled.td`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;
 export const DataProjectsName = styled.td`
   display: flex;
@@ -100,7 +100,7 @@ export const DataProjectsName = styled.td`
   gap: 7px;
   padding-top: 12px;
   padding-bottom: 12px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   color: ${(props) => props.theme.colour.themecolourActiveColor};
   &:hover {

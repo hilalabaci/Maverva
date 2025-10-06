@@ -25,15 +25,16 @@ import {
   DataWrapper,
   DataButtomWrapper,
 } from "./styles";
-import IconButton from "../../../components/common/button/iconButton";
-import ActionButton from "../../../components/common/button/actionButton";
-import { IssueStatus, IssueType } from "../../../types";
+import IconButton from "../../../components/ui/Button/IconButton";
+import BaseButton from "../../../components/ui/Button/BaseButton";
+import { IssueStatus, IssueType } from "../../../types/user.types";
 import { getStatusLabel } from "../../../utils/getStatus";
 import MemberPhoto from "../../user/member-photo";
 import { Status } from "../../backlogCard/styles";
-import SelectDemo from "../../../components/common/selectDemo";
-import { updateIssue } from "../../../api/issueApi";
+import SelectDemo from "../../../components/ui/SelectDemo";
+import { updateIssue } from "../../../api/issue-api";
 import { formatDate } from "../../../utils/dateUtils";
+import { useUserContext } from "../../../contexts/UserContext";
 type IssueDetailsProps = {
   issue: IssueType;
   onUpdateSummary: (newSummary: string) => void;
@@ -47,6 +48,7 @@ function IssueDetails({
   onUpdateDescription,
   onCloseIssueEdit,
 }: IssueDetailsProps) {
+  const { token } = useUserContext();
   const [tempSummary, setTempSummary] = useState(issue.Summary);
   const [tempDescription, setTempDescription] = useState(
     issue.Description || ""
@@ -63,7 +65,8 @@ function IssueDetails({
     { label: getStatusLabel(IssueStatus.Done), value: IssueStatus.Done },
   ];
   async function updateCard(id: string, status: number) {
-    const response = await updateIssue(id, status);
+    if (!token) return;
+    const response = await updateIssue(token, id, status);
     if (response.ok && response.data) {
       // onUpdateCardStatus(response.data.Id, response.data.Status);
     } else {
@@ -145,7 +148,7 @@ function IssueDetails({
                   onChange={(e) => setTempDescription(e.target.value)}
                 />
                 <ButtomWrapper>
-                  <ActionButton
+                  <BaseButton
                     children="Save"
                     size="sm"
                     ariaLabel="Save issue description changes"
@@ -155,7 +158,7 @@ function IssueDetails({
                       setEditDescriptionDisplay(false);
                     }}
                   />
-                  <ActionButton
+                  <BaseButton
                     children="Cancel"
                     size="sm"
                     variant="secondary"

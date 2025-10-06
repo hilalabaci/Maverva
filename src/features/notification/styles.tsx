@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 type ContainerPropsType = {
   $isRead?: boolean;
 };
@@ -10,7 +9,7 @@ export const Container = styled.div<ContainerPropsType>`
       ? props.theme.colour.modal.background.default
       : "  rgba(168, 204, 255, 0.3);"};
   padding: 15px 10px;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   border-radius: 3px;
   &:hover {
     background-color: ${(props) => props.theme.colour.modal.background.hover};
@@ -50,6 +49,6 @@ export const Main = styled.div`
 export const TimeInfo = styled.span`
   opacity: 0.5;
   margin-left: 5px;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   font-weight: 400;
 `;

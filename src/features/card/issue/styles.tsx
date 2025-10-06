@@ -19,8 +19,8 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
   &:hover {
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
     opacity: 1;
   }
 `;
@@ -60,7 +60,7 @@ export const Container = styled.button`
     padding: 2px;
     font-size: medium !important;
   }
- @media ${device.mobile} {
+  @media ${device.mobile} {
     padding: 15px;
     border-radius: 3px;
   }
@@ -79,7 +79,7 @@ export const NoteWrapper = styled.div`
   text-overflow: ellipsis;
   width: 100%;
   gap: 5px;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 10px;
     overflow: scroll;
   }
@@ -87,7 +87,7 @@ export const NoteWrapper = styled.div`
 export const Note = styled.div`
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   line-height: 20px;
   color: ${(props) => props.theme.memberMenuFontColor};
   resize: none;
@@ -124,7 +124,7 @@ export const EditTextArea = styled.textarea`
   background-color: ${(props) => props.theme.colour.background.surface};
   color: ${(props) => props.theme.colour.text.primary};
   min-width: 97%;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 `;
@@ -159,7 +159,7 @@ export const CardKeyWrapper = styled.div`
   font-size: 11px;
   font-weight: 600;
   color: ${(props) => props.theme.colour.text.inverted};
- @media ${device.mobile} {
+  @media ${device.mobile} {
     font-size: 10px;
   }
 `;

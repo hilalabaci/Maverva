@@ -18,7 +18,7 @@ import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import useOutsideClick from "../../../hooks/useOutsideClick";
-import Modal from "../../../components/common/modal";
+import Modal from "../../../components/ui/Modal";
 
 type MemberMenuProps = {
   onClose: () => void;

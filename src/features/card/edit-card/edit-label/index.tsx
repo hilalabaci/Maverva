@@ -10,7 +10,7 @@ import {
   Label,
 } from "./styles";
 
-import Checkbox from "../../../../components/forms/checkBoxComponent";
+import Checkbox from "../../../../components/forms/checkbox-component";
 import { IssueType, LabelType } from "../../../../types";
 type EditLabelProps = {
   onUpdate: (card: IssueType) => void;

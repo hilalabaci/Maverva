@@ -2,8 +2,8 @@ import styled from "styled-components";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
-import { IssueStatus } from "../../types";
 import { device } from "../../styles/breakpoints";
+import { IssueStatus } from "../../types/user.types";
 
 type FormProps = { $selected: boolean };
 export const Container = styled.div`
@@ -34,17 +34,17 @@ export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
 export const HeaderTitle = styled.div`
   color: ${(props) => props.theme.memberMenuFontColor};
   font-weight: 600;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
 `;
 export const Duration = styled.div`
   color: ${(props) => props.theme.memberMenuFontColor};
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   text-align: center;
   margin-left: 8px;
 `;
 export const HeaderIssue = styled.div`
   color: ${(props) => props.theme.searchPlaceHolderFontColour};
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   text-align: center;
   margin-left: 8px;
 `;
@@ -82,7 +82,7 @@ export const HeaderStatus = styled.span<StatusProps>`
   }};
   cursor: default;
   border-radius: 50px;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   padding: 2px 7px;
   height: min-content;
   font-weight: 600;
@@ -100,7 +100,7 @@ type HeaderButtonPropsType = {
 export const HeaderButton = styled.button<HeaderButtonPropsType>`
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   border-radius: 3px;
   font-weight: 500;
   text-align: center;
@@ -141,7 +141,7 @@ export const BacklogCardListItems = styled.div`
 export const CardKey = styled.div`
   justify-self: center;
   align-self: center;
-  font-size: 12px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
   color: ${(props) => props.theme.sideBarFontColour};
   cursor: pointer;
   font-weight: 600;
@@ -158,7 +158,7 @@ export const Content = styled.div`
   justify-self: start;
   align-self: center;
   justify-items: stretch;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   display: flex;
   color: ${(props) => props.theme.memberMenuFontColor};
   &:hover {
@@ -192,8 +192,8 @@ export const EditSprintButton = styled.button`
     opacity: 1;
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
     opacity: 1;
   }
 `;
@@ -212,8 +212,8 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
     opacity: 1;
     background-color: ${(props) => props.theme.IconEditBGHover};
   }
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle} !important;
     opacity: 1;
   }
 `;
@@ -235,7 +235,7 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
 //   }
 
 //  @media ${device.mobile} {
-//     font-size: 12px !important;
+//     font-size: ${(props) => props.theme.fontSize.subtitle}; !important;
 //     opacity: 1;
 //   }
 // `;
@@ -245,7 +245,7 @@ export const IconEdit = styled(EditIcon)`
   align-self: center;
   align-content: center;
   padding-left: 10px;
-  font-size: 14px !important;
+  font-size: ${(props) => props.theme.fontSize.default}!important;
   opacity: 0;
   border-radius: 3px;
   background-color: ${(props) => props.theme.IconEditBg};
@@ -256,8 +256,8 @@ export const IconEdit = styled(EditIcon)`
     opacity: 1;
   }
 
- @media ${device.mobile} {
-    font-size: 12px !important;
+  @media ${device.mobile} {
+    font-size: ${(props) => props.theme.fontSize.subtitle} !important;
     opacity: 1;
   }
 `;
@@ -280,7 +280,7 @@ export const DisplayCreateWrapper = styled.div`
   outline: none;
   background-color: transparent;
   width: 100%;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   cursor: pointer;
   &:hover {
     background-color: ${(props) => props.theme.backlogBgHover};
@@ -295,7 +295,7 @@ export const CreateButtonWrapper = styled.button`
   outline: none;
   background-color: transparent;
   width: 100%;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   gap: 5px;
   color: ${(props) => props.theme.colour.text.inverted};
   margin-top: 5px;
@@ -324,7 +324,7 @@ export const TextCreate = styled.input`
   outline: none;
   border: none;
   background-color: transparent;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   width: 100%;
 `;
 type CommonPropsType = {

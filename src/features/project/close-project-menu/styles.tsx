@@ -39,7 +39,7 @@ export const Content = styled.div`
   padding: 6px 12px;
   text-align: start;
   line-height: 25px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   color: ${(props) => props.theme.memberMenuFontColor};
 `;
 export const ProjectTitle = styled.span`
@@ -65,7 +65,7 @@ export const DeleteButton = styled.button`
   color: ${(props) => props.theme.colour.primary.button.warning.text.default};
   padding: 0 10px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   cursor: pointer;
   &:hover {
     background: ${(props) =>

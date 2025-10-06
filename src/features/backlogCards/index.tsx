@@ -3,13 +3,13 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useDrop } from "react-dnd";
 import useOutsideClick from "../../hooks/useOutsideClick";
-import CollapsibleDemo from "../../components/common/collapsible";
-import { IssueStatus, IssueType, DragItem } from "../../types";
+import CollapsibleDemo from "../../components/ui/Collapsible";
+import { IssueStatus, IssueType, DragItem } from "../../types/user.types";
 import { useUserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
-import { ToolTip } from "../../components/common/toolstip";
+import { ToolTip } from "../../components/ui/Toolstip";
 import BacklogCard from "../backlogCard";
-import CheckBox from "../../components/forms/checkBoxComponent";
+import CheckBox from "../../components/forms/checkbox-component";
 import {
   Accordion,
   BacklogCardList,
@@ -33,8 +33,8 @@ import {
   CheckboxWrapper,
   EditSprintButton,
 } from "./styles";
-import { getBacklogCards } from "../../api/backlogApi";
-import { addIssue, updateIssueSprintToBacklog } from "../../api/issueApi";
+import { getBacklogCards } from "../../api/backlog-api";
+import { addIssue, updateIssueSprintToBacklog } from "../../api/issue-api";
 
 type URLParams = {
   projectKey: string;

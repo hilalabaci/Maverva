@@ -28,16 +28,21 @@ import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { useParams } from "react-router-dom";
 import BacklogCard from "../backlogCard";
-import { DragItem, IssueStatus, IssueType, SprintType } from "../../types";
+import {
+  DragItem,
+  IssueStatus,
+  IssueType,
+  SprintType,
+} from "../../types/user.types";
 import { useUserContext } from "../../contexts/UserContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
-import CollapsibleDemo from "../../components/common/collapsible";
-import CheckBox from "../../components/forms/checkBoxComponent";
-import { ToolTip } from "../../components/common/toolstip";
-import { addIssue, updateIssue } from "../../api/issueApi";
-import { updateSprint } from "../../api/sprintApi";
-import { DropdownMenu } from "../../components/common/dropdownMenu";
-import Modal from "../../components/common/modal";
+import CollapsibleDemo from "../../components/ui/Collapsible";
+import CheckBox from "../../components/forms/checkbox-component";
+import { ToolTip } from "../../components/ui/Toolstip";
+import { addIssue, updateIssue } from "../../api/issue-api";
+import { updateSprint } from "../../api/sprint-api";
+import { DropdownMenu } from "../../components/ui/DropDownMenu";
+import Modal from "../../components/ui/Modal";
 import EditSprint from "./edit-sprint";
 
 type SprintPropsType = {

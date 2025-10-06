@@ -16,7 +16,7 @@ export const AddCardButton = styled.button`
   outline: none;
   border: none;
   border-radius: 3px;
-  font-size: 14px;
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 500;
   display: flex;
   flex-direction: row;
