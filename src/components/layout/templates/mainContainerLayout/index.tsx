@@ -3,7 +3,7 @@ import {
   GlobalStyle,
   ProjectMenuAndSideBar,
   Wrapper,
-} from "../../../../pages/DynamicContentLoader/styles";
+} from "../../../../pages/dynamicContentLoader/styles";
 import ProjectMenu from "../../../../features/project/project-menu";
 import {
   PathInfo,

@@ -18,7 +18,7 @@ import VerifyCodePage from "./pages/auth/VerificationCodePage";
 import RecoveryLink from "./pages/auth/RecoveryLinkPage";
 import ResetPassword from "./pages/auth/ResetPasswordPage";
 import Projects from "./pages/ProjectsPage";
-import DynamicContentLoader from "./pages/DynamicContentLoader/DynamicContentLoader";
+import DynamicContentLoader from "./pages/dynamicContentLoader";
 
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
