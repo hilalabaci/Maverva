@@ -14,7 +14,7 @@ import {
 import Input from "../../../components/ui/Input/round";
 import { resetPassword } from "../../../api/auth-api";
 import { useUserContext } from "../../../contexts/UserContext";
-import BoxLayout from "../../../components/layout/box-layout";
+import BoxLayout from "../../../components/layout/boxLayout";
 interface FormData {
   password: string;
 }

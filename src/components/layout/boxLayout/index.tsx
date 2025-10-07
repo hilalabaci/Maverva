@@ -1,12 +1,13 @@
 import { PropsWithChildren } from "react";
 import EmailLogo from "../../../assets/email/emailLogo2.png";
 import {
-  MainContainer,
-  InnerContainer,
   BoxContainer,
-  SectionofBox,
   BrandContainer,
+  InnerContainer,
+  MainContainer,
+  SectionofBox,
 } from "./styles";
+
 type BoxLayoutProps = PropsWithChildren<{}>;
 
 function BoxLayout({ children }: BoxLayoutProps) {

@@ -17,7 +17,7 @@ import {
 import Input from "../../../components/ui/Input/round";
 import { findUserByEmail, loginUser } from "../../../api/auth-api";
 import CheckBoxComponent from "../../../components/forms/checkbox-component";
-import BoxLayout from "../../../components/layout/box-layout";
+import BoxLayout from "../../../components/layout/boxLayout";
 import { validateEmail } from "../../../utils/validation";
 import GoogleAuthButton from "../../../components/ui/Button/GoogleAuthButton";
 

@@ -14,7 +14,7 @@ import {
 import Input from "../../../components/ui/Input/round";
 import { sendResetPasswordLink } from "../../../api/auth-api";
 import VerifyEmailPage from "../VerificationEmailPage";
-import BoxLayout from "../../../components/layout/box-layout";
+import BoxLayout from "../../../components/layout/boxLayout";
 
 interface FormError {
   email?: string;

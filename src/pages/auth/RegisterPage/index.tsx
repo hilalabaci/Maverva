@@ -24,7 +24,7 @@ import {
   loginVerificationEmail,
   loginGoogle as loginGoogleApi,
 } from "../../../api/auth-api";
-import BoxLayout from "../../../components/layout/box-layout";
+import BoxLayout from "../../../components/layout/boxLayout";
 import { validateEmail } from "../../../utils/validation";
 import GoogleAuthButton from "../../../components/ui/Button/GoogleAuthButton";
 interface FormError {

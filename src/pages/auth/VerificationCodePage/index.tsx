@@ -18,7 +18,7 @@ import ActionButton from "../../../components/ui/Button/BaseButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorSVG from "../../../assets/icons/error-svg";
-import BoxLayout from "../../../components/layout/box-layout";
+import BoxLayout from "../../../components/layout/boxLayout";
 
 function VerifyCodePage({ reSendCode }: { reSendCode?: () => void }) {
   const { setUser, token } = useUserContext();
