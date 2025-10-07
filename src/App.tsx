@@ -10,7 +10,7 @@ import {
 import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
-import DynamicContentLoader from "./pages/DynamicContentLoader";
+import DynamicContentLoader from "./pages/DynamicContentLoader/DynamicContentLoader";
 import LandingPage from "./pages/LandingPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import VerifyEmailPage from "./pages/auth/VerificationEmailPage";
