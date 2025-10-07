@@ -24,7 +24,7 @@ import {
   CollapseText,
   CollapseContentElement,
   CollapseContentElementChild,
-} from "./styles";
+} from "./styled";
 import TypedDemo from "../../components/ui/Typed/typed";
 import RegisterForm from "../../components/forms/register-form";
 import WelcomeIllus2 from "../../assets/icons/welcome-illus2";

@@ -8,7 +8,7 @@ import {
   ProjectTitle,
   WarningIcon,
 } from "./styles";
-import { CancelButton } from "../../../features/addPerson/styles";
+import { CancelButton } from "../../AddPerson/styles";
 
 type CloseProjectMenuPropsType = {
   projectName: string;

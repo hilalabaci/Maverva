@@ -1,6 +1,6 @@
 import { loginVerificationEmail } from "../../../api/auth-api";
 import { useUserContext } from "../../../contexts/UserContext";
-import { Form, GlobalStyle, LoginContainer } from "../LoginPage/styles";
+import { Form, GlobalStyle, LoginContainer } from "../LoginPage/styled";
 import {
   ButtonText,
   ButtonWrapper,
@@ -10,7 +10,7 @@ import {
   IllusSendEmail,
   ImgWrapper,
   Title,
-} from "./styles";
+} from "./styled";
 
 function VerifyEmailPage() {
   const { user } = useUserContext();

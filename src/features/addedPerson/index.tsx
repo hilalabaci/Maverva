@@ -1,4 +1,4 @@
-import { Container, SubmitButton } from "../addPerson/styles";
+import { Container, SubmitButton } from "../AddPerson/styles";
 import {
   GenerelWrapper,
   Title,
@@ -10,7 +10,7 @@ import {
   Maildetail,
   ButtonWrapper,
   Maildetailsmall,
-} from "./styles";
+} from "./styled";
 import { ButtonStylesforIconPerson, IconPerson } from "../top-menu/styles";
 
 interface AddedPersonProps {

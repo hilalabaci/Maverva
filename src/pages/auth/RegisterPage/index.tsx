@@ -17,7 +17,7 @@ import {
   CreateAccountWrapper,
   CreateAccountListItemLink,
   CheckBoxTextLink,
-} from "./styles";
+} from "./styled";
 import Input from "../../../components/ui/Input/round";
 import { GoogleSignWrapper } from "../../../components/forms/register-form/styles";
 import {

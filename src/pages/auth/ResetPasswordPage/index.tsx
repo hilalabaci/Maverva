@@ -10,7 +10,7 @@ import {
   LoginInputs,
   CreateAccountWrapper,
   CreateAccountListItemLink,
-} from "./styles";
+} from "./styled";
 import Input from "../../../components/ui/Input/round";
 import { resetPassword } from "../../../api/auth-api";
 import { useUserContext } from "../../../contexts/UserContext";

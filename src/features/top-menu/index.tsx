@@ -15,7 +15,7 @@ import {
   TimeIcon,
 } from "./styles";
 import MemberPhoto from "../../features/user/member-photo";
-import AddPerson from "../../features/addPerson";
+import AddPerson from "../AddPerson";
 import Search from "../../components/ui/Search";
 import { ToolTip } from "../../components/ui/Toolstip";
 import { useLocation, useParams } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from "react";
-import AddedPerson from "../addedPerson";
+import AddedPerson from "../AddedPerson";
 import { BoardType, ApiError } from "../../types/user.types";
 import { useUserContext } from "../../contexts/UserContext";
 import { DropdownSelectMenu } from "../../components/ui/Select";

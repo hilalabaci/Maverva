@@ -13,7 +13,7 @@ import {
   CreateAccountWrapper,
   CreateAccountListItemLink,
   Point,
-} from "./styles";
+} from "./styled";
 import Input from "../../../components/ui/Input/round";
 import { findUserByEmail, loginUser } from "../../../api/auth-api";
 import CheckBoxComponent from "../../../components/forms/checkbox-component";

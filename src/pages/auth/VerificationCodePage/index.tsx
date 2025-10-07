@@ -1,6 +1,6 @@
 import { signUpVerificationCode } from "../../../api/auth-api";
 import { useUserContext } from "../../../contexts/UserContext";
-import { Form, GlobalStyle } from "../LoginPage/styles";
+import { Form, GlobalStyle } from "../LoginPage/styled";
 import {
   ButtonText,
   ButtonWrapper,
@@ -12,7 +12,7 @@ import {
   ImgWrapper,
   Title,
   VerifyCodeWrapper,
-} from "./styles";
+} from "./styled";
 import VerifyCodeInput from "../../../components/ui/VerifyCodeInput";
 import ActionButton from "../../../components/ui/Button/BaseButton";
 import { useState } from "react";

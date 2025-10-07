@@ -10,7 +10,7 @@ import {
   CreateAccountWrapper,
   CreateAccountListItemLink,
   Point,
-} from "./styles";
+} from "./styled";
 import Input from "../../../components/ui/Input/round";
 import { sendResetPasswordLink } from "../../../api/auth-api";
 import VerifyEmailPage from "../VerificationEmailPage";

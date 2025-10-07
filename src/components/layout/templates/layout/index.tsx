@@ -4,7 +4,7 @@ import {
   Container,
   GlobalStyle,
   NavbarWrapper,
-} from "../../../../pages/dynamicContentLoader/styles";
+} from "../../../../pages/DynamicContentLoader/styled";
 import { ProjectType } from "../../../../types/user.types";
 
 type LayoutPropsType = PropsWithChildren<{

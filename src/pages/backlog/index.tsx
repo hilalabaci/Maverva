@@ -7,8 +7,8 @@ import { addSprint, getSprints } from "../../api/sprint-api";
 import { useParams } from "react-router-dom";
 import Sprint from "../../features/sprint";
 import { useUserContext } from "../../contexts/UserContext";
-import { Container } from "./styles";
 import { IssueType, SprintType } from "../../types/user.types";
+import { Container } from "./styled";
 
 type URLParams = {
   boardId?: string;

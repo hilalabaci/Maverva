@@ -18,8 +18,7 @@ import {
   CloseButton,
   EditIcon,
   TitleTotalCardWrapper,
-} from "./styles";
-import { IssueType, ColumnType, SprintType } from "../../types";
+} from "./styled";
 import NumberOfCards from "../../features/card/number-cards";
 import { ButtomWrapper } from "../../features/card/issue/styles";
 import { NextButton } from "../../features/board/optional/styles";
@@ -30,6 +29,7 @@ import {
   addColumn,
 } from "../../api/column-api";
 import { useUserContext } from "../../contexts/UserContext";
+import { ColumnType, IssueType, SprintType } from "../../types/user.types";
 
 type URLParams = {
   boardId?: string;

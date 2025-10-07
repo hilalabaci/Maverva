@@ -45,7 +45,7 @@ import {
   IconFav,
   FilledIconFav,
   FavIconTable,
-} from "./styles";
+} from "./styled";
 import Layout from "../../components/layout/templates/layout";
 
 function Projects() {

@@ -14,9 +14,9 @@ import {
   BacklogWrapper,
   Main,
   MainContainer,
-} from "./styles";
+} from "./styled";
 import Scroll from "../../components/ui/Scroll";
-import ActiveSprint from "../active-sprint";
+import ActiveSprint from "../ActiveSprint";
 import { useUserContext } from "../../contexts/UserContext";
 import { getSelectedProject } from "../../api/project-api";
 import { getActiveSprint } from "../../api/sprint-api";
