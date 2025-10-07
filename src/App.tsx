@@ -1,6 +1,6 @@
 import "./App.css";
-import Register from "./pages/auth/RegisterPage";
-import Login from "./pages/auth/LoginPage";
+import Register from "./pages/Auth/RegisterPage";
+import Login from "./pages/Auth/LoginPage";
 import {
   createBrowserRouter,
   Navigate,
@@ -12,14 +12,13 @@ import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import LandingPage from "./pages/LandingPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import VerifyEmailPage from "./pages/auth/VerificationEmailPage";
+import VerifyEmailPage from "./pages/Auth/VerificationEmailPage";
 import { GlobalStyle } from "./styles/GlobalStyle";
-import VerifyCodePage from "./pages/auth/VerificationCodePage";
-import RecoveryLink from "./pages/auth/RecoveryLinkPage";
-import ResetPassword from "./pages/auth/ResetPasswordPage";
+import VerifyCodePage from "./pages/Auth/VerificationCodePage";
+import RecoveryLink from "./pages/Auth/RecoveryLinkPage";
+import ResetPassword from "./pages/Auth/ResetPasswordPage";
 import Projects from "./pages/ProjectsPage";
-import DynamicContentLoader from "./pages/dynamicContentLoader";
-
+import DynamicContentLoader from "./pages/DynamicContentLoader";
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
   // Public route
