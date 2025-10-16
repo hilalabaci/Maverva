@@ -126,8 +126,9 @@ function DynamicContentLoader() {
     /*    setCards([...cards.filter((card) => card.id !== id), card]); */
   }
   async function onUpdateSummary(issue: IssueType) {
-    if (!issues) return;
+    if (!issues || !token) return;
     const response = await updateIssueContent(
+      token,
       issue.Id,
       issue.Summary,
       issue.Description
@@ -140,8 +141,9 @@ function DynamicContentLoader() {
   }
 
   async function onUpdateDescription(issue: IssueType) {
-    if (!issues) return;
+    if (!issues || !token) return;
     const response = await updateIssueContent(
+      token,
       issue.Id,
       issue.Summary,
       issue.Description

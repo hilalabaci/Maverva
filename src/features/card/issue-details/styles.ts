@@ -65,7 +65,6 @@ export const EditWrapper = styled.div`
 `;
 export const ButtomWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 5px;
 `;

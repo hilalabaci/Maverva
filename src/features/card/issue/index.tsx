@@ -95,7 +95,9 @@ function Issue({
     }
   }
   async function updateIssueDetails(id: string, newSummary: string) {
-    const response = await updateIssueContent(id, newSummary);
+    if (!token) return;
+    console.log(`issueId:${id}, newSummary:${newSummary}`);
+    const response = await updateIssueContent(token, id, newSummary);
     if (response.ok && response.data) {
       onUpdateSummary(response.data);
       //onUpdateDescription(response.data);

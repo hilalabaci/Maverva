@@ -36,7 +36,7 @@ import {
   updateIssue,
   updateIssueContent,
 } from "../../api/issue-api";
-import { tokenKey, useUserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 
 type BacklogCardPropsType = {
   cardKey: string;
@@ -132,7 +132,8 @@ const BacklogCard = ({
   }
 
   async function updateCardContent(id: string, newContent: string) {
-    const response = await updateIssueContent(id, newContent);
+    if (!token) return;
+    const response = await updateIssueContent(token, id, newContent);
     if (response.ok && response.data) {
       onUpdateContent(response.data);
       setEditTextDisplay(false);

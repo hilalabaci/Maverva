@@ -2,7 +2,6 @@ import MemberPhoto from "../../../features/user/member-photo";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { BackButton, CancelButton } from "../optional/styles";
 import { useParams } from "react-router-dom";
-import { BoardType, ProjectType } from "../../../types";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";
 import { useUserContext } from "../../../contexts/UserContext";
 import { DropdownSelectMenu } from "../../../components/ui/Select";
@@ -30,6 +29,7 @@ import {
 import { addBoard, getBoards } from "../../../api/board-api";
 import { getProjects } from "../../../api/project-api";
 import InputRectangle from "../../../components/ui/Input/rectangle";
+import { BoardType, ProjectType } from "../../../types/user.types";
 type BoardCreatePropsType = {
   onCreate: (project: BoardType) => void;
   BackButton: () => void;
@@ -77,7 +77,7 @@ function BoardCreate(props: BoardCreatePropsType) {
       if (projectKey) {
         const { ok, data } = await getBoards(projectKey, userId, token);
         if (ok && data)
-          setSelectedProject((prev) =>
+          setSelectedProject((prev: ProjectType | null) =>
             prev ? { ...prev, Boards: data } : prev
           );
       }
