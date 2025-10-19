@@ -355,7 +355,7 @@ function Sprint({
                   cardKey={card.Key}
                   content={card.Summary}
                   status={card.Status}
-                  reporterUser={card.ReporterUser}
+                  AssigneeUser={card.AssigneeUser}
                   sprintId={sprintId}
                   boardId={boardId as string}
                   updateCardsAfterDelete={deleteCard}

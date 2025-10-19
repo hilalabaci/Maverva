@@ -42,7 +42,7 @@ type BacklogCardPropsType = {
   cardKey: string;
   content: string;
   status: number;
-  reporterUser: UserType;
+  AssigneeUser?: UserType;
   id: string;
   sprintId?: string;
   boardId: string;
@@ -55,7 +55,7 @@ const BacklogCard = ({
   cardKey,
   content,
   status,
-  reporterUser,
+  AssigneeUser,
   id,
   sprintId,
   boardId,
@@ -194,14 +194,14 @@ const BacklogCard = ({
         <ToolTip
           trigger={
             <MemberPhoto
-              user={reporterUser}
+              user={AssigneeUser}
               $userPhotoWidth="25px"
               $userPhotoHeight="25px"
               $userPhotoFontSize="7px"
               $userBorderadius="50px"
             />
           }
-          content={reporterUser?.FullName}
+          content={AssigneeUser?.FullName}
         ></ToolTip>
       </MemberWrapper>
       <DropdownMenu

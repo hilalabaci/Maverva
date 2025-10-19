@@ -252,7 +252,7 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
                   cardKey={backlogCard.Key}
                   content={backlogCard.Summary}
                   status={backlogCard.Status}
-                  reporterUser={backlogCard.ReporterUser}
+                  AssigneeUser={backlogCard.AssigneeUser}
                 />
               ))}
             </BacklogCardList>
