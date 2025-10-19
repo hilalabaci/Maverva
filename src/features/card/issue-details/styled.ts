@@ -187,3 +187,22 @@ export const DataWrapper = styled.div`
   gap: 5px;
   font-size: ${(props) => props.theme.fontSize.default};
 `;
+
+export const AssignedUserWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  font-size: ${(props) => props.theme.fontSize.subtitle};
+  padding: 3px;
+  font-weight: 700;
+  width: 100%;
+  cursor: pointer;
+  padding: 4px 6px;
+  &:hover {
+    background-color: ${(props) =>
+      props.theme.colour.iconButton.hover.background};
+  }
+`;

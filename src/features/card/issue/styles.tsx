@@ -147,8 +147,12 @@ export const IconDone = styled(DoneIcon)`
   font-size: 15px !important;
   color: ${(props) => props.theme.colour.background.default} !important;
 `;
-export const ButtomWrapper = styled.div`
+export const ButtomWrapper = styled.button`
   display: flex;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `;
 export const CardButtomWrapper = styled.div`
   display: flex;

@@ -75,3 +75,10 @@ export const deleteProject = async (
     token: token,
   });
 };
+
+export const getUsersByProject = async (projectId: string, token: string) => {
+  return await apiCall<UserType[]>(`projects/${projectId}/users`, {
+    method: "GET",
+    token: token,
+  });
+};

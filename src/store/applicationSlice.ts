@@ -7,8 +7,12 @@ type ApplicationState = {
   selectedBoard?: BoardType;
   activeSprint?: SprintType;
 };
-
-const initialState: ApplicationState = {};
+const initialState: ApplicationState = {
+  projects: [],
+  selectedProject: undefined,
+  selectedBoard: undefined,
+  activeSprint: undefined,
+};
 
 const applicationSlice = createSlice({
   name: "application",

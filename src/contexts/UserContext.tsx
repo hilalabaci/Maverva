@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { UserType } from "../types";
+import { UserType } from "../types/user.types";
 
 type Props = PropsWithChildren;
 type UserContextType = {

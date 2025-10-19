@@ -152,8 +152,9 @@ export const Status = styled.div<StatusPropsType>`
   text-transform: uppercase;
   border-radius: 3px;
   font-size: ${(props) => props.theme.fontSize.subtitle};
-  padding: 3px;
+  padding: 4px 6px;
   font-weight: 700;
+  width: 100%;
   cursor: pointer;
   &:hover {
     background-color: ${({ $status, theme }) =>

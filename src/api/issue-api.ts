@@ -35,11 +35,12 @@ export const updateIssue = async (
   status?: number,
   newSprintId?: string,
   oldSprintId?: string,
-  boardId?: string
+  boardId?: string,
+  assignUserId?: string
 ) => {
   return await apiCall<IssueType>(`issues/${issueId}`, {
     method: "PUT",
-    data: { issueId, status, newSprintId, oldSprintId, boardId },
+    data: { issueId, status, newSprintId, oldSprintId, boardId, assignUserId },
     token: token,
   });
 };
@@ -69,6 +70,20 @@ export const updateIssueContent = async (
     token: token,
   });
 };
+
+export const updateAssignUser = async (
+  token: string,
+  issueId: string,
+  assignedToUserId: string,
+  assignedByUserId: string
+) => {
+  return await apiCall<IssueType>(`issues/${issueId}/assignee`, {
+    method: "PUT",
+    data: { issueId, assignedToUserId, assignedByUserId },
+    token: token,
+  });
+};
+
 export const deleteIssue = async (
   issueId: string,
   userId: string,

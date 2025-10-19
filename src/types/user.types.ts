@@ -16,6 +16,7 @@ export type ProjectType = {
   Boards: BoardType[];
   IsFavourite: boolean;
   Sprints: SprintType[];
+  UsersByProject?: UserType[];
 };
 export type BoardType = {
   Id: string;
@@ -59,7 +60,7 @@ export type IssueType = {
   Labels: LabelType[];
   Sprint?: SprintType;
   SprintId: string;
-  ProjectId: ProjectType;
+  ProjectId: string;
   BoardId: BoardType;
 };
 export type LabelType = {

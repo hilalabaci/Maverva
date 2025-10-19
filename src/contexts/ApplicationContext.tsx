@@ -7,7 +7,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { BoardType, ProjectType, SprintType } from "../types";
+import {
+  BoardType,
+  IssueType,
+  ProjectType,
+  SprintType,
+} from "../types/user.types";
 
 type ApplicationProviderProps = PropsWithChildren;
 type ApplicationContextType = {
@@ -19,6 +24,10 @@ type ApplicationContextType = {
   setSelectedBoard: Dispatch<SetStateAction<BoardType | undefined>>;
   activeSprint: SprintType | undefined;
   setActiveSprint: Dispatch<SetStateAction<SprintType | undefined>>;
+  issues: IssueType[] | undefined;
+  setIssues: Dispatch<SetStateAction<IssueType[] | undefined>>;
+  selectedIssue: IssueType | undefined;
+  setSelectedIssue: Dispatch<SetStateAction<IssueType | undefined>>;
 };
 
 const ApplicationContext = createContext<ApplicationContextType>({
@@ -30,10 +39,16 @@ const ApplicationContext = createContext<ApplicationContextType>({
   setSelectedBoard: () => {},
   activeSprint: undefined,
   setActiveSprint: () => {},
+  selectedIssue: undefined,
+  setSelectedIssue: () => {},
+  issues: undefined,
+  setIssues: () => {},
 });
 const selectedProjectStorageKey = "selected_project";
 const boardStorageKey = "selected_board";
 const sprintStorageKey = "selected_sprint";
+const issuesStorageKey = "issues";
+const selectedIssueStorageKey = "selected_issue";
 
 export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
   const [projects, setProjects] = useState<ProjectType[]>([]);
@@ -42,6 +57,8 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
   >();
   const [selectedBoard, setSelectedBoard] = useState<BoardType | undefined>();
   const [activeSprint, setActiveSprint] = useState<SprintType | undefined>();
+  const [issues, setIssues] = useState<IssueType[] | undefined>();
+  const [selectedIssue, setSelectedIssue] = useState<IssueType | undefined>();
 
   useEffect(() => {}, [projects]);
 
@@ -66,6 +83,20 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
     else localStorage.removeItem(sprintStorageKey);
   }, [activeSprint]);
 
+  useEffect(() => {
+    if (issues) localStorage.setItem(issuesStorageKey, JSON.stringify(issues));
+    else localStorage.removeItem(issuesStorageKey);
+  }, [issues]);
+
+  useEffect(() => {
+    if (selectedIssue)
+      localStorage.setItem(
+        selectedIssueStorageKey,
+        JSON.stringify(selectedIssue)
+      );
+    else localStorage.removeItem(selectedIssueStorageKey);
+  }, [selectedIssue]);
+
   return (
     <ApplicationContext.Provider
       value={{
@@ -77,6 +108,10 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
         setSelectedBoard,
         activeSprint,
         setActiveSprint,
+        issues,
+        setIssues,
+        selectedIssue,
+        setSelectedIssue,
       }}
     >
       {children}

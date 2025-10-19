@@ -1,4 +1,11 @@
-import { useEffect, useState } from "react";
+import IconButton from "../../../components/ui/Button/IconButton";
+import BaseButton from "../../../components/ui/Button/BaseButton";
+import { IssueStatus, IssueType, UserType } from "../../../types/user.types";
+import MemberPhoto from "../../user/member-photo";
+import { Status } from "../../backlogCard/styles";
+import SelectDemo from "../../../components/ui/SelectDemo";
+import { formatDate } from "../../../utils/dateUtils";
+import { useIssueDetails } from "./useIssueDetails";
 import {
   ActionWrapper,
   ButtomWrapper,
@@ -24,22 +31,15 @@ import {
   LabelWrapper,
   DataWrapper,
   DataButtomWrapper,
-} from "./styles";
-import IconButton from "../../../components/ui/Button/IconButton";
-import BaseButton from "../../../components/ui/Button/BaseButton";
-import { IssueStatus, IssueType } from "../../../types/user.types";
-import { getStatusLabel } from "../../../utils/getStatus";
-import MemberPhoto from "../../user/member-photo";
-import { Status } from "../../backlogCard/styles";
-import SelectDemo from "../../../components/ui/SelectDemo";
-import { updateIssue } from "../../../api/issue-api";
-import { formatDate } from "../../../utils/dateUtils";
-import { useUserContext } from "../../../contexts/UserContext";
+} from "./styled";
+import { UserSelect } from "../../../components/ui/SelectUser";
+
 type IssueDetailsProps = {
   issue: IssueType;
   onUpdateSummary: (newSummary: string) => void;
   onUpdateDescription: (newDescription: string) => void;
   onCloseIssueEdit: () => void;
+  onUpdateAssignee: (newAssignee: UserType) => void;
 };
 
 function IssueDetails({
@@ -47,40 +47,26 @@ function IssueDetails({
   onUpdateSummary,
   onUpdateDescription,
   onCloseIssueEdit,
+  onUpdateAssignee,
 }: IssueDetailsProps) {
-  const { token } = useUserContext();
-  const [tempSummary, setTempSummary] = useState(issue.Summary);
-  const [tempDescription, setTempDescription] = useState(
-    issue.Description || ""
-  );
-  const [editSummaryDisplay, setEditSummaryDisplay] = useState(false);
-  const [editDescriptionDisplay, setEditDescriptionDisplay] = useState(false);
+  const {
+    tempSummary,
+    setTempSummary,
+    tempDescription,
+    setTempDescription,
+    usersByProject,
+    handleStatusChange,
+    handleAssigneeChange,
+    statusOptions,
+    editSummaryDisplay,
+    setEditDescriptionDisplay,
+    editDescriptionDisplay,
+    setEditSummaryDisplay,
+    selectedUser,
+    setSelectedUser,
+  } = useIssueDetails(issue, onUpdateAssignee);
+  
 
-  const statusOptions = [
-    { label: getStatusLabel(IssueStatus.ToDo), value: IssueStatus.ToDo },
-    {
-      label: getStatusLabel(IssueStatus.InProgress),
-      value: IssueStatus.InProgress,
-    },
-    { label: getStatusLabel(IssueStatus.Done), value: IssueStatus.Done },
-  ];
-  async function updateCard(id: string, status: number) {
-    if (!token) return;
-    const response = await updateIssue(token, id, status);
-    if (response.ok && response.data) {
-      // onUpdateCardStatus(response.data.Id, response.data.Status);
-    } else {
-      console.error("Failed to update card:", response);
-    }
-  }
-  const handleStatusChange = async (status: IssueStatus) => {
-    await updateCard(issue.Id, status);
-  };
-
-  useEffect(() => {
-    setTempSummary(issue.Summary);
-    setTempDescription(issue.Description || "");
-  }, [issue.Summary, issue.Description]);
   return (
     <Container>
       <ModalEditWrapper>
@@ -188,11 +174,22 @@ function IssueDetails({
             <DataViewWrapper>
               <LabelWrapper>Assignee</LabelWrapper>
               <DataWrapper>
-                {issue.AssigneeUser && typeof issue.AssigneeUser === "object"
-                  ? issue.AssigneeUser.FullName ||
-                    issue.AssigneeUser.Email ||
-                    "Unassigned"
-                  : "Unassigned"}
+                <UserSelect
+                  displayNameProps={true}
+                  users={usersByProject}
+                  selectedUser={
+                    selectedUser ? selectedUser : issue.AssigneeUser
+                  }
+                  onChange={(user) => {
+                    if (user) {
+                      setSelectedUser(user);
+                      handleAssigneeChange(user);
+                      onUpdateAssignee(user);
+                    } else {
+                      setSelectedUser(null);
+                    }
+                  }}
+                />
               </DataWrapper>
             </DataViewWrapper>
             <DataViewWrapper>

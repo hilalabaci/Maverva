@@ -4,17 +4,20 @@ export const SelectTrigger = styled(Select.Trigger)`
   all: unset;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   font-size: ${(props) => props.theme.fontSize.subtitle};
   line-height: 1;
   //color: ${(props) => props.theme.fontColourDark};
   //background-color: ${(props) => props.theme.IconEditBg};
   text-transform: uppercase;
   border-radius: 3px;
-  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 5px;
+
   &:hover {
     background-color: var(--mauve-3);
   }
@@ -54,6 +57,9 @@ export const Item = styled(Select.Item)`
   &[data-disabled] {
     color: var(--mauve-8);
     pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   &[data-highlighted] {
     outline: none;

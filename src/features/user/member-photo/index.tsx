@@ -1,9 +1,8 @@
 import { forwardRef } from "react";
-import { useUserContext } from "../../../contexts/UserContext";
-import { UserType } from "../../../types";
 import { Container, MemberAvatar, Memberphoto } from "./styles";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import { UserType } from "../../../types/user.types";
 
 interface MemberPhotoProps {
   user?: UserType;
@@ -21,7 +20,7 @@ interface MemberPhotoProps {
 const MemberPhoto = forwardRef<HTMLDivElement, MemberPhotoProps>(
   (props, ref) => {
     const user = props.user;
-    
+
     const profilePhotoUrl =
       user?.ProfilePicture ||
       `https://api.dicebear.com/9.x/initials/svg?backgroundColor=b6e3f4,c0aede,d1d4f9&scale=100&radius=50&randomizeIds=true&seed=${user?.FullName}`;

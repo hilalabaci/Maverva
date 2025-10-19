@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDrag } from "react-dnd";
 import { useUserContext } from "../../../contexts/UserContext";
 import Label from "../card-label/index";
-import MemberPhoto from "../../user/member-photo";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { ToolTip } from "../../../components/ui/Toolstip";
 import { DropdownMenu } from "../../../components/ui/DropDownMenu";
@@ -11,6 +10,7 @@ import {
   IssueType,
   DragDropCollect,
   DragItem,
+  UserType,
 } from "../../../types/user.types";
 import {
   Container,
@@ -35,6 +35,8 @@ import {
   updateIssue,
   updateIssueContent,
 } from "../../../api/issue-api";
+import { UserSelect } from "../../../components/ui/SelectUser";
+import { useIssueDetails } from "../issue-details/useIssueDetails";
 type IssueProps = {
   issue: IssueType;
   onUpdate: (card: IssueType) => void;
@@ -63,6 +65,15 @@ function Issue({
   const [changeContent, setChangeContent] = useState(issue.Summary);
   const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
   const refModal = useOutsideClick<HTMLDivElement>(() => setShowModal(false));
+  const [assignee, setAssignee] = useState<UserType | null>(
+    issue.AssigneeUser || null
+  );
+  const {
+    selectedUser,
+    setSelectedUser,
+    usersByProject,
+    handleAssigneeChange,
+  } = useIssueDetails(issue, onUpdateAssignee);
 
   function openModal() {
     setShowModal(true);
@@ -104,6 +115,26 @@ function Issue({
       setEditTextDisplay(false);
     } else {
       console.error("Failed to update card:", response);
+    }
+  }
+  async function onUpdateAssignee(newAssignee: UserType) {
+    if (!user || !token) return;
+
+    try {
+      const response = await updateIssue(
+        token,
+        issue.Id,
+        undefined,
+        newAssignee.Id
+      );
+      if (response.ok && response.data) {
+        onUpdate(response.data);
+        setAssignee(newAssignee);
+      } else {
+        console.error("Failed to update assignee", response);
+      }
+    } catch (error) {
+      console.error("Error updating assignee", error);
     }
   }
 
@@ -216,16 +247,24 @@ function Issue({
             contentStyle={{ zIndex: 0 }}
             trigger={
               <ButtomWrapper>
-                <MemberPhoto
-                  $userPhotoWidth="24px"
-                  $userPhotoHeight="24px"
-                  $userPhotoFontSize="10px"
-                  $userBorderadius="50px"
-                  user={issue.AssigneeUser}
+                <UserSelect
+                  users={usersByProject}
+                  selectedUser={
+                    selectedUser ? selectedUser : issue.AssigneeUser
+                  }
+                  onChange={(user) => {
+                    if (user) {
+                      setSelectedUser(user);
+                      handleAssigneeChange(user);
+                      onUpdateAssignee(user);
+                    } else {
+                      setSelectedUser(null);
+                    }
+                  }}
                 />
               </ButtomWrapper>
             }
-            content={`Assignee: ${issue?.AssigneeUser?.FullName}`}
+            content={`Assignee: ${assignee?.FullName}`}
           ></ToolTip>
         </CardButtomWrapper>
       </Container>

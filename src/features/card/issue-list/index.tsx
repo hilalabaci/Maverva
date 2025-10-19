@@ -10,12 +10,13 @@ import {
   AddCardButton,
   IconAdd,
 } from "./styles";
-import { IssueType } from "../../../types";
 import useOutsideClick from "../../../hooks/useOutsideClick";
 import { updateIssue } from "../../../api/issue-api";
 import IssueDetails from "../issue-details";
 import Modal from "../../../components/ui/Modal";
 import { useUserContext } from "../../../contexts/UserContext";
+import { IssueType } from "../../../types/user.types";
+import { useApplicationContext } from "../../../contexts/ApplicationContext";
 interface IssueListProps {
   issues: IssueType[];
   status: number;
@@ -46,9 +47,9 @@ function IssueList({
   addedCard,
 }: IssueListProps) {
   const { token } = useUserContext();
+  const { selectedIssue, setSelectedIssue } = useApplicationContext();
   const [showAdd, setShowAdd] = useState(false);
   const ref = useOutsideClick<HTMLDivElement>(closeAddCard);
-  const [selectedIssue, setSelectedIssue] = useState<IssueType | null>(null);
   const navigate = useNavigate();
 
   function dynamicAddCard() {
@@ -63,6 +64,11 @@ function IssueList({
     const response = await updateIssue(token, issueId, status);
     if (response.ok && response.data) {
       onUpdate(response.data);
+      setSelectedIssue((prev) => {
+        if (!prev) return prev;
+        if (prev.Id !== response.data?.Id) return prev;
+        return { ...prev, Status: response.data.Status };
+      });
     } else {
       console.error("Failed to update card:", response);
     }
@@ -74,7 +80,6 @@ function IssueList({
       updateStatus(item.issueId, status);
     },
   });
-
   return (
     <Container ref={drop}>
       {issues.length > 0 ? (
@@ -115,7 +120,10 @@ function IssueList({
         )}
       </AddCardButtonWrapper>
       {selectedIssue && (
-        <Modal onClose={() => setSelectedIssue(null)} open={!!selectedIssue}>
+        <Modal
+          onClose={() => setSelectedIssue(undefined)}
+          open={!!selectedIssue}
+        >
           <IssueDetails
             onUpdateSummary={(newSummary) =>
               onUpdateSummary({ ...selectedIssue, Summary: newSummary })
@@ -126,7 +134,13 @@ function IssueList({
                 Description: newDescription,
               })
             }
-            onCloseIssueEdit={() => setSelectedIssue(null)}
+            onUpdateAssignee={(newUser) =>
+              setSelectedIssue((prev) => {
+                if (!prev) return prev;
+                return { ...prev, AssigneeUser: newUser };
+              })
+            }
+            onCloseIssueEdit={() => setSelectedIssue(undefined)}
             issue={selectedIssue}
           />
         </Modal>
