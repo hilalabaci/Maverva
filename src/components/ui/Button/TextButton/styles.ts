@@ -17,7 +17,8 @@ export const Container = styled.button<displayBorder>`
   border-radius: 3px;
   height: 2.28571em;
   color: ${(props) => props.theme.colour.iconButton.default.icon};
-  border: ${(props) => props.theme.colour.iconButton.default.border};
+  outline: ${(props) => props.theme.colour.divider.border.default};
+  border: none;
   box-shadow: ${(props) =>
     props.boxShadow
       ? `${props.theme.colour.iconButton.default.boxShadow}`

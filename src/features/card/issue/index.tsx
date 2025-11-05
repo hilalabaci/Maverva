@@ -88,6 +88,7 @@ function Issue({
       const response = await deleteIssue(issueId, user.Id, token);
       if (response.ok) {
         onDelete(issueId);
+        
       } else {
         console.error("Failed to delete card:", response.status);
       }
@@ -226,8 +227,8 @@ function Issue({
                 },
                 {
                   action: (event) => {
-                    event.stopPropagation();
                     handleDeleteIssue(issue.Id);
+                    event.stopPropagation();
                   },
                   label: "Delete",
                 },

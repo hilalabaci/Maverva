@@ -73,7 +73,9 @@ export const DropdownMenuPrimitiveSubContent = styled(
   //   0 4px 8px -2px rgba(9, 30, 66, 0.25),
   //   0 0 1px rgba(9, 30, 66, 0.31)
   // );
-  background-color: white;
+  background-color: ${(props) => props.theme.colour.modal.background.default};
+  border: ${(props) => props.theme.colour.modal.border.default};
+  color: ${(props) => props.theme.colour.modal.text.default};
   border-radius: 6px;
   box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);

@@ -136,8 +136,14 @@ const handleColorType = (status: number, theme: DefaultTheme) => {
       };
     default:
       return {
-        default: { backgroundColor: "#fff", color: "#000" },
-        hover: { backgroundColor: "#ddd", color: "#000" },
+        default: {
+          backgroundColor: theme.colour.progressColours.toDo.default.background,
+          color: theme.colour.progressColours.toDo.default.text,
+        },
+        hover: {
+          backgroundColor: theme.colour.progressColours.toDo.hover.background,
+          color: theme.colour.progressColours.toDo.hover.text,
+        },
       };
   }
 };

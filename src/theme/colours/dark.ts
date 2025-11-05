@@ -18,7 +18,7 @@ const darkColors: ThemeColors = {
     link: "rgb(87, 157, 255)",
     subtitle: "#9fadbc",
     highlightColor: "white",
-    warningMessage:"#9b000f",
+    warningMessage: "#9b000f",
   },
   primary: {
     base: "#000000",
@@ -51,11 +51,11 @@ const darkColors: ThemeColors = {
       },
       warning: {
         background: {
-          default: "#c9372c",
-          hover: "ff9c8f",
+          default: "#fca700",
+          hover: "#ff8b00",
         },
         text: {
-          default: "white",
+          default: "#2f4156",
         },
       },
     },
@@ -94,7 +94,7 @@ const darkColors: ThemeColors = {
       active: "#579DFF",
     },
     border: {
-      default: "1px solid #738496",
+      default: "1px solid rgba(32, 33, 36)",
       hover: "1px solid rgba(221,223,228,255)",
       active: "3px solid #0052cc",
     },
@@ -174,8 +174,8 @@ const darkColors: ThemeColors = {
     },
   },
   tooltip: {
-    background: "rgba(255,255,255,255)",
-    text: "rgb(66, 82, 110)",
+    background: "rgba(205, 207, 210)",
+    text: "rgba(40, 40, 42)",
   },
   progressColours: {
     toDo: {

@@ -10,7 +10,7 @@ export const Selected = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;
+  background:transparent;
   border-radius: 8px;
   cursor: pointer;
   transition: 0.2s;
@@ -35,24 +35,26 @@ export const Dropdown = styled.div`
   top: calc(100% + 6px);
   /* left: 0;
   right: 0; */
-  background: #fff;
-  border: 1px solid #ddd;
+  background: ${(props) => props.theme.colour.background.default};
+  border: ${(props) => props.theme.colour.divider.border.default};
   border-radius: 3px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
   overflow: hidden;
+  width: max-content;
 `;
 
 export const Option = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   padding: 8px 12px;
   cursor: pointer;
   transition: 0.2s;
+  color: ${(props) => props.theme.colour.text.primary};
 
   &:hover {
-    background: #f5f5f5;
+    background: ${(props) => props.theme.colour.modal.background.hover};
   }
 `;
 

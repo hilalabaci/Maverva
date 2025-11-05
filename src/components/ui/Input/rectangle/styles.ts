@@ -20,7 +20,7 @@ export const InputContainer = styled.div<{ isSpecialBackground?: boolean }>`
       ? theme.colour.primary.button.secondary.background.default
       : "transparent"};
   border: none;
- font-size: ${(props) => props.theme.fontSize.default};
+  font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   margin-top: 7px;
   min-width: 250px;
@@ -42,12 +42,14 @@ export const Icon = styled(CheckCircleIcon)`
   padding: 0 10px;
   transition: all 0.3s ease;
 `;
-export const WarningMessage = styled.p`
+export const WarningMessage = styled.div`
   color: #dc3545;
-  font-size: 0.79rem;
+  font-size: 12px;
   margin: 0;
   text-align: right;
-  width: 250px;
+  width: 100%;
+  padding-top: 4px;
+  font-weight: 500;
 `;
 export const EmailIcon = styled(MailOutlinedIcon)`
   color: ${(props) => props.theme.colour.text.inverted};

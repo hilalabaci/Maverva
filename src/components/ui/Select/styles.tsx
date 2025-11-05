@@ -20,7 +20,7 @@ export const DropdownMenuPrimitiveTrigger = styled(
   padding: 8px 3px 5px;
   display: flex;
   gap: 30px;
-
+  outline: ${(props) => props.theme.colour.modal.border.default};
   &:focus-visible {
     outline: ${({ theme }) => theme.colour.border.active};
   }
@@ -31,6 +31,7 @@ export const DropdownContent = styled(
   background-color: white;
   border-radius: 5px;
   padding: 10px 0;
+  background: ${(props) => props.theme.colour.modal.border.default};
 
   /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
   box-shadow: var(
@@ -43,7 +44,8 @@ export const DropdownContent = styled(
     0 4px 8px -2px rgba(9, 30, 66, 0.25),
     0 0 1px rgba(9, 30, 66, 0.31)
   );
-
+  background-color: ${(props) => props.theme.colour.modal.background.default};
+  border: ${(props) => props.theme.colour.modal.border};
   z-index: 1;
   ${({ $triggerWidth }) =>
     $triggerWidth &&

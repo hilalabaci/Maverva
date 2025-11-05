@@ -2,8 +2,9 @@ import * as Select from "@radix-ui/react-select";
 import styled from "styled-components";
 export const SelectTrigger = styled(Select.Trigger)`
   all: unset;
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: ${(props) => props.theme.fontSize.subtitle};
   line-height: 1;
   //color: ${(props) => props.theme.fontColourDark};
@@ -13,10 +14,10 @@ export const SelectTrigger = styled(Select.Trigger)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  display: flex;
-  align-items: center;
   flex-direction: row;
   gap: 5px;
+  display: flex;
+  width: 100%;
 
   &:hover {
     background-color: var(--mauve-3);

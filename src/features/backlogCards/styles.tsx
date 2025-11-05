@@ -165,6 +165,7 @@ export const TextCreate = styled.input`
   background-color: transparent;
   font-size: ${(props) => props.theme.fontSize.default};
   width: 100%;
+  color: ${(props)=>props.theme.colour.text.primary};
 `;
 type CommonPropsType = {
   $hidden?: boolean;

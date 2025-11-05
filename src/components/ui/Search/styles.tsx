@@ -52,7 +52,7 @@ export const Input = styled.input`
   border: none;
   background-color: transparent;
   font-size: ${(props) => props.theme.fontSize.default};
-  color: ${(props) => props.theme.colour.text.default};
+  color: ${(props) => props.theme.colour.text.primary};
   padding-inline-start: 6px;
   input[type="search"]::-webkit-search-decoration {
     display: none;
