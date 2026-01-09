@@ -29,7 +29,7 @@ function VerifyEmailPage() {
         <ContainerSendEmail>
           <Title> Check your inbox to log in</Title>
           <ImgWrapper>
-            <IllusSendEmail src="/email/sendEmail.png" />
+            <IllusSendEmail src="/assets/email/sendEmail.png" />
           </ImgWrapper>
           <ExplainTitle>
             To complete setup and log in, click the verification link in the

@@ -56,7 +56,7 @@ function VerifyCodePage({ reSendCode }: { reSendCode?: () => void }) {
         <ContainerSendEmail>
           <Title> Check your inbox to register in</Title>
           <ImgWrapper>
-            <IllusSendEmail src="/email/sendEmail.png" />
+            <IllusSendEmail src="/assets/email/sendEmail.png" />
           </ImgWrapper>
           <ExplainTitle>
             To complete setup and sign up, click the verification code in the
