@@ -47,6 +47,11 @@ const MemberPhoto = forwardRef<HTMLDivElement, MemberPhotoProps>(
               $userPhotoWidth={props.$userPhotoWidth}
               $userPhotoHeight={props.$userPhotoHeight}
               $userBorderadius={props.$userBorderadius}
+              onError={(e) => {
+                const target = e.currentTarget;
+                target.onerror = null;
+                target.src = `https://api.dicebear.com/9.x/initials/svg?backgroundColor=b6e3f4,c0aede,d1d4f9&scale=100&radius=50&seed=${user?.FullName}`;
+              }}
             />
           </Memberphoto>
         ) : (
@@ -56,7 +61,7 @@ const MemberPhoto = forwardRef<HTMLDivElement, MemberPhotoProps>(
         )}
       </Container>
     );
-  }
+  },
 );
 
 MemberPhoto.displayName = "MemberPhoto";

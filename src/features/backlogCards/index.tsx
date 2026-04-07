@@ -34,13 +34,10 @@ import {
   EditSprintButton,
 } from "./styles";
 import { getBacklogCards } from "../../api/backlog-api";
-import { addIssue, updateIssueSprintToBacklog } from "../../api/issue-api";
+import { addIssue, updateIssue } from "../../api/issue-api";
+import { getStatusCount } from "../../utils/getStatusCount";
+import { RouteParams } from "../../types/auth.types";
 
-type URLParams = {
-  projectKey: string;
-  boardId: string;
-  sprintId?: string;
-};
 type BacklogCardsProps = {
   createSprint: () => void;
   updateDragandDrop: (issueId: string) => void;
@@ -49,7 +46,7 @@ type BacklogCardsProps = {
 function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
   const hasFetchedBacklogCards = useRef(false);
   const { user, token } = useUserContext();
-  const { projectKey, boardId } = useParams<URLParams>();
+  const { projectKey, boardId } = useParams<RouteParams>();
   const [content, setContent] = useState("");
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
@@ -123,10 +120,11 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
     sprintId?: string,
     boardId?: string
   ) {
-    const response = await updateIssueSprintToBacklog(
+    const response = await updateIssue(
       token,
       issueId,
       status,
+      undefined,
       sprintId,
       boardId
     );
@@ -162,10 +160,6 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
     loadBacklogCards();
   }, [boardId, projectKey, loadBacklogCards]);
 
-  function getStatusCount(status: IssueStatus) {
-    return backlogCards?.filter((card) => card.Status === status).length || 0;
-  }
-
   return (
     <Container>
       <CollapsibleDemo
@@ -194,30 +188,31 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.ToDo}>
-                    {getStatusCount(IssueStatus.ToDo)}
+                    {getStatusCount(backlogCards, IssueStatus.ToDo)}
                   </HeaderStatus>
                 }
-                content={` Not started ${getStatusCount(IssueStatus.ToDo)} of ${
+                content={` Not started ${getStatusCount(backlogCards, IssueStatus.ToDo)} of ${
                   backlogCards.length
                 } `}
               ></ToolTip>
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.InProgress}>
-                    {getStatusCount(IssueStatus.InProgress)}
+                    {getStatusCount(backlogCards, IssueStatus.InProgress)}
                   </HeaderStatus>
                 }
                 content={`In progress ${getStatusCount(
+                  backlogCards,
                   IssueStatus.InProgress
                 )} of ${backlogCards.length} `}
               ></ToolTip>
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.Done}>
-                    {getStatusCount(IssueStatus.Done)}
+                    {getStatusCount(backlogCards, IssueStatus.Done)}
                   </HeaderStatus>
                 }
-                content={`Completed ${getStatusCount(IssueStatus.Done)} of ${
+                content={`Completed ${getStatusCount(backlogCards, IssueStatus.Done)} of ${
                   backlogCards.length
                 } `}
               ></ToolTip>

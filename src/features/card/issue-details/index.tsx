@@ -132,6 +132,7 @@ function IssueDetails({
                   cols={50}
                   value={tempDescription}
                   onChange={(e) => setTempDescription(e.target.value)}
+                  placeholder="Add a description"
                 />
                 <ButtomWrapper>
                   <BaseButton

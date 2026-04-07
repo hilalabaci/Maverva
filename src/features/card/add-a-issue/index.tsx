@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { IssueType } from "../../../types";
+import { IssueType } from "../../../types/user.types";
 import { useUserContext } from "../../../contexts/UserContext";
 import { Container, Textarea } from "./styles";
 import { addIssue } from "../../../api/issue-api";
 import { useParams } from "react-router-dom";
+import { RouteParams } from "../../../types/auth.types";
 
 type AddIssuePropsType = {
   projectKey: string;
@@ -13,14 +14,9 @@ type AddIssuePropsType = {
   boardId?: string;
   sprintId?: string;
 };
-type URLParams = {
-  projectKey: string;
-  boardId: string;
-  sprintId?: string;
-};
 
 function AddIssue(props: AddIssuePropsType) {
-  const { projectKey, boardId, sprintId } = useParams<URLParams>();
+  const { projectKey, boardId, sprintId } = useParams<RouteParams>();
   const [content, setContent] = useState("");
   const { user, token } = useUserContext();
   const userId = user?.Id;
@@ -54,7 +50,7 @@ function AddIssue(props: AddIssuePropsType) {
       onSubmit={(e) => {
         e.preventDefault();
         submitNote();
-        setInterval(() => {
+        setTimeout(() => {
           props.onClose();
         }, 1000);
       }}

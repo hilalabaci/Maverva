@@ -1,6 +1,6 @@
 import { Container, MemberAvatar, Memberphoto } from "./styles";
 interface ProjectAvatarProps {
-  projectId?: string;
+  projectKey?: string;
   $hidden?: boolean;
   $userPhotoWidth?: string;
   $userPhotoHeight?: string;
@@ -13,7 +13,6 @@ interface ProjectAvatarProps {
 }
 
 function ProjectAvatar(props: ProjectAvatarProps) {
-  const projectId = props.projectId;
   return (
     <Container
       style={{ zIndex: props.style?.zIndex }}
@@ -30,7 +29,7 @@ function ProjectAvatar(props: ProjectAvatarProps) {
         $fontWeight={props.$fontWeight}
       >
         <MemberAvatar
-          src={`https://api.dicebear.com/9.x/icons/svg?scale=100&radius=20&randomizeIds=true&seed=${projectId}`}
+          src={`https://api.dicebear.com/9.x/icons/svg?scale=100&radius=20&randomizeIds=true&seed=${props.projectKey}`}
         />
       </Memberphoto>
     </Container>

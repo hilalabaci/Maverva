@@ -67,6 +67,7 @@ export const ButtomWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  padding: 12px 3px;
 `;
 export const EditTextArea = styled.textarea`
   display: flex;
@@ -151,7 +152,9 @@ export const DescriptionTextEditer = styled.textarea`
   font-size: ${(props) => props.theme.fontSize.default};
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 10px;
+  border-radius: 3px;
+  font-weight: 500;
   @media ${device.mobile} {
     width: fit-content;
   }
@@ -160,6 +163,7 @@ export const IssueDetailsInfoWrapper = styled.div``;
 export const TitleforDetails = styled.h2`
   font-size: 16px;
   padding: 8px 12px;
+  color: ${(props) => props.theme.colour.text.primary};
 `;
 export const DataButtomWrapper = styled.div`
   padding-bottom: 4px;

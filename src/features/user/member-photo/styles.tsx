@@ -29,16 +29,9 @@ export const Memberphoto = styled.div<MemberphotoProps>`
   align-items: center;
   width: ${(props) => props.$userPhotoWidth};
   height: ${(props) => props.$userPhotoHeight};
-  font-size: ${(props) => props.$userPhotoFontSize};
   border-radius: ${(props) => props.$userBorderadius};
-  //background: linear-gradient(135deg, #71b7e6, #9b59b6);
-  background-color: #de835d;
-  color: #182a4e;
-  text-transform: uppercase;
-  font-weight: ${(props) => props.$fontWeight};
   box-shadow: 0 0 0 2px
     ${(props) => props.theme.colour.avatar.background.default};
-
 `;
 export const MemberAvatar = styled.img<MemberphotoProps>`
   width: ${(props) => props.$userPhotoWidth};

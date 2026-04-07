@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 import { updateSprint } from "../../../api/sprint-api";
+import { RouteParams } from "../../../types/auth.types";
 
 type FormDemoType = {
   onClose: () => void;
@@ -28,11 +29,6 @@ type FormDemoType = {
   loadActiveSprint: () => void;
 };
 
-type URLParams = {
-  boardId: string;
-  projectKey: string;
-};
-
 const EditSprint = ({
   onClose,
   startSprintDate,
@@ -42,7 +38,7 @@ const EditSprint = ({
   sprintGoalProps,
   loadActiveSprint,
 }: FormDemoType) => {
-  const { boardId, projectKey } = useParams<URLParams>();
+  const { boardId, projectKey } = useParams<RouteParams>();
   const { user, token } = useUserContext();
   const [sprintName, setSprintName] = useState(sprintTitle || "Board Sprint");
   const [sprintGoal, setSprintGoal] = useState(sprintGoalProps || "");

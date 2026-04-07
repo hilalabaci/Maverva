@@ -30,6 +30,7 @@ import { addBoard, getBoards } from "../../../api/board-api";
 import { getProjects } from "../../../api/project-api";
 import InputRectangle from "../../../components/ui/Input/rectangle";
 import { BoardType, ProjectType } from "../../../types/user.types";
+import { RouteParams } from "../../../types/auth.types";
 type BoardCreatePropsType = {
   onCreate: (project: BoardType) => void;
   BackButton: () => void;
@@ -38,13 +39,9 @@ type BoardCreatePropsType = {
   projectKey?: string;
 };
 
-type URLParams = {
-  projectKey: string;
-};
-
 function BoardCreate(props: BoardCreatePropsType) {
   const hasFetchedProjects = useRef(false);
-  const { projectKey } = useParams<URLParams>();
+  const { projectKey } = useParams<RouteParams>();
   const [boardTitle, setBoardTitle] = useState("");
   const { projects, setProjects, setSelectedProject } = useApplicationContext();
   const { user, token } = useUserContext();
@@ -77,7 +74,7 @@ function BoardCreate(props: BoardCreatePropsType) {
       if (projectKey) {
         const { ok, data } = await getBoards(projectKey, userId, token);
         if (ok && data)
-          setSelectedProject((prev: ProjectType | null) =>
+          setSelectedProject((prev) =>
             prev ? { ...prev, Boards: data } : prev
           );
       }

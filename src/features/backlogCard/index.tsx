@@ -9,7 +9,7 @@ import {
   DragItem,
 } from "../../types/user.types";
 import useOutsideClick from "../../hooks/useOutsideClick";
-import { getStatusLabel } from "../../utils/getStatus";
+import { STATUS_OPTIONS } from "../../constants/status-options";
 import CheckBox from "../../components/forms/checkbox-component";
 import { ToolTip } from "../../components/ui/Toolstip";
 import SelectDemo from "../../components/ui/SelectDemo";
@@ -64,12 +64,9 @@ const BacklogCard = ({
   updateCardAfterDrag,
   onUpdateContent,
 }: BacklogCardPropsType) => {
-  const [{ isDragging }, drag] = useDrag<DragItem, unknown, DragDropCollect>({
+  const [, drag] = useDrag<DragItem, unknown, DragDropCollect>({
     type: "BACKLOG_CARD",
     item: { issueId: id, oldSprintId: sprintId, boardId: boardId },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
     end(_, monitor) {
       if (!monitor.didDrop()) {
         return;
@@ -88,26 +85,11 @@ const BacklogCard = ({
     },
   });
   const { user, token } = useUserContext();
-  const [showModal, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(content);
 
   const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
-
-  function openModal() {
-    setShowModal(true);
-  }
-  function closeModal() {
-    setShowModal(false);
-  }
-  const statusOptions = [
-    { label: getStatusLabel(IssueStatus.ToDo), value: IssueStatus.ToDo },
-    {
-      label: getStatusLabel(IssueStatus.InProgress),
-      value: IssueStatus.InProgress,
-    },
-    { label: getStatusLabel(IssueStatus.Done), value: IssueStatus.Done },
-  ];
+  const statusOptions = STATUS_OPTIONS;
 
   async function updateCard(id: string, status: number) {
     if (!token) return;
@@ -206,7 +188,7 @@ const BacklogCard = ({
       </MemberWrapper>
       <DropdownMenu
         key={id}
-        trigger={<MoreIcon onClick={openModal} />}
+        trigger={<MoreIcon />}
         items={[
           {
             label: "Move to",

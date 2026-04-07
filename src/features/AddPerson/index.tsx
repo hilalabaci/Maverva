@@ -25,23 +25,22 @@ import {
 } from "./styles";
 import { addUsertoBoard, getBoards } from "../../api/board-api";
 import { useParams } from "react-router-dom";
+import { RouteParams } from "../../types/auth.types";
 type AddPersonPropsType = {
   projectTitle: string;
-  closeModal: () => void;
   projectKey: string;
   projectId: string;
+  closeModal: () => void;
 };
 
-type URLParams = {
-  boardId: string;
-};
 function AddPerson({
   projectKey,
   projectId,
   projectTitle,
+  closeModal,
 }: AddPersonPropsType) {
   const hasFetchedBoards = useRef(false);
-  const { boardId } = useParams<URLParams>();
+  const { boardId } = useParams<RouteParams>();
   const [showModal, setShowModal] = useState(false);
   const [emailforAddPerson, setEmailforAddPerson] = useState("");
   const [boards, setBoards] = useState<BoardType[]>([]);
@@ -53,7 +52,7 @@ function AddPerson({
   function openModal() {
     setShowModal(true);
   }
-  function closeModal() {
+   function closeInnerModal() {
     setShowModal(false);
   }
 
@@ -99,7 +98,7 @@ function AddPerson({
         projectData,
         projectKey,
         boardId,
-        token
+        token,
       );
       if (ok && data) {
         setErrorMessage(null);
@@ -154,7 +153,7 @@ function AddPerson({
                         .reduce(
                           (acc, project) =>
                             acc + `${project.title}(${project.key}) `,
-                          ""
+                          "",
                         )}
                       maxLength={64}
                     />
@@ -167,11 +166,11 @@ function AddPerson({
                     selected: !!selectedBoards.find((p) => p.Id === board.Id),
                     action: () => {
                       const selected = selectedBoards.find(
-                        (p) => p.Id === board.Id
+                        (p) => p.Id === board.Id,
                       );
                       if (selected)
                         setSelectedBoards(
-                          selectedBoards.filter((p) => p.Id !== selected.Id)
+                          selectedBoards.filter((p) => p.Id !== selected.Id),
                         );
                       else setSelectedBoards([...selectedBoards, board]);
                     },
@@ -222,7 +221,7 @@ function AddPerson({
               </CancelButton>
               <Modal
                 trigger={<SubmitButton type="submit">Add</SubmitButton>}
-                onClose={closeModal}
+                onClose={closeInnerModal}
                 open={showModal}
                 onChange={setShowModal}
               >

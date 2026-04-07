@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import MemberPhoto from "../../../features/user/member-photo";
 import { CancelButton } from "../../AddPerson/styles";
 import { BackButton } from "../../board/optional/styles";
-import { ProjectType, ApiError } from "../../../types";
 import { useUserContext } from "../../../contexts/UserContext";
 import {
   Container,
@@ -25,6 +24,7 @@ import {
   createProjectKey as createProjectKeyApi,
 } from "../../../api/project-api";
 import InputRectangle from "../../../components/ui/Input/rectangle";
+import { ApiError, ProjectType } from "../../../types/user.types";
 
 type ProjectCreatePropsType = {
   onCreate: (project: ProjectType) => void;

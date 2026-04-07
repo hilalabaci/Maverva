@@ -44,6 +44,8 @@ import { updateSprint } from "../../api/sprint-api";
 import { DropdownMenu } from "../../components/ui/DropDownMenu";
 import Modal from "../../components/ui/Modal";
 import EditSprint from "./edit-sprint";
+import { getStatusCount } from "../../utils/getStatusCount";
+import { RouteParams } from "../../types/auth.types";
 
 type SprintPropsType = {
   sprint: SprintType;
@@ -58,11 +60,6 @@ type SprintPropsType = {
   loadActiveSprint: () => void;
 };
 
-type URLParams = {
-  projectKey: string;
-  boardId?: string;
-};
-
 function Sprint({
   sprint,
   sprintId,
@@ -75,7 +72,7 @@ function Sprint({
   sprintGoal,
   loadActiveSprint,
 }: SprintPropsType) {
-  const { boardId, projectKey } = useParams<URLParams>();
+  const { boardId, projectKey } = useParams<RouteParams>();
   const { user, token } = useUserContext();
   const [showBacklog, setShowBacklog] = useState(true);
   const [displayCreateTask, setDisplayCreateTask] = useState(false);
@@ -180,10 +177,6 @@ function Sprint({
   function deleteCard(id: string) {
     setSprintCards(sprintCards.filter((card) => card.Id !== id));
   }
-  function getStatusCount(status: IssueStatus) {
-    if (!sprintCards) return 0;
-    return sprintCards.filter((card) => card.Status === status).length;
-  }
 
   function updateStatusCard(id: string, status: number) {
     setSprintCards((prevBacklogCards) =>
@@ -271,30 +264,31 @@ function Sprint({
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.ToDo}>
-                    {getStatusCount(IssueStatus.ToDo)}
+                    {getStatusCount(sprintCards, IssueStatus.ToDo)}
                   </HeaderStatus>
                 }
-                content={` Not started ${getStatusCount(IssueStatus.ToDo)} of ${
+                content={` Not started ${getStatusCount(sprintCards, IssueStatus.ToDo)} of ${
                   sprint.Issues?.length ?? 0
                 } `}
               ></ToolTip>
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.InProgress}>
-                    {getStatusCount(IssueStatus.InProgress)}
+                    {getStatusCount(sprintCards, IssueStatus.InProgress)}
                   </HeaderStatus>
                 }
                 content={` In progress ${getStatusCount(
+                  sprintCards,
                   IssueStatus.InProgress
                 )} of ${sprint.Issues?.length ?? 0} `}
               ></ToolTip>
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.Done}>
-                    {getStatusCount(IssueStatus.Done)}
+                    {getStatusCount(sprintCards, IssueStatus.Done)}
                   </HeaderStatus>
                 }
-                content={`Completed ${getStatusCount(IssueStatus.Done)} of ${
+                content={`Completed ${getStatusCount(sprintCards, IssueStatus.Done)} of ${
                   sprint.Issues?.length ?? 0
                 } `}
               ></ToolTip>
