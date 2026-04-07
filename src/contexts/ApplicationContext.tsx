@@ -12,7 +12,17 @@ import {
   IssueType,
   ProjectType,
   SprintType,
+  UserType,
 } from "../types/user.types";
+import { getUsersByProject } from "../api/project-api";
+import { useUserContext } from "./UserContext";
+
+function useSyncToLocalStorage<T>(key: string, value: T | undefined) {
+  useEffect(() => {
+    if (value) localStorage.setItem(key, JSON.stringify(value));
+    else localStorage.removeItem(key);
+  }, [key, value]);
+}
 
 type ApplicationProviderProps = PropsWithChildren;
 type ApplicationContextType = {
@@ -28,6 +38,8 @@ type ApplicationContextType = {
   setIssues: Dispatch<SetStateAction<IssueType[] | undefined>>;
   selectedIssue: IssueType | undefined;
   setSelectedIssue: Dispatch<SetStateAction<IssueType | undefined>>;
+  projectUsers: UserType[];
+  setProjectUsers: Dispatch<SetStateAction<UserType[]>>;
 };
 
 const ApplicationContext = createContext<ApplicationContextType>({
@@ -43,6 +55,8 @@ const ApplicationContext = createContext<ApplicationContextType>({
   setSelectedIssue: () => {},
   issues: undefined,
   setIssues: () => {},
+  projectUsers: [],
+  setProjectUsers: () => {},
 });
 const selectedProjectStorageKey = "selected_project";
 const boardStorageKey = "selected_board";
@@ -59,43 +73,24 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
   const [activeSprint, setActiveSprint] = useState<SprintType | undefined>();
   const [issues, setIssues] = useState<IssueType[] | undefined>();
   const [selectedIssue, setSelectedIssue] = useState<IssueType | undefined>();
-
-  useEffect(() => {}, [projects]);
-
-  useEffect(() => {
-    if (selectedProject)
-      localStorage.setItem(
-        selectedProjectStorageKey,
-        JSON.stringify(selectedProject)
-      );
-    else localStorage.removeItem(selectedProjectStorageKey);
-  }, [selectedProject]);
+  const [projectUsers, setProjectUsers] = useState<UserType[]>([]);
+  const { token } = useUserContext();
 
   useEffect(() => {
-    if (selectedBoard)
-      localStorage.setItem(boardStorageKey, JSON.stringify(selectedBoard));
-    else localStorage.removeItem(boardStorageKey);
-  }, [selectedBoard]);
+    if (token && selectedProject?.Id) {
+      getUsersByProject(selectedProject.Id, token).then((res) => {
+        if (res.ok && res.data) setProjectUsers(res.data);
+      });
+    } else {
+      setProjectUsers([]);
+    }
+  }, [selectedProject?.Id, token]);
 
-  useEffect(() => {
-    if (activeSprint)
-      localStorage.setItem(sprintStorageKey, JSON.stringify(activeSprint));
-    else localStorage.removeItem(sprintStorageKey);
-  }, [activeSprint]);
-
-  useEffect(() => {
-    if (issues) localStorage.setItem(issuesStorageKey, JSON.stringify(issues));
-    else localStorage.removeItem(issuesStorageKey);
-  }, [issues]);
-
-  useEffect(() => {
-    if (selectedIssue)
-      localStorage.setItem(
-        selectedIssueStorageKey,
-        JSON.stringify(selectedIssue)
-      );
-    else localStorage.removeItem(selectedIssueStorageKey);
-  }, [selectedIssue]);
+  useSyncToLocalStorage(selectedProjectStorageKey, selectedProject);
+  useSyncToLocalStorage(boardStorageKey, selectedBoard);
+  useSyncToLocalStorage(sprintStorageKey, activeSprint);
+  useSyncToLocalStorage(issuesStorageKey, issues);
+  useSyncToLocalStorage(selectedIssueStorageKey, selectedIssue);
 
   return (
     <ApplicationContext.Provider
@@ -112,6 +107,8 @@ export const ApplicationProvider = ({ children }: ApplicationProviderProps) => {
         setIssues,
         selectedIssue,
         setSelectedIssue,
+        projectUsers,
+        setProjectUsers,
       }}
     >
       {children}
