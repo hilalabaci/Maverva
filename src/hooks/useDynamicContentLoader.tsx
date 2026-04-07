@@ -32,14 +32,17 @@ export function useDynamicContentLoader(projectKey?: string) {
       const { ok, data } = await getSelectedProject(projectKey, user.Id, token);
       if (ok && data) {
         setSelectedProject(data);
-        const firstBoard = data.Boards?.[0];
-        setSelectedBoard(firstBoard);
+        // Only set board if none is selected yet
+        const boardToUse = selectedBoard || data.Boards?.[0];
+        if (!selectedBoard && boardToUse) {
+          setSelectedBoard(boardToUse);
+        }
 
-        if (firstBoard) {
+        if (boardToUse) {
           const { ok: okSprint, data: sprintData } = await getActiveSprint(
             projectKey,
-            firstBoard.Id,
-            token
+            boardToUse.Id,
+            token,
           );
           if (okSprint && sprintData) {
             setActiveSprint(sprintData);
@@ -54,6 +57,7 @@ export function useDynamicContentLoader(projectKey?: string) {
     projectKey,
     user,
     token,
+    selectedBoard,
     setSelectedProject,
     setSelectedBoard,
     setActiveSprint,
@@ -61,13 +65,14 @@ export function useDynamicContentLoader(projectKey?: string) {
   ]);
 
   // Load active sprint
-  const loadActiveSprint = useCallback(async () => {
-    if (!projectKey || !selectedBoard?.Id || !token) return;
+  const loadActiveSprint = useCallback(async (overrideBoardId?: string) => {
+    const boardId = overrideBoardId || selectedBoard?.Id;
+    if (!projectKey || !boardId || !token) return;
     try {
       const { ok, data } = await getActiveSprint(
         projectKey,
-        selectedBoard.Id,
-        token
+        boardId,
+        token,
       );
       if (ok && data) {
         setActiveSprint(data);
@@ -91,7 +96,7 @@ export function useDynamicContentLoader(projectKey?: string) {
       token,
       issue.Id,
       issue.Summary,
-      issue.Description
+      issue.Description,
     );
     if (response.ok && response.data) updateIssue(response.data);
   };
@@ -102,14 +107,14 @@ export function useDynamicContentLoader(projectKey?: string) {
       token,
       issue.Id,
       issue.Summary,
-      issue.Description
+      issue.Description,
     );
     if (response.ok && response.data) {
       updateIssue(response.data);
       setSelectedIssue((prev) =>
         prev?.Id === issue.Id
           ? { ...prev, Description: response.data?.Description }
-          : prev
+          : prev,
       );
     }
   };
@@ -130,7 +135,7 @@ export function useDynamicContentLoader(projectKey?: string) {
       status: IssueStatus.ToDo,
     }));
     const remaining = issues.filter(
-      (issue) => !updated.some((u) => u.Id === issue.Id)
+      (issue) => !updated.some((u) => u.Id === issue.Id),
     );
     setIssues([...updated, ...remaining]);
   };
@@ -140,11 +145,17 @@ export function useDynamicContentLoader(projectKey?: string) {
     if (issues) {
       setFilteredIssues(
         issues.filter((issue) =>
-          issue.Summary.toLowerCase().includes(searchInput.toLowerCase())
-        )
+          issue.Summary.toLowerCase().includes(searchInput.toLowerCase()),
+        ),
       );
     }
   }, [searchInput, issues]);
+
+  // Reload issues when selected board changes
+  useEffect(() => {
+    if (!selectedBoard?.Id || !hasFetchedProjects.current) return;
+    loadActiveSprint(selectedBoard.Id);
+  }, [selectedBoard?.Id, loadActiveSprint]);
 
   // Initial project load
   useEffect(() => {
@@ -152,7 +163,6 @@ export function useDynamicContentLoader(projectKey?: string) {
     hasFetchedProjects.current = true;
     loadSelectedProject();
   }, [projectKey, loadSelectedProject]);
-  
 
   return {
     selectedProject,
