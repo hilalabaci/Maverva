@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BoardType, ProjectType, SprintType } from "./types";
+import { BoardType, ProjectType, SprintType } from "../types/user.types";
 
 type ApplicationState = {
   projects: ProjectType[];

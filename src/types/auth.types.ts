@@ -1,5 +1,10 @@
 import { BoardType, ProjectType } from "./user.types";
 
+export type RouteParams = {
+  projectKey: string;
+  boardId: string;
+  sprintId: string;
+};
 
 export type ApiCallOptions = {
   urlParams?: URLSearchParams;
