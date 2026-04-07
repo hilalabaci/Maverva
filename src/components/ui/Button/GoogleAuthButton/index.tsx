@@ -32,7 +32,7 @@ const GoogleAuthButton = ({ borderRadius }: loginGooglePropsType) => {
       <Button
         onClick={() => loginGoogle()}
         aria-label="Login with Google"
-        borderRadius={borderRadius}
+        $borderRadius={borderRadius}
       >
         <FcGoogle size={25} />
         <Text>Continue with Google</Text>

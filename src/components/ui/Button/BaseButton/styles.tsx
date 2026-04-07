@@ -3,21 +3,20 @@ import { device } from "../../../../styles/breakpoints";
 import borderRadius from "../../../../theme/tokens/borderRadius";
 
 type actionButtonPropsType = {
-  variant?: "primary" | "secondary" | "danger" | "warning";
-  size?: "sm" | "md" | "lg";
-  fontSize?: "sm" | "md" | "lg";
-  borderRadius?: keyof typeof borderRadius;
+  $variant?: "primary" | "secondary" | "danger" | "warning";
+  $size?: "sm" | "md" | "lg";
+  $fontSize?: "sm" | "md" | "lg";
+  $borderRadius?: keyof typeof borderRadius;
 };
 
 export const BaseButtonStyledComponent = styled.button<actionButtonPropsType>`
-  ${({ size }) => {
-    switch (size) {
+  ${({ $size }) => {
+    switch ($size) {
       case "sm":
         return css`
-          padding: 10px 80px;
+          padding: 10px 30px;
           font-size: ${(props) => props.theme.fontSize.default};
-          height: 40px;
-          width: fit-content;
+          width: min-content;
         `;
       case "lg":
         return css`
@@ -34,8 +33,8 @@ export const BaseButtonStyledComponent = styled.button<actionButtonPropsType>`
         `;
     }
   }}
-  font-size: ${({ fontSize }) => {
-    switch (fontSize) {
+  font-size: ${({ $fontSize }) => {
+    switch ($fontSize) {
       case "sm":
         return "12px";
       case "md":
@@ -46,11 +45,11 @@ export const BaseButtonStyledComponent = styled.button<actionButtonPropsType>`
         return "14px";
     }
   }};
-  border-radius: ${({ borderRadius, theme }) =>
-    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.sm};
+  border-radius: ${({ $borderRadius, theme }) =>
+    $borderRadius ? theme.borderRadius[$borderRadius] : theme.borderRadius.sm};
 
-  ${({ variant, theme }) => {
-    switch (variant) {
+  ${({ $variant, theme }) => {
+    switch ($variant) {
       case "secondary":
         return css`
           background: ${theme.colour.primary.button.secondary.background

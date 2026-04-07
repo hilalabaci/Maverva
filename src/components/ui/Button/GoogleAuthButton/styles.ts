@@ -4,7 +4,7 @@ import borderRadius from "../../../../theme/tokens/borderRadius";
 // path alias
 
 type GoogleButtonProps = {
-  borderRadius?: keyof typeof borderRadius;
+  $borderRadius?: keyof typeof borderRadius;
 };
 export const GoogleSignWrapper = styled.div``;
 export const Button = styled.button<GoogleButtonProps>`
@@ -28,8 +28,8 @@ font-size: ${(props) => props.theme.fontSize.default};
   background-color: ${(props) =>
     props.theme.colour.primary.button.secondary.background.default};
 
-  border-radius: ${({ borderRadius, theme }) =>
-    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.lg};
+  border-radius: ${({ $borderRadius, theme }) =>
+    $borderRadius ? theme.borderRadius[$borderRadius] : theme.borderRadius.lg};
   &:hover {
     background-color: ${(props) =>
       props.theme.colour.primary.button.secondary.background.hover};

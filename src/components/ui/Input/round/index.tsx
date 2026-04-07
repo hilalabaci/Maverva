@@ -51,11 +51,11 @@ function Input({
 
   return (
     <Container>
-      {label && <LabelforInput fontColour={fontColour}>{label}</LabelforInput>}
+      {label && <LabelforInput $fontColour={fontColour}>{label}</LabelforInput>}
       <InputContainer
-        error={!!error}
-        filled={filled}
-        borderRadius={borderRadius}
+        $error={!!error}
+        $filled={filled}
+        $borderRadius={borderRadius}
       >
         {type === "email" ? <EmailIcon /> : ""}
         <Inputs
@@ -64,7 +64,7 @@ function Input({
           type={inputType}
           name={name}
           placeholder={placeholder}
-          filled={filled}
+          $filled={filled}
           readOnly={filled}
         />
         {type === "password" && (

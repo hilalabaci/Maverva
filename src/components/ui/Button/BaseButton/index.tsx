@@ -28,13 +28,13 @@ function BaseButton({
   return (
     <BaseButtonStyledComponent
       onClick={onClick}
-      variant={variant}
-      size={size}
+      $variant={variant}
+      $size={size}
       type={type}
       aria-label={ariaLabel}
       disabled={disabled}
-      fontSize={fontSize}
-      borderRadius={borderRadius}
+      $fontSize={fontSize}
+      $borderRadius={borderRadius}
     >
       {children}
     </BaseButtonStyledComponent>

@@ -12,9 +12,9 @@ export const Container = styled.div`
   gap: 9px;
 `;
 type InputContainerProps = {
-  error?: boolean;
-  filled?: boolean;
-  borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
+  $error?: boolean;
+  $filled?: boolean;
+  $borderRadius?: keyof typeof import("../../../../theme/tokens/borderRadius").default;
 };
 export const InputContainer = styled.div<InputContainerProps>`
   display: flex;
@@ -23,22 +23,22 @@ export const InputContainer = styled.div<InputContainerProps>`
   height: 40px;
   padding-inline-start: 1.25rem;
   padding-inline-end: 1.25rem;
-  border-radius: ${({ borderRadius, theme }) =>
-    borderRadius ? theme.borderRadius[borderRadius] : theme.borderRadius.lg};
+  border-radius: ${({ $borderRadius, theme }) =>
+    $borderRadius ? theme.borderRadius[$borderRadius] : theme.borderRadius.lg};
   outline: none;
   box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
   font-size: ${(props) => props.theme.fontSize.default};
   font-weight: 400;
   gap: 5px;
   background-color: ${(props) =>
-    props.filled
+    props.$filled
       ? props.theme.colour.background.muted
       : props.theme.colour.background.default};
   color: ${(props) => props.theme.colour.text.inverted};
   &:focus-within {
     box-shadow: 0 0 0 2px ${(props) => props.theme.colour.border.focus};
     box-shadow: ${(props) =>
-      props.filled
+      props.$filled
         ? `0 0 0 2px ${props.theme.colour.background.muted}`
         : `0 0 0 2px ${props.theme.colour.border.focus}`};
   }
@@ -51,11 +51,11 @@ export const Inputs = styled.input<InputContainerProps>`
   font-weight: 400;
   flex: 1;
   background-color: ${(props) =>
-    props.filled
+    props.$filled
       ? props.theme.colour.background.muted
       : props.theme.colour.background.default};
   color: ${(props) =>
-    props.filled ? "#091e424f" : props.theme.colour.text.inverted};
+    props.$filled ? "#091e424f" : props.theme.colour.text.inverted};
   font-size: ${(props) => props.theme.fontSize.default};
 
   @media ${device.mobile} {
@@ -112,12 +112,12 @@ export const PasswordIconHidden = styled(FaEye)`
 `;
 
 type LabelforInputProps = {
-  fontColour?: "Dark" | "Light";
+  $fontColour?: "Dark" | "Light";
 };
 
 export const LabelforInput = styled.span<LabelforInputProps>`
   color: ${(props) =>
-    props.fontColour === "Dark" ? props.theme.colour.text.subtitle : "#ffffff"};
+    props.$fontColour === "Dark" ? props.theme.colour.text.subtitle : "#ffffff"};
   font-size: ${(props) => props.theme.fontSize.subtitle};
   font-weight: bold;
   &::after {
