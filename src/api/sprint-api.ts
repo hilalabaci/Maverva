@@ -1,5 +1,5 @@
-import { EditSprintRequest } from "../api-types/types";
-import { IssueType, SprintType } from "../types";
+import { EditSprintRequest } from "../types/auth.types";
+import { IssueType, SprintType } from "../types/user.types";
 import { apiCall } from "./api-client";
 
 export const addSprint = async (
@@ -67,9 +67,6 @@ export const getActiveSprint = async (
     `projects/${projectKey}/boards/${boardId}/sprints/active`,
     {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
       token: token,
     }
   );

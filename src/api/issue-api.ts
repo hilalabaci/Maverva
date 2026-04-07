@@ -16,19 +16,7 @@ export const getIssues = async (boardId: string, token: string) => {
     token: token,
   });
 };
-export const getBacklogIssues = async (
-  projectKey: string,
-  boardId: string,
-  token: string
-) => {
-  return await apiCall<IssueType[]>(
-    `projects/${projectKey}/boards/${boardId}/backlog`,
-    {
-      method: "GET",
-      token: token,
-    }
-  );
-};
+
 export const updateIssue = async (
   token: string,
   issueId: string,
@@ -41,19 +29,6 @@ export const updateIssue = async (
   return await apiCall<IssueType>(`issues/${issueId}`, {
     method: "PUT",
     data: { issueId, status, newSprintId, oldSprintId, boardId, assignUserId },
-    token: token,
-  });
-};
-export const updateIssueSprintToBacklog = async (
-  token: string,
-  issueId: string,
-  status?: number,
-  oldSprintId?: string,
-  boardId?: string
-) => {
-  return await apiCall<IssueType>(`issues/${issueId}`, {
-    method: "PUT",
-    data: { issueId, status, oldSprintId, boardId },
     token: token,
   });
 };

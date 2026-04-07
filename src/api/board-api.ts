@@ -2,8 +2,8 @@ import {
   AddBoardRequest,
   AddBoardResponse,
   AddUserToBoardRequest,
-} from "../api-types/types";
-import { BoardType } from "../types";
+} from "../types/auth.types";
+import { BoardType } from "../types/user.types";
 import { apiCall } from "./api-client";
 
 export const addBoard = async (
