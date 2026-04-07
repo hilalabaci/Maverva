@@ -30,6 +30,7 @@ import EditSprint from "../sprint/edit-sprint";
 import IconButton from "../../components/ui/Button/IconButton";
 import TextButton from "../../components/ui/Button/TextButton";
 import { ProjectType, UserType } from "../../types/user.types";
+import { useModalState } from "../../hooks/useModalState";
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -64,30 +65,10 @@ function TopMenu({
   const { user, token } = useUserContext();
   const { boardId } = useParams<{ boardId: string }>();
   const [projectTitle, setProjectTitle] = useState(topMenuTitle);
-  const [showModal, setShowModal] = useState(false);
-  const [createBoardModal, setCreateBoardModal] = useState(false);
-  const [editSprintModal, setEditSprintModal] = useState(false);
+  const addPersonModal = useModalState();
+  const createBoardModal = useModalState();
+  const editSprintModal = useModalState();
   const [users, setUsers] = useState<UserType[]>([]);
-
-  function openModal() {
-    setShowModal(true);
-  }
-
-  function closeModal() {
-    setShowModal(false);
-  }
-  function openCreateBoardModal() {
-    setCreateBoardModal(true);
-  }
-  function closeCreateBoardModal() {
-    setCreateBoardModal(false);
-  }
-  function openEditSprintModal() {
-    setEditSprintModal(true);
-  }
-  function closeEditSprintModal() {
-    setEditSprintModal(false);
-  }
 
   useEffect(() => {
     setProjectTitle(topMenuTitle);
@@ -165,11 +146,11 @@ function TopMenu({
             items={[
               {
                 label: "Edit sprint",
-                action: openEditSprintModal,
+                action: editSprintModal.open,
               },
               {
                 label: "Create board",
-                action: openCreateBoardModal,
+                action: createBoardModal.open,
               },
             ]}
           />
@@ -205,19 +186,19 @@ function TopMenu({
               <ToolTip
                 contentStyle={{ zIndex: 1 }}
                 trigger={
-                  <ButtonStylesforPersonAdd onClick={openModal}>
+                  <ButtonStylesforPersonAdd onClick={addPersonModal.open}>
                     <IconPersonAdd />
                   </ButtonStylesforPersonAdd>
                 }
                 content="Add people"
               ></ToolTip>
             }
-            open={showModal}
-            onChange={setShowModal}
-            onClose={closeModal}
+            open={addPersonModal.isOpen}
+            onChange={addPersonModal.setIsOpen}
+            onClose={addPersonModal.close}
           >
             <AddPerson
-              closeModal={closeModal}
+              closeModal={addPersonModal.close}
               projectTitle={projectTitle}
               projectKey={projectKey}
               projectId={projectId}
@@ -225,18 +206,18 @@ function TopMenu({
           </Modal>
         </AssignMemberContainer>
       </SearchAndAssignMemberContainer>
-      {createBoardModal && (
-        <Modal open={createBoardModal} onClose={closeCreateBoardModal}>
+      {createBoardModal.isOpen && (
+        <Modal open={createBoardModal.isOpen} onClose={createBoardModal.close}>
           <OptionalBoardCreate
             handleProjectCreate={onProjectUpdate}
-            onClose={closeCreateBoardModal}
+            onClose={createBoardModal.close}
           />
         </Modal>
       )}
-      {editSprintModal && (
-        <Modal open={editSprintModal} onClose={closeEditSprintModal}>
+      {editSprintModal.isOpen && (
+        <Modal open={editSprintModal.isOpen} onClose={editSprintModal.close}>
           <EditSprint
-            onClose={closeEditSprintModal}
+            onClose={editSprintModal.close}
             startSprintDate={startDateActiveSprint}
             endSprintDate={endDateActiveSprint}
             sprintTitle={activeSprintName}

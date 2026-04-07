@@ -10,7 +10,7 @@ import { useApplicationContext } from "../../../contexts/ApplicationContext";
 import CollapsibleDemo from "../../../components/ui/Collapsible";
 import Scroll from "../../../components/ui/Scroll";
 import Modal from "../../../components/ui/Modal";
-import { BoardType, ProjectType } from "../../../types";
+
 import {
   Container,
   Wrapper,
@@ -40,36 +40,32 @@ import {
   IconPlus,
 } from "./styles";
 import { getBoards } from "../../../api/board-api";
+import { BoardType, ProjectType } from "../../../types/user.types";
+import { RouteParams } from "../../../types/auth.types";
 
 type ProjectMenuPropsType = {
   ProjectTitleProps: string;
   hideMenu: boolean;
-  projectId: string;
   onHover?: (hover: boolean) => void;
   selectedProjectsTitle: string | undefined;
   projectKey: string;
 };
-type URLParams = {
-  boardId?: string;
-};
-function ProjectMenu({
-  hideMenu,
-  projectId,
-  onHover,
-  projectKey,
-}: ProjectMenuPropsType) {
+function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
   const hasFetchedBoards = useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { boardId } = useParams<URLParams>();
+  const { boardId } = useParams<RouteParams>();
   const { user, token } = useUserContext();
-  const { activeSprint, selectedProject, setSelectedBoard } =
+  const { setActiveSprint, selectedProject, setSelectedBoard, activeSprint: contextActiveSprint } =
     useApplicationContext();
   const [boards, setBoards] = useState<BoardType[]>([]);
   const [showBoards, setShowBoards] = useState(false);
   const isBacklog = location.pathname.includes("/backlog");
   const isActiveSprint = !isBacklog;
   const selectedBoard = boards.find((b) => b.Id === boardId);
+  const activeSprintIdForLink = selectedBoard?.ActiveSprint?.Id
+    || selectedBoard?.Sprints?.find(s => s.IsActive)?.Id
+    || contextActiveSprint?.Id;
   const [showModalforCreateButton, setShowModalforCreateButton] =
     useState(false);
 
@@ -91,7 +87,7 @@ function ProjectMenu({
     if (hasFetchedBoards.current) return;
     hasFetchedBoards.current = true;
     loadBoards();
-  }, [projectKey, projectId, loadBoards]);
+  }, [loadBoards]);
 
   useEffect(() => {
     if (boards.length > 0 && !boardId) {
@@ -103,7 +99,6 @@ function ProjectMenu({
       }
     }
   }, [boards, boardId, navigate, projectKey]);
-  const activeSprintId = selectedBoard?.Sprints?.[0]?.Id;
 
   return (
     <Container
@@ -120,7 +115,7 @@ function ProjectMenu({
             $userPhotoFontSize="1px"
             $userBorderadius="3px"
             $fontWeight="600"
-            projectId={projectId}
+            projectKey={projectKey}
           />
           <ProjectTitle $hidden={hideMenu}>
             {selectedProject?.Name}
@@ -167,22 +162,24 @@ function ProjectMenu({
                             selected={selectedBoard?.Id === board.Id}
                             onClick={() => {
                               setShowBoards(false);
+                              const activeSprintForBoard = board.ActiveSprint || board.Sprints?.find(s => s.IsActive) || board.Sprints?.[0];
+                              setActiveSprint(activeSprintForBoard);
+                              setSelectedBoard(board);
 
                               const isBacklogPage =
                                 location.pathname.includes("/backlog");
-                              // const activeSprintId = board.Sprints?.[0]?.Id;
-                              setSelectedBoard(board);
+                              const activeSprintId = activeSprintForBoard?.Id;
                               if (isBacklogPage) {
                                 navigate(
-                                  `/projects/${projectKey}/boards/${board.Id}/backlog`
+                                  `/projects/${projectKey}/boards/${board.Id}/backlog`,
                                 );
                               } else if (activeSprintId) {
                                 navigate(
-                                  `/projects/${projectKey}/boards/${board.Id}/sprints/${activeSprintId}`
+                                  `/projects/${projectKey}/boards/${board.Id}/sprints/${activeSprintId}`,
                                 );
                               } else {
                                 navigate(
-                                  `/projects/${projectKey}/boards/${board.Id}/backlog`
+                                  `/projects/${projectKey}/boards/${board.Id}/backlog`,
                                 );
                               }
                             }}
@@ -210,7 +207,7 @@ function ProjectMenu({
                         // onCreate={onCreate}
                         onClose={closeModalforCreateButton}
                         handleProjectCreate={function (
-                          project: ProjectType
+                          project: ProjectType,
                         ): void {
                           throw new Error("Function not implemented.");
                         }}
@@ -232,7 +229,7 @@ function ProjectMenu({
                   </SideBarElementWrapper>
                 </SideBarElement>
                 <SideBarElement
-                  to={`/projects/${projectKey}/boards/${boardId}/sprints/${activeSprint?.Id}`}
+                  to={`/projects/${projectKey}/boards/${boardId}/sprints/${activeSprintIdForLink}`}
                 >
                   <SideBarElementWrapper selected={isActiveSprint}>
                     <SideBarElementIcon>
