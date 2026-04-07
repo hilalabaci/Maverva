@@ -8,16 +8,12 @@ import { useParams } from "react-router-dom";
 import Sprint from "../../features/sprint";
 import { useUserContext } from "../../contexts/UserContext";
 import { IssueType, SprintType } from "../../types/user.types";
+import { RouteParams } from "../../types/auth.types";
 import { Container } from "./styled";
-
-type URLParams = {
-  boardId?: string;
-  projectKey?: string;
-};
 
 function Backlog() {
   const hasFetchedSprints = useRef(false);
-  const { boardId, projectKey } = useParams<URLParams>();
+  const { boardId, projectKey } = useParams<RouteParams>();
   const [sprints, setSprints] = useState<SprintType[]>([]);
   const [activeToSprint, setActiveToSprint] = useState(false);
   const { user, token } = useUserContext();
@@ -27,7 +23,7 @@ function Backlog() {
       const { ok, data } = await getSprints(
         boardId,
         projectKey as string,
-        token
+        token,
       );
       if (ok && data) setSprints(data);
     } catch (error) {
@@ -45,7 +41,7 @@ function Backlog() {
         user?.Id,
         boardId,
         projectKey as string,
-        token as string
+        token as string,
       );
       if (ok && data) {
         setSprints((prevSprints: SprintType[]) => [
@@ -57,6 +53,10 @@ function Backlog() {
       console.error("Error creating sprint:", error);
     }
   }, [boardId, user?.Id, token, projectKey]);
+
+  useEffect(() => {
+    hasFetchedSprints.current = false;
+  }, [boardId]);
 
   useEffect(() => {
     if (!boardId || hasFetchedSprints.current) return;
@@ -75,7 +75,7 @@ function Backlog() {
   useEffect(() => {
     if (sprints.length > 0) {
       setActiveToSprint(
-        sprints[0].Id === sprints.find((sprint) => sprint.Id)?.Id
+        sprints[0].Id === sprints.find((sprint) => sprint.Id)?.Id,
       );
     }
   }, [sprints]);

@@ -29,15 +29,10 @@ import {
   addColumn,
 } from "../../api/column-api";
 import { useUserContext } from "../../contexts/UserContext";
-import { ColumnType, IssueType, SprintType } from "../../types/user.types";
-
-type URLParams = {
-  boardId?: string;
-};
+import { ColumnType, IssueType } from "../../types/user.types";
+import { RouteParams } from "../../types/auth.types";
 
 type ActiveSprintsProps = {
-  activeSprint?: SprintType;
-  boardId?: string | undefined;
   filteredCards: IssueType[];
   onUpdate: (issue: IssueType) => void;
   onUpdateSummary: (issue: IssueType) => void;
@@ -49,7 +44,6 @@ type ActiveSprintsProps = {
   updatedCardsAfterDeleteColumn: (issues: IssueType[]) => void;
 };
 function ActiveSprint({
-  activeSprint,
   filteredCards,
   onUpdate,
   onUpdateSummary,
@@ -61,48 +55,51 @@ function ActiveSprint({
 }: ActiveSprintsProps) {
   const { user, token } = useUserContext();
   const hasFetchedProjects = useRef(false);
-  const { boardId } = useParams<URLParams>();
+  const { boardId, sprintId } = useParams<RouteParams>();
   const [columns, setColumns] = useState<ColumnType[]>([]);
   const [displayCreateColumn, setDisplayCreateColumn] = useState(false);
   const [title, setTitle] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [showModal, setShowModal] = useState(false);
 
-  function openModal() {
-    setShowModal(true);
-  }
   function handleChange(value: string) {
     setTitle(value);
   }
   const loadColumns = useCallback(async () => {
-    if (!boardId || !projectKey || !activeSprint?.Id || !token) return;
+    if (!boardId || !projectKey || !sprintId || !token) return;
     try {
       const { ok, data } = await getColumns(
         projectKey,
         boardId,
-        activeSprint?.Id,
-        token
+        sprintId,
+        token,
       );
       if (ok && data) setColumns(data);
     } catch (error) {
       console.error("Fetch error:", error);
     }
-  }, [token, projectKey, boardId, activeSprint?.Id]);
+  }, [token, projectKey, boardId, sprintId]);
 
   async function deleteColumn(columnId: string) {
     try {
-      if (!columnId) return;
+      if (
+        !columnId ||
+        !user?.Id ||
+        !projectKey ||
+        !boardId ||
+        !sprintId ||
+        !token
+      )
+        return;
       const { ok, data } = await deleteColumnApi(
         columnId,
-        user?.Id as string,
-        projectKey as string,
-        boardId as string,
-        activeSprint?.Id as string,
-        token as string
+        user.Id,
+        projectKey,
+        boardId,
+        sprintId,
+        token,
       );
-      if (ok || data) {
+      if (ok && data) {
         setColumns(columns.filter((c) => c.Id !== columnId));
-        updatedCardsAfterDeleteColumn(data as IssueType[]);
+        updatedCardsAfterDeleteColumn(data);
       }
     } catch (error) {}
   }
@@ -117,30 +114,31 @@ function ActiveSprint({
         boardId: boardId,
         userId: user?.Id as string,
       };
-      if (!projectKey || !activeSprint?.Id || !token) return;
+      if (!projectKey || !sprintId || !token) return;
       const { ok, data } = await addColumn(
         columnData,
         projectKey,
         boardId,
-        activeSprint?.Id,
-        token
+        sprintId,
+        token,
       );
       if (ok && data) {
         await loadColumns();
         setTitle("");
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error adding column:", error);
+    }
   }
   useEffect(() => {
-    if (!boardId || !activeSprint || hasFetchedProjects.current) return;
+    if (!boardId || !sprintId || hasFetchedProjects.current) return;
     hasFetchedProjects.current = true;
     loadColumns();
-  }, [boardId, activeSprint, loadColumns]);
-
+  }, [boardId, sprintId, loadColumns]);
   return (
     <Container>
       <ColumnContainer>
-        {activeSprint ? (
+        {sprintId ? (
           <DndProvider backend={HTML5Backend}>
             {columns
               .sort((a, b) => a.Status - b.Status)
@@ -152,18 +150,18 @@ function ActiveSprint({
                       <NumberOfCards
                         numberOfCards={
                           filteredCards.filter(
-                            (card) => card.Status === column.Status
+                            (card) => card.Status === column.Status,
                           ).length
                         }
                         numberOfFilteredCards={
                           filteredCards.filter(
-                            (card) => card.Status === column.Status
+                            (card) => card.Status === column.Status,
                           ).length
                         }
                       />
                     </TitleTotalCardWrapper>
                     <DropdownMenu
-                      trigger={<EditIcon onClick={openModal} />}
+                      trigger={<EditIcon />}
                       items={[
                         {
                           action: () => {
@@ -183,11 +181,11 @@ function ActiveSprint({
                     addedCard={addedCard}
                     projectKey={projectKey as string}
                     issues={filteredCards.filter(
-                      (card) => card.Status === column.Status
+                      (card) => card.Status === column.Status,
                     )}
                     status={column.Status}
                     boardId={boardId}
-                    sprintId={activeSprint.Id}
+                    sprintId={sprintId}
                   />
                 </Wrapper>
               ))}

@@ -39,7 +39,6 @@ function DynamicContentLoader() {
     <Layout onProjectCrate={(project) => {}}>
       <MainContainerLayout
         projectKey={projectKey as string}
-        projectId={selectedProject?.Id as string}
         projectTitle={selectedProject?.Name as string}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -74,8 +73,6 @@ function DynamicContentLoader() {
                 ) : (
                   <ActiveSprintWrapper>
                     <ActiveSprint
-                      activeSprint={activeSprint}
-                      boardId={activeSprint?.BoardId as string | undefined}
                       onUpdate={updateIssue}
                       onUpdateSummary={onUpdateSummary}
                       onUpdateDescription={onUpdateDescription}

@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import {
   Container,
   SectionWrapper,
@@ -69,7 +69,7 @@ function LandingPage() {
                       <ActionButton
                         onClick={() => setDisplaySign(true)}
                         children="Get Start"
-                        size="sm"
+                        size="md"
                         fontSize="lg"
                         variant="warning"
                         borderRadius="lg"

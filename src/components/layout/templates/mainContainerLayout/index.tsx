@@ -15,15 +15,10 @@ import { Container, MainContainer, Breadcrumbs } from "./styles";
 import { useParams } from "react-router-dom";
 import { useApplicationContext } from "../../../../contexts/ApplicationContext";
 import SideBar from "../../../ui/SideBar";
-
-type URLParams = {
-  projectKey: string;
-  boardId?: string;
-};
+import { RouteParams } from "../../../../types/auth.types";
 
 type MainContainerLayoutPropsType = PropsWithChildren<{
   projectKey: string;
-  projectId: string;
   projectTitle: string;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
@@ -36,12 +31,11 @@ const MainContainerLayout = ({
   onMouseEnter,
   children,
   hideMenu,
-  projectId,
   projectTitle,
   setHideMenu,
   isHovered,
 }: MainContainerLayoutPropsType) => {
-  const { projectKey, boardId } = useParams<URLParams>();
+  const { projectKey, boardId } = useParams<RouteParams>();
   const { selectedBoard } = useApplicationContext();
   if (!projectKey || !boardId) return;
   return (
@@ -54,7 +48,6 @@ const MainContainerLayout = ({
         >
           <ProjectMenu
             projectKey={projectKey}
-            projectId={projectId}
             hideMenu={hideMenu}
             ProjectTitleProps={projectTitle}
             selectedProjectsTitle={projectTitle}

@@ -19,6 +19,9 @@ import RecoveryLink from "./pages/Auth/RecoveryLinkPage";
 import ResetPassword from "./pages/Auth/ResetPasswordPage";
 import Projects from "./pages/ProjectsPage";
 import DynamicContentLoader from "./pages/DynamicContentLoader";
+import SprintPage from "./pages/Sprint";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HelmetProvider } from "react-helmet-async";
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
   // Public route
@@ -39,15 +42,15 @@ const router = createBrowserRouter([
       {
         path: `:projectKey`,
         children: [
-          { index: true, element: <DynamicContentLoader /> },
+          { index: true, element: <Navigate to="/projects" /> },
           {
             path: `boards/:boardId`,
             children: [
-              { index: true, element: <DynamicContentLoader /> },
+              { index: true, element: <Navigate to="/projects" />},
               { path: `backlog`, element: <DynamicContentLoader /> },
               {
                 path: `sprints/:sprintId`,
-                children: [{ index: true, element: <DynamicContentLoader /> }],
+                children: [{ index: true, element: <SprintPage /> }],
               },
             ],
           },
@@ -69,18 +72,23 @@ function PrivateRoute() {
   return <Outlet />;
 }
 
+const queryClient = new QueryClient();
 function App() {
   return (
-    <GoogleOAuthProvider clientId={REACT_APP_GOOGLE_OAUTH_CLIENTID!}>
-      <GlobalStyle />
-      <ThemeProvider>
-        <UserProvider>
-          <ApplicationProvider>
-            <RouterProvider router={router} />
-          </ApplicationProvider>
-        </UserProvider>
-      </ThemeProvider>
-    </GoogleOAuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <HelmetProvider>
+      <GoogleOAuthProvider clientId={REACT_APP_GOOGLE_OAUTH_CLIENTID!}>
+        <GlobalStyle />
+        <ThemeProvider>
+          <UserProvider>
+            <ApplicationProvider>
+              <RouterProvider router={router} />
+            </ApplicationProvider>
+          </UserProvider>
+        </ThemeProvider>
+      </GoogleOAuthProvider>
+      </HelmetProvider>
+    </QueryClientProvider>
   );
 }
 

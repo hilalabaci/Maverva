@@ -229,21 +229,22 @@ function Projects() {
                     </IconWrapper>
                     <DataProjectsName>
                       <ProjectAvatar
-                        $userPhotoWidth="25px"
-                        $userPhotoHeight="25px"
+                        $userPhotoWidth="30px"
+                        $userPhotoHeight="30px"
                         $userPhotoFontSize="10px"
                         $userBorderadius="50px"
                         //$userBorder={props.$userBorder}
                         $fontWeight="600"
-                        projectId={project.Id}
+                        projectKey={project.Key}
                       />
                       <LinkforProjects
-                        to={`/projects/${project.Key}/boards/${project.Boards[0].Id}/sprints/${project.Boards[0].Sprints[0]?.Id}`}
+                        to={`/projects/${project.Key}/boards/${project.Boards[0].Id}/sprints/${project.Boards[0].Sprints?.find(s => s.IsActive)?.Id || project.Boards[0].Sprints[0]?.Id}`}
                         onClick={() => {
+                          const activeSprint = project.Boards[0].Sprints?.find(s => s.IsActive) || project.Boards[0].Sprints[0];
                           setSelectedProject(project);
                           setSelectedBoard(project.Boards[0]);
                           setActiveSprint(
-                            project.Boards[0].Sprints[0] || undefined
+                            activeSprint || undefined
                           );
                         }}
                       >
