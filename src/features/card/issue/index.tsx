@@ -60,11 +60,11 @@ function Issue({
     }),
   });
   const { user, token } = useUserContext();
-  const [showModal, setShowModal] = useState(false);
+  const [, setShowModal] = useState(false);
   const [editTextDisplay, setEditTextDisplay] = useState(false);
   const [changeContent, setChangeContent] = useState(issue.Summary);
-  const ref = useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
-  const refModal = useOutsideClick<HTMLDivElement>(() => setShowModal(false));
+  useOutsideClick<HTMLDivElement>(() => setEditTextDisplay(false));
+  useOutsideClick<HTMLDivElement>(() => setShowModal(false));
   const [assignee, setAssignee] = useState<UserType | null>(
     issue.AssigneeUser || null
   );

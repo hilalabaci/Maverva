@@ -22,7 +22,6 @@ import Input from "../../../components/ui/Input/round";
 import { GoogleSignWrapper } from "../../../components/forms/register-form/styles";
 import {
   loginVerificationEmail,
-  loginGoogle as loginGoogleApi,
 } from "../../../api/auth-api";
 import BoxLayout from "../../../components/layout/boxLayout";
 import { validateEmail } from "../../../utils/validation";
@@ -37,8 +36,8 @@ interface FormData {
 function Register() {
   const navigate = useNavigate();
   const { setUser, token } = useUserContext();
-  const [showErrorMessage, setShowErrowMessage] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [showErrorMessage] = useState<boolean>(false);
+  const [errorMessage] = useState<string>("");
   const [login, setLogin] = useState<FormData>({
     email: "",
   });

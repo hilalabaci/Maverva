@@ -46,7 +46,7 @@ function Login() {
   });
   const [step, setStep] = useState<Step>("email");
   const [loading, setLoading] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [, setRememberMe] = useState(false);
 
   function handleChange(value: string, name: string) {
     setFormData((prevValue) => ({ ...prevValue, [name]: value }));

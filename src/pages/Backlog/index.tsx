@@ -15,7 +15,7 @@ function Backlog() {
   const hasFetchedSprints = useRef(false);
   const { boardId, projectKey } = useParams<RouteParams>();
   const [sprints, setSprints] = useState<SprintType[]>([]);
-  const [activeToSprint, setActiveToSprint] = useState(false);
+  const [, setActiveToSprint] = useState(false);
   const { user, token } = useUserContext();
   const loadSprints = useCallback(async () => {
     try {

@@ -26,14 +26,14 @@ interface FormError {
 function RegisterForm() {
   const navigate = useNavigate();
   const { setUser, token, setToken } = useUserContext();
-  const [googleVerifyEmail, setGoogleVerifyEmail] = useState(false);
-  const [verifyEmail, setVerifyEmail] = useState(false);
+  const [, setGoogleVerifyEmail] = useState(false);
+  const [verifyEmail] = useState(false);
   const [register, setRegister] = useState<FormData>({
     email: "",
   });
   const [errors, setErrors] = useState<FormError>({});
 
-  const login = useGoogleLogin({
+  useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       const user = await loginGoogle(tokenResponse.access_token);
       setUser(user.data?.user);
