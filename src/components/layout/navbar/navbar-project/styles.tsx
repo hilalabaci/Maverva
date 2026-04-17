@@ -193,6 +193,23 @@ export const NotificationContainer = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: ${(props) => props.theme.colour.modal.background.default};
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.colour.iconButton.hover.background};
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: ${(props) => props.theme.colour.iconButton.active.background};
+  }
+  scrollbar-width: thin;
+  scrollbar-color: ${(props) => props.theme.colour.iconButton.hover.background} ${(props) => props.theme.colour.modal.background.default};
 `;
 export const NotificationWrapper = styled.div`
   display: flex;
