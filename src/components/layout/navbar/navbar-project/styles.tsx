@@ -184,23 +184,32 @@ export const NotificationCount = styled.span`
 `;
 export const NotificationContainer = styled.div`
   background-color: ${(props) => props.theme.colour.modal.background.default};
-  box-shadow: 0 4px 8px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  box-shadow: 0 8px 16px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
   border: ${(props) => props.theme.colour.borderforNotificationContainer};
   color: ${(props) => props.theme.colour.text.primary};
   border-radius: 8px;
-  width: 100%;
-  //transform: translate3d(-142px, 51.5px, 0px);
+  width: 380px;
+  max-height: 520px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 `;
 export const NotificationWrapper = styled.div`
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  padding-bottom: 8px;
 `;
 export const Title = styled.header`
-  border-bottom: 2px solid rgba(225, 227, 231, 255);
-  font-size: 24px;
-  padding: 15px;
-  font-weight: 600;
-  color: ${(props) => props.theme.colour.text.inverted};
+  border-bottom: 1px solid ${(props) => props.theme.colour.divider.border.default.replace('1px solid ', '') || 'rgba(9,30,66,0.14)'};
+  font-size: 20px;
+  padding: 16px;
+  font-weight: 700;
+  color: ${(props) => props.theme.colour.text.primary};
+  position: sticky;
+  top: 0;
+  background-color: ${(props) => props.theme.colour.modal.background.default};
+  z-index: 1;
+  border-radius: 8px 8px 0 0;
 `;
 
 export const MemberButtonWrapper = styled.div<ModalsToggleProps>`

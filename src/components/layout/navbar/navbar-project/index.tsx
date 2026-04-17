@@ -5,6 +5,7 @@ import { useUserContext } from "../../../../contexts/UserContext";
 import { ProjectType, NotificationType } from "../../../../types";
 import OptionalBoardCreate from "../../../../features/board/optional/create";
 import Notification from "../../../../features/notification";
+import { GroupLabel } from "../../../../features/notification/styles";
 import MemberButton from "../../../../features/user/member-button";
 import DynamicSVGBrand from "../../../../assets/icons/logo-svg";
 import {
@@ -31,6 +32,8 @@ import {
   markNotificationsReadApi,
 } from "../../../../api/notification-api";
 import { useIsMobile } from "../../../../hooks/useBreakpoint";
+import { groupNotifications } from "./helpers";
+
 type NavbarPropsType = {
   handleProjectCreate: (project: ProjectType) => void;
 };
@@ -118,6 +121,8 @@ function Navbar(props: NavbarPropsType) {
   }
 
   const unReadNotificationCount = notifications.filter((n) => !n.IsRead).length;
+  const notificationGroups = groupNotifications(notifications);
+
   function handleProjectsClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
     navigate("/projects");
@@ -183,11 +188,19 @@ function Navbar(props: NavbarPropsType) {
           }}
         >
           <NotificationContainer>
-            <Title>Notification</Title>
+            <Title>Notifications</Title>
             <NotificationWrapper>
-              {notifications.map((n) => {
-                return <Notification key={n.Id} notification={n} />;
-              })}
+              {notificationGroups.map(
+                ({ label, items }) =>
+                  items.length > 0 && (
+                    <div key={label}>
+                      <GroupLabel>{label}</GroupLabel>
+                      {items.map((n) => (
+                        <Notification key={n.Id} notification={n} />
+                      ))}
+                    </div>
+                  )
+              )}
             </NotificationWrapper>
           </NotificationContainer>
         </Modal>

@@ -81,11 +81,7 @@ export type NotificationType = {
   IsRead: boolean;
   Id: string;
   Message: string;
-  FromUser: {
-    id: string;
-    FullName: string;
-    email: string;
-  };
+  FromUser: UserType;
   CreatedAt: Date;
 };
 export type NotificationMarkReadType = {

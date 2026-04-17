@@ -1,6 +1,5 @@
 import {
   ButtonStylesforIconPerson,
-  IconPerson,
 } from "../../features/top-menu/styles";
 import { formatDistanceToNow } from "date-fns";
 import {
@@ -8,11 +7,14 @@ import {
   Wrapper,
   UserInfo,
   UserName,
+  MessageText,
   Info,
   Main,
   TimeInfo,
+  UnreadDot,
 } from "./styles";
 import { NotificationType } from "../../types";
+import MemberPhoto from "../user/member-photo";
 
 type NotificationPropsType = {
   notification: NotificationType;
@@ -25,22 +27,27 @@ function Notification(props: NotificationPropsType) {
       <Wrapper>
         <UserInfo>
           <ButtonStylesforIconPerson style={{ margin: 0 }}>
-            <IconPerson />
+            <MemberPhoto
+              $userPhotoWidth="32px"
+              $userPhotoHeight="32px"
+              $userPhotoFontSize="10px"
+              $userBorderadius="50px"
+              $fontWeight="600"
+              user={notification.FromUser}
+            />
           </ButtonStylesforIconPerson>
         </UserInfo>
         <Info>
           <Main>
-            <UserName>
-              {notification.Message}
-              <TimeInfo>
-                {formatDistanceToNow(notification.CreatedAt, {
-                  addSuffix: true,
-                })}
-              </TimeInfo>
-            </UserName>
+            <UserName>{notification.FromUser?.FullName}</UserName>
+            <MessageText>{notification.Message}</MessageText>
           </Main>
+          <TimeInfo>
+            {formatDistanceToNow(notification.CreatedAt, { addSuffix: true })}
+          </TimeInfo>
         </Info>
       </Wrapper>
+      {!notification.IsRead && <UnreadDot />}
     </Container>
   );
 }
