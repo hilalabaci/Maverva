@@ -25,13 +25,14 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
   }
 `;
 
-export const Container = styled.button`
+export const Container = styled.button<{ $isDragging?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.75rem;
   border-radius: 3px;
   border: none;
+  opacity: ${(props) => (props.$isDragging ? 0.4 : 1)};
   //max-width: 270px;
   /* box-shadow: 0px 1px 1px #091e4240, 0px 0px 1px #091e424f, 0 1px 1px #172b4d00,
     0 0 1px #172b4d33;

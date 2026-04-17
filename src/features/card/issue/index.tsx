@@ -141,7 +141,7 @@ function Issue({
 
   return (
     <>
-      <Container onClick={onClick} ref={drag}>
+      <Container onClick={onClick} ref={drag} $isDragging={isDragging}>
         <GlobalStyle />
         <ContentWrapper>
           <NoteWrapper>
