@@ -15,11 +15,17 @@ export const GlobalStyle = createGlobalStyle`
 export const Container = styled.div`
   background-color: ${(props) => props.theme.colour.background.default};
   color: ${(props) => props.theme.colour.text.primary};
+  display: flex;
+  flex-direction: column;
 `;
-export const NavbarWrapper = styled.div``;
+export const NavbarWrapper = styled.div`
+  flex-shrink: 0;
+`;
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex: 1;
+  min-height: 0;
 `;
 export const ProjectMenuAndSideBar = styled.div`
   display: flex;
@@ -46,6 +52,8 @@ export const MainContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
+  min-width: 0;
  @media ${device.mobile} {
     margin-left: 7px;
     overflow-x: scroll;

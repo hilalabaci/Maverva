@@ -6,7 +6,7 @@ import { device } from "../../../styles/breakpoints";
 export const Container = styled.div`
   position: fixed;
   inset: 0px 0px auto auto;
-  z-index: 1;
+  z-index: 3;
   min-width: 234px;
   background-color: ${(props) => props.theme.colour.modal.background.default};
   color: ${(props) => props.theme.colour.text.inverted};

@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
-import { LayoutIcon } from "@radix-ui/react-icons";
-import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
-import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
-import AddIcon from "@mui/icons-material/Add";
-import styled from "styled-components";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import styled, { css } from "styled-components";
 import { device } from "../../../styles/breakpoints";
+
+const navIconStyle = css`
+  font-size: 1rem !important;
+  color: inherit;
+`;
 type CommonPropsType = {
   $hidden?: boolean;
 };
@@ -30,7 +35,6 @@ export const Wrapper = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
   padding: 5px;
 `;
 export const AddProjectWrapper = styled.div<CommonPropsType>`
@@ -55,17 +59,13 @@ export const SideBarItem = styled.div`
   flex-direction: column;
 `;
 export const SideBarWrapper = styled.div`
-  background: linear-gradient(
-    135deg,
-    rgba(113, 183, 230, 0.3),
-    rgba(155, 89, 182, 0.3)
-  );
   border-radius: 5px;
 `;
-export const SideBarListWrapper = styled.div`
-  display: flex;
+export const SideBarListWrapper = styled.div<CommonPropsType>`
+  display: ${(props) => (props.$hidden ? "none" : "flex")};
   flex-direction: column;
-  padding: 4px 0;
+  padding: 8px 0;
+  width: 100%;
 `;
 export const UserInfo = styled.div<CommonPropsType>`
   display: flex;
@@ -82,14 +82,6 @@ export const UserInfo = styled.div<CommonPropsType>`
   @media ${device.mobile} {
   }
 `;
-export const Title = styled.div`
-  text-transform: uppercase;
-  font-size: ${(props) => props.theme.fontSize.subtitle};
-  margin: 0 8px 0 8px;
-  @media ${device.mobile} {
-  }
-`;
-
 export const ProjectTitle = styled.span<CommonPropsType>`
   color: ${(props) => props.theme.fontColour};
   font-size: ${(props) => props.theme.fontSize.default};
@@ -99,79 +91,11 @@ export const ProjectTitle = styled.span<CommonPropsType>`
     font-size: ${(props) => props.theme.fontSize.default};
   }
 `;
-export const ProjectIcon = styled.div<CommonPropsType>`
-  display: ${(props) => (props.$hidden ? "none" : "flex")};
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 30px;
-  font-size: 10px;
-  font-weight: 500;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
-  //background-color: #de835d;
-  position: relative;
-  color: white;
-  text-transform: uppercase;
-`;
-
-export const SelectedBoard = styled.span`
-  font-size: ${(props) => props.theme.fontSize.subtitle};
-  color: ${(props) => props.theme.colour.text.link};
-  font-weight: 400;
-`;
 export const BoardWrapper = styled.div`
   padding: 4px;
   border-radius: 5px;
 `;
-export const ProjectBoardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 8px 16px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-export const ProjectBoardTitleWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-export const ProjectBoardTitle = styled.span`
-  color: ${(props) => props.theme.colour.text.link};
-  font-size: 13px;
-  font-weight: 450;
-`;
-
-export const ArrowIcon = styled.button<CommonPropsType>`
-  width: 25px;
-  height: 25px;
-  border-radius: 100%;
-  font-size: 20px !important;
-  color: ${(props) => props.theme.colour.text.link};
-  //box-shadow: rgba(9, 30, 66, 0.08) 0px 0px 0px 1px,
-  // rgba(9, 30, 66, 0.08) 0px 2px 4px 1px;
-  cursor: pointer;
-  outline: 0px;
-  transition: background-color 100ms linear, color 100ms linear,
-    opacity 350ms cubic-bezier(0.2, 0, 0, 1);
-
-  //color: ${(props) => props.theme.fontColour};
-  // margin: ${(props) => (props.$hidden ? "25px 0 0 0" : "0")};
-  //background-color: ${(props) => props.theme.BorderMenu};
-
-  &:hover {
-    /* background-color: #0c66e4;
-    color: white; */
-  }
-`;
 export const GetBoardsContainer = styled.div`
-  box-shadow: var(
-    --ds-shadow-overlay,
-    0 0 0 1px rgba(9, 30, 66, 0.13),
-    0 4px 11px rgba(9, 30, 66, 0.13)
-  );
   background-color: ${(props) => props.theme.colour.background.default};
   box-sizing: border-box;
   max-width: 220px;
@@ -179,32 +103,9 @@ export const GetBoardsContainer = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 3px;
-  color: ${(props) => props.theme.colour.text.inverse};
+  color: ${(props) => props.theme.colour.text.inverted};
 `;
-export const CreateBoardinBoards = styled.button`
-  background-color: transparent;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.default};
-  color: ${(props) => props.theme.colour.text.primary};
-  outline: none;
-  border: none;
-  border-top: 2px solid #091e4224;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 10px;
-  font-size: ${(props) => props.theme.fontSize.default};
-  &:hover {
-    cursor: pointer;
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.hover};
-  }
-`;
-export const IconPlus = styled(AddIcon)`
-  font-size: 19px !important;
-`;
+
 export const TitleGetBoards = styled.div`
   font-size: 11px;
   color: #626f86;
@@ -219,10 +120,6 @@ export const GetBoardsList = styled.div`
   flex-direction: column;
   margin: 0;
   gap: 3px;
-  padding: 10px 0;
-`;
-export const GetBoardsListItemLink = styled(Link)`
-  text-decoration: none;
 `;
 export const GetBoardsListItem = styled.div<{ selected: boolean }>`
   padding: 8px 16px;
@@ -245,54 +142,50 @@ export const GetBoardsListItem = styled.div<{ selected: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${({ selected, theme }) =>
-    selected ? ` ${theme.colour.text.link}` : `${theme.colour.text.inverse}`};
-  background: ${({ selected }) =>
-    selected
-      ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
-      : "none"};
+    selected ? theme.colour.text.link : theme.colour.text.inverted};
+  background: ${({ selected, theme }) =>
+    selected ? theme.colour.primary.button.secondary.background.active + "22" : "none"};
   &:hover {
     cursor: pointer;
-    background-color: #091e420f;
-  }
-  &:hover ${GetBoardsListItemLink} {
-    color: #0c66e4;
+    background-color: ${({ theme }) => theme.colour.primary.button.secondary.background.default};
   }
 `;
 export const SideBarElement = styled(Link)`
   text-decoration: none;
-  padding: 1px 3px;
 `;
 export const SideBarElementWrapper = styled.span<{ selected: boolean }>`
-  color: ${(props) => props.theme.sideBarFontColour};
   display: flex;
-  gap: 15px;
-  font-size: ${(props) => props.theme.fontSize.default};
-  font-weight: 400;
-  padding: 8px 8px 8px 14px;
+  gap: 8px;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 6px 8px;
   align-items: center;
-  background: ${({ selected }) =>
-    selected
-      ? `linear-gradient(135deg, rgba(113, 183, 230, 0.7), rgba(155, 89, 182, 0.7))`
-      : "none"};
-  color: ${({ selected, theme }) =>
-    selected ? `${theme.colour.text.link}` : `${theme.colour.text.primary}`};
   border-radius: 3px;
+  background-color: ${({ selected, theme }) =>
+    selected ? theme.colour.primary.button.secondary.background.active + "22" : "transparent"};
+  color: ${({ selected, theme }) =>
+    selected ? theme.colour.text.link : theme.colour.text.primary};
   &:hover {
     cursor: pointer;
-    background: linear-gradient(
-      135deg,
-      rgba(113, 183, 230, 0.7),
-      rgba(155, 89, 182, 0.7)
-    );
+    background-color: ${({ theme }) => theme.colour.primary.button.secondary.background.default};
   }
 `;
-export const SideBarElementIcon = styled.span``;
-export const IconCalendarViewWeek = styled(CalendarViewWeekIcon)`
-  font-size: 1.3rem !important;
+export const SideBarElementIcon = styled.span`
+  display: flex;
+  align-items: center;
+  color: inherit;
 `;
-export const IconLayout = styled(LayoutIcon)`
-  font-size: 1.3rem !important;
+export const SideBarElementChevron = styled.span`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  color: inherit;
+  opacity: 0.6;
 `;
-export const IconListBullet = styled(FormatListBulletedOutlinedIcon)`
-  font-size: 1.3rem !important;
-`;
+export const IconForYou = styled(PersonOutlinedIcon)`${navIconStyle}`;
+export const IconRecent = styled(AccessTimeOutlinedIcon)`${navIconStyle}`;
+export const IconStarred = styled(StarBorderOutlinedIcon)`${navIconStyle}`;
+export const IconChevronRight = styled(ChevronRightIcon)`${navIconStyle}`;

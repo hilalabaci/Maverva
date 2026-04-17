@@ -1,4 +1,3 @@
-import { useEffect, useState, useRef } from "react";
 import {
   Container,
   ProjectTitle,
@@ -20,8 +19,6 @@ import Search from "../../components/ui/Search";
 import { ToolTip } from "../../components/ui/Toolstip";
 import { useLocation, useParams } from "react-router-dom";
 import Modal from "../../components/ui/Modal";
-import { getUserstoBoard } from "../../api/board-api";
-import { useUserContext } from "../../contexts/UserContext";
 import { formatDate } from "../../utils/dateUtils";
 import { calculateDaysBetween } from "../../utils/calculateDays";
 import { DropdownMenu } from "../../components/ui/DropDownMenu";
@@ -29,8 +26,11 @@ import OptionalBoardCreate from "../board/optional/create";
 import EditSprint from "../sprint/edit-sprint";
 import IconButton from "../../components/ui/Button/IconButton";
 import TextButton from "../../components/ui/Button/TextButton";
-import { ProjectType, UserType } from "../../types/user.types";
+import { ProjectType } from "../../types/user.types";
 import { useModalState } from "../../hooks/useModalState";
+import { useLoadBoardUsers } from "../../hooks/api/useLoadBoardUsers";
+import TopNavBar from "./TopNavBar";
+
 type TopMenuPropsType = {
   topMenuTitle: string;
   projectId: string;
@@ -55,74 +55,24 @@ function TopMenu({
   activeSprintName,
   startDateActiveSprint,
   endDateActiveSprint,
-  //  boardId,
   sprintId,
   sprintGoal,
   loadActiveSprint,
 }: TopMenuPropsType) {
-  const hasFetchedProjects = useRef(false);
-  const location = useLocation();
-  const { user, token } = useUserContext();
+  const { pathname } = useLocation();
   const { boardId } = useParams<{ boardId: string }>();
-  const [projectTitle, setProjectTitle] = useState(topMenuTitle);
   const addPersonModal = useModalState();
   const createBoardModal = useModalState();
   const editSprintModal = useModalState();
-  const [users, setUsers] = useState<UserType[]>([]);
+  const users = useLoadBoardUsers(projectKey, boardId);
 
-  useEffect(() => {
-    setProjectTitle(topMenuTitle);
-  }, [topMenuTitle]);
-
-  async function loadUsers(
-    projectKey: string,
-    boardId: string,
-    userId: string,
-    token: string
-  ) {
-    try {
-      if (!token) return;
-      const response = await getUserstoBoard(
-        projectKey,
-        boardId,
-        userId,
-        token
-      );
-      if (response.ok) {
-        const data = response.data as { users: UserType[] };
-        setUsers(data.users);
-      }
-    } catch (error) {
-      console.error("error", error);
-    }
-  }
-
-  useEffect(() => {
-    if (
-      !projectKey ||
-      !boardId ||
-      !user?.Id ||
-      hasFetchedProjects.current ||
-      !token
-    )
-      return;
-    hasFetchedProjects.current = true;
-    loadUsers(projectKey, boardId, user.Id, token);
-  }, [boardId, user, projectKey, token]);
-
-  const onSearch = (value: string) => {
-    setSearchInput(value);
-  };
+  const pageTitle = pathname.includes("/backlog") ? "Backlog" : activeSprintName;
 
   return (
     <Container>
       <TitleHeader>
         <Title>
-          <ProjectTitle>
-            {location.pathname.includes("/backlog")
-              ? "Backlog"
-              : activeSprintName}
-          </ProjectTitle>
+          <ProjectTitle>{pageTitle}</ProjectTitle>
         </Title>
         <FeaturesSprintContainer>
           <FeaturesSprint>
@@ -138,26 +88,26 @@ function TopMenu({
               )}; Projected end date: ${formatDate(
                 endDateActiveSprint || new Date()
               )}`}
-            ></ToolTip>
+            />
             <TextButton>Complete sprint</TextButton>
           </FeaturesSprint>
           <DropdownMenu
             trigger={<IconButton icon="more" />}
             items={[
-              {
-                label: "Edit sprint",
-                action: editSprintModal.open,
-              },
-              {
-                label: "Create board",
-                action: createBoardModal.open,
-              },
+              { label: "Edit sprint", action: editSprintModal.open },
+              { label: "Create board", action: createBoardModal.open },
             ]}
           />
         </FeaturesSprintContainer>
       </TitleHeader>
+
+      <TopNavBar projectKey={projectKey} boardId={boardId} sprintId={sprintId} />
+
       <SearchAndAssignMemberContainer>
-        <Search onSearch={onSearch} placeHolderForSearchButton="Search" />
+        <Search
+          onSearch={(value) => setSearchInput(value)}
+          placeHolderForSearchButton="Search"
+        />
         <AssignMemberContainer>
           <ButtonStylesforIconPerson>
             {users.map((user, index) => (
@@ -178,7 +128,7 @@ function TopMenu({
                   />
                 }
                 content={user.FullName}
-              ></ToolTip>
+              />
             ))}
           </ButtonStylesforIconPerson>
           <Modal
@@ -191,7 +141,7 @@ function TopMenu({
                   </ButtonStylesforPersonAdd>
                 }
                 content="Add people"
-              ></ToolTip>
+              />
             }
             open={addPersonModal.isOpen}
             onChange={addPersonModal.setIsOpen}
@@ -199,13 +149,14 @@ function TopMenu({
           >
             <AddPerson
               closeModal={addPersonModal.close}
-              projectTitle={projectTitle}
+              projectTitle={topMenuTitle}
               projectKey={projectKey}
               projectId={projectId}
             />
           </Modal>
         </AssignMemberContainer>
       </SearchAndAssignMemberContainer>
+
       {createBoardModal.isOpen && (
         <Modal open={createBoardModal.isOpen} onClose={createBoardModal.close}>
           <OptionalBoardCreate
@@ -214,6 +165,7 @@ function TopMenu({
           />
         </Modal>
       )}
+
       {editSprintModal.isOpen && (
         <Modal open={editSprintModal.isOpen} onClose={editSprintModal.close}>
           <EditSprint
@@ -230,4 +182,5 @@ function TopMenu({
     </Container>
   );
 }
+
 export default TopMenu;

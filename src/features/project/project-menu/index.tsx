@@ -1,104 +1,36 @@
-import { useCallback, useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
-import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
-import OptionalBoardCreate from "../../board/optional/create";
-import ProjectAvatar from "../../../features/user/project-avatar";
-import { useLocation, useParams } from "react-router-dom";
-import { useUserContext } from "../../../contexts/UserContext";
+import { useLocation } from "react-router-dom";
+import ProjectAvatar from "../../user/project-avatar";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";
-import CollapsibleDemo from "../../../components/ui/Collapsible";
-import Scroll from "../../../components/ui/Scroll";
-import Modal from "../../../components/ui/Modal";
-
+import BoardSection from "./BoardSection";
+import { useProjectBoards } from "./useProjectBoards";
+import { NavItem, ProjectMenuPropsType } from "./types";
 import {
   Container,
   Wrapper,
-  AddProjectWrapper,
   UserInfo,
   ProjectTitle,
-  Title,
-  ArrowIcon,
-  ProjectBoardContainer,
-  ProjectBoardTitle,
-  BoardWrapper,
-  GetBoardsContainer,
-  SelectedBoard,
-  ProjectBoardTitleWrapper,
-  GetBoardsList,
-  GetBoardsListItem,
   SideBarElement,
   SideBarElementWrapper,
   SideBarElementIcon,
-  IconListBullet,
-  SideBarItem,
-  SideBarWrapper,
+  SideBarElementChevron,
   SideBarListWrapper,
-  IconCalendarViewWeek,
-  TitleGetBoards,
-  CreateBoardinBoards,
-  IconPlus,
+  IconForYou,
+  IconRecent,
+  IconStarred,
+  IconChevronRight,
 } from "./styles";
-import { getBoards } from "../../../api/board-api";
-import { BoardType, ProjectType } from "../../../types/user.types";
-import { RouteParams } from "../../../types/auth.types";
 
-type ProjectMenuPropsType = {
-  ProjectTitleProps: string;
-  hideMenu: boolean;
-  onHover?: (hover: boolean) => void;
-  selectedProjectsTitle: string | undefined;
-  projectKey: string;
-};
+const NAV_ITEMS: NavItem[] = [
+  { to: "/for-you", match: "/for-you", label: "For you", Icon: IconForYou },
+  { to: "/recent", match: "/recent", label: "Recent", Icon: IconRecent, hasChevron: true },
+  { to: "/starred", match: "/starred", label: "Starred", Icon: IconStarred, hasChevron: true },
+];
+
 function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
-  const hasFetchedBoards = useRef(false);
   const location = useLocation();
-  const navigate = useNavigate();
-  const { boardId } = useParams<RouteParams>();
-  const { user, token } = useUserContext();
-  const { setActiveSprint, selectedProject, setSelectedBoard, activeSprint: contextActiveSprint } =
-    useApplicationContext();
-  const [boards, setBoards] = useState<BoardType[]>([]);
-  const [showBoards, setShowBoards] = useState(false);
-  const isBacklog = location.pathname.includes("/backlog");
-  const isActiveSprint = !isBacklog;
-  const selectedBoard = boards.find((b) => b.Id === boardId);
-  const activeSprintIdForLink = selectedBoard?.ActiveSprint?.Id
-    || selectedBoard?.Sprints?.find(s => s.IsActive)?.Id
-    || contextActiveSprint?.Id;
-  const [showModalforCreateButton, setShowModalforCreateButton] =
-    useState(false);
-
-  function openModalforCreateButton() {
-    setShowModalforCreateButton(true);
-  }
-  function closeModalforCreateButton() {
-    setShowModalforCreateButton(false);
-  }
-  const loadBoards = useCallback(async () => {
-    if (!user || !projectKey || !token) return;
-    const { ok, data } = await getBoards(projectKey, user.Id, token);
-    if (ok && data) {
-      setBoards(data);
-    }
-  }, [user, projectKey, token]);
-
-  useEffect(() => {
-    if (hasFetchedBoards.current) return;
-    hasFetchedBoards.current = true;
-    loadBoards();
-  }, [loadBoards]);
-
-  useEffect(() => {
-    if (boards.length > 0 && !boardId) {
-      const firstBoard = boards[0];
-      if (firstBoard) {
-        navigate(`/projects/${projectKey}/boards/${firstBoard.Id}/backlog`, {
-          replace: true,
-        });
-      }
-    }
-  }, [boards, boardId, navigate, projectKey]);
+  const { selectedProject } = useApplicationContext();
+  const { boards, recentBoards, selectedBoard, addToRecent } =
+    useProjectBoards(projectKey);
 
   return (
     <Container
@@ -121,129 +53,46 @@ function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
             {selectedProject?.Name}
           </ProjectTitle>
         </UserInfo>
-        <AddProjectWrapper $hidden={hideMenu}>
-          <SideBarItem>
-            <Title>Planning</Title>
-            <SideBarWrapper>
-              <BoardWrapper>
-                <CollapsibleDemo
-                  open={showBoards}
-                  setOpen={setShowBoards}
-                  trigger={
-                    <ProjectBoardContainer>
-                      <ProjectBoardTitleWrapper>
-                        <ProjectBoardTitle>
-                          {selectedBoard?.Name}
-                        </ProjectBoardTitle>
-                        <ArrowIcon
-                          className="dropdown-trigger"
-                          as={
-                            showBoards
-                              ? KeyboardArrowUpRoundedIcon
-                              : KeyboardArrowDownRoundedIcon
-                          }
-                        />
-                      </ProjectBoardTitleWrapper>
-                      <SelectedBoard>Board</SelectedBoard>
-                    </ProjectBoardContainer>
-                  }
-                >
-                  <GetBoardsContainer>
-                    <Scroll scrollheight="min-content">
-                      <GetBoardsList>
-                        <TitleGetBoards>
-                          Boards in {selectedBoard?.Name}
-                        </TitleGetBoards>
 
-                        {boards.map((board) => (
-                          <GetBoardsListItem
-                            //to={`/projects/${projectKey}/boards/${boardId}/sprints/${activeSprint?.Id}`}
-                            key={board.Id}
-                            selected={selectedBoard?.Id === board.Id}
-                            onClick={() => {
-                              setShowBoards(false);
-                              const activeSprintForBoard = board.ActiveSprint || board.Sprints?.find(s => s.IsActive) || board.Sprints?.[0];
-                              setActiveSprint(activeSprintForBoard);
-                              setSelectedBoard(board);
+        <SideBarListWrapper $hidden={hideMenu}>
+          {NAV_ITEMS.map(({ to, match, label, Icon, hasChevron }) => (
+            <SideBarElement key={match} to={to}>
+              <SideBarElementWrapper selected={location.pathname.includes(match)}>
+                <SideBarElementIcon>
+                  <Icon />
+                </SideBarElementIcon>
+                {label}
+                {hasChevron && (
+                  <SideBarElementChevron>
+                    <IconChevronRight />
+                  </SideBarElementChevron>
+                )}
+              </SideBarElementWrapper>
+            </SideBarElement>
+          ))}
+        </SideBarListWrapper>
 
-                              const isBacklogPage =
-                                location.pathname.includes("/backlog");
-                              const activeSprintId = activeSprintForBoard?.Id;
-                              if (isBacklogPage) {
-                                navigate(
-                                  `/projects/${projectKey}/boards/${board.Id}/backlog`,
-                                );
-                              } else if (activeSprintId) {
-                                navigate(
-                                  `/projects/${projectKey}/boards/${board.Id}/sprints/${activeSprintId}`,
-                                );
-                              } else {
-                                navigate(
-                                  `/projects/${projectKey}/boards/${board.Id}/backlog`,
-                                );
-                              }
-                            }}
-                          >
-                            <SideBarElementIcon>
-                              <IconCalendarViewWeek strokeWidth="10px" />
-                            </SideBarElementIcon>
-                            {board.Name}
-                          </GetBoardsListItem>
-                        ))}
-                      </GetBoardsList>
-                    </Scroll>
-                    <Modal
-                      onClose={closeModalforCreateButton}
-                      open={showModalforCreateButton}
-                      trigger={
-                        <CreateBoardinBoards onClick={openModalforCreateButton}>
-                          <IconPlus />
-                          Create Board
-                        </CreateBoardinBoards>
-                      }
-                      onChange={setShowModalforCreateButton}
-                    >
-                      <OptionalBoardCreate
-                        // onCreate={onCreate}
-                        onClose={closeModalforCreateButton}
-                        handleProjectCreate={function (
-                          project: ProjectType,
-                        ): void {
-                          throw new Error("Function not implemented.");
-                        }}
-                      />
-                    </Modal>
-                  </GetBoardsContainer>
-                </CollapsibleDemo>
-              </BoardWrapper>
+        <BoardSection
+          title="Starred"
+          boards={boards}
+          selectedBoardId={selectedBoard?.Id}
+          hideMenu={hideMenu}
+          projectKey={projectKey}
+          onBoardClick={addToRecent}
+        />
 
-              <SideBarListWrapper>
-                <SideBarElement
-                  to={`/projects/${projectKey}/boards/${boardId}/backlog`}
-                >
-                  <SideBarElementWrapper selected={isBacklog}>
-                    <SideBarElementIcon>
-                      <IconListBullet strokeWidth={40} />
-                    </SideBarElementIcon>
-                    Backlog
-                  </SideBarElementWrapper>
-                </SideBarElement>
-                <SideBarElement
-                  to={`/projects/${projectKey}/boards/${boardId}/sprints/${activeSprintIdForLink}`}
-                >
-                  <SideBarElementWrapper selected={isActiveSprint}>
-                    <SideBarElementIcon>
-                      <IconCalendarViewWeek strokeWidth="10px" />
-                    </SideBarElementIcon>
-                    Active sprints
-                  </SideBarElementWrapper>
-                </SideBarElement>
-              </SideBarListWrapper>
-            </SideBarWrapper>
-          </SideBarItem>
-        </AddProjectWrapper>
+        {recentBoards.length > 0 && (
+          <BoardSection
+            title="Recent"
+            boards={recentBoards}
+            selectedBoardId={selectedBoard?.Id}
+            hideMenu={hideMenu}
+            projectKey={projectKey}
+          />
+        )}
       </Wrapper>
     </Container>
   );
 }
+
 export default ProjectMenu;

@@ -20,6 +20,7 @@ import ResetPassword from "./pages/Auth/ResetPasswordPage";
 import Projects from "./pages/ProjectsPage";
 import DynamicContentLoader from "./pages/DynamicContentLoader";
 import SprintPage from "./pages/Sprint";
+import ListPageRoute from "./pages/ListPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
             children: [
               { index: true, element: <Navigate to="/projects" />},
               { path: `backlog`, element: <DynamicContentLoader /> },
+              { path: `list`, element: <ListPageRoute /> },
               {
                 path: `sprints/:sprintId`,
                 children: [{ index: true, element: <SprintPage /> }],
