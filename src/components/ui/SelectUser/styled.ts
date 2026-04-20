@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: relative;
-  width: 100%;
+  width: fit-content;
   font-family: "Inter", sans-serif;
 `;
 
@@ -31,17 +31,13 @@ export const Placeholder = styled.span`
 `;
 
 export const Dropdown = styled.div`
-  position: absolute;
-  top: calc(100% + 6px);
-  /* left: 0;
-  right: 0; */
   background: ${(props) => props.theme.colour.background.default};
   border: ${(props) => props.theme.colour.divider.border.default};
   border-radius: 3px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   width: max-content;
+  min-width: 160px;
 `;
 
 export const Option = styled.div`
