@@ -20,10 +20,11 @@ export const LandingGlobalStyles = createGlobalStyle`
 
 /* ========== PAGE WRAPPER ========== */
 export const PageWrapper = styled.div`
-  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   background: var(--lp-bg);
   color: var(--lp-ink);
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
   line-height: 1.5;
   min-height: 100vh;
 `;
@@ -208,7 +209,7 @@ export const BtnOutline = styled(Btn)`
 export const HeroSection = styled.section`
   max-width: 1320px;
   margin: 0 auto;
-  padding: 72px 32px 0;
+  padding: 36px 32px 0;
   position: relative;
 `;
 
@@ -221,7 +222,7 @@ export const Eyebrow = styled.div`
   color: var(--lp-ink-3);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  margin-bottom: 36px;
+  margin-bottom: 18px;
 `;
 
 export const EyebrowPill = styled.span`
@@ -258,14 +259,15 @@ export const HeroGrid = styled.div`
 export const Headline = styled.h1`
   font-family: 'Instrument Serif', serif;
   font-weight: 400;
-  font-size: clamp(52px, 8.2vw, 128px);
+  font-size: clamp(44px, 6.2vw, 96px);
   line-height: 0.96;
   letter-spacing: -0.02em;
-  margin: 0 0 28px;
+  margin: 0 0 16px;
   max-width: 12ch;
+  text-wrap: balance;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: var(--lp-accent);
   }
 
@@ -279,10 +281,10 @@ export const Headline = styled.h1`
 
 export const Lede = styled.p`
   max-width: 46ch;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1.5;
   color: var(--lp-ink-2);
-  margin: 0 0 40px;
+  margin: 0 0 24px;
   letter-spacing: -0.005em;
 `;
 
@@ -291,7 +293,7 @@ export const HeroCtas = styled.div`
   gap: 10px;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 60px;
+  margin-bottom: 28px;
 
   .meta {
     margin-left: 6px;
@@ -803,7 +805,7 @@ export const SecH2 = styled.h2`
   margin: 0;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: var(--lp-accent);
   }
 `;
@@ -1020,7 +1022,7 @@ export const BandH2 = styled.h2`
   margin: 0 0 24px;
 
   em {
-    font-style: italic;
+    font-style: normal;
     color: color-mix(in srgb, var(--lp-accent) 60%, white);
   }
 `;
@@ -1217,6 +1219,7 @@ export const Blockquote = styled.blockquote`
   line-height: 1.15;
   letter-spacing: -0.015em;
   margin: 0 0 28px;
+  text-wrap: balance;
 
   &::before {
     content: "\u201C";
@@ -1405,9 +1408,10 @@ export const CtaSection = styled.section`
     line-height: 0.92;
     letter-spacing: -0.025em;
     margin: 0 0 28px;
+    text-wrap: balance;
 
     em {
-      font-style: italic;
+      font-style: normal;
       color: var(--lp-accent);
     }
   }

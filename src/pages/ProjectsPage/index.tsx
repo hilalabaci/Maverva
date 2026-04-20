@@ -175,7 +175,7 @@ function Projects() {
             <PageHeadRow>
               <div>
                 <Header>
-                  <em>Projects.</em>
+                  <em>Projects</em>
                 </Header>
                 <SubInfo>
                   <span>Workspace: <b>{user.FullName?.split(" ")[0] ?? "My"}</b></span>

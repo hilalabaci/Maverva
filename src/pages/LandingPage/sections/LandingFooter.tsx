@@ -32,7 +32,7 @@ export function LandingFooter() {
       <FootBase>
         <span>© 2026 Maverva B.V. — All rights reserved</span>
         <span>Terms · Privacy · DPA · Cookies</span>
-        <span>🌐 English (US)</span>
+        <span>🌐 English (UK)</span>
       </FootBase>
     </FooterEl>
   );

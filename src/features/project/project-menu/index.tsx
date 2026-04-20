@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import ProjectAvatar from "../../user/project-avatar";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";
 import BoardSection from "./BoardSection";
 import { useProjectBoards } from "./useProjectBoards";
 import { NavItem, ProjectMenuPropsType } from "./types";
+import Modal from "../../../components/ui/Modal";
+import OptionalBoardCreate from "../../board/optional/create";
 import {
   Container,
   Wrapper,
@@ -33,6 +36,7 @@ function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
   const { selectedProject } = useApplicationContext();
   const { boards, recentBoards, selectedBoard, addToRecent } =
     useProjectBoards(projectKey);
+  const [showCreateBoardModal, setShowCreateBoardModal] = useState(false);
 
   return (
     <Container
@@ -84,7 +88,24 @@ function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
 
         <SidebarSectionHead $hidden={hideMenu}>
           <span>Boards</span>
-          <span className="plus">+</span>
+          <Modal
+            open={showCreateBoardModal}
+            onChange={setShowCreateBoardModal}
+            onClose={() => setShowCreateBoardModal(false)}
+            trigger={
+              <span
+                className="plus"
+                onClick={() => setShowCreateBoardModal(true)}
+              >
+                +
+              </span>
+            }
+          >
+            <OptionalBoardCreate
+              handleProjectCreate={() => {}}
+              onClose={() => setShowCreateBoardModal(false)}
+            />
+          </Modal>
         </SidebarSectionHead>
 
         <BoardSection

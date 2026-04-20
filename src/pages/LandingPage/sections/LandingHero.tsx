@@ -17,7 +17,9 @@ export function LandingHero() {
       <HeroGrid>
         <div>
           <Headline>
-            Project management <em>for teams</em>
+            Project management <em>for</em>
+            <br />
+            teams
             <br />
             who <em>ship.</em>
           </Headline>
