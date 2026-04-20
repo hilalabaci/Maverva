@@ -34,8 +34,8 @@ const GoogleAuthButton = ({ borderRadius }: loginGooglePropsType) => {
         aria-label="Login with Google"
         $borderRadius={borderRadius}
       >
-        <FcGoogle size={25} />
-        <Text>Continue with Google</Text>
+        <FcGoogle size={20} />
+        <Text>Google</Text>
       </Button>
     </GoogleSignWrapper>
   );

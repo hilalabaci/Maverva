@@ -8,38 +8,34 @@ type GoogleButtonProps = {
 };
 export const GoogleSignWrapper = styled.div``;
 export const Button = styled.button<GoogleButtonProps>`
-  border-radius: 3px;
-font-size: ${(props) => props.theme.fontSize.default};
-  padding-left: 0.75rem;
-  padding-bottom: 0.5rem;
-  padding-right: 0.75rem;
-  padding-top: 0.5rem;
-  gap: 0.5rem;
-  box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
-  height: 40px;
-  border: 0;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  height: 46px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  background: #ffffff;
+  color: #16171b;
+  border: 1px solid #d4cfc1;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s;
   width: 100%;
   box-sizing: border-box;
-  width: 100%;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
 
-  border-radius: ${({ $borderRadius, theme }) =>
-    $borderRadius ? theme.borderRadius[$borderRadius] : theme.borderRadius.lg};
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
+    border-color: #16171b;
   }
 `;
 export const Text = styled.span`
-  font-weight: 550;
-  color: ${(props) => props.theme.colour.text.inverted};
-  font-size: ${(props) => props.theme.fontSize.default};
+  font-weight: 500;
+  font-size: 14px;
+  color: #16171b;
   @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.default};
+    font-size: 14px;
   }
 `;
