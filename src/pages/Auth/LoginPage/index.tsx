@@ -14,10 +14,18 @@ import {
   CreateAccountListItemLink,
   Point,
 } from "./styled";
+import {
+  StepLabel,
+  StepBar,
+  FormSub,
+  SocialGrid,
+  SocialButton,
+  SecBadge,
+} from "../../../components/layout/authLayout/styles";
 import Input from "../../../components/ui/Input/round";
 import { findUserByEmail, loginUser } from "../../../api/auth-api";
 import CheckBoxComponent from "../../../components/forms/checkbox-component";
-import BoxLayout from "../../../components/layout/boxLayout";
+import AuthLayout from "../../../components/layout/authLayout";
 import { validateEmail } from "../../../utils/validation";
 import GoogleAuthButton from "../../../components/ui/Button/GoogleAuthButton";
 
@@ -70,7 +78,7 @@ function Login() {
           "Please sign up to continue",
       });
       setTimeout(() => {
-        navigate("/signup");
+        navigate("/register");
       }, 1500);
     }
   };
@@ -112,14 +120,29 @@ function Login() {
   }, [verifiedEmail, setStep]);
 
   return (
-    <BoxLayout>
+    <AuthLayout screen="login">
       <GlobalStyle />
+      <StepLabel>
+        <StepBar />
+        {step === "email" ? "Step 01 / Log in" : "Step 02 / Password"}
+      </StepLabel>
+      <FormTitle>
+        {step === "email" ? (
+          <>Welcome <em>back.</em></>
+        ) : (
+          <>Hi, <em>{formData.email.split("@")[0]}.</em></>
+        )}
+      </FormTitle>
+      <FormSub>
+        {step === "email"
+          ? "Log in to pick up where you left off. We'll remember this device for 30 days."
+          : "Enter your password to continue."}
+      </FormSub>
       <Form onSubmit={handleSubmit}>
         <LoginInputs>
-          <FormTitle>Log in to continue</FormTitle>
           <Input
             type="email"
-            placeholder="Enter your email "
+            placeholder="you@company.com"
             value={formData.email}
             onChange={(value: string, name: string) => {
               handleChange(value, name);
@@ -131,7 +154,7 @@ function Login() {
             }}
             error={errors.email}
             filled={verifiedEmail}
-            label="Email"
+            label="Work email"
           />
           {step === "password" && (
             <>
@@ -145,31 +168,40 @@ function Login() {
                 label="Password"
               />
               <CheckBoxComponent
-                text="Remember me"
+                text="Remember me on this device for 30 days."
                 onCheckedChange={setRememberMe}
               />
             </>
           )}
           <Button type="submit" disabled={loading} size="lg" borderRadius="lg">
-            {step === "email" ? "Continue" : "Log in"}
+            {step === "email" ? "Continue →" : "Log in →"}
           </Button>
           <LineforGoogleWrapper>
-            <FirstLine></FirstLine>Or continue with
-            <LastLine></LastLine>
+            <FirstLine />
+            Or continue with
+            <LastLine />
           </LineforGoogleWrapper>
-          <GoogleAuthButton />
-          <CreateAccountWrapper>
-            <CreateAccountListItemLink href="login/reset-password">
-              Can't log in?
-            </CreateAccountListItemLink>
-            <Point>.</Point>
-            <CreateAccountListItemLink href="/signup">
-              Create an account
-            </CreateAccountListItemLink>
-          </CreateAccountWrapper>
+          <SocialGrid>
+            <GoogleAuthButton borderRadius="lg" />
+            <SocialButton type="button">
+              <span className="ic">⌘</span>SSO / SAML
+            </SocialButton>
+          </SocialGrid>
         </LoginInputs>
       </Form>
-    </BoxLayout>
+      <CreateAccountWrapper>
+        <div>
+          <CreateAccountListItemLink href="login/reset-password">
+            Can't log in?
+          </CreateAccountListItemLink>
+          <Point> · </Point>
+          <CreateAccountListItemLink href="/register">
+            Create an account
+          </CreateAccountListItemLink>
+        </div>
+        <SecBadge>SOC 2 · ISO 27001</SecBadge>
+      </CreateAccountWrapper>
+    </AuthLayout>
   );
 }
 export default Login;

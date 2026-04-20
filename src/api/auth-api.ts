@@ -43,7 +43,7 @@ export const signUpVerificationCode = async (
     user: UserType;
     ok: boolean;
     data: verificationDataType;
-  }>("auth/signUp-verification-code", {
+  }>("auth/register-verification-code", {
     method: "POST",
     data: { email, otpCode: code },
     token: token,

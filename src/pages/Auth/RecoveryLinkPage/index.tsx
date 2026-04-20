@@ -11,10 +11,16 @@ import {
   CreateAccountListItemLink,
   Point,
 } from "./styled";
+import {
+  StepLabel,
+  StepBar,
+  FormSub,
+  SecBadge,
+} from "../../../components/layout/authLayout/styles";
 import Input from "../../../components/ui/Input/round";
 import { sendResetPasswordLink } from "../../../api/auth-api";
 import VerifyEmailPage from "../VerificationEmailPage";
-import BoxLayout from "../../../components/layout/boxLayout";
+import AuthLayout from "../../../components/layout/authLayout";
 
 interface FormError {
   email?: string;
@@ -76,44 +82,57 @@ function RecoveryLink() {
     }
   };
   return (
-    <BoxLayout>
+    <AuthLayout screen="reset">
       <GlobalStyle />
       {emailSent ? (
         <VerifyEmailPage />
       ) : (
         <LoginContainer>
+          <StepLabel>
+            <StepBar />
+            Step 01 / Recover account
+          </StepLabel>
+          <FormTitle>
+            Can't <em>log in?</em>
+          </FormTitle>
+          <FormSub>
+            Enter the email on your account. We'll send a one-time link to
+            reset your password — the link expires in 30 minutes.
+          </FormSub>
           <Form onSubmit={handleSubmit}>
             <LoginInputs>
-              <FormTitle>Can't log in?</FormTitle>
               <Input
                 type="email"
-                placeholder="Enter your email "
+                placeholder="you@company.com"
                 value={login.email}
                 onChange={handleChange}
                 name="email"
                 error={error.email}
-                label="We'll send a recovery link to"
+                label="Work email"
               />
               <Button
-                children="Send recovery link"
+                children="Send recovery link →"
                 type="submit"
                 borderRadius="lg"
                 size="lg"
               />
-              <CreateAccountWrapper>
-                <CreateAccountListItemLink href="/login">
-                  Return to log in
-                </CreateAccountListItemLink>
-                <Point>.</Point>
-                <CreateAccountListItemLink href="/signup">
-                  Create an account
-                </CreateAccountListItemLink>
-              </CreateAccountWrapper>
             </LoginInputs>
           </Form>
+          <CreateAccountWrapper>
+            <div>
+              <CreateAccountListItemLink href="/login">
+                ← Return to log in
+              </CreateAccountListItemLink>
+              <Point> · </Point>
+              <CreateAccountListItemLink href="/register">
+                Create an account
+              </CreateAccountListItemLink>
+            </div>
+            <SecBadge>SOC 2 · ISO 27001</SecBadge>
+          </CreateAccountWrapper>
         </LoginContainer>
       )}
-    </BoxLayout>
+    </AuthLayout>
   );
 }
 export default RecoveryLink;

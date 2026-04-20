@@ -80,7 +80,7 @@ function RegisterForm() {
         setUser(data.data);
         localStorage.setItem("signupEmail", register.email);
         navigate(
-          `/signup/verify-email/otp?${token}=${token}&email=${register.email}`
+          `/register/verify-email/otp?${token}=${token}&email=${register.email}`
         );
         console.log("here3");
       }

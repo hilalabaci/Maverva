@@ -11,10 +11,16 @@ import {
   CreateAccountWrapper,
   CreateAccountListItemLink,
 } from "./styled";
+import {
+  StepLabel,
+  StepBar,
+  FormSub,
+  SecBadge,
+} from "../../../components/layout/authLayout/styles";
 import Input from "../../../components/ui/Input/round";
 import { resetPassword } from "../../../api/auth-api";
 import { useUserContext } from "../../../contexts/UserContext";
-import BoxLayout from "../../../components/layout/boxLayout";
+import AuthLayout from "../../../components/layout/authLayout";
 interface FormData {
   password: string;
 }
@@ -62,32 +68,44 @@ function ResetPassword() {
   };
 
   return (
-    <BoxLayout>
+    <AuthLayout screen="reset">
       <GlobalStyle />
       <LoginContainer>
+        <StepLabel>
+          <StepBar />
+          Step 02 / New password
+        </StepLabel>
+        <FormTitle>
+          Choose a <em>new password.</em>
+        </FormTitle>
+        <FormSub>
+          Pick a strong password with at least 8 characters.
+        </FormSub>
         <Form onSubmit={handleSubmit}>
           <LoginInputs>
-            <FormTitle>Choose a new password</FormTitle>
             <Input
               type="password"
-              placeholder="Enter your email "
+              placeholder="New password"
               value={login.password}
               onChange={handleChange}
               name="password"
               error={error}
-              label="Password"
+              label="New password"
               infoMessage="Password must have at least 8 characters"
             />
-            <Button children="Continue" type="submit" />
-            <CreateAccountWrapper>
-              <CreateAccountListItemLink href="/login">
-                Still having trouble logging in?
-              </CreateAccountListItemLink>
-            </CreateAccountWrapper>
+            <Button children="Set new password →" type="submit" size="lg" borderRadius="lg" />
           </LoginInputs>
         </Form>
+        <CreateAccountWrapper>
+          <div>
+            <CreateAccountListItemLink href="/login">
+              ← Return to log in
+            </CreateAccountListItemLink>
+          </div>
+          <SecBadge>SOC 2 · ISO 27001</SecBadge>
+        </CreateAccountWrapper>
       </LoginContainer>
-    </BoxLayout>
+    </AuthLayout>
   );
 }
 export default ResetPassword;

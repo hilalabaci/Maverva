@@ -1,169 +1,120 @@
-import { Link } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
-import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
-import { device } from "../../../styles/breakpoints";
 
 export const GlobalStyle = createGlobalStyle`
-#root,
-#root > div {
-  height: 100vh;
-}
-body {
-  
-}
+  body {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+  }
 `;
 
-export const LoginContainer = styled.div``;
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  @media ${device.mobile} {
-    width: 100%;
-    justify-content: flex-start;
-  }
+  width: 100%;
 `;
+
 export const LoginInputs = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 60px 0;
-  gap: 20px;
+  gap: 18px;
   width: 100%;
-  @media ${device.mobile} {
-    width: 86%;
-    height: 100vh;
-    padding: 160px 30px 0 30px;
-    border-radius: 0;
-    justify-content: flex-start;
+`;
+
+export const FormTitle = styled.h1`
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: 56px;
+  line-height: 0.98;
+  letter-spacing: -0.022em;
+  margin: 0 0 14px;
+  color: #16171b;
+
+  em {
+    font-style: italic;
+    color: #1e2a5e;
   }
-  @media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
-    width: 93%;
-  }
-  @media all and (device-width: 1024px) and (device-height: 768px) and (orientation: landscape) {
+
+  @media (max-width: 900px) {
+    font-size: 42px;
   }
 `;
-export const FormTitle = styled.h2`
-  font-size: 16px;
-  font-weight: 600;
-  color: #2f4156;
-  text-align: center;
-  padding-bottom: 15px;
-  margin: 0;
-  @media ${device.mobile} {
-    font-size: 20px;
-  }
-`;
-export const StyledLink = styled(Link)`
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  opacity: 0.5;
-  &:hover {
-    color: #007bff;
-    opacity: 1;
-  }
-  @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.default};
-  }
-`;
+
 export const MessageError = styled.p`
-  color: #ed4956;
+  color: #b91c1c;
+  font-size: 13px;
+  margin: 0;
 `;
-export const RememberWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-  padding-left: 15px;
+
+export const TermsText = styled.p`
+  font-size: 12.5px;
+  color: #74767d;
+  margin: 0;
+  line-height: 1.55;
 `;
-export const CheckBoxText = styled.span`
-  color: #172b4d;
-  font-size: 0.9rem;
-  opacity: 0.7;
-  @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.subtitle};
-  }
-`;
-export const CheckBoxTextLink = styled.a`
-  color: #0052cc;
-  font-size: 0.9rem;
-  @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.subtitle};
+
+export const TermsLink = styled.a`
+  color: #16171b;
+  text-decoration: underline;
+  text-decoration-color: #d4cfc1;
+  text-underline-offset: 3px;
+
+  &:hover {
+    text-decoration-color: #1e2a5e;
   }
 `;
 
 export const LineforGoogleWrapper = styled.div`
-  font-size: 13px;
-  line-height: 0.25px;
-  font-weight: 500;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 14px;
   align-items: center;
-  justify-content: center;
-  color: #2f4156;
-  opacity: 0.6;
-`;
-export const FirstLine = styled.div`
-  border-style: solid;
-  margin-right: 1rem;
-  margin-left: 1rem;
-  opacity: 0.25;
-  border-width: 0.125px;
-  flex-grow: 1;
-`;
-export const LastLine = styled.div`
-  border-style: solid;
-  opacity: 0.25;
-  border-width: 0.125px;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  flex-grow: 1;
-`;
-export const EmailIcon = styled(MailOutlinedIcon)`
-  color: #091e4240;
-`;
-export const EmailWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 2.5em;
-  padding-inline-start: 1.25rem;
-  border-radius: 2rem;
-  outline: none;
-  box-shadow: 0 1px 1px 0 #091e4240, 0 0 1px 0 #091e424f;
-font-size: ${(props) => props.theme.fontSize.default};
-  font-weight: 400;
-  background-color: #ffffff;
-`;
-export const AccoutCreatInput = styled.input`
-  border: none;
-  font-size: ${(props) => props.theme.fontSize.default};
-  outline: none;
-  font-weight: 400;
-  flex: 1;
-  color: navy;
-`;
-export const CreateAccountWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  @media ${device.mobile} {
-    padding: 11px 0;
+  margin: 4px 0;
+  font-family: "Geist Mono", monospace;
+  font-size: 11px;
+  color: #74767d;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+
+  &::before,
+  &::after {
+    content: "";
+    height: 1px;
+    background: #e2ded3;
   }
 `;
 
-export const Point = styled.p`
-  color: #44546f;
-  margin: 0 8px;
-  text-align: center;
-  font-size: 1.5rem;
+export const FirstLine = styled.div``;
+export const LastLine = styled.div``;
+
+export const CreateAccountWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #e2ded3;
+  font-size: 13px;
+  color: #74767d;
 `;
+
 export const CreateAccountListItemLink = styled.a`
-  color: #0c66e4;
-  font-size: 0.9rem;
+  color: #16171b;
+  font-size: 13px;
   text-decoration: none;
   cursor: pointer;
+
   &:hover {
-    text-decoration: underline;
+    color: #1e2a5e;
   }
 `;
+
+/* kept for legacy imports if any */
+export const LoginContainer = styled.div``;
+export const RememberWrapper = styled.div``;
+export const CheckBoxText = styled.span``;
+export const CheckBoxTextLink = styled.a``;
+
