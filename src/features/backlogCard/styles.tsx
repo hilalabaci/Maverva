@@ -8,15 +8,20 @@ import { device } from "../../styles/breakpoints";
 
 export const BacklogCardListItems = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1.5fr 10fr 2fr 1fr 1fr;
-  justify-content: stretch;
-  background-color: ${(props) =>
-    props.theme.colour.primary.card.background.default};
-  padding: 5px 0;
-  outline: ${(props) => props.theme.colour.primary.card.border.default};
+  grid-template-columns: 32px 80px 1fr 120px 140px 100px 100px 40px;
+  gap: 14px;
+  align-items: center;
+  padding: 0 18px;
+  height: var(--app-row-h, 44px);
+  border-bottom: 1px solid var(--app-line);
+  font-size: 13.5px;
+  cursor: pointer;
+  background: var(--app-card);
+  &:last-child {
+    border-bottom: 0;
+  }
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.card.background.hover};
+    background: var(--app-bg-2);
   }
 `;
 export const CheckboxWrapper = styled.div`
@@ -27,15 +32,79 @@ export const CheckboxWrapper = styled.div`
     opacity: 1;
   }
 `;
+
+type TypeBadgeProps = { $kind: 'story' | 'task' | 'bug' | 'chore' | 'epic' };
+export const TypeBadge = styled.span<TypeBadgeProps>`
+  justify-self: center;
+  align-self: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 3.5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9.5px;
+  color: #fff;
+  font-weight: 600;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  flex-shrink: 0;
+  background: ${({ $kind }) => {
+    switch ($kind) {
+      case 'story': return '#15803D';
+      case 'task': return '#1E40AF';
+      case 'bug': return '#B91C1C';
+      case 'epic': return '#7C3AED';
+      default: return '#6B7280';
+    }
+  }};
+`;
+
+type PriorityCellProps = { $tone: 'danger' | 'warn' | 'med' | 'lo' };
+export const PriorityCell = styled.div<PriorityCellProps>`
+  justify-self: start;
+  align-self: center;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: ${({ $tone }) => {
+    switch ($tone) {
+      case 'danger': return 'var(--app-danger)';
+      case 'warn': return 'var(--app-warn)';
+      case 'med': return '#B45309';
+      default: return 'var(--app-ink-3)';
+    }
+  }};
+  b {
+    font-weight: 500;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+`;
+
+export const EstimateCell = styled.div`
+  justify-self: start;
+  align-self: center;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--app-ink-3);
+  b {
+    color: var(--app-ink-2);
+    font-weight: 500;
+  }
+`;
 export const CardKey = styled.div`
   justify-self: start;
   align-self: center;
-  font-size: ${(props) => props.theme.fontSize.subtitle};
-  color: ${(props) => props.theme.colour.text.inverted};
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11.5px;
+  color: var(--app-ink-2);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
   &:hover {
-    color: ${(props) => props.theme.navbarActiveFontColour};
+    color: var(--app-accent);
   }
 `;
 export const ContentWrapper = styled.div`
@@ -59,7 +128,9 @@ export const ContentText = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: ${(props) => props.theme.fontSize.default};
+  font-size: 13.5px;
+  color: var(--app-ink);
+  letter-spacing: -0.005em;
 `;
 
 export const NoteEdit = styled.button`
@@ -75,21 +146,22 @@ export const IconEdit = styled(EditIcon)`
   align-self: center;
   align-content: center;
   padding: 5px 10px;
-  font-size: ${(props) => props.theme.fontSize.default}!important;
+  font-size: 16px !important;
   margin: 0 5px;
   opacity: 0;
   border-radius: 3px;
-  color: ${(props) => props.theme.colour.text.inverted};
-  background-color: ${(props) => props.theme.IconEditBg};
+  color: var(--app-ink-3);
+  background-color: transparent;
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background-color: var(--app-bg-2);
+    color: var(--app-ink);
   }
   ${BacklogCardListItems}:hover & {
     opacity: 1;
   }
 
   @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
+    font-size: 14px !important;
     opacity: 1;
   }
 `;
@@ -151,28 +223,52 @@ const handleColorType = (status: number, theme: DefaultTheme) => {
 export const Status = styled.div<StatusPropsType>`
   justify-self: start;
   align-self: center;
-  background-color: ${({ $status, theme }) =>
-    handleColorType($status, theme).default.backgroundColor};
-  color: ${({ $status, theme }) =>
-    handleColorType($status, theme).default.color};
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
   text-transform: uppercase;
-  border-radius: 3px;
-  font-size: ${(props) => props.theme.fontSize.subtitle};
-  padding: 4px 6px;
-  font-weight: 700;
-  width: 100%;
+  letter-spacing: 0.08em;
   cursor: pointer;
-  &:hover {
-    background-color: ${({ $status, theme }) =>
-      handleColorType($status, theme).hover.backgroundColor};
-    color: ${({ $status, theme }) =>
-      handleColorType($status, theme).hover.color};
+  color: ${({ $status }) => {
+    switch ($status) {
+      case IssueStatus.ToDo: return 'var(--app-ink-3)';
+      case IssueStatus.InProgress: return 'var(--app-info)';
+      case IssueStatus.Done: return 'var(--app-ok)';
+      default: return 'var(--app-ink-3)';
+    }
+  }};
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
   }
 `;
 
 export const MemberWrapper = styled.div`
-  justify-self: center;
+  justify-self: start;
   align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--app-ink-2);
+  min-width: 0;
+  overflow: hidden;
+`;
+
+export const AssigneeName = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12.5px;
+  color: var(--app-ink-2);
 `;
 
 export const MoreIcon = styled(MoreHorizRoundedIcon)`
@@ -183,17 +279,15 @@ export const MoreIcon = styled(MoreHorizRoundedIcon)`
   justify-content: flex-end;
   border-radius: 3px;
   cursor: pointer;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
+  color: var(--app-ink-3);
   &:hover {
+    color: var(--app-ink);
+    background: var(--app-bg-2);
   }
   ${BacklogCardListItems}:hover & {
     opacity: 1;
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
   }
   @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
     opacity: 1;
   }
 `;

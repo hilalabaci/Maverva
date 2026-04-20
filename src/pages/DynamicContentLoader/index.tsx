@@ -23,6 +23,7 @@ function DynamicContentLoader() {
   const {
     selectedProject,
     activeSprint,
+    issues,
     filteredIssues,
     setSearchInput,
     loadActiveSprint,
@@ -32,7 +33,6 @@ function DynamicContentLoader() {
     onUpdateSummary,
     onUpdateDescription,
     updatedCardsAfterDeleteColumn,
-    selectedBoard,
   } = useDynamicContentLoader(projectKey);
 
   return (
@@ -55,11 +55,11 @@ function DynamicContentLoader() {
               projectId={selectedProject?.Id as string}
               topMenuTitle={selectedProject?.Name as string}
               setSearchInput={setSearchInput}
-              boardId={selectedBoard?.Id as string}
               startDateActiveSprint={activeSprint?.StartDate}
               endDateActiveSprint={activeSprint?.EndDate}
               sprintId={activeSprint?.Id}
               sprintGoal={activeSprint?.SprintGoal}
+              sprintIssues={issues}
               loadActiveSprint={loadActiveSprint}
             />
           )}

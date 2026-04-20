@@ -14,13 +14,16 @@ export const EditContentIcon = styled(ModeEditIcon)`
 `;
 export const EditIcon = styled(MoreHorizRoundedIcon)`
   opacity: 0;
-  padding: 1px !important;
+  padding: 2px;
   border-radius: 3px;
+  color: var(--app-ink-3);
+  flex-shrink: 0;
   &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
+    background: var(--app-bg-2);
+    color: var(--app-ink);
   }
   @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
+    font-size: 16px !important;
     opacity: 1;
   }
 `;
@@ -28,69 +31,81 @@ export const EditIcon = styled(MoreHorizRoundedIcon)`
 export const Container = styled.button<{ $isDragging?: boolean }>`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 0.75rem;
-  border-radius: 3px;
-  border: none;
+  gap: 8px;
+  padding: 11px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--app-line);
+  background: var(--app-card);
+  text-align: left;
+  width: 100%;
   opacity: ${(props) => (props.$isDragging ? 0.4 : 1)};
-  //max-width: 270px;
-  /* box-shadow: 0px 1px 1px #091e4240, 0px 0px 1px #091e424f, 0 1px 1px #172b4d00,
-    0 0 1px #172b4d33;
-  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
-    0 1px 1px #172b4d00, 0 0 1px #172b4d33; */
-  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
-    0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
-  background-color: ${(props) => props.theme.colour.background.default};
-  cursor: pointer;
+  cursor: grab;
+  transition: border-color 0.15s;
   &:hover {
-    background-color: ${(props) => props.theme.colour.background.cardBG.hover};
-    color: ${(props) => props.theme.colour.text.primary};
+    border-color: var(--app-line-2);
   }
   &:hover ${EditIcon} {
-    justify-content: flex-end;
-    padding: 1px !important;
-    border-radius: 3px !important;
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
     opacity: 1;
   }
   &:hover ${EditContentIcon} {
-    justify-content: flex-end;
-    border-radius: 3px;
     opacity: 1;
-    padding: 2px;
-    font-size: medium !important;
   }
   @media ${device.mobile} {
-    padding: 15px;
-    border-radius: 3px;
+    padding: 10px;
   }
 `;
+export const TopMeta = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--app-ink-3);
+`;
+
+export const KindBadge = styled.span<{ $kind?: 'story' | 'task' | 'bug' | 'chore' }>`
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #fff;
+  font-weight: 600;
+  background: ${({ $kind }) => {
+    switch ($kind) {
+      case 'bug':
+        return 'var(--app-danger)';
+      case 'story':
+        return 'var(--app-ok)';
+      case 'chore':
+        return 'var(--app-ink-3)';
+      default:
+        return 'var(--app-info)';
+    }
+  }};
+`;
+
 export const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-bottom: 8px;
   gap: 5px;
+  width: 100%;
 `;
 export const NoteWrapper = styled.div`
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 100%;
-  gap: 5px;
-  @media ${device.mobile} {
-    font-size: 10px;
-    overflow: scroll;
-  }
 `;
 export const Note = styled.div`
   font-style: normal;
   font-weight: 400;
-  font-size: ${(props) => props.theme.fontSize.default};
-  line-height: 20px;
-  color: ${(props) => props.theme.memberMenuFontColor};
+  font-size: 13.5px;
+  line-height: 1.35;
+  color: var(--app-ink);
+  letter-spacing: -0.005em;
   resize: none;
   outline: none;
   overflow: hidden;
@@ -120,28 +135,26 @@ export const EditWrapper = styled.div`
 export const EditTextArea = styled.textarea`
   resize: none;
   outline: none;
-  border-radius: 3px;
-  border: ${(props) => props.theme.colour.border.active};
-  background-color: ${(props) => props.theme.colour.background.surface};
-  color: ${(props) => props.theme.colour.text.primary};
+  border-radius: 5px;
+  border: 1px solid var(--app-line);
+  background: var(--app-card);
+  color: var(--app-ink);
   min-width: 97%;
-  font-size: ${(props) => props.theme.fontSize.default};
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-family: inherit;
+  padding: 6px 8px;
 `;
 export const DoneButton = styled.button`
   cursor: pointer;
   border: none;
-  border-radius: 3px;
-  padding: 4px 5px;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.primary.background.default};
-  box-shadow: inset 0px 0px 1px #091e4240, 0px 0px 1px #091e424f,
-    0px 0px 1px #172b4d00, 0 0 1px #172b4d33;
-  color: ${(props) => props.theme.colour.text.primary};
+  border-radius: 5px;
+  padding: 5px 10px;
+  background: var(--app-accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.primary.background.hover};
+    opacity: 0.9;
   }
 `;
 export const IconDone = styled(DoneIcon)`
@@ -159,11 +172,34 @@ export const CardButtomWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--app-ink-3);
+  gap: 8px;
+`;
+
+export const PriorityBadge = styled.span<{ $tone?: 'urgent' | 'high' | 'medium' | 'low' }>`
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: ${({ $tone }) => {
+    switch ($tone) {
+      case 'urgent':
+        return 'var(--app-danger)';
+      case 'high':
+        return 'var(--app-warn)';
+      case 'medium':
+        return '#B45309';
+      default:
+        return 'var(--app-ink-3)';
+    }
+  }};
 `;
 export const CardKeyWrapper = styled.div`
-  font-size: 11px;
-  font-weight: 600;
-  color: ${(props) => props.theme.colour.text.inverted};
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--app-ink-3);
   @media ${device.mobile} {
     font-size: 10px;
   }
@@ -179,5 +215,5 @@ export const LabelWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2px;
+  gap: 4px;
 `;

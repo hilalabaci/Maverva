@@ -29,6 +29,9 @@ import {
   EditWrapper,
   IconDone,
   DoneButton,
+  TopMeta,
+  KindBadge,
+  PriorityBadge,
 } from "./styles";
 import {
   deleteIssue,
@@ -74,6 +77,31 @@ function Issue({
     usersByProject,
     handleAssigneeChange,
   } = useIssueDetails(issue, onUpdateAssignee);
+  const summary = issue.Summary || "Untitled issue";
+  const lowerSummary = summary.toLowerCase();
+  const kind = lowerSummary.includes("bug") || lowerSummary.includes("fix") || lowerSummary.includes("error")
+    ? "bug"
+    : lowerSummary.includes("refactor") || lowerSummary.includes("cleanup") || lowerSummary.includes("chore")
+      ? "chore"
+      : lowerSummary.includes("add") || lowerSummary.includes("update") || lowerSummary.includes("migrate")
+        ? "task"
+        : "story";
+  const kindLabel = kind === "bug" ? "B" : kind === "chore" ? "C" : kind === "task" ? "T" : "S";
+  const priorityTone = issue.Status === IssueStatus.InProgress
+    ? "high"
+    : issue.Status === IssueStatus.Done
+      ? "low"
+      : lowerSummary.includes("urgent") || lowerSummary.includes("critical")
+        ? "urgent"
+        : "medium";
+  const priorityLabel =
+    priorityTone === "urgent"
+      ? "⚠ Urgent"
+      : priorityTone === "high"
+        ? "↑ High"
+        : priorityTone === "low"
+          ? "↓ Low"
+          : "→ Medium";
 
   function openModal() {
     setShowModal(true);
@@ -143,6 +171,10 @@ function Issue({
     <>
       <Container onClick={onClick} ref={drag} $isDragging={isDragging}>
         <GlobalStyle />
+        <TopMeta>
+          <KindBadge $kind={kind}>{kindLabel}</KindBadge>
+          <CardKeyWrapper>{issue.Key}</CardKeyWrapper>
+        </TopMeta>
         <ContentWrapper>
           <NoteWrapper>
             {editTextDisplay ? (
@@ -243,7 +275,7 @@ function Issue({
         </LabelWrapper>
 
         <CardButtomWrapper>
-          <CardKeyWrapper>{issue.Key}</CardKeyWrapper>
+          <PriorityBadge $tone={priorityTone}>{priorityLabel}</PriorityBadge>
           <ToolTip
             contentStyle={{ zIndex: 0 }}
             trigger={

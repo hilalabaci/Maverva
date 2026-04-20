@@ -32,6 +32,7 @@ import {
   MoreIcon,
   CheckboxWrapper,
   EditSprintButton,
+  RowHead,
 } from "./styles";
 import { getBacklogCards } from "../../api/backlog-api";
 import { addIssue, updateIssue } from "../../api/issue-api";
@@ -166,13 +167,6 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
         trigger={
           <HeaderDropBlog>
             <CheckboxWrapper>
-              <CheckBox />
-            </CheckboxWrapper>
-            <HeaderTitleContent
-              ref={refBacklogSelected}
-              $selected={isHeaderSelected} // Pass selected state for border
-              onClick={() => setIsHeaderSelected(true)}
-            >
               <ArrowIcon
                 className="dropdown-trigger"
                 as={
@@ -181,41 +175,40 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
                     : KeyboardArrowRightIcon
                 }
               />
+            </CheckboxWrapper>
+            <HeaderTitleContent
+              ref={refBacklogSelected}
+              $selected={isHeaderSelected}
+              onClick={() => setIsHeaderSelected(true)}
+            >
               <HeaderTitle>Backlog</HeaderTitle>
-              <HeaderIssue>({backlogCards?.length || 0} issues)</HeaderIssue>
+              <HeaderIssue>· {backlogCards?.length || 0} issues</HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.ToDo}>
-                    {getStatusCount(backlogCards, IssueStatus.ToDo)}
+                    <b>{getStatusCount(backlogCards, IssueStatus.ToDo)}</b> to do
                   </HeaderStatus>
                 }
-                content={` Not started ${getStatusCount(backlogCards, IssueStatus.ToDo)} of ${
-                  backlogCards.length
-                } `}
-              ></ToolTip>
+                content={`Not started ${getStatusCount(backlogCards, IssueStatus.ToDo)} of ${backlogCards.length}`}
+              />
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.InProgress}>
-                    {getStatusCount(backlogCards, IssueStatus.InProgress)}
+                    <b>{getStatusCount(backlogCards, IssueStatus.InProgress)}</b> in progress
                   </HeaderStatus>
                 }
-                content={`In progress ${getStatusCount(
-                  backlogCards,
-                  IssueStatus.InProgress
-                )} of ${backlogCards.length} `}
-              ></ToolTip>
+                content={`In progress ${getStatusCount(backlogCards, IssueStatus.InProgress)} of ${backlogCards.length}`}
+              />
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.Done}>
-                    {getStatusCount(backlogCards, IssueStatus.Done)}
+                    <b>{getStatusCount(backlogCards, IssueStatus.Done)}</b> done
                   </HeaderStatus>
                 }
-                content={`Completed ${getStatusCount(backlogCards, IssueStatus.Done)} of ${
-                  backlogCards.length
-                } `}
-              ></ToolTip>
+                content={`Completed ${getStatusCount(backlogCards, IssueStatus.Done)} of ${backlogCards.length}`}
+              />
             </HeaderStatusWrapper>
             <HeaderButtonWrapper>
               <HeaderButton
@@ -234,6 +227,16 @@ function BacklogCards({ createSprint, updateDragandDrop }: BacklogCardsProps) {
         }
         children={
           <Accordion>
+            <RowHead>
+              <span></span>
+              <span>Key</span>
+              <span>Summary</span>
+              <span>Status</span>
+              <span>Priority</span>
+              <span>Estimate</span>
+              <span>Assignee</span>
+              <span></span>
+            </RowHead>
             <BacklogCardList ref={drop}>
               {backlogCards.map((backlogCard) => (
                 <BacklogCard

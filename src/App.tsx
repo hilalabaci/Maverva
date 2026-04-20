@@ -10,7 +10,7 @@ import {
 import { UserProvider, useUserContext } from "./contexts/UserContext";
 import ThemeProvider from "./contexts/ThemeContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPageNew";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import VerifyEmailPage from "./pages/Auth/VerificationEmailPage";
 import { GlobalStyle } from "./styles/GlobalStyle";
@@ -27,12 +27,12 @@ const { REACT_APP_GOOGLE_OAUTH_CLIENTID } = process.env;
 const router = createBrowserRouter([
   // Public route
   { path: "/", element: <LandingPage /> },
-  { path: "/signup", element: <Register /> },
+  { path: "/register", element: <Register /> },
   { path: "/login", element: <Login /> },
   { path: "/login/verify-email/otp", element: <VerifyEmailPage /> },
   { path: "/login/reset-password", element: <RecoveryLink /> },
   { path: "/login/reset-password/continue", element: <ResetPassword /> },
-  { path: "/signup/verify-email/otp", element: <VerifyCodePage /> },
+  { path: "/register/verify-email/otp", element: <VerifyCodePage /> },
 
   // Private
   {

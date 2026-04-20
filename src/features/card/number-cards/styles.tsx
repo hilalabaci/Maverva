@@ -2,14 +2,19 @@ import styled from "styled-components";
 import { device } from "../../../styles/breakpoints";
 
 export const Container = styled.div`
-  font-style: normal;
-  font-weight: 600;
-  font-size: ${(props) => props.theme.fontSize.subtitle};
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
   display: flex;
   align-items: center;
-  text-align: center;
-  color: ${(props) => props.theme.searchPlaceHolderFontColour};
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--app-bg-2);
+  color: var(--app-ink-3);
   @media ${device.mobile} {
-    font-size: 15px;
+    font-size: 11px;
   }
 `;

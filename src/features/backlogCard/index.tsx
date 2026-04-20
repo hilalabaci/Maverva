@@ -10,13 +10,12 @@ import {
 } from "../../types/user.types";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { STATUS_OPTIONS } from "../../constants/status-options";
-import CheckBox from "../../components/forms/checkbox-component";
 import { ToolTip } from "../../components/ui/Toolstip";
 import SelectDemo from "../../components/ui/SelectDemo";
 import { DropdownMenu } from "../../components/ui/DropDownMenu";
 import {
   BacklogCardListItems,
-  CheckboxWrapper,
+  TypeBadge,
   CardKey,
   ContentWrapper,
   Content,
@@ -24,12 +23,15 @@ import {
   IconEdit,
   Status,
   MemberWrapper,
+  AssigneeName,
   MoreIcon,
   NoteEdit,
   EditWrapper,
   EditTextArea,
   DoneButton,
   IconDone,
+  PriorityCell,
+  EstimateCell,
 } from "./styles";
 import {
   deleteIssue,
@@ -127,11 +129,33 @@ const BacklogCard = ({
     await updateCard(id, status);
   };
 
+  // Infer issue kind from summary
+  const kind: 'bug' | 'story' | 'task' | 'chore' | 'epic' = /\bbug\b|fix|error|broken|crash|reconcile|proration/i.test(content)
+    ? 'bug'
+    : /\bepic\b/i.test(content)
+    ? 'epic'
+    : /\bstory\b|implement|build|create|schema|dual-write|audit/i.test(content)
+    ? 'story'
+    : /\bchore\b|update|refactor|clean|shadow traffic/i.test(content)
+    ? 'chore'
+    : 'task';
+  const kindLabel = kind === 'story' ? 'S' : kind === 'bug' ? 'B' : kind === 'epic' ? 'E' : kind === 'chore' ? 'C' : 'T';
+
+  // Infer priority from status + keywords
+  const priorityTone: 'danger' | 'warn' | 'med' | 'lo' =
+    /urgent|critical|blocker/i.test(content) ? 'danger'
+    : /\bbug\b|crash|broken|error|high/i.test(content) ? 'warn'
+    : status === IssueStatus.Done ? 'lo'
+    : 'med';
+  const priorityLabel =
+    priorityTone === 'danger' ? '⚠ Urgent'
+    : priorityTone === 'warn' ? '↑ High'
+    : priorityTone === 'lo' ? '↓ Low'
+    : '→ Medium';
+
   return (
     <BacklogCardListItems role="button" ref={drag}>
-      <CheckboxWrapper>
-        <CheckBox />
-      </CheckboxWrapper>
+      <TypeBadge $kind={kind}>{kindLabel}</TypeBadge>
       <CardKey>{cardKey}</CardKey>
       <ContentWrapper>
         {editTextDisplay ? (
@@ -172,6 +196,10 @@ const BacklogCard = ({
           selectedValue={status}
         />
       </Status>
+      <PriorityCell $tone={priorityTone}>
+        <b>{priorityLabel}</b>
+      </PriorityCell>
+      <EstimateCell>—</EstimateCell>
       <MemberWrapper>
         <ToolTip
           trigger={
@@ -185,6 +213,9 @@ const BacklogCard = ({
           }
           content={AssigneeUser?.FullName}
         ></ToolTip>
+        {AssigneeUser?.FullName && (
+          <AssigneeName>{AssigneeUser.FullName.split(' ')[0]}</AssigneeName>
+        )}
       </MemberWrapper>
       <DropdownMenu
         key={id}

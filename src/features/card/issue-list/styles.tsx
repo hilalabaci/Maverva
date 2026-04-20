@@ -8,32 +8,32 @@ export const GlobalStyle = createGlobalStyle`
 
 `;
 export const AddCardButton = styled.button`
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
-  color: ${(props) => props.theme.colour.text.inverted};
+  background: var(--app-bg-2);
+  color: var(--app-ink-3);
   width: 100%;
-  height: 35px;
+  height: 32px;
   outline: none;
-  border: none;
-  border-radius: 3px;
-  font-size: ${(props) => props.theme.fontSize.default};
-  font-weight: 500;
+  border: 1px dashed var(--app-line-2);
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-weight: 400;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  padding: 0 10px;
   cursor: pointer;
   opacity: 0;
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
+    color: var(--app-ink);
+    border-color: var(--app-ink-3);
   }
-
- @media ${device.mobile} {
+  @media ${device.mobile} {
     width: fit-content;
     height: fit-content;
     font-size: 10px;
     padding: 5px;
+    opacity: 1;
   }
 `;
 export const IconAdd = styled(AddIcon)`
@@ -46,16 +46,19 @@ export const IconAdd = styled(AddIcon)`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  height: 100%;
-  gap: 5px;
+  padding: 8px;
+  overflow-y: auto;
+  flex: 1;
+  gap: 6px;
+  &::-webkit-scrollbar { width: 5px; }
+  &::-webkit-scrollbar-thumb { background: var(--app-line-2); border-radius: 3px; }
   &:hover ${AddCardButton} {
     opacity: 1;
-    color: ${(props) => props.theme.memberMenuFontColor};
+    color: var(--app-ink);
   }
- @media ${device.mobile} {
+  @media ${device.mobile} {
     border-radius: 3px;
-    padding: 10px;
+    padding: 8px;
   }
 `;
 
