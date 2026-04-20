@@ -1,8 +1,10 @@
 import { PropsWithChildren } from "react";
-import EmailLogo from "../../../assets/email/emailLogo2.png";
 import {
   BoxContainer,
   BrandContainer,
+  BrandDot,
+  BrandMark,
+  BrandName,
   InnerContainer,
   MainContainer,
   SectionofBox,
@@ -17,11 +19,10 @@ function BoxLayout({ children }: BoxLayoutProps) {
         <BoxContainer>
           <SectionofBox>
             <BrandContainer>
-              <img
-                src={EmailLogo}
-                alt="Logo"
-                style={{ height: 60, marginRight: 10 }}
-              />
+              <BrandMark>
+                <BrandDot />
+              </BrandMark>
+              <BrandName>Maverva</BrandName>
             </BrandContainer>
             {children}
           </SectionofBox>
@@ -30,4 +31,5 @@ function BoxLayout({ children }: BoxLayoutProps) {
     </MainContainer>
   );
 }
+
 export default BoxLayout;

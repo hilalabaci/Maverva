@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { device } from "../../../../styles/breakpoints";
 
 export const Container = styled.div`
-  background-color: ${(props) => props.theme.colour.background.default};
-  color: ${(props) => props.theme.fontColour};
+  background: var(--app-bg);
+  color: var(--app-ink);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -15,9 +15,21 @@ export const MainContainer = styled.div`
   min-height: 0;
   display: flex;
   flex-direction: column;
-  margin-left: 30px;
- @media ${device.mobile} {
+  @media ${device.mobile} {
     margin-left: 7px;
   }
 `;
-export const Breadcrumbs = styled.div``;
+export const Breadcrumbs = styled.div`
+  padding: 10px 34px 0;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--app-ink-3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  @media ${device.mobile} {
+    padding: 8px 18px 0;
+  }
+`;

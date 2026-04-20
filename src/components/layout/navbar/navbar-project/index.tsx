@@ -10,6 +10,8 @@ import MemberButton from "../../../../features/user/member-button";
 import DynamicSVGBrand from "../../../../assets/icons/logo-svg";
 import {
   BrandContainer,
+  BrandMark,
+  BrandDot,
   HeaderContainer,
   NavbarContainer,
   Presentation,
@@ -26,6 +28,8 @@ import {
   CreateWrapper,
   CreateButton,
   MemberButtonWrapper,
+  NavbarCrumb,
+  TopbarPrimaryBtn,
 } from "./styles";
 import {
   getNotifications,
@@ -130,36 +134,35 @@ function Navbar(props: NavbarPropsType) {
 
   return (
     <HeaderContainer>
-      <NavbarContainer>
-        <GlobalStyle />
-        <BrandContainer>
-          <DynamicSVGBrand width={isMobile ? "100" : "120"} height="30" />
-        </BrandContainer>
-        <Presentation>
-          <ProjectsLink to="/projects" onClick={handleProjectsClick}>
-            Projects
-            <ProjectsSpan />
-          </ProjectsLink>
-          <CreateWrapper>
-            <Modal
-              onClose={closeModalforCreateButton}
-              open={showModalforCreateButton}
-              trigger={
-                <CreateButton onClick={openModalforCreateButton}>
-                  Create
-                </CreateButton>
-              }
-              onChange={setShowModalforCreateButton}
-            >
-              <OptionalBoardCreate
-                handleProjectCreate={props.handleProjectCreate}
-                onClose={closeModalforCreateButton}
-              />
-            </Modal>
-          </CreateWrapper>
-        </Presentation>
-      </NavbarContainer>
+      <GlobalStyle />
+      <NavbarCrumb>
+        <ProjectsLink to="/projects" onClick={handleProjectsClick}>
+          <BrandMark>
+            <BrandDot />
+          </BrandMark>
+          <b style={{ marginLeft: 6 }}>Maverva</b>
+        </ProjectsLink>
+        <span className="sep">/</span>
+        <span>Board</span>
+      </NavbarCrumb>
       <NavbarLeftSideWrapper>
+        <CreateWrapper>
+          <Modal
+            onClose={closeModalforCreateButton}
+            open={showModalforCreateButton}
+            trigger={
+              <CreateButton onClick={openModalforCreateButton}>
+                Create
+              </CreateButton>
+            }
+            onChange={setShowModalforCreateButton}
+          >
+            <OptionalBoardCreate
+              handleProjectCreate={props.handleProjectCreate}
+              onClose={closeModalforCreateButton}
+            />
+          </Modal>
+        </CreateWrapper>
         <Modal
           open={showModal}
           noBackdrop
@@ -172,7 +175,6 @@ function Navbar(props: NavbarPropsType) {
               {unReadNotificationCount > 0 && (
                 <NotificationCount>{unReadNotificationCount}</NotificationCount>
               )}
-
               <IconNotification $isNotificationModalOpen={showModal} />
             </ButtonforNotification>
           }

@@ -18,20 +18,21 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const HeaderContainer = styled.header`
-  background-color: ${(props) => props.theme.colour.background.default};
+  background: var(--app-bg);
   display: flex;
-  border-bottom: ${(props) => props.theme.colour.divider.border.default};
-  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px,
-    inset rgba(0, 0, 0, 0.23) 0px 1px 1px; */
-  padding: 10px;
+  border-bottom: 1px solid var(--app-line);
+  padding: 0 16px;
+  height: 48px;
+  align-items: center;
   justify-content: space-between;
-  color: ${(props) => props.theme.colour.text.primary};
+  color: var(--app-ink);
+  flex-shrink: 0;
 `;
 export const NavbarContainer = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
   @media ${device.mobile} {
     gap: 5px;
   }
@@ -49,20 +50,19 @@ export const ProjectsLink = styled(Link)`
   align-items: center;
   border: none;
   outline: none;
-  color: ${(props) => props.theme.colour.text.primary};
-  //background-color: ${(props) => props.theme.colour.background.default};
-  font-weight: 600;
-  font-size: ${(props) => props.theme.fontSize.default};
-  border-radius: 3px;
-  padding: 9px 5px;
+  color: var(--app-ink-2);
+  font-weight: 500;
+  font-size: 13px;
+  border-radius: 5px;
+  padding: 6px 8px;
   text-decoration: none;
   cursor: pointer;
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.iconButton.hover.background};
+    background: var(--app-bg-2);
+    color: var(--app-ink);
   }
   :focus-visible {
-    color: #0c66e4;
+    color: var(--app-accent);
   }
 `;
 export const ProjectsSpan = styled(KeyboardArrowDownIcon)`
@@ -77,20 +77,17 @@ export const CreateButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
-  border: none;
+  border: 1px solid var(--app-line);
   outline: none;
-  color: ${(props) => props.theme.colour.primary.button.primary.text.default};
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.primary.background.default};
-  font-size: 15px;
-  border-radius: 3px;
-  padding: 8px 12px;
-  outline: none;
-  border: none;
-  border-radius: 3px;
+  color: var(--app-ink);
+  background: var(--app-card);
+  font-size: 12.5px;
+  border-radius: 5px;
+  padding: 6px 10px;
+  gap: 6px;
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.primary.background.hover};
+    border-color: var(--app-line-2);
+    color: var(--app-ink);
   }
 `;
 
@@ -100,12 +97,49 @@ export const BrandContainer = styled.a`
   justify-content: center;
   font-style: normal;
   font-weight: 600;
-  font-size: 18px;
-  line-height: 39px;
-  /* identical to box height */
+  font-size: 14px;
+  color: var(--app-ink);
+  letter-spacing: -0.01em;
   @media ${device.mobile} {
-    font-size: 20px;
+    font-size: 14px;
   }
+`;
+
+export const BrandMark = styled.span`
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid var(--app-ink);
+    border-radius: 50%;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid transparent;
+    border-top-color: var(--app-ink);
+    border-left-color: var(--app-ink);
+    border-radius: 50%;
+    transform: rotate(45deg);
+  }
+`;
+
+export const BrandDot = styled.span`
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: var(--app-ink);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 export const BrandLogo = styled(DashboardRoundedIcon)`
   font-size: 20px !important;
@@ -121,8 +155,8 @@ export const NavbarLeftSideWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
-  gap: 15px;
-  padding: 0px 15px;
+  gap: 8px;
+  padding: 0 6px;
 `;
 export const UserWrapper = styled.div``;
 export const SearchWrapper = styled.div``;
@@ -131,15 +165,18 @@ export const ButtonforNotification = styled.button<ModalsToggleProps>`
   cursor: pointer;
   outline: none;
   border: none;
-  padding: 3px 4px;
-  border-radius: 50px;
-  background-color: ${(props) =>
-    props.$isNotificationModalOpen
-      ? props.theme.colour.iconButton.active.background
-      : props.theme.colour.iconButton.default.background};
+  padding: 4px 5px;
+  border-radius: 6px;
+  position: relative;
+  background: ${(props) =>
+    props.$isNotificationModalOpen ? "var(--app-bg-2)" : "transparent"};
+  color: var(--app-ink-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.iconButton.hover.background};
+    background: var(--app-bg-2);
+    color: var(--app-ink);
   }
 `;
 export const ButtonforTheme = styled.button`
@@ -156,31 +193,20 @@ export const ButtonforTheme = styled.button`
 `;
 export const IconNotification = styled(NotificationsIcon)<ModalsToggleProps>`
   color: ${(props) =>
-    props.$isNotificationModalOpen
-      ? props.theme.colour.iconButton.active.icon
-      : props.theme.colour.iconButton.default.icon};
-  font-size: 23px !important;
+    props.$isNotificationModalOpen ? "var(--app-ink)" : "var(--app-ink-3)"};
+  font-size: 20px !important;
 `;
 export const NotificationCount = styled.span`
   position: absolute;
-  top: 11px;
-  right: 66px;
-  background: #c9372c;
+  top: 4px;
+  right: 4px;
+  background: var(--app-warn);
   color: white;
-  border-radius: 10px;
-  padding: 0px 8px;
-  font-size: 11px;
-  font: var(
-    --ds-font-body-UNSAFE_small,
-    normal 400 12px/16px ui-sans-serif,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Ubuntu,
-    system-ui,
-    "Helvetica Neue",
-    sans-serif
-  );
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  border: 1.5px solid var(--app-bg);
+  font-size: 0;
 `;
 export const NotificationContainer = styled.div`
   background-color: ${(props) => props.theme.colour.modal.background.default};
@@ -233,20 +259,44 @@ export const MemberButtonWrapper = styled.div<ModalsToggleProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 50px;
-  /* border: ${(props) =>
-    props.$isMemberButtonOpen
-      ? props.theme.colour.iconButton.active.border
-      : "none"}; */
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
   background-color: ${(props) =>
     props.$isMemberButtonOpen
-      ? props.theme.colour.iconButton.active.background
-      : props.theme.colour.iconButton.default.background};
+      ? "var(--app-bg-2)"
+      : "transparent"};
 
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.iconButton.hover.background};
+    background-color: var(--app-bg-2);
+  }
+`;
+
+export const NavbarCrumb = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--app-ink-3);
+  min-width: 0;
+  flex: 1;
+  b { color: var(--app-ink); font-weight: 500; }
+  .sep { color: var(--app-ink-4); }
+`;
+
+export const TopbarPrimaryBtn = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid var(--app-ink);
+  background: var(--app-ink);
+  border-radius: 5px;
+  font-size: 12.5px;
+  color: var(--app-bg);
+  cursor: pointer;
+  &:hover {
+    background: var(--app-accent);
+    border-color: var(--app-accent);
   }
 `;

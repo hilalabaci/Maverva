@@ -10,24 +10,33 @@ const navIconStyle = css`
   font-size: 1rem !important;
   color: inherit;
 `;
+export const SidebarIco = styled.span`
+  width: 16px;
+  height: 16px;
+  border: 1.3px solid currentColor;
+  border-radius: 3.5px;
+  opacity: 0.75;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`;
 type CommonPropsType = {
   $hidden?: boolean;
 };
 export const Container = styled.div<CommonPropsType>`
-  //display: ${(props) => (props.$hidden ? "none" : "flex")};
   min-width: ${(props) => (props.$hidden ? "20px" : "240px")};
-  height: 100vh;
-  background-color: ${(props) => props.theme.BorderMenuBG};
+  max-width: ${(props) => (props.$hidden ? "20px" : "240px")};
+  height: 100%;
+  background: var(--app-panel);
+  border-right: 1px solid var(--app-line);
+  display: flex;
+  flex-direction: column;
+  padding: 14px 10px;
+  gap: 2px;
+  overflow: hidden;
   @media ${device.mobile} {
     width: ${(props) => (props.$hidden ? "20px" : "fit-content")};
-  }
-  &:hover {
-  }
-  /* ::after pseudo-element */
-  &::after {
-    display: inline-block;
-    width: var(240px, 0px);
-    content: "";
   }
 `;
 
@@ -35,7 +44,8 @@ export const Wrapper = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 5px;
+  width: 100%;
+  gap: 2px;
 `;
 export const AddProjectWrapper = styled.div<CommonPropsType>`
   font-style: normal;
@@ -64,8 +74,73 @@ export const SideBarWrapper = styled.div`
 export const SideBarListWrapper = styled.div<CommonPropsType>`
   display: ${(props) => (props.$hidden ? "none" : "flex")};
   flex-direction: column;
-  padding: 8px 0;
   width: 100%;
+  gap: 1px;
+`;
+export const SidebarSearch = styled.div<CommonPropsType>`
+  display: ${(props) => (props.$hidden ? "none" : "flex")};
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  margin: 0 0 6px;
+  background: var(--app-bg);
+  border: 1px solid var(--app-line);
+  border-radius: 5px;
+  font-size: 12.5px;
+  color: var(--app-ink-3);
+  cursor: text;
+  justify-content: space-between;
+  span.k {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 10.5px;
+    border: 1px solid var(--app-line-2);
+    padding: 0 5px;
+    border-radius: 3px;
+    color: var(--app-ink-3);
+  }
+`;
+export const SidebarSectionHead = styled.div<CommonPropsType>`
+  display: ${(props) => (props.$hidden ? "none" : "flex")};
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--app-ink-3);
+  padding: 14px 10px 6px;
+  span.plus {
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    &:hover { color: var(--app-ink); }
+  }
+`;
+export const SideFooter = styled.div<CommonPropsType>`
+  display: ${(props) => (props.$hidden ? "none" : "flex")};
+  margin-top: auto;
+  padding: 20px 10px;
+  border-top: 1px solid var(--app-line);
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--app-ink-3);
+  .av {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--app-accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .who { flex: 1; min-width: 0; }
+  .who b { display: block; color: var(--app-ink); font-weight: 500; font-size: 12.5px; }
+  .who span { font-size: 11px; color: var(--app-ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
 `;
 export const UserInfo = styled.div<CommonPropsType>`
   display: flex;
@@ -73,23 +148,20 @@ export const UserInfo = styled.div<CommonPropsType>`
   width: 100%;
   gap: 10px;
   flex-direction: row;
-  margin-left: 8px;
-  padding: 8px;
-  padding-block-start: 24px;
-  /* border-bottom: ${(props) =>
-    props.$hidden ? "none" : "1px solid rgba(255, 255, 255, 0.13);"}; */
-  //padding: ${(props) => (props.$hidden ? "0" : "0")};
-  @media ${device.mobile} {
-  }
+  padding: 8px 10px 14px;
+  border-bottom: 1px solid var(--app-line);
+  margin-bottom: 10px;
 `;
 export const ProjectTitle = styled.span<CommonPropsType>`
-  color: ${(props) => props.theme.fontColour};
-  font-size: ${(props) => props.theme.fontSize.default};
-  font-weight: bold;
+  color: var(--app-ink);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   display: ${(props) => (props.$hidden ? "none" : "flex")};
-  @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.default};
-  }
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 export const BoardWrapper = styled.div`
   padding: 4px;
@@ -152,31 +224,31 @@ export const GetBoardsListItem = styled.div<{ selected: boolean }>`
 `;
 export const SideBarElement = styled(Link)`
   text-decoration: none;
+  width: 100%;
 `;
 export const SideBarElementWrapper = styled.span<{ selected: boolean }>`
   display: flex;
-  gap: 8px;
-  font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, sans-serif;
-  font-weight: 500;
-  line-height: 20px;
-  padding: 6px 8px;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: ${({ selected }) => (selected ? "500" : "400")};
+  line-height: 1.4;
+  padding: 6px 10px;
   align-items: center;
-  border-radius: 3px;
-  background-color: ${({ selected, theme }) =>
-    selected ? theme.colour.primary.button.secondary.background.active + "22" : "transparent"};
-  color: ${({ selected, theme }) =>
-    selected ? theme.colour.text.link : theme.colour.text.primary};
+  border-radius: 5px;
+  background: ${({ selected }) => (selected ? "var(--app-accent-soft)" : "transparent")};
+  color: ${({ selected }) => (selected ? "var(--app-accent)" : "var(--app-ink-2)")};
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => theme.colour.primary.button.secondary.background.default};
+    background: var(--app-bg-2);
+    color: var(--app-ink);
   }
 `;
 export const SideBarElementIcon = styled.span`
   display: flex;
   align-items: center;
   color: inherit;
+  opacity: 0.75;
+  flex-shrink: 0;
 `;
 export const SideBarElementChevron = styled.span`
   display: flex;

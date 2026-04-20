@@ -14,16 +14,18 @@ import {
   SideBarElementIcon,
   SideBarElementChevron,
   SideBarListWrapper,
-  IconForYou,
-  IconRecent,
-  IconStarred,
+  SidebarSearch,
+  SidebarSectionHead,
+  SideFooter,
+  SidebarIco,
   IconChevronRight,
 } from "./styles";
 
 const NAV_ITEMS: NavItem[] = [
-  { to: "/for-you", match: "/for-you", label: "For you", Icon: IconForYou },
-  { to: "/recent", match: "/recent", label: "Recent", Icon: IconRecent, hasChevron: true },
-  { to: "/starred", match: "/starred", label: "Starred", Icon: IconStarred, hasChevron: true },
+  { to: "/for-you", match: "/for-you", label: "My work" },
+  { to: "/recent", match: "/recent", label: "Recent", hasChevron: true },
+  { to: "/starred", match: "/starred", label: "Starred", hasChevron: true },
+  { to: "/drafts", match: "/drafts", label: "Drafts" },
 ];
 
 function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
@@ -38,28 +40,36 @@ function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={() => onHover?.(false)}
     >
-      <Wrapper>
-        <UserInfo $hidden={hideMenu}>
-          <ProjectAvatar
-            $hidden={hideMenu}
-            $userPhotoWidth="30px"
-            $userPhotoHeight="30px"
-            $userPhotoFontSize="1px"
-            $userBorderadius="3px"
-            $fontWeight="600"
-            projectKey={projectKey}
-          />
-          <ProjectTitle $hidden={hideMenu}>
-            {selectedProject?.Name}
-          </ProjectTitle>
-        </UserInfo>
+      <UserInfo $hidden={hideMenu}>
+        <ProjectAvatar
+          $hidden={hideMenu}
+          $userPhotoWidth="22px"
+          $userPhotoHeight="22px"
+          $userPhotoFontSize="10px"
+          $userBorderadius="4px"
+          $fontWeight="600"
+          projectKey={projectKey}
+        />
+        <div style={{ flex: 1, minWidth: 0, display: hideMenu ? 'none' : 'block' }}>
+          <ProjectTitle $hidden={hideMenu}>{selectedProject?.Name}</ProjectTitle>
+          <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: '11px', color: 'var(--app-ink-3)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            Workspace
+          </div>
+        </div>
+      </UserInfo>
 
+      <SidebarSearch $hidden={hideMenu}>
+        <span>Search</span>
+        <span className="k">⌘K</span>
+      </SidebarSearch>
+
+      <Wrapper>
         <SideBarListWrapper $hidden={hideMenu}>
-          {NAV_ITEMS.map(({ to, match, label, Icon, hasChevron }) => (
+          {NAV_ITEMS.map(({ to, match, label, hasChevron }) => (
             <SideBarElement key={match} to={to}>
               <SideBarElementWrapper selected={location.pathname.includes(match)}>
                 <SideBarElementIcon>
-                  <Icon />
+                  <SidebarIco />
                 </SideBarElementIcon>
                 {label}
                 {hasChevron && (
@@ -72,8 +82,13 @@ function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
           ))}
         </SideBarListWrapper>
 
+        <SidebarSectionHead $hidden={hideMenu}>
+          <span>Boards</span>
+          <span className="plus">+</span>
+        </SidebarSectionHead>
+
         <BoardSection
-          title="Starred"
+          title=""
           boards={boards}
           selectedBoardId={selectedBoard?.Id}
           hideMenu={hideMenu}
@@ -82,15 +97,28 @@ function ProjectMenu({ hideMenu, onHover, projectKey }: ProjectMenuPropsType) {
         />
 
         {recentBoards.length > 0 && (
-          <BoardSection
-            title="Recent"
-            boards={recentBoards}
-            selectedBoardId={selectedBoard?.Id}
-            hideMenu={hideMenu}
-            projectKey={projectKey}
-          />
+          <>
+            <SidebarSectionHead $hidden={hideMenu}>
+              <span>Recent</span>
+            </SidebarSectionHead>
+            <BoardSection
+              title=""
+              boards={recentBoards}
+              selectedBoardId={selectedBoard?.Id}
+              hideMenu={hideMenu}
+              projectKey={projectKey}
+            />
+          </>
         )}
       </Wrapper>
+
+      <SideFooter $hidden={hideMenu}>
+        <span className="av">{selectedProject?.Name?.slice(0, 2)?.toUpperCase() ?? 'MV'}</span>
+        <div className="who">
+          <b>{selectedProject?.Name}</b>
+          <span>{projectKey}</span>
+        </div>
+      </SideFooter>
     </Container>
   );
 }

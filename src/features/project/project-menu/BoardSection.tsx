@@ -1,17 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import ProjectAvatar from "../../user/project-avatar";
-import Scroll from "../../../components/ui/Scroll";
 import { useApplicationContext } from "../../../contexts/ApplicationContext";
 import { BoardType } from "../../../types/user.types";
 import {
-  AddProjectWrapper,
-  BoardWrapper,
-  GetBoardsContainer,
-  GetBoardsList,
-  GetBoardsListItem,
-  SideBarItem,
-  SideBarWrapper,
-  TitleGetBoards,
+  SideBarElement,
+  SideBarElementWrapper,
+  SideBarElementIcon,
 } from "./styles";
 
 type BoardSectionProps = {
@@ -35,7 +29,8 @@ function BoardSection({
   const location = useLocation();
   const { setActiveSprint, setSelectedBoard } = useApplicationContext();
 
-  const handleClick = (board: BoardType) => {
+  const handleClick = (board: BoardType, e: React.MouseEvent) => {
+    e.preventDefault();
     const activeSprintForBoard =
       board.ActiveSprint ||
       board.Sprints?.find((s) => s.IsActive) ||
@@ -56,39 +51,32 @@ function BoardSection({
     }
   };
 
+  if (hideMenu || boards.length === 0) return null;
+
   return (
-    <AddProjectWrapper $hidden={hideMenu}>
-      <SideBarItem>
-        <SideBarWrapper>
-          <BoardWrapper>
-            <GetBoardsContainer>
-              <Scroll scrollheight="min-content">
-                <GetBoardsList>
-                  <TitleGetBoards>{title}</TitleGetBoards>
-                  {boards.map((board) => (
-                    <GetBoardsListItem
-                      key={board.Id}
-                      selected={selectedBoardId === board.Id}
-                      onClick={() => handleClick(board)}
-                    >
-                      <ProjectAvatar
-                        projectKey={board.Key}
-                        $userPhotoWidth="20px"
-                        $userPhotoHeight="20px"
-                        $userPhotoFontSize="1px"
-                        $userBorderadius="3px"
-                        $fontWeight="600"
-                      />
-                      {board.Name}
-                    </GetBoardsListItem>
-                  ))}
-                </GetBoardsList>
-              </Scroll>
-            </GetBoardsContainer>
-          </BoardWrapper>
-        </SideBarWrapper>
-      </SideBarItem>
-    </AddProjectWrapper>
+    <>
+      {boards.map((board) => (
+        <SideBarElement
+          key={board.Id}
+          to={`/projects/${projectKey}/boards/${board.Id}`}
+          onClick={(e) => handleClick(board, e)}
+        >
+          <SideBarElementWrapper selected={selectedBoardId === board.Id}>
+            <SideBarElementIcon>
+              <ProjectAvatar
+                projectKey={board.Key}
+                $userPhotoWidth="16px"
+                $userPhotoHeight="16px"
+                $userPhotoFontSize="8px"
+                $userBorderadius="3.5px"
+                $fontWeight="600"
+              />
+            </SideBarElementIcon>
+            {board.Name}
+          </SideBarElementWrapper>
+        </SideBarElement>
+      ))}
+    </>
   );
 }
 

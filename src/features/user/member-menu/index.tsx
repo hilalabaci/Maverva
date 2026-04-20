@@ -57,6 +57,8 @@ function MemberMenu(props: MemberMenuProps) {
           $userPhotoFontSize="15px"
           $userBorderadius="50px"
           $fontWeight="500"
+          user={user}
+
         />
         <Memberinfo>
           <MemberName>{userFullName}</MemberName>

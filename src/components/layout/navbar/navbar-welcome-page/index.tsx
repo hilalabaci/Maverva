@@ -17,7 +17,7 @@ function Navbar() {
         </BrandContainer>
       </BrandWrapper>
       <NavbarSignWrapper>
-        <ButtonForGetStartonNavbar href="/signup">
+        <ButtonForGetStartonNavbar href="/register">
           Get it free
         </ButtonForGetStartonNavbar>
         <ButtonForLogintonNavbar href="/login">Log in</ButtonForLogintonNavbar>

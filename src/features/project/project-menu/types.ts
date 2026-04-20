@@ -2,7 +2,7 @@ export type NavItem = {
   to: string;
   match: string;
   label: string;
-  Icon: React.ElementType;
+  Icon?: React.ElementType;
   hasChevron?: boolean;
 };
 
