@@ -22,6 +22,7 @@ export function LandingFooter() {
           <div key={heading}>
             <h6>{heading}</h6>
             {links.map((link) => (
+              // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a key={link} href="#">{link}</a>
             ))}
           </div>

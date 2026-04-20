@@ -64,7 +64,6 @@ export const Title = styled.div`
   @media ${device.mobile} {
     margin-top: 5px;
   }
-  }
 `;
 
 export const ProjectTitle = styled.h1`

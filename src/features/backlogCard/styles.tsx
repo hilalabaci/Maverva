@@ -1,4 +1,4 @@
-import styled, { DefaultTheme } from "styled-components";
+import styled from "styled-components";
 import EditIcon from "@mui/icons-material/Edit";
 
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
@@ -167,57 +167,6 @@ export const IconEdit = styled(EditIcon)`
 `;
 type StatusPropsType = {
   $status: number;
-};
-
-const handleColorType = (status: number, theme: DefaultTheme) => {
-  switch (status) {
-    case IssueStatus.ToDo:
-      return {
-        default: {
-          backgroundColor: theme.colour.progressColours.toDo.default.background,
-          color: theme.colour.progressColours.toDo.default.text,
-        },
-        hover: {
-          backgroundColor: theme.colour.progressColours.toDo.hover.background,
-          color: theme.colour.progressColours.toDo.hover.text,
-        },
-      };
-    case IssueStatus.InProgress:
-      return {
-        default: {
-          backgroundColor:
-            theme.colour.progressColours.inProgress.default.background,
-          color: theme.colour.progressColours.inProgress.default.text,
-        },
-        hover: {
-          backgroundColor:
-            theme.colour.progressColours.inProgress.hover.background,
-          color: theme.colour.progressColours.inProgress.hover.text,
-        },
-      };
-    case IssueStatus.Done:
-      return {
-        default: {
-          backgroundColor: theme.colour.progressColours.done.default.background,
-          color: theme.colour.progressColours.done.default.text,
-        },
-        hover: {
-          backgroundColor: theme.colour.progressColours.done.hover.background,
-          color: theme.colour.progressColours.done.hover.text,
-        },
-      };
-    default:
-      return {
-        default: {
-          backgroundColor: theme.colour.progressColours.toDo.default.background,
-          color: theme.colour.progressColours.toDo.default.text,
-        },
-        hover: {
-          backgroundColor: theme.colour.progressColours.toDo.hover.background,
-          color: theme.colour.progressColours.toDo.hover.text,
-        },
-      };
-  }
 };
 
 export const Status = styled.div<StatusPropsType>`

@@ -7,16 +7,11 @@ import OptionalBoardCreate from "../../../../features/board/optional/create";
 import Notification from "../../../../features/notification";
 import { GroupLabel } from "../../../../features/notification/styles";
 import MemberButton from "../../../../features/user/member-button";
-import DynamicSVGBrand from "../../../../assets/icons/logo-svg";
 import {
-  BrandContainer,
   BrandMark,
   BrandDot,
   HeaderContainer,
-  NavbarContainer,
-  Presentation,
   ProjectsLink,
-  ProjectsSpan,
   GlobalStyle,
   NavbarLeftSideWrapper,
   IconNotification,
@@ -29,7 +24,6 @@ import {
   CreateButton,
   MemberButtonWrapper,
   NavbarCrumb,
-  TopbarPrimaryBtn,
 } from "./styles";
 import {
   getNotifications,
