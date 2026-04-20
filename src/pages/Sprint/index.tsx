@@ -76,11 +76,11 @@ const SprintPage = () => {
               projectId={projectData.Id}
               topMenuTitle={projectData.Name}
               setSearchInput={setSearchInput}
-              boardId={boardId}
               startDateActiveSprint={contextActiveSprint?.StartDate || new Date()}
               endDateActiveSprint={contextActiveSprint?.EndDate || new Date()}
               sprintId={sprintId}
               sprintGoal={contextActiveSprint?.SprintGoal || ""}
+              sprintIssues={filteredIssues}
               loadActiveSprint={loadActiveSprint}
             />
           )}

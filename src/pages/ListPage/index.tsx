@@ -55,7 +55,6 @@ const ListPageRoute = () => {
               projectId={projectData.Id}
               topMenuTitle={projectData.Name}
               setSearchInput={setSearchInput}
-              boardId={boardId}
               startDateActiveSprint={activeSprint?.StartDate || new Date()}
               endDateActiveSprint={activeSprint?.EndDate || new Date()}
               sprintId={activeSprint?.Id}

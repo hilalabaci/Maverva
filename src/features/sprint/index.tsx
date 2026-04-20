@@ -22,6 +22,7 @@ import {
   HeaderTitleContent,
   IconAdd,
   MoreIcon,
+  RowHead,
   TextCreate,
 } from "./styles";
 import { useState } from "react";
@@ -37,7 +38,6 @@ import {
 import { useUserContext } from "../../contexts/UserContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import CollapsibleDemo from "../../components/ui/Collapsible";
-import CheckBox from "../../components/forms/checkbox-component";
 import { ToolTip } from "../../components/ui/Toolstip";
 import { addIssue, updateIssue } from "../../api/issue-api";
 import { updateSprint } from "../../api/sprint-api";
@@ -230,7 +230,14 @@ function Sprint({
         trigger={
           <HeaderDropBlog>
             <CheckboxWrapper>
-              <CheckBox />
+              <ArrowIcon
+                className="dropdown-trigger"
+                as={
+                  showBacklog
+                    ? KeyboardArrowDownRoundedIcon
+                    : KeyboardArrowRightIcon
+                }
+              />
             </CheckboxWrapper>
 
             <HeaderTitleContent
@@ -240,58 +247,39 @@ function Sprint({
                 setIsHeaderSelected(true);
               }}
             >
-              <ArrowIcon
-                className="dropdown-trigger"
-                as={
-                  showBacklog
-                    ? KeyboardArrowDownRoundedIcon
-                    : KeyboardArrowRightIcon
-                }
-              />
               <HeaderTitle>{sprintName}</HeaderTitle>
               <Duration>
                 {sprintStartDate && sprintEndDate
-                  ? `${new Date(
-                      sprintStartDate
-                    ).toLocaleDateString()} - ${new Date(
-                      sprintEndDate
-                    ).toLocaleDateString()}`
+                  ? `${new Date(sprintStartDate).toLocaleDateString('en-US', {month:'short', day:'numeric'})} – ${new Date(sprintEndDate).toLocaleDateString('en-US', {month:'short', day:'numeric'})}`
                   : "Date not available"}
               </Duration>
-              <HeaderIssue>({sprint.Issues?.length ?? 0} issue)</HeaderIssue>
+              <HeaderIssue>· {sprint.Issues?.length ?? 0} issues</HeaderIssue>
             </HeaderTitleContent>
             <HeaderStatusWrapper>
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.ToDo}>
-                    {getStatusCount(sprintCards, IssueStatus.ToDo)}
+                    <b>{getStatusCount(sprintCards, IssueStatus.ToDo)}</b> to do
                   </HeaderStatus>
                 }
-                content={` Not started ${getStatusCount(sprintCards, IssueStatus.ToDo)} of ${
-                  sprint.Issues?.length ?? 0
-                } `}
-              ></ToolTip>
+                content={`Not started: ${getStatusCount(sprintCards, IssueStatus.ToDo)} of ${sprint.Issues?.length ?? 0}`}
+              />
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.InProgress}>
-                    {getStatusCount(sprintCards, IssueStatus.InProgress)}
+                    <b>{getStatusCount(sprintCards, IssueStatus.InProgress)}</b> in progress
                   </HeaderStatus>
                 }
-                content={` In progress ${getStatusCount(
-                  sprintCards,
-                  IssueStatus.InProgress
-                )} of ${sprint.Issues?.length ?? 0} `}
-              ></ToolTip>
+                content={`In progress: ${getStatusCount(sprintCards, IssueStatus.InProgress)} of ${sprint.Issues?.length ?? 0}`}
+              />
               <ToolTip
                 trigger={
                   <HeaderStatus status={IssueStatus.Done}>
-                    {getStatusCount(sprintCards, IssueStatus.Done)}
+                    <b>{getStatusCount(sprintCards, IssueStatus.Done)}</b> done
                   </HeaderStatus>
                 }
-                content={`Completed ${getStatusCount(sprintCards, IssueStatus.Done)} of ${
-                  sprint.Issues?.length ?? 0
-                } `}
-              ></ToolTip>
+                content={`Completed: ${getStatusCount(sprintCards, IssueStatus.Done)} of ${sprint.Issues?.length ?? 0}`}
+              />
             </HeaderStatusWrapper>
             {activeToSprint(sprint.Id) ? (
               <HeaderButtonWrapper>
@@ -341,6 +329,16 @@ function Sprint({
         }
         children={
           <Accordion>
+            <RowHead>
+              <span></span>
+              <span>Key</span>
+              <span>Summary</span>
+              <span>Status</span>
+              <span>Priority</span>
+              <span>Estimate</span>
+              <span>Assignee</span>
+              <span></span>
+            </RowHead>
             <BacklogCardList>
               {sprintCards.map((card) => (
                 <BacklogCard

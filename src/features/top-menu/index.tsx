@@ -12,7 +12,11 @@ import {
   FeaturesSprintContainer,
   SprintTime,
   TimeIcon,
+  SprintSub,
+  ToolbarChip,
+  ToolbarSpacer,
 } from "./styles";
+import SprintStripStats from "./SprintStripStats";
 import MemberPhoto from "../../features/user/member-photo";
 import AddPerson from "../AddPerson";
 import Search from "../../components/ui/Search";
@@ -26,7 +30,7 @@ import OptionalBoardCreate from "../board/optional/create";
 import EditSprint from "../sprint/edit-sprint";
 import IconButton from "../../components/ui/Button/IconButton";
 import TextButton from "../../components/ui/Button/TextButton";
-import { ProjectType } from "../../types/user.types";
+import { IssueType, ProjectType } from "../../types/user.types";
 import { useModalState } from "../../hooks/useModalState";
 import { useLoadBoardUsers } from "../../hooks/api/useLoadBoardUsers";
 import TopNavBar from "./TopNavBar";
@@ -40,9 +44,9 @@ type TopMenuPropsType = {
   activeSprintName: string;
   startDateActiveSprint?: Date;
   endDateActiveSprint?: Date;
-  boardId?: string;
   sprintId?: string;
   sprintGoal?: string;
+  sprintIssues?: IssueType[];
   loadActiveSprint: () => void;
 };
 
@@ -57,6 +61,7 @@ function TopMenu({
   endDateActiveSprint,
   sprintId,
   sprintGoal,
+  sprintIssues = [],
   loadActiveSprint,
 }: TopMenuPropsType) {
   const { pathname } = useLocation();
@@ -66,13 +71,22 @@ function TopMenu({
   const editSprintModal = useModalState();
   const users = useLoadBoardUsers(projectKey, boardId);
 
-  const pageTitle = pathname.includes("/backlog") ? "Backlog" : activeSprintName;
+  const isBacklog = pathname.includes("/backlog");
+  const pageTitle = isBacklog ? "Backlog" : activeSprintName;
+  const endDate = endDateActiveSprint ?? new Date();
 
   return (
     <Container>
       <TitleHeader>
         <Title>
           <ProjectTitle>{pageTitle}</ProjectTitle>
+          {!isBacklog && startDateActiveSprint && (
+            <SprintSub>
+              <span>📅 <b>{formatDate(startDateActiveSprint)} – {formatDate(endDate)}</b></span>
+              <span>· <b>{calculateDaysBetween(new Date(), endDateActiveSprint)} days left</b></span>
+              {sprintGoal && <span>· Goal: <b>{sprintGoal}</b></span>}
+            </SprintSub>
+          )}
         </Title>
         <FeaturesSprintContainer>
           <FeaturesSprint>
@@ -83,11 +97,7 @@ function TopMenu({
                   {calculateDaysBetween(new Date(), endDateActiveSprint)}
                 </SprintTime>
               }
-              content={`Start date: ${formatDate(
-                startDateActiveSprint || new Date()
-              )}; Projected end date: ${formatDate(
-                endDateActiveSprint || new Date()
-              )}`}
+              content={`Start date: ${formatDate(startDateActiveSprint ?? new Date())}; Projected end date: ${formatDate(endDate)}`}
             />
             <TextButton>Complete sprint</TextButton>
           </FeaturesSprint>
@@ -101,12 +111,19 @@ function TopMenu({
         </FeaturesSprintContainer>
       </TitleHeader>
 
-      <TopNavBar projectKey={projectKey} boardId={boardId} sprintId={sprintId} />
+      <SprintStripStats sprintIssues={sprintIssues} />
+
+      <TopNavBar
+        projectKey={projectKey}
+        boardId={boardId}
+        sprintId={sprintId}
+        activeCount={sprintIssues.length}
+      />
 
       <SearchAndAssignMemberContainer>
         <Search
-          onSearch={(value) => setSearchInput(value)}
-          placeHolderForSearchButton="Search"
+          onSearch={setSearchInput}
+          placeHolderForSearchButton="Search issues…"
         />
         <AssignMemberContainer>
           <ButtonStylesforIconPerson>
@@ -117,13 +134,13 @@ function TopMenu({
                 trigger={
                   <MemberPhoto
                     key={user.Id}
-                    $userPhotoWidth="40px"
-                    $userPhotoHeight="40px"
-                    $userPhotoFontSize="12px"
-                    $userBorderadius="50px"
-                    $fontWeight="600"
-                    $userBorder="2px solid white"
-                    $marginLeft="-9px"
+                    $userPhotoWidth="26px"
+                    $userPhotoHeight="26px"
+                    $userPhotoFontSize="10px"
+                    $userBorderadius="50%"
+                    $fontWeight="500"
+                    $userBorder="2px solid var(--app-bg)"
+                    $marginLeft="-6px"
                     user={user}
                   />
                 }
@@ -155,6 +172,14 @@ function TopMenu({
             />
           </Modal>
         </AssignMemberContainer>
+        {!isBacklog && (
+          <>
+            <ToolbarChip>Epic: <b>{sprintGoal || "Current sprint"}</b></ToolbarChip>
+            <ToolbarChip>Group: Status</ToolbarChip>
+          </>
+        )}
+        <ToolbarSpacer />
+        <ToolbarChip>Insights</ToolbarChip>
       </SearchAndAssignMemberContainer>
 
       {createBoardModal.isOpen && (

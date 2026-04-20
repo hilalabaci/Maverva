@@ -7,85 +7,83 @@ import { IssueStatus } from "../../types/user.types";
 
 type FormProps = { $selected: boolean };
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${(props) => props.theme.colour.background.surface};
-  border-radius: 5px;
-  padding: 8px 8px;
+  background: var(--app-card);
+  border: 1px solid var(--app-line);
+  border-radius: 8px;
+  margin-top: 18px;
+  overflow: hidden;
 `;
 export const HeaderDropBlog = styled.div`
-  /* display: grid;
-  grid-template-columns: 1fr 7fr 1fr 2fr 1fr; */
-  display: flex;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 16px;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  border-bottom: 1px solid var(--app-line);
 `;
 type BacklogHeaderProps = { $selected: boolean };
 export const HeaderTitleContent = styled.div<BacklogHeaderProps>`
   display: flex;
   align-items: center;
-  outline: ${({ $selected, theme }) =>
-    $selected ? `${theme.activeBorder}` : `none`};
-  padding: 4px 0;
+  gap: 12px;
+  min-width: 0;
+  outline: ${({ $selected }) =>
+    $selected ? `2px solid var(--app-accent)` : `none`};
   cursor: pointer;
-  flex: 1;
 `;
-export const HeaderTitle = styled.div`
-  color: ${(props) => props.theme.memberMenuFontColor};
+export const HeaderTitle = styled.h3`
+  margin: 0;
+  font-family: 'Geist', sans-serif;
+  font-size: 15px;
   font-weight: 600;
-  font-size: ${(props) => props.theme.fontSize.default};
+  letter-spacing: -0.01em;
+  color: var(--app-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const Duration = styled.div`
-  color: ${(props) => props.theme.memberMenuFontColor};
-  font-size: ${(props) => props.theme.fontSize.subtitle};
-  text-align: center;
-  margin-left: 8px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--app-ink-3);
+  white-space: nowrap;
 `;
 export const HeaderIssue = styled.div`
-  color: ${(props) => props.theme.searchPlaceHolderFontColour};
-  font-size: ${(props) => props.theme.fontSize.subtitle};
-  text-align: center;
-  margin-left: 8px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--app-ink-3);
+  white-space: nowrap;
 `;
 export const HeaderStatusWrapper = styled.div`
   display: flex;
-  gap: 4px;
-  justify-self: center;
-  align-self: center;
+  gap: 10px;
+  align-items: center;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
 `;
 type StatusProps = {
   status: number;
 };
 export const HeaderStatus = styled.span<StatusProps>`
-  background-color: ${({ status, theme }) => {
-    switch (status) {
-      case IssueStatus.ToDo || IssueStatus.ToDo:
-        return theme.colour.progressColours.toDo.default.background;
-      case IssueStatus.InProgress:
-        return theme.colour.progressColours.inProgress.default.background;
-      case IssueStatus.Done:
-        return theme.colour.progressColours.done.default.background;
-      default:
-    }
-  }};
-  color: ${({ status, theme }) => {
-    switch (status) {
-      case IssueStatus.ToDo || IssueStatus.ToDo:
-        return theme.colour.progressColours.toDo.default.text;
-      case IssueStatus.InProgress:
-        return theme.colour.progressColours.inProgress.default.text;
-      case IssueStatus.Done:
-        return theme.colour.progressColours.done.default.text;
-      default:
-    }
-  }};
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
   cursor: default;
-  border-radius: 50px;
-  font-size: ${(props) => props.theme.fontSize.subtitle};
-  padding: 2px 7px;
-  height: min-content;
-  font-weight: 600;
+  color: var(--app-ink-3);
+  b {
+    font-weight: 500;
+    color: ${({ status }) => {
+      switch (status) {
+        case IssueStatus.ToDo: return 'var(--app-ink-3)';
+        case IssueStatus.InProgress: return 'var(--app-info)';
+        case IssueStatus.Done: return 'var(--app-ok)';
+        default: return 'var(--app-ink-3)';
+      }
+    }};
+  }
 `;
 
 export const HeaderButtonWrapper = styled.div`
@@ -98,44 +96,53 @@ type HeaderButtonPropsType = {
   $isActive: boolean;
 };
 export const HeaderButton = styled.button<HeaderButtonPropsType>`
-  border: none;
-  outline: none;
-  font-size: ${(props) => props.theme.fontSize.default};
-  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border: 1px solid var(--app-line);
+  background: ${({ $isActive }) => $isActive ? 'var(--app-ink)' : 'var(--app-card)'};
+  color: ${({ $isActive }) => $isActive ? 'var(--app-bg)' : 'var(--app-ink-2)'};
+  border-color: ${({ $isActive }) => $isActive ? 'var(--app-ink)' : 'var(--app-line)'};
+  border-radius: 5px;
+  font-size: 12.5px;
   font-weight: 500;
-  text-align: center;
   cursor: pointer;
-  padding: 8px 10px;
-  background-color: ${(props) =>
-    props.$isActive
-      ? props.theme.colour.primary.button.secondary.background.default
-      : props.theme.colour.primary.button.secondary.background.active};
-  color: ${(props) =>
-    props.$isActive ? props.theme.colour.text.primary : "white"};
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.active};
-    color: ${(props) =>
-      props.theme.colour.primary.button.secondary.text.active};
+    background: ${({ $isActive }) => $isActive ? 'var(--app-accent)' : 'var(--app-bg-2)'};
+    border-color: ${({ $isActive }) => $isActive ? 'var(--app-accent)' : 'var(--app-line-2)'};
+    color: ${({ $isActive }) => $isActive ? '#fff' : 'var(--app-ink)'};
   }
 `;
-export const Accordion = styled.div`
-  margin-top: 8px;
-`;
+export const Accordion = styled.div``;
 export const BacklogCardList = styled.div`
   display: flex;
   flex-direction: column;
+`;
+export const RowHead = styled.div`
+  display: grid;
+  grid-template-columns: 32px 80px 1fr 120px 140px 100px 100px 40px;
+  gap: 14px;
+  align-items: center;
+  padding: 8px 18px;
+  border-bottom: 1px solid var(--app-line);
+  background: var(--app-bg);
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--app-ink-3);
+  font-weight: 500;
 `;
 export const BacklogCardListItems = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  border: ${(props) => props.theme.borderforModal};
   padding: 5px 0;
-  background-color: ${(props) => props.theme.colour.primary};
+  background: var(--app-card);
   &:hover {
-    background-color: ${(props) => props.theme.backlogBgHover};
+    background: var(--app-bg-2);
   }
 `;
 export const CardKey = styled.div`
@@ -176,46 +183,24 @@ export const MemberWrapper = styled.div`
   align-self: center;
 `;
 export const EditSprintButton = styled.button`
-  border: none;
-  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  color: var(--app-ink-3);
   cursor: pointer;
-  border-radius: 3px;
-  background-color: ${(props) =>
-    props.theme.colour.primary.button.secondary.background.default};
-  padding-block: 0;
-  width: fit-content;
+  background: none;
+  border: none;
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.button.secondary.background.hover};
-  }
-  ${BacklogCardList}:hover & {
-    opacity: 1;
-    background-color: ${(props) => props.theme.IconEditBGHover};
-  }
-  @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.subtitle}!important;
-    opacity: 1;
+    background: var(--app-bg-2);
+    color: var(--app-ink);
   }
 `;
 export const MoreIcon = styled(MoreHorizRoundedIcon)`
-  justify-self: center;
-  align-self: center;
-  display: flex;
-  opacity: 1;
-  justify-content: flex-end;
-  cursor: pointer;
-  color: ${(props) => props.theme.colour.text.primary};
-  &:hover {
-    background-color: ${(props) => props.theme.IconEditBGHover};
-  }
-  ${BacklogCardListItems}:hover & {
-    opacity: 1;
-    background-color: ${(props) => props.theme.IconEditBGHover};
-  }
-  @media ${device.mobile} {
-    font-size: ${(props) => props.theme.fontSize.subtitle} !important;
-    opacity: 1;
-  }
+  font-size: 18px !important;
+  color: inherit;
 `;
 // export const IconEditSprit = styled(EditIcon)`
 //   text-align: center;
@@ -262,70 +247,59 @@ export const IconEdit = styled(EditIcon)`
   }
 `;
 export const CheckboxWrapper = styled.div`
-  justify-self: center;
-  align-self: center;
-  opacity: 1;
-  width: 50px;
-  ${BacklogCardListItems}:hover & {
-    opacity: 1;
-  }
+  color: var(--app-ink-3);
+  font-size: 10px;
+  transition: transform 0.15s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 export const DisplayCreateWrapper = styled.div`
-  justify-content: stretch;
-  justify-self: center;
-  align-self: center;
   display: flex;
-  border-radius: 3px;
-  border: none;
-  outline: none;
-  background-color: transparent;
   width: 100%;
-  font-size: ${(props) => props.theme.fontSize.default};
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => props.theme.backlogBgHover};
-  }
 `;
 export const CreateButtonWrapper = styled.button`
-  justify-content: stretch;
   display: flex;
-  padding: 9px 0 9px 5px;
-  border-radius: 3px;
+  padding: 10px 18px;
   border: none;
   outline: none;
   background-color: transparent;
   width: 100%;
-  font-size: ${(props) => props.theme.fontSize.default};
-  gap: 5px;
-  color: ${(props) => props.theme.colour.text.inverted};
-  margin-top: 5px;
+  font-size: 12.5px;
+  gap: 6px;
+  color: var(--app-ink-3);
   cursor: pointer;
+  align-items: center;
   &:hover {
-    background-color: ${(props) =>
-      props.theme.colour.primary.card.background.default};
+    background: var(--app-bg-2);
+    color: var(--app-ink);
   }
 `;
 export const CreateIssueButton = styled.span`
-  color: ${(props) => props.theme.memberMenuFontColor};
-  font-weight: 500;
+  color: inherit;
+  font-weight: 400;
 `;
 export const IconAdd = styled(AddIcon)`
-  font-size: 19px !important;
+  font-size: 16px !important;
+  opacity: 0.7;
 `;
 
 export const Form = styled.form<FormProps>`
   flex: 1;
-  padding: 9px 0 9px 5px;
-  border: ${({ $selected, theme }) =>
-    $selected ? `${theme.activeBorder}` : `none`};
+  padding: 9px 18px;
+  border: ${({ $selected }) =>
+    $selected ? `2px solid var(--app-accent)` : `1px solid var(--app-line)`};
 `;
 
 export const TextCreate = styled.input`
   outline: none;
   border: none;
   background-color: transparent;
-  font-size: ${(props) => props.theme.fontSize.default};
+  font-family: inherit;
+  font-size: 13.5px;
   width: 100%;
+  color: var(--app-ink);
+  &::placeholder { color: var(--app-ink-3); }
 `;
 type CommonPropsType = {
   $hidden?: boolean;
@@ -334,9 +308,7 @@ export const ArrowIcon = styled.button<CommonPropsType>`
   border-radius: 100%;
   font-size: 18px !important;
   font-weight: 600 !important;
-  color: ${(props) => props.theme.memberMenuFontColor};
+  color: var(--app-ink-3);
   cursor: pointer;
   outline: 0px;
-  &:hover {
-  }
 `;

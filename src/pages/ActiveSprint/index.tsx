@@ -18,6 +18,8 @@ import {
   CloseButton,
   EditIcon,
   TitleTotalCardWrapper,
+  ColumnDot,
+  ColumnAddButton,
 } from "./styled";
 import NumberOfCards from "../../features/card/number-cards";
 import { ButtomWrapper } from "../../features/card/issue/styles";
@@ -143,8 +145,9 @@ function ActiveSprint({
             {columns
               .sort((a, b) => a.Status - b.Status)
               .map((column) => (
-                <Wrapper key={column.Id}>
+                <Wrapper key={column.Id} $highlight={column.Status === 2}>
                   <TitleWrapper>
+                    <ColumnDot $status={column.Status} />
                     <TitleTotalCardWrapper>
                       <Title>{column.Name}</Title>
                       <NumberOfCards
@@ -160,6 +163,7 @@ function ActiveSprint({
                         }
                       />
                     </TitleTotalCardWrapper>
+                    <ColumnAddButton title="Add issue">+</ColumnAddButton>
                     <DropdownMenu
                       trigger={<EditIcon />}
                       items={[
