@@ -1,3 +1,19 @@
+/**
+ * AuthGlobalStyle
+ * 
+ * Global styling for authentication pages
+ * Defines design system tokens, typography, and base styles
+ * 
+ * Design System:
+ * - Color palette with semantic naming (--ink, --accent, etc.)
+ * - Typography scale (Geist, Geist Mono, Instrument Serif)
+ * - Consistent spacing and border radius
+ * - Accessibility-focused font smoothing
+ * 
+ * @author Maverva Team
+ * @version 1.0.0
+ */
+
 import { createGlobalStyle } from "styled-components";
 
 export const AuthGlobalStyle = createGlobalStyle`
