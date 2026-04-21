@@ -65,7 +65,7 @@ export const LeftBrandDot = styled.span`
   position: absolute;
   width: 5px;
   height: 5px;
-  background: #f6f4ef;
+  background: #16171b;
   border-radius: 50%;
   top: 8.5px;
   left: 8.5px;
@@ -283,8 +283,8 @@ export const MobileBrand = styled.a`
 `;
 
 export const MobileBrandMark = styled.span`
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   position: relative;
 
   &::before {
