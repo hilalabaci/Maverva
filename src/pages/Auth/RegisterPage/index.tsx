@@ -215,8 +215,8 @@ function Register() {
           >
             <TermsText>
               By signing up, you accept the Maverva Cloud{" "}
-              <a href="#" target="_blank" rel="noopener noreferrer">Terms of Service</a>{" "}
-              and acknowledge the <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+              <a href="/" target="_blank" rel="noopener noreferrer">Terms of Service</a>{" "}
+              and acknowledge the <a href="/" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
             </TermsText>
           </AuthCheckbox>
 
