@@ -6,52 +6,14 @@ import styled from "styled-components";
 export const Page = styled.div`
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr;
 `;
 
 /* ─────────────────────────────────────────────
    LEFT — EDITORIAL PANEL
 ───────────────────────────────────────────── */
 export const LeftPanel = styled.div`
-  background: #16171b;
-  color: #f6f4ef;
-  padding: 44px 56px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  border-right: 1px solid #e2ded3;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: linear-gradient(
-        to right,
-        rgba(246, 244, 239, 0.04) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        rgba(246, 244, 239, 0.04) 1px,
-        transparent 1px
-      );
-    background-size: 64px 64px;
-    mask-image: radial-gradient(
-      ellipse at 30% 50%,
-      black 30%,
-      transparent 80%
-    );
-  }
-
-  @media (max-width: 900px) {
-    display: none;
-  }
+  display: none;
 `;
 
 export const LeftTop = styled.div`
@@ -311,17 +273,13 @@ export const RightTop = styled.div`
 `;
 
 export const MobileBrand = styled.a`
-  display: none;
+  display: flex;
   align-items: center;
   gap: 10px;
   font-weight: 600;
   font-size: 16px;
   color: #16171b;
   text-decoration: none;
-
-  @media (max-width: 900px) {
-    display: flex;
-  }
 `;
 
 export const MobileBrandMark = styled.span`

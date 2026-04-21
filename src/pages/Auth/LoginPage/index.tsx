@@ -1,33 +1,31 @@
 import { FormEvent, useEffect, useState } from "react";
-import Button from "../../../components/ui/Button/BaseButton";
 import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
 import { useUserContext } from "../../../contexts/UserContext";
-import {
-  Form,
-  FormTitle,
-  GlobalStyle,
-  LoginInputs,
-  LineforGoogleWrapper,
-  FirstLine,
-  LastLine,
-  CreateAccountWrapper,
-  CreateAccountListItemLink,
-  Point,
-} from "./styled";
+import { findUserByEmail, loginUser, loginGoogle } from "../../../api/auth-api";
+import { validateEmail } from "../../../utils/validation";
+import AuthLayout from "../../../components/layout/authLayout";
+import AuthField from "../../../components/forms/AuthField";
+import AuthInput from "../../../components/forms/AuthInput";
+import AuthButton from "../../../components/forms/AuthButton";
+import AuthCheckbox from "../../../components/forms/AuthCheckbox";
 import {
   StepLabel,
   StepBar,
   FormSub,
+  FormHeading,
+  AuthDivider,
   SocialGrid,
-  SocialButton,
   SecBadge,
 } from "../../../components/layout/authLayout/styles";
-import Input from "../../../components/ui/Input/round";
-import { findUserByEmail, loginUser } from "../../../api/auth-api";
-import CheckBoxComponent from "../../../components/forms/checkbox-component";
-import AuthLayout from "../../../components/layout/authLayout";
-import { validateEmail } from "../../../utils/validation";
-import GoogleAuthButton from "../../../components/ui/Button/GoogleAuthButton";
+import {
+  Form,
+  FormContainer,
+  FormFooter,
+  FooterLinks,
+  FooterLink,
+  Point,
+} from "./styled";
 
 interface FormError {
   email?: string;
@@ -54,7 +52,28 @@ function Login() {
   });
   const [step, setStep] = useState<Step>("email");
   const [loading, setLoading] = useState(false);
-  const [, setRememberMe] = useState(false);
+
+  // Google OAuth login
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const response = await loginGoogle(tokenResponse.access_token);
+        if (response.ok && response.data) {
+          setUser(response.data.user);
+          setToken(response.data.token);
+          navigate("/projects");
+        } else {
+          setErrors({ email: "Google login failed. Please try again." });
+        }
+      } catch (error) {
+        setErrors({ email: "Google login failed. Please try again." });
+      }
+    },
+    onError: (error) => {
+      console.error("Google login error:", error);
+      setErrors({ email: "Google login failed. Please try again." });
+    },
+  });
 
   function handleChange(value: string, name: string) {
     setFormData((prevValue) => ({ ...prevValue, [name]: value }));
@@ -121,86 +140,130 @@ function Login() {
 
   return (
     <AuthLayout screen="login">
-      <GlobalStyle />
       <StepLabel>
         <StepBar />
         {step === "email" ? "Step 01 / Log in" : "Step 02 / Password"}
       </StepLabel>
-      <FormTitle>
+
+      <FormHeading>
         {step === "email" ? (
           <>Welcome <em>back.</em></>
         ) : (
           <>Hi, <em>{formData.email.split("@")[0]}.</em></>
         )}
-      </FormTitle>
+      </FormHeading>
+
       <FormSub>
         {step === "email"
           ? "Log in to pick up where you left off. We'll remember this device for 30 days."
-          : "Enter your password to continue."}
+          : "Enter your password to continue. We'll remember this device for 30 days."}
       </FormSub>
+
       <Form onSubmit={handleSubmit}>
-        <LoginInputs>
-          <Input
-            type="email"
-            placeholder="you@company.com"
-            value={formData.email}
-            onChange={(value: string, name: string) => {
-              handleChange(value, name);
-            }}
-            name="email"
-            onEditClick={() => {
-              setVerifiedEmail(false);
-              setStep("email");
-            }}
-            error={errors.email}
-            filled={verifiedEmail}
-            label="Work email"
-          />
+        <FormContainer>
+          {step === "email" && (
+            <AuthField label="Work email">
+              <AuthInput
+                type="email"
+                placeholder="you@company.com"
+                value={formData.email}
+                onChange={handleChange}
+                name="email"
+                error={errors.email}
+                autoComplete="email"
+              />
+            </AuthField>
+          )}
+
           {step === "password" && (
             <>
-              <Input
-                type="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                name="password"
-                error={errors.password}
+              <AuthField 
+                label="Work email"
+                labelAction={{
+                  text: "Edit",
+                  onClick: () => {
+                    setVerifiedEmail(false);
+                    setStep("email");
+                  }
+                }}
+              >
+                <AuthInput
+                  type="email"
+                  value={formData.email}
+                  onChange={() => {}} // Read-only
+                  name="email"
+                  readOnly={true}
+                />
+              </AuthField>
+
+              <AuthField 
                 label="Password"
-              />
-              <CheckBoxComponent
-                text="Remember me on this device for 30 days."
-                onCheckedChange={setRememberMe}
-              />
+                labelAction={{
+                  text: "Forgot your password?",
+                  onClick: () => navigate("/login/reset-password")
+                }}
+              >
+                <AuthInput
+                  type="password"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  name="password"
+                  error={errors.password}
+                  autoComplete="current-password"
+                />
+              </AuthField>
+
+              <AuthCheckbox
+                checked={formData.rememberMe}
+                onChange={(checked) => setFormData(prev => ({...prev, rememberMe: checked}))}
+              >
+                Remember me on this device for 30 days.
+              </AuthCheckbox>
             </>
           )}
-          <Button type="submit" disabled={loading} size="lg" borderRadius="lg">
-            {step === "email" ? "Continue →" : "Log in →"}
-          </Button>
-          <LineforGoogleWrapper>
-            <FirstLine />
-            Or continue with
-            <LastLine />
-          </LineforGoogleWrapper>
+
+          <AuthButton
+            type="submit"
+            variant="primary"
+            fullWidth
+            size="lg"
+            disabled={loading}
+            loading={loading}
+            hasArrow
+          >
+            {step === "email" ? "Continue" : "Log in"}
+          </AuthButton>
+
+          <AuthDivider>Or continue with</AuthDivider>
+
           <SocialGrid>
-            <GoogleAuthButton borderRadius="lg" />
-            <SocialButton type="button">
-              <span className="ic">⌘</span>SSO / SAML
-            </SocialButton>
+            <AuthButton 
+              variant="social" 
+              icon="G"
+              onClick={() => handleGoogleLogin()}
+            >
+              Google
+            </AuthButton>
+            <AuthButton variant="social" icon="⌘">
+              SSO / SAML
+            </AuthButton>
           </SocialGrid>
-        </LoginInputs>
+        </FormContainer>
       </Form>
-      <CreateAccountWrapper>
-        <div>
-          <CreateAccountListItemLink href="login/reset-password">
+
+      <FormFooter>
+        <FooterLinks>
+          <FooterLink onClick={() => navigate("/login/reset-password")}>
             Can't log in?
-          </CreateAccountListItemLink>
+          </FooterLink>
           <Point> · </Point>
-          <CreateAccountListItemLink href="/register">
+          <FooterLink onClick={() => navigate("/register")}>
             Create an account
-          </CreateAccountListItemLink>
-        </div>
+          </FooterLink>
+        </FooterLinks>
         <SecBadge>SOC 2 · ISO 27001</SecBadge>
-      </CreateAccountWrapper>
+      </FormFooter>
     </AuthLayout>
   );
 }

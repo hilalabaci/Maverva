@@ -1,6 +1,5 @@
 import { signUpVerificationCode } from "../../../api/auth-api";
 import { useUserContext } from "../../../contexts/UserContext";
-import { Form, GlobalStyle } from "../LoginPage/styled";
 import {
   ButtonText,
   ButtonWrapper,
@@ -46,8 +45,7 @@ function VerifyCodePage({ reSendCode }: { reSendCode?: () => void }) {
   }
   return (
     <BoxLayout>
-      <GlobalStyle />
-      <Form
+      <form
         onSubmit={(e) => {
           e.preventDefault();
           handleSendVerify();
@@ -76,7 +74,7 @@ function VerifyCodePage({ reSendCode }: { reSendCode?: () => void }) {
             <ButtonText>Resend verification code</ButtonText>
           </ButtonWrapper>
         </ContainerSendEmail>
-      </Form>
+      </form>
     </BoxLayout>
   );
 }

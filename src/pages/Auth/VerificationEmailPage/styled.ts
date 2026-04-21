@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const VerificationContainer = styled.div`
+  width: 100%;
+`;
+
 export const Title = styled.h2`
   font-family: 'Instrument Serif', serif;
   font-weight: 400;

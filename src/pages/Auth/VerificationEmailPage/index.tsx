@@ -1,6 +1,6 @@
 import { loginVerificationEmail } from "../../../api/auth-api";
 import { useUserContext } from "../../../contexts/UserContext";
-import { Form, GlobalStyle, LoginContainer } from "../LoginPage/styled";
+import { VerificationContainer } from "./styled";
 import {
   ButtonText,
   ButtonWrapper,
@@ -23,9 +23,8 @@ function VerifyEmailPage() {
     } catch (error) {}
   }
   return (
-    <LoginContainer>
-      <GlobalStyle />
-      <Form>
+    <VerificationContainer>
+      <form>
         <ContainerSendEmail>
           <Title> Check your inbox to log in</Title>
           <ImgWrapper>
@@ -40,8 +39,8 @@ function VerifyEmailPage() {
             <ButtonText>Resend verification email</ButtonText>
           </ButtonWrapper>
         </ContainerSendEmail>
-      </Form>
-    </LoginContainer>
+      </form>
+    </VerificationContainer>
   );
 }
 

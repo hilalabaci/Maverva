@@ -14,6 +14,7 @@ import LandingPage from "./pages/LandingPage/LandingPageNew";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import VerifyEmailPage from "./pages/Auth/VerificationEmailPage";
 import { GlobalStyle } from "./styles/GlobalStyle";
+import { AuthGlobalStyle } from "./styles/AuthGlobalStyle";
 import VerifyCodePage from "./pages/Auth/VerificationCodePage";
 import RecoveryLink from "./pages/Auth/RecoveryLinkPage";
 import ResetPassword from "./pages/Auth/ResetPasswordPage";
@@ -81,6 +82,7 @@ function App() {
       <HelmetProvider>
       <GoogleOAuthProvider clientId={REACT_APP_GOOGLE_OAUTH_CLIENTID!}>
         <GlobalStyle />
+        <AuthGlobalStyle />
         <ThemeProvider>
           <UserProvider>
             <ApplicationProvider>

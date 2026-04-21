@@ -1,26 +1,28 @@
 import { FormEvent, useState } from "react";
-import Button from "../../../components/ui/Button/BaseButton";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
-import {
-  Form,
-  FormTitle,
-  GlobalStyle,
-  LoginContainer,
-  LoginInputs,
-  CreateAccountWrapper,
-  CreateAccountListItemLink,
-  Point,
-} from "./styled";
+import { sendResetPasswordLink } from "../../../api/auth-api";
+import { validateEmail } from "../../../utils/validation";
+import AuthLayout from "../../../components/layout/authLayout";
+import AuthField from "../../../components/forms/AuthField";
+import AuthInput from "../../../components/forms/AuthInput";
+import AuthButton from "../../../components/forms/AuthButton";
+import SuccessBox from "../../../components/forms/SuccessBox";
 import {
   StepLabel,
   StepBar,
   FormSub,
+  FormHeading,
   SecBadge,
 } from "../../../components/layout/authLayout/styles";
-import Input from "../../../components/ui/Input/round";
-import { sendResetPasswordLink } from "../../../api/auth-api";
-import VerifyEmailPage from "../VerificationEmailPage";
-import AuthLayout from "../../../components/layout/authLayout";
+import {
+  Form,
+  FormContainer,
+  FormFooter,
+  FooterLinks,
+  FooterLink,
+  Point,
+} from "./styled";
 
 interface FormError {
   email?: string;
@@ -30,108 +32,142 @@ interface FormData {
 }
 
 function RecoveryLink() {
+  const navigate = useNavigate();
   const { token } = useUserContext();
   const [emailSent, setEmailSent] = useState(false);
-  const [login, setLogin] = useState<FormData>({
+  const [formData, setFormData] = useState<FormData>({
     email: "",
   });
-  const [error, setError] = useState<FormError>({
+  const [errors, setErrors] = useState<FormError>({
     email: undefined,
   });
+  const [loading, setLoading] = useState(false);
 
   function handleChange(value: string, name: string) {
-    setLogin((prevValue) => ({ ...prevValue, [name]: value }));
-    if (error.email) {
-      setError((prev) => ({ ...prev, email: undefined }));
-    }
+    setFormData((prevValue) => ({ ...prevValue, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError({});
+    setErrors({});
+    setLoading(true);
+    
     try {
-      if (login.email === "") {
-        setError({
-          email: "Please enter your email",
-        });
+      const emailError = validateEmail(formData.email);
+      if (emailError) {
+        setErrors({ email: emailError });
         return;
       }
-      if (
-        /^[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9]+)+$/.test(
-          login.email
-        ) === false
-      ) {
-        setError({
-          email: "This is not valid email address.",
-        });
-        return;
-      }
+      
       if (!token) return;
-      const response = await sendResetPasswordLink(login.email, token);
+      
+      const response = await sendResetPasswordLink(formData.email, token);
       if (response.ok) {
         setEmailSent(true);
       } else {
-        setError({
+        setErrors({
           email:
             (response.data as { message?: string })?.message ||
-            "Please sign up to continue",
+            "Email not found. Please check your email or sign up.",
         });
       }
     } catch (error) {
-      setError({ email: "opps! somethings wrong, try again" });
+      setErrors({ email: "Oops! Something went wrong, try again" });
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleBackToLogin = () => {
+    setEmailSent(false);
+    setFormData({ email: "" });
+    setErrors({});
   };
   return (
     <AuthLayout screen="reset">
-      <GlobalStyle />
+      <StepLabel>
+        <StepBar />
+        {emailSent ? "Reset link sent" : "Step 01 / Recover account"}
+      </StepLabel>
+
+      <FormHeading>
+        {emailSent ? (
+          <>Check your <em>email.</em></>
+        ) : (
+          <>Can't <em>log in?</em></>
+        )}
+      </FormHeading>
+
+      <FormSub>
+        {emailSent
+          ? "We've sent a password reset link to your email. Check your inbox and follow the instructions."
+          : "Enter the email on your account. We'll send a one-time link to reset your password — the link expires in 30 minutes."}
+      </FormSub>
+
       {emailSent ? (
-        <VerifyEmailPage />
+        <>
+          <SuccessBox
+            title="Recovery link sent successfully"
+            message={
+              <>
+                Check your email at <b>{formData.email}</b> for a link to reset your password.
+                If it doesn't appear within a few minutes, check your spam folder.
+              </>
+            }
+          />
+          
+          <AuthButton
+            variant="primary"
+            fullWidth
+            size="lg"
+            onClick={handleBackToLogin}
+          >
+            Send another link
+          </AuthButton>
+        </>
       ) : (
-        <LoginContainer>
-          <StepLabel>
-            <StepBar />
-            Step 01 / Recover account
-          </StepLabel>
-          <FormTitle>
-            Can't <em>log in?</em>
-          </FormTitle>
-          <FormSub>
-            Enter the email on your account. We'll send a one-time link to
-            reset your password — the link expires in 30 minutes.
-          </FormSub>
-          <Form onSubmit={handleSubmit}>
-            <LoginInputs>
-              <Input
+        <Form onSubmit={handleSubmit}>
+          <FormContainer>
+            <AuthField label="Work email">
+              <AuthInput
                 type="email"
                 placeholder="you@company.com"
-                value={login.email}
+                value={formData.email}
                 onChange={handleChange}
                 name="email"
-                error={error.email}
-                label="Work email"
+                error={errors.email}
+                autoComplete="email"
               />
-              <Button
-                children="Send recovery link →"
-                type="submit"
-                borderRadius="lg"
-                size="lg"
-              />
-            </LoginInputs>
-          </Form>
-          <CreateAccountWrapper>
-            <div>
-              <CreateAccountListItemLink href="/login">
-                ← Return to log in
-              </CreateAccountListItemLink>
-              <Point> · </Point>
-              <CreateAccountListItemLink href="/register">
-                Create an account
-              </CreateAccountListItemLink>
-            </div>
-            <SecBadge>SOC 2 · ISO 27001</SecBadge>
-          </CreateAccountWrapper>
-        </LoginContainer>
+            </AuthField>
+
+            <AuthButton
+              type="submit"
+              variant="primary"
+              fullWidth
+              size="lg"
+              disabled={loading}
+              loading={loading}
+              hasArrow
+            >
+              Send recovery link
+            </AuthButton>
+          </FormContainer>
+        </Form>
       )}
+
+      <FormFooter>
+        <FooterLinks>
+          <FooterLink onClick={() => navigate("/login")}>
+            ← Return to log in
+          </FooterLink>
+          <Point> · </Point>
+          <FooterLink onClick={() => navigate("/register")}>
+            Create an account
+          </FooterLink>
+        </FooterLinks>
+        <SecBadge>SOC 2 · ISO 27001</SecBadge>
+      </FormFooter>
     </AuthLayout>
   );
 }
