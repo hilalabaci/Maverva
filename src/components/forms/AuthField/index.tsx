@@ -1,18 +1,3 @@
-/**
- * AuthField Component
- * 
- * Form field wrapper component that provides consistent structure
- * for labels, inputs, hints, and action buttons across auth forms
- * 
- * Features:
- * - Label with optional action button (e.g., "Forgot password?")
- * - Hint text with validation states
- * - Proper form field spacing and layout
- * 
- * @author Maverva Team
- * @version 1.0.0
- */
-
 import React from "react";
 import styled from "styled-components";
 

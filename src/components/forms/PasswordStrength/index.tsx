@@ -1,19 +1,3 @@
-/**
- * PasswordStrength Component
- * 
- * Visual password strength indicator with 4-level strength calculation
- * Provides real-time feedback on password security requirements
- * 
- * Strength Calculation:
- * - Level 1: 8+ characters
- * - Level 2: Mixed case (upper + lower)
- * - Level 3: Contains numbers
- * - Level 4: Contains symbols + 10+ characters
- * 
- * @author Maverva Team
- * @version 1.0.0
- */
-
 import React from "react";
 import styled from "styled-components";
 

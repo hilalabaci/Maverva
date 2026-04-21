@@ -1,20 +1,3 @@
-/**
- * AuthInput Component
- * 
- * Smart input component with integrated icons, validation states,
- * password toggle functionality, and proper accessibility
- * Supports email, password, text, and name input types
- * 
- * Features:
- * - Icon integration based on input type
- * - Password show/hide toggle
- * - Focus and error states
- * - Validation error display
- * 
- * @author Maverva Team
- * @version 1.0.0
- */
-
 import React, { useState } from "react";
 import styled from "styled-components";
 

@@ -1,19 +1,3 @@
-/**
- * AuthLayout Component
- * 
- * Centered authentication layout for login, register, and password reset flows
- * Provides consistent branding, navigation, and footer across all auth pages
- * 
- * Layout Features:
- * - Centered single-column design (responsive)
- * - Maverva branding in header
- * - Context-aware navigation links
- * - Security badges in footer
- * 
- * @author Maverva Team
- * @version 2.0.0 - Simplified from split-panel to centered design
- */
-
 import React from "react";
 import {
   Page,
@@ -49,7 +33,6 @@ function AuthLayout({ children, screen }: AuthLayoutProps) {
 
   return (
     <Page>
-      {/* ── RIGHT: form panel ── */}
       <RightPanel>
         <RightTop>
           <MobileBrand href="/">

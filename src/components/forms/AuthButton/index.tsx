@@ -1,18 +1,6 @@
-/**
- * AuthButton Component
- * 
- * Reusable button component for authentication flows
- * Supports three variants: primary, secondary, and social
- * Includes loading states, hover effects, and arrow animations
- * 
- * @author Maverva Team
- * @version 1.0.0
- */
-
 import React from "react";
 import styled from "styled-components";
 
-// Base button component with variant, size and width support
 const BaseButton = styled.button<{
   $variant: "primary" | "secondary" | "social";
   $fullWidth?: boolean;

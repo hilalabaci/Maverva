@@ -1,4 +1,4 @@
-/**\n * Auth Components Export Module - Centralized exports for reusable auth components\n * @author Maverva Team\n */\n\n// Shared Auth Components
+// Shared Auth Components
 export { default as AuthField } from './AuthField';
 export { default as AuthInput } from './AuthInput';
 export { default as AuthButton } from './AuthButton';

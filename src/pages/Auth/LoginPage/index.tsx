@@ -1,21 +1,3 @@
-/**
- * LoginPage Component
- * 
- * Two-step authentication flow:
- * Step 1: Email verification and user lookup
- * Step 2: Password entry with forgot password option
- * 
- * Features:
- * - Email validation and user existence check
- * - Google OAuth integration
- * - Remember me functionality
- * - Responsive error handling
- * - SSO/SAML support
- * 
- * @author Maverva Team
- * @version 2.0.0 - Redesigned with reusable components
- */
-
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
