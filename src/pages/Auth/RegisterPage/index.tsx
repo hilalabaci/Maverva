@@ -215,8 +215,21 @@ function Register() {
           >
             <TermsText>
               By signing up, you accept the Maverva Cloud{" "}
-              <a href="#" target="_blank" rel="noopener noreferrer">Terms of Service</a>{" "}
-              and acknowledge the <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.
+              <button 
+                type="button"
+                onClick={() => window.open('/terms', '_blank')}
+                style={{background: 'none', border: 'none', color: 'inherit', textDecoration: 'underline', cursor: 'pointer', padding: 0, font: 'inherit'}}
+              >
+                Terms of Service
+              </button>{" "}
+              and acknowledge the{" "}
+              <button 
+                type="button"
+                onClick={() => window.open('/privacy', '_blank')}
+                style={{background: 'none', border: 'none', color: 'inherit', textDecoration: 'underline', cursor: 'pointer', padding: 0, font: 'inherit'}}
+              >
+                Privacy Policy
+              </button>.
             </TermsText>
           </AuthCheckbox>
 
