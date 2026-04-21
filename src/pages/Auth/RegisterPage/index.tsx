@@ -1,3 +1,20 @@
+/**
+ * RegisterPage Component
+ * 
+ * User registration flow with comprehensive form validation
+ * Collects user details and initiates email verification
+ * 
+ * Features:
+ * - Multi-field validation (name, email, password)
+ * - Password strength indicator
+ * - Terms acceptance requirement
+ * - Google OAuth registration
+ * - Email verification initiation
+ * 
+ * @author Maverva Team
+ * @version 2.0.0 - Redesigned with reusable components
+ */
+
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
